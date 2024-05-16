@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import IconButton from "@mui/material/IconButton";
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import FormControl from '@mui/material/FormControl';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import InputAdornment from "@mui/material/InputAdornment";
+import FormControl from "@mui/material/FormControl";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import LockIcon from "../Icons/LockIcon";
 
 function PasswordTextField() {
   const [focused, setFocused] = useState(false);
@@ -18,17 +19,6 @@ function PasswordTextField() {
     event.preventDefault();
   };
 
-  function handleFocus() {
-    setFocused(true);
-  }
-
-  function handleBlur(e) {
-    if (e.target.value === "") {
-      setFilled(false);
-    }
-    setFocused(false);
-  }
-
   function handleChange(e) {
     if (e.target.value !== "") {
       setFilled(true);
@@ -38,13 +28,25 @@ function PasswordTextField() {
   }
 
   return (
-    <FormControl  
-      sx={{ m: 1}} 
+    <FormControl
+      sx={{
+        width: "100%",
+      }}
       variant="outlined"
-      onFocus={handleFocus}
-      onBlur={handleBlur}
-      onChange={handleChange}>
-      <InputLabel>Password</InputLabel>
+    >
+      <InputLabel
+        htmlFor="outlined-password-input"
+        sx={{
+          display: "flex",
+          alignItems: "center", // Alinha verticalmente o conteúdo da label e da imagem
+          width: "auto", // Define a largura para se ajustar ao conteúdo
+        }}
+      >
+        <span style={{ marginRight: '8px'}}>
+          <LockIcon />
+        </span>
+        Senha
+      </InputLabel>
       <OutlinedInput
         type={showPassword ? "text" : "password"}
         endAdornment={

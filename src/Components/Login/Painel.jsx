@@ -8,16 +8,20 @@ function Painel() {
   const [name, setName] = useState("");
 
   function handleChange(e) {
-    setName(e.target.value)
-    console.log(name)
+    setName(e.target.value);
+    console.log(name);
   }
   return (
     <div className={styles.painel}>
       <div className={styles.titulo}>Bem-vindo!</div>
       <div className={styles.subtitulo}>Sentimos a sua falta!</div>
 
-      <EmailTextField />
-      <PasswordTextField />
+      <div className={styles.container}>
+        <EmailTextField />
+        <PasswordTextField />
+
+        <button className={styles.botaoEntrar}>ENTRAR</button>
+      </div>
 
       {/* <p>Campo senha</p>
 
