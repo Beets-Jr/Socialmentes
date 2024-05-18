@@ -3,6 +3,9 @@ import { Box, Grid } from "@mui/material";
 
 import Painel from "./Painel";
 
+import Logo from "./Icons/LogoSociaMentes1.png";
+import Jigsaw from "./Icons/jigsaw.png";
+
 function Login() {
   return (
     <div className={styles.backgroundColor}>
@@ -14,7 +17,7 @@ function Login() {
             justifyContent="center"
             alignItems="center"
             height="100vh"
-            sx={{ width: "100%" }}
+            sx={{ width: "50vw" }}
           >
             <Painel />
           </Box>
@@ -26,9 +29,9 @@ function Login() {
             justifyContent="center"
             alignItems="center"
             height="100vh"
-            sx={{ width: "100%" }} // Faz a altura ocupar toda a viewport
+            sx={{ width: "50vw" }}
           >
-            <h1>Imagens e logo</h1>
+            <img src={Logo} alt="Logo" />
           </Box>
         </Grid>
       </Grid>

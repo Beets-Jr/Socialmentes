@@ -1,17 +1,11 @@
 import React, { useState } from "react";
-import IconButton from "@mui/material/IconButton";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import InputAdornment from "@mui/material/InputAdornment";
-import FormControl from "@mui/material/FormControl";
+import { TextField, IconButton, InputAdornment } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import LockIcon from "../Icons/LockIcon";
 
 function PasswordTextField() {
-  const [focused, setFocused] = useState(false);
-  const [filled, setFilled] = useState(false);
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -19,37 +13,19 @@ function PasswordTextField() {
     event.preventDefault();
   };
 
-  function handleChange(e) {
-    if (e.target.value !== "") {
-      setFilled(true);
-    } else {
-      setFilled(false);
-    }
-  }
-
   return (
-    <FormControl
-      sx={{
-        width: "100%",
-      }}
+    <TextField
+      fullWidth
       variant="outlined"
-    >
-      <InputLabel
-        htmlFor="outlined-password-input"
-        sx={{
-          display: "flex",
-          alignItems: "center", // Alinha verticalmente o conteúdo da label e da imagem
-          width: "auto", // Define a largura para se ajustar ao conteúdo
-        }}
-      >
-        <span style={{ marginRight: '8px'}}>
+      type={showPassword ? "text" : "password"}
+      label={
+        <span style={{ display: "flex", alignItems: "center" }}>
           <LockIcon />
+          Senha
         </span>
-        Senha
-      </InputLabel>
-      <OutlinedInput
-        type={showPassword ? "text" : "password"}
-        endAdornment={
+      }
+      InputProps={{
+        endAdornment: (
           <InputAdornment position="end">
             <IconButton
               aria-label="toggle password visibility"
@@ -60,10 +36,41 @@ function PasswordTextField() {
               {showPassword ? <VisibilityOff /> : <Visibility />}
             </IconButton>
           </InputAdornment>
-        }
-        label="Password"
-      />
-    </FormControl>
+        ),
+        
+        
+      }}
+      InputLabelProps={{
+        shrink: true,
+      }}
+      sx={{
+        width: "100%", 
+        "& .MuiOutlinedInput-root": {
+          "& fieldset": {
+            borderRadius: "15px",
+            borderColor: "#727272", // cor da borda
+            borderWidth: "2px"
+          },
+          "&:hover fieldset": {
+            borderColor: "#5095D5", // cor da borda ao passar o mouse
+          },
+          '&.Mui-focused fieldset' : {
+            borderColor: '#5095d5', 
+            borderWidth: '3px',
+            borderRadius: '15px', // manter a borda arredondada
+            pointerEvents: 'none', // permitir a interação com o campo
+          },
+          "& .MuiOutlinedInput-input": {
+            color: " #727272",
+            fontFamily: "Fira Sans",
+            fontSize: "16px",
+            fontStyle: "normal",
+            fontWeight: "500",
+            lineHeight: "normal",
+          },
+        },
+      }}
+    />
   );
 }
 

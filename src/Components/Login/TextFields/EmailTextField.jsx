@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import MailIcon from "@mui/icons-material/Mail";
-
+import { TextField } from "@mui/material";
 import EmailIcon from "../Icons/EmailIcon";
 
 function EmailTextField() {
@@ -11,36 +7,53 @@ function EmailTextField() {
 
   function handleChange(e) {
     setEmail(e.target.value);
-    console.log(e.target.value); // Corrigido para imprimir o valor atualizado
+    console.log(e.target.value);
   }
 
   return (
-    <FormControl
+    <TextField
+      fullWidth
+      variant="outlined"
+      label={
+        <span style={{ display: "flex", alignItems: "center" }}>
+          <EmailIcon />
+          E-mail
+        </span>
+      }
+      value={email}
+      onChange={handleChange}
+      InputLabelProps={{
+        shrink: true,
+        
+      }}
       sx={{
         width: "100%",
+        "& .MuiOutlinedInput-root": {
+          "& fieldset": {
+            borderRadius: "15px",
+            borderColor: "#727272", // cor da borda
+            borderWidth: "2px",
+          },
+          "&:hover fieldset": {
+            borderColor: "#5095D5", // cor da borda ao passar o mouse
+          },
+          "&.Mui-focused fieldset": {
+            borderColor: "#5095d5",
+            borderWidth: "3px",
+            borderRadius: "15px", // manter a borda arredondada
+            pointerEvents: "none", // permitir a interação com o campo
+          },
+          "& .MuiOutlinedInput-input": {
+            color: " #727272",
+            fontFamily: "Fira Sans",
+            fontSize: "16px",
+            fontStyle: "normal",
+            fontWeight: "500",
+            lineHeight: "normal",
+          },
+        },
       }}
-      variant="outlined"
-    >
-      <InputLabel
-        htmlFor="outlined-email-input"
-        sx={{
-          display: "flex",
-          alignItems: "center", // Alinha verticalmente o conteúdo da label e da imagem
-          width: "auto", // Define a largura para se ajustar ao conteúdo
-        }}
-      >
-        <span style={{ marginRight: '8px' }}>
-          <EmailIcon />
-        </span>
-        E-mail
-      </InputLabel>
-      <OutlinedInput
-        id="outlined-email-input"
-        label="UserEmail" // Espaço em branco para evitar que o placeholder seja exibido
-        value={email} // Adicionado o valor do email
-        onChange={handleChange} // Corrigido para chamar a função de handleChange
-      />
-    </FormControl>
+    />
   );
 }
 
