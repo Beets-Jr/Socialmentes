@@ -11,6 +11,9 @@
     "seed": "node --experimental-modules src/Database/DevelopmentSeeds/userProfiles.mjs"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/material": "^5.15.18",
     "firebase": "^10.12.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
