@@ -1,15 +1,14 @@
 import { addDoc, collection, doc, getDocs, serverTimestamp, updateDoc } from "firebase/firestore/lite";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 import { db, storage } from "../../../Database/FirebaseConfig.mjs";
-import { ref, uploadBytes } from "firebase/storage";
 
 
-// const colRegistrations = collection(db, 'userProfiles');
-const colRegistrations = collection(db, 'cadastros');
+const colRegistrations = collection(db, 'userProfiles');
 const bucketPhotos = ref(storage, 'userPhotos');
 
 
-const getAllRegistrations = (setRegistrations) => {
+const getAllRegistrations = () => {
 
     return getDocs(colRegistrations)
         .then( (snapshot) => {
@@ -20,7 +19,7 @@ const getAllRegistrations = (setRegistrations) => {
                     ...doc.data()
                 });
             });
-            setRegistrations(registrations);
+            return registrations;
         });
 
 };
@@ -36,7 +35,7 @@ const createPhoto = (uid, photo) => {
 
     return uploadBytes(refUserPhoto, photo, metadata)
         .then( (snapshot) => {
-            return snapshot.metadata.fullPath;
+            return getDownloadURL(snapshot.ref);
         })
         .catch( (error) => {
             console.log(error);
@@ -58,7 +57,7 @@ const createRegister = ({ photo, ...registerData }) => {
         })
         .then( (result) => {
             if (result instanceof Error) {
-                return result;
+                return Error('Ocorreu um erro ao subir a imagem para o banco de dados');
             } else {
                 const refDoc = doc(colRegistrations, uid);
                 return updateDoc(refDoc, {

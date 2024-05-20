@@ -1,10 +1,10 @@
-import { Button, Dialog, DialogContent, DialogTitle, Grid, IconButton, Typography } from "@mui/material";
+import { Box, Button, Dialog, DialogContent, DialogTitle, Grid, IconButton, Typography } from "@mui/material";
 import { CloseRounded, PlaylistAddRounded } from "@mui/icons-material";
 
 import { VForm, VTextField, VSelect, VUploadPhoto } from './forms';
 import { SvgCalendar, SvgEmail, SvgGender, SvgIdentity, SvgPerson, SvgPhone } from "./icons";
 
-function Form({ openDialog, disabledForm, handleClose, handleSubmit }) {
+function Form({ openDialog, disabledForm, handleClose, handleSubmit, message, setMessage }) {
 
     return (
 
@@ -34,7 +34,7 @@ function Form({ openDialog, disabledForm, handleClose, handleSubmit }) {
 
             </DialogTitle>
 
-            <DialogContent sx={{ display: 'flex', flexDirection: 'column' }} >
+            <DialogContent>
 
                 <VForm
                     width='100%'
@@ -151,6 +151,10 @@ function Form({ openDialog, disabledForm, handleClose, handleSubmit }) {
                     </Grid>
 
                 </VForm>
+
+                <Box>
+                    {message}
+                </Box>
 
             </DialogContent>
 

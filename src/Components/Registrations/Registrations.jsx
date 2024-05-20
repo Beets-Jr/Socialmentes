@@ -2,22 +2,35 @@ import { useEffect, useState } from "react";
 import { Box, CircularProgress, Fab, Grid, Typography } from "@mui/material";
 import { AddRounded } from "@mui/icons-material";
 
-import { RegistrationsService } from "./services";
+import { ERRORS, RegistrationsService } from "./services";
 import Register from './Register';
 import Form from "./Form";
 import { RegistrationsMiddleware } from "./services/registrationsMiddleware";
 
+import './Registrations.module.css';
+
 function Registrations() {
 
-    const [isLoading, setIsLoading] = useState(true);
-    const [registrations, setRegistrations] = useState([]);
-    const [openDialog, setOpenDialog] = useState(false);
-    const [disabledForm, setDisabledForm] = useState(false);
+    const [isLoading, setIsLoading] = useState(true); // informa se a página está carregando
+    const [registerCreated, setRegisterCreated] = useState(false); // informa se um registro foi criado, para atualizar a lista de registros
+    const [registrations, setRegistrations] = useState([]); // lista de registros
+    const [openDialog, setOpenDialog] = useState(false); // controla a exibição do Dialog
+    const [disabledForm, setDisabledForm] = useState(false); // disabilita os campos do formulário quando ele é submitado
+    const [message, setMessage] = useState(''); // mensagem de erro exibida no Form
 
+    // atualiza a lista de registros
     useEffect(() => {
-        RegistrationsService.getAllRegistrations(setRegistrations)
-            .then(() => setIsLoading(false));
-    }, []);
+        RegistrationsService.getAllRegistrations()
+            .then( (registrations) => {
+                setIsLoading(false);
+                setRegistrations(registrations);
+            });
+    }, [registerCreated]);
+
+    // apaga a mensagem de erro
+    useEffect(() => {
+        setMessage('');
+    }, [openDialog]);
 
     const handleClose = () => {
         setOpenDialog(false);
@@ -26,30 +39,29 @@ function Registrations() {
     const handleSubmit = (data) => {
         setDisabledForm(true);
 
-        RegistrationsMiddleware.formValidationSchema.validate(data)
+        RegistrationsMiddleware.formValidationSchema.validate( data, { abortEarly: false })
             .then( validatedData => {
                 const treatData = RegistrationsMiddleware.treatValidatedData(validatedData);
                 return RegistrationsService.createRegister(treatData);
             })
             .then( result => {
                 if (result instanceof Error) {
-                    // ATUALIZAR PARA EXIBIR NA TELA QUE NÃO FOI POSSÍVEL CRIAR O REGISTER
+                    setMessage(result);
                 } else {
-                    console.log(`Registro '${result}' criado com sucesso!`);
+                    setRegisterCreated( oldValue => !oldValue );
+                    setMessage('Cadastro criado com sucesso!');
                 }
             })
             .catch( errors => {
-                // ATUALIZAR PARA EXIBIR O ERRO (RETORNADO PELO YUP) NA TELA
-                console.log(errors.errors)
+                if (errors.errors.filter( error => error === ERRORS.REQUIRED ).length >= 0) {
+                    setMessage(ERRORS.REQUIRED);
+                } else {
+                    setMessage(errors.errors[0]);
+                }
             })
-            .finally( () => setDisabledForm(false) );
-
-        // const result = RegistrationsService.createRegister(treatData);
-
-        // if (result instanceof Error) {
-        //     // ATUALIZAR PARA EXIBIR NA TELA QUE NÃO FOI POSSÍVEL CRIAR O REGISTER
-        // }
-
+            .finally( () => {
+                setDisabledForm(false);
+            });
     };
 
     return (
@@ -58,27 +70,22 @@ function Registrations() {
 
             {registrations.length === 0 ? (
                 <>
-
                     <Box display='flex' justifyContent='center' alignItems='center' width='100%' height='100%'>
                         {isLoading ? (
                             <CircularProgress />
                         ) : (
-                            <Typography
-                                fontFamily='Ubuntu'
-                                fontSize="32px"
-                                color='#989898'
-                            > Sem cadastros </Typography>
+                            <Typography fontFamily='Ubuntu' fontSize="32px" color='#989898' >
+                                Sem cadastros
+                            </Typography>
                         )}
                     </Box>
-
                 </>
             ) : (
-
                 <Box
                     width='100%'
                     height='100%'
-                    pt={5} pl={5} pb={2} pr={10}
                     overflow='scroll'
+                    pt={5} pl={5} pb={2} pr={10}
                 >
                     <Grid container
                         rowSpacing={4}
@@ -92,7 +99,6 @@ function Registrations() {
                         ))}
                     </Grid>
                 </Box>
-
             )}
 
             <Fab
@@ -109,6 +115,8 @@ function Registrations() {
                 disabledForm={disabledForm}
                 handleClose={handleClose}
                 handleSubmit={handleSubmit}
+                message={message}
+                setMessage={setMessage}
             />
 
         </Box >

@@ -27,7 +27,7 @@ function Register({ register }) {
       <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: .8, paddingBottom: 0 }}>
 
         <Avatar
-          src={register.photoUlr}
+          src={register.photoUrl}
           alt='Foto de perfil do usuário'
           sx={{ width: 100, height: 100, border: `1px solid #ABABAB` }}
         />
@@ -41,7 +41,7 @@ function Register({ register }) {
         <Box {...propsBox}>
           <Work sx={{ fontSize: 14 }} />
           <Typography {...propsText} fontSize={16}>
-            {register.phone}
+            {register.position || 'sem cargo'}
           </Typography>
         </Box>
 

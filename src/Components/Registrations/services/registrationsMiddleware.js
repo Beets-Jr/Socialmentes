@@ -4,7 +4,7 @@ import { ERRORS } from './validationMessages';
 const formValidationSchema = yup.object({
     photo: yup
         .mixed()
-        .test( 'fileExists', `no teste: ${ERRORS.PHOTO}`,  (photo) => photo instanceof File )
+        .test( 'fileExists', ERRORS.PHOTO,  (photo) => photo instanceof File )
         .required(ERRORS.PHOTO),
     fullName: yup
         .string()
@@ -28,7 +28,7 @@ const formValidationSchema = yup.object({
         .required(ERRORS.REQUIRED),
     gender: yup
         .mixed()
-        .oneOf(['', 'female', 'male', 'other'], ERRORS.GENDER)
+        .oneOf(['female', 'male', 'other'], ERRORS.GENDER)
         .defined()
         .required(ERRORS.REQUIRED)
 });
