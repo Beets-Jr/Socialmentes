@@ -26,7 +26,7 @@ function DialogConfirmation(OnClick) {
       }}
     > 
       <img 
-        src="https://s3-alpha-sig.figma.com/img/139b/9e54/19e75705e47048317a8935037d01a357?Expires=1716768000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=duu8Jo-D0I-HbuE6dHbpgGIJuzGcAkjVM7LvZ3r9bHFlGkhiYbDGy3A5M2bVN-FLHTaIGBQcyIWNXnWs~wm3JBbv1i6VP4eqVeRIyp5DbWEVm2-PPCNkPPe1tPLv1jjtobs2zSbKE-K3YmDu3KtFskQ62rZU1k9Md-SFAzK7UTPDRUMD1TgwhWvCSHjuxaZ56Mhgvp7PNFHcTERQFrmqS6J0eixip9F2zikjjsZblAPJfOZvbV-ltYVsAYftmylDvXmI499NWJyZPXVj8R0FLBq95NQx1SrOYGfFgqJVcTd80u7TuotaYE42RsISTkG-vveoL~B-uGTXe6Mp4wnhRw__" 
+        src="src\Assets\LogoSociaMentes1.png" 
         alt="socialmentes-logo" 
         style={{width:"25%", height:"auto",margin:"0 auto"}}
       />
