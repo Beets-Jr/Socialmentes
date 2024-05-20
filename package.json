@@ -11,9 +11,16 @@
     "seed": "node --experimental-modules src/Database/DevelopmentSeeds/userProfiles.mjs"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/icons-material": "^5.15.18",
+    "@mui/material": "^5.15.18",
+    "@unform/core": "^2.1.6",
+    "@unform/web": "^2.1.6",
     "firebase": "^10.12.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

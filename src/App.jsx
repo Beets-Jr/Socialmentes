@@ -1,8 +1,8 @@
-
+import Registrations from './Components/Registrations/Registrations';
 
 function App() {
   return (
-    <div>App</div>
+    <Registrations />
   )
 }
 
