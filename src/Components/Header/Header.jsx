@@ -1,7 +1,17 @@
+import { AppBar, Toolbar, Typography } from '@mui/material'
 
-function Header() {
+
+function Header({title}) {
   return (
-    <div>Header</div>
+    <>
+      <AppBar position='static' >
+        <Toolbar>
+          <Typography variant='h2' component='div' >
+            {title}
+          </Typography>
+        </Toolbar>
+      </AppBar>
+    </>
   )
 }
 
