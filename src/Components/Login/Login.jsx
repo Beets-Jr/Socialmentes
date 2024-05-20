@@ -1,14 +1,14 @@
-import styles from "./Login.module.css";
+import styles from "./Styles/Login.module.css";
 import { Box, Grid } from "@mui/material";
 
 import Painel from "./Painel";
 
-import Logo from "./Icons/LogoSociaMentes1.png";
-import Jigsaw from "./Icons/jigsaw.png";
+import Logo from "./Images/LogoSociaMentes1.png";
+import Jigsaw from "./Images/jigsaw.png";
 
 function Login() {
   return (
-    <div className={styles.backgroundColor}>
+    <div className={styles.viewport}>
       <Grid container>
         {/* Metade esquerda da página */}
         <Grid item xs={12} md={6}>
@@ -17,7 +17,10 @@ function Login() {
             justifyContent="center"
             alignItems="center"
             height="100vh"
-            sx={{ width: "50vw" }}
+            sx={{
+              width: "100%", // Alterado para 100% em telas pequenas
+              maxWidth: "50vw", // Limita a largura em telas grandes
+            }}
           >
             <Painel />
           </Box>
@@ -29,9 +32,12 @@ function Login() {
             justifyContent="center"
             alignItems="center"
             height="100vh"
-            sx={{ width: "50vw" }}
+            sx={{
+              width: "100%", // Alterado para 100% em telas pequenas
+              maxWidth: "50vw", // Limita a largura em telas grandes
+            }}
           >
-            <img src={Logo} alt="Logo" />
+            <img src={Logo} alt="Logo" style={{ maxWidth: "100%" }} />
           </Box>
         </Grid>
       </Grid>

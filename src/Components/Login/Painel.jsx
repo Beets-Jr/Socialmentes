@@ -1,35 +1,13 @@
-import styles from "./Login.module.css";
-import { useState } from "react";
+import LoginForm from "./LoginForm";
 
-import EmailTextField from "./TextFields/EmailTextField";
-import PasswordTextField from "./TextFields/PasswordTextField";
+import styles from "../Login/Styles/Login.module.css";
 
 function Painel() {
-  const [name, setName] = useState("");
-
-  function handleChange(e) {
-    setName(e.target.value);
-    console.log(name);
-  }
   return (
     <div className={styles.painel}>
       <div className={styles.titulo}>Bem-vindo!</div>
       <div className={styles.subtitulo}>Sentimos a sua falta!</div>
-
-      <div className={styles.container}>
-        <EmailTextField />
-        <PasswordTextField />
-
-        <button className={styles.botaoEntrar}>ENTRAR</button>
-      </div>
-
-      {/* <p>Campo senha</p>
-
-      <button>Entrar</button>
-
-      <p>Esqueceu a senha</p>
-
-      <p>Continuar com Google ou Facebook</p> */}
+      <LoginForm />
     </div>
   );
 }
