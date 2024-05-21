@@ -51,14 +51,20 @@ function Painel() {
     <div className={styles.painel}>
       <div className={styles.titulo}>Bem-vindo!</div>
       <div className={styles.subtitulo}>Sentimos a sua falta!</div>
+
       <LoginForm />
-      <div>
-        <p>Esqueceu sua senha? Clique aqui!</p>
+
+      <div className={styles.campoEsqueceuSenha}>
+        Esqueceu sua senha? <span>&nbsp;Clique aqui!</span>
       </div>
-      <div className={styles.line}>
-        <Line /> <p>ou continue com</p> <Line />
+
+      <div className={styles.campoContinuar}>
+        <Line />
+        <div>Ou continue com</div>
+        <Line />
       </div>
-      <div>
+
+      <div className={styles.loginButtons}>
         <SocialLoginButton onClick={signInWithGoogle} provider="Google" />
         <SocialLoginButton onClick={signInWithFacebook} provider="Facebook" />
       </div>

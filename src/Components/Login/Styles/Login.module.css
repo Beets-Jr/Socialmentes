@@ -3,16 +3,46 @@
 /*Fira Sans*/
 @import url("https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
-.painel {
-  display: flex;
-  flex-direction: column;
+body {
+  margin: 0;
+  padding: 0;
 }
+
+/*Login*/
 .viewport {
   background: linear-gradient(180deg, #f7f7f7 0%, #eee 100%);
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/*LoginForm*/
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 5vh;
+  width: 100%;
+}
+
+.botaoEntrar {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 1px solid #65aaea;
+  background: linear-gradient(90deg, #7db9f0 0%, #5095d5 100%);
+  box-shadow: 0px 2px 4px 0px rgba(153, 198, 239, 0.59);
+  color: white;
+  font-family: "Fira Sans";
+}
+
+/*Painel*/
+.painel {
+  display: flex;
+  flex-direction: column;
 }
 
 .titulo {
@@ -38,23 +68,58 @@
   margin-bottom: 5vh;
 }
 
-.container {
+.campoEsqueceuSenha {
   display: flex;
-  flex-direction: column;
-  gap: 5vh;
+  align-items: center;
+  justify-content: center;
   width: 100%;
+  color: #ababab;
+  text-align: right;
+  font-family: "Fira Sans";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-top: 5%;
 }
 
-.botaoEntrar {
-  margin: 0;
+.campoEsqueceuSenha span {
+  color: #3575b1;
+  font-weight: 700;
+}
+
+.campoContinuar {
   display: flex;
-  justify-content: center;
   align-items: center;
-  padding: 10px 20px;
-  border-radius: 10px;
-  border: 1px solid #65aaea;
-  background: linear-gradient(90deg, #7db9f0 0%, #5095d5 100%);
-  box-shadow: 0px 2px 4px 0px rgba(153, 198, 239, 0.59);
-  color: white;
+  justify-content: center;
+  width: 100%;
+  margin-top: 10%;
+}
+
+.campoContinuar div {
+  margin: 0 10px;
+  color: var(--Cinza-3, #ababab);
+  text-align: right;
   font-family: "Fira Sans";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.buttons {
+  border-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+}
+
+.loginButtons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 10%;
+  margin-top: 10%;
 }

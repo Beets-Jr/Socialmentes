@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, CircularProgress, Alert, ThemeProvider } from "@mui/material";
+import { Button, CircularProgress, ThemeProvider } from "@mui/material";
 import { auth } from "../../Database/FirebaseConfig.mjs";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 
@@ -10,7 +10,6 @@ import ErrorMessage from "./TextFields/ErrorMessage";
 import styles from "./Styles/Login.module.css";
 import theme from "./Theme/theme";
 import SuccessMessage from "./TextFields/SuccessMessage";
-
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -35,10 +34,10 @@ function LoginForm() {
           variant="contained"
           color="primary"
           disabled={loading}
-          className={styles.botaoEntrar}
         >
           {loading ? <CircularProgress size={24} /> : "ENTRAR"}
         </Button>
+
         <ErrorMessage error={error} />
         <SuccessMessage user={user} />
       </form>
