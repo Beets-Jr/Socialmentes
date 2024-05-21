@@ -3,7 +3,7 @@ import { Avatar, Badge, Tooltip, styled } from "@mui/material";
 import { AddPhotoAlternateRounded } from "@mui/icons-material";
 import { useField } from "@unform/core"
 
-import avatar_empty from "/avatar_empty.svg";
+import avatar_empty from "../assets/avatar_empty.svg";
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',

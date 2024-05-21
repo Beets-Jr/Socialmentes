@@ -1,13 +1,20 @@
 import { useEffect, useState } from "react";
-import { Box, CircularProgress, Fab, Grid, Typography } from "@mui/material";
+import { Box, CircularProgress, Fab, Grid, StyledEngineProvider, ThemeProvider, Typography } from "@mui/material";
 import { AddRounded } from "@mui/icons-material";
+import { CacheProvider } from "@emotion/react";
+import createCache from '@emotion/cache';
 
-import { ERRORS, RegistrationsService } from "./services";
+import { ERRORS, RegistrationsService, RegistrationsMiddleware } from "./services";
 import Register from './Register';
 import Form from "./Form";
-import { RegistrationsMiddleware } from "./services/registrationsMiddleware";
 
-import './Registrations.module.css';
+import './Registrations.css';
+import { theme } from "./theme";
+
+const cache = createCache({
+    key: 'css',
+    prepend: true,
+});
 
 function Registrations() {
 
@@ -21,7 +28,7 @@ function Registrations() {
     // atualiza a lista de registros
     useEffect(() => {
         RegistrationsService.getAllRegistrations()
-            .then( (registrations) => {
+            .then((registrations) => {
                 setIsLoading(false);
                 setRegistrations(registrations);
             });
@@ -32,94 +39,99 @@ function Registrations() {
         setMessage('');
     }, [openDialog]);
 
+    // trata o fechamento do Dialog
     const handleClose = () => {
         setOpenDialog(false);
     }
 
+    // trata o envio do formulário
     const handleSubmit = (data) => {
         setDisabledForm(true);
 
-        RegistrationsMiddleware.formValidationSchema.validate( data, { abortEarly: false })
-            .then( validatedData => {
+        RegistrationsMiddleware.formValidationSchema.validate(data, { abortEarly: false })
+            .then(validatedData => {
                 const treatData = RegistrationsMiddleware.treatValidatedData(validatedData);
                 return RegistrationsService.createRegister(treatData);
             })
-            .then( result => {
+            .then(result => {
                 if (result instanceof Error) {
                     setMessage(result);
                 } else {
-                    setRegisterCreated( oldValue => !oldValue );
+                    setRegisterCreated(oldValue => !oldValue);
                     setMessage('Cadastro criado com sucesso!');
                 }
             })
-            .catch( errors => {
-                if (errors.errors.filter( error => error === ERRORS.REQUIRED ).length >= 0) {
+            .catch(errors => {
+                if (errors.errors.filter(error => error === ERRORS.REQUIRED).length >= 0) {
                     setMessage(ERRORS.REQUIRED);
                 } else {
                     setMessage(errors.errors[0]);
                 }
             })
-            .finally( () => {
+            .finally(() => {
                 setDisabledForm(false);
             });
     };
 
     return (
 
-        <Box width='100vw' height='100vh' position='relative'>
+        <ThemeProvider theme={theme}>
+            <CacheProvider value={cache}>
+                <StyledEngineProvider injectFirst >
+                    <Box className='containerRegistrations'>
 
-            {registrations.length === 0 ? (
-                <>
-                    <Box display='flex' justifyContent='center' alignItems='center' width='100%' height='100%'>
-                        {isLoading ? (
-                            <CircularProgress />
+                        {registrations.length === 0 ? (
+                            <Box className='containerNoRegistrations'>
+                                {isLoading ? (
+                                    <CircularProgress />
+                                ) : (
+                                    <Typography className='noRegistrations' >
+                                        Sem cadastros
+                                    </Typography>
+                                )}
+                            </Box>
                         ) : (
-                            <Typography fontFamily='Ubuntu' fontSize="32px" color='#989898' >
-                                Sem cadastros
-                            </Typography>
+                            <Box className='containerGrid'>
+                                <Grid container
+                                    rowSpacing={4}
+                                    columnSpacing={5}
+                                >
+                                    {registrations.map((register) => (
+                                        <Grid item
+                                            key={register.id}
+                                            xs={12}
+                                            sm={6}
+                                            md={4}
+                                        >
+                                            <Register register={register} />
+                                        </Grid>
+                                    ))}
+                                </Grid>
+                            </Box>
                         )}
-                    </Box>
-                </>
-            ) : (
-                <Box
-                    width='100%'
-                    height='100%'
-                    overflow='scroll'
-                    pt={5} pl={5} pb={2} pr={10}
-                >
-                    <Grid container
-                        rowSpacing={4}
-                        columnSpacing={5}
-                        sx={{ pb: 2 }}
-                    >
-                        {registrations.map((register) => (
-                            <Grid item key={register.id} xs={12} sm={6} md={4}>
-                                <Register register={register} />
-                            </Grid>
-                        ))}
-                    </Grid>
-                </Box>
-            )}
 
-            <Fab
-                sx={{ width: 90, height: 90, position: 'absolute', bottom: 50, right: 50 }}
-                color="primary" // #5095D5
-                aria-label='add'
-                onClick={() => setOpenDialog(true)}
-            >
-                <AddRounded sx={{ fontSize: 70 }} />
-            </Fab>
+                        <Fab
+                            className="fab"
+                            color='primary'
+                            aria-label='add'
+                            onClick={() => setOpenDialog(true)}
+                        >
+                            <AddRounded />
+                        </Fab>
 
-            <Form
-                openDialog={openDialog}
-                disabledForm={disabledForm}
-                handleClose={handleClose}
-                handleSubmit={handleSubmit}
-                message={message}
-                setMessage={setMessage}
-            />
+                        <Form
+                            openDialog={openDialog}
+                            disabledForm={disabledForm}
+                            handleClose={handleClose}
+                            handleSubmit={handleSubmit}
+                            message={message}
+                            setMessage={setMessage}
+                        />
 
-        </Box >
+                    </Box >
+                </StyledEngineProvider>
+            </CacheProvider>
+        </ThemeProvider>
 
     );
 

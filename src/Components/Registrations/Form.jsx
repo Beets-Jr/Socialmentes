@@ -2,7 +2,7 @@ import { Box, Button, Dialog, DialogContent, DialogTitle, Grid, IconButton, Typo
 import { CloseRounded, PlaylistAddRounded } from "@mui/icons-material";
 
 import { VForm, VTextField, VSelect, VUploadPhoto } from './forms';
-import { SvgCalendar, SvgEmail, SvgGender, SvgIdentity, SvgPerson, SvgPhone } from "./icons";
+import { IconCalendar, IconEmail, IconGender, IconIdentity, IconPerson, IconPhone } from "./assets/icons";
 
 function Form({ openDialog, disabledForm, handleClose, handleSubmit, message, setMessage }) {
 
@@ -21,7 +21,7 @@ function Form({ openDialog, disabledForm, handleClose, handleSubmit, message, se
                 marginX={2}
             >
 
-                <Typography>
+                <Typography variant="h2">
                     Adicionar cadastro
                 </Typography>
 
@@ -59,7 +59,7 @@ function Form({ openDialog, disabledForm, handleClose, handleSubmit, message, se
                                 <VTextField
                                     name='fullName'
                                     variant='outlined'
-                                    label_icon={<SvgPerson />}
+                                    label_icon={<IconPerson />}
                                     label='Nome completo'
                                     placeholder='Digite seu nome'
                                     disabled={disabledForm}
@@ -73,7 +73,7 @@ function Form({ openDialog, disabledForm, handleClose, handleSubmit, message, se
                                 <VTextField
                                     name='email'
                                     variant='outlined'
-                                    label_icon={<SvgEmail />}
+                                    label_icon={<IconEmail />}
                                     label='Email'
                                     placeholder='exemplo@email.com'
                                     disabled={disabledForm}
@@ -87,7 +87,7 @@ function Form({ openDialog, disabledForm, handleClose, handleSubmit, message, se
                                 <VTextField
                                     name='dateOfBirth'
                                     variant='outlined'
-                                    label_icon={<SvgCalendar />}
+                                    label_icon={<IconCalendar />}
                                     label='Nascimento'
                                     placeholder='DD/MM/AA'
                                     disabled={disabledForm}
@@ -97,7 +97,7 @@ function Form({ openDialog, disabledForm, handleClose, handleSubmit, message, se
                                 <VTextField
                                     name='cpf'
                                     variant='outlined'
-                                    label_icon={<SvgIdentity />}
+                                    label_icon={<IconIdentity />}
                                     label='CPF'
                                     placeholder='NNN.NNN.NNN-NN'
                                     disabled={disabledForm}
@@ -110,7 +110,7 @@ function Form({ openDialog, disabledForm, handleClose, handleSubmit, message, se
                                 <VTextField
                                     name='phone'
                                     variant='outlined'
-                                    label_icon={<SvgPhone />}
+                                    label_icon={<IconPhone />}
                                     label='Telefone'
                                     placeholder='(NN) NNNNNN-NNNN'
                                     disabled={disabledForm}
@@ -120,7 +120,7 @@ function Form({ openDialog, disabledForm, handleClose, handleSubmit, message, se
                                 <VSelect
                                     name='gender'
                                     variant='outlined'
-                                    label_icon={<SvgGender />}
+                                    label_icon={<IconGender />}
                                     label='Gênero'
                                     placeholder='Selecione'
                                     disabled={disabledForm}
