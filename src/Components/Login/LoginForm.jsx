@@ -5,19 +5,24 @@ import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 
 import EmailTextField from "./TextFields/EmailTextField";
 import PasswordTextField from "./TextFields/PasswordTextField";
+import ErrorMessage from "./TextFields/ErrorMessage";
 
 import styles from "./Styles/Login.module.css";
 import theme from "./Theme/theme";
+import SuccessMessage from "./TextFields/SuccessMessage";
+
 
 function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [hasSubmitted, setHasSubmitted] = useState(false);
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
 
   const handleSignIn = (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(email, password);
+    setHasSubmitted(true);
   };
 
   return (
@@ -34,7 +39,8 @@ function LoginForm() {
         >
           {loading ? <CircularProgress size={24} /> : "ENTRAR"}
         </Button>
-        {error && <Alert severity="error">{error.message}</Alert>}
+        <ErrorMessage error={error} />
+        <SuccessMessage user={user} />
       </form>
     </ThemeProvider>
   );
