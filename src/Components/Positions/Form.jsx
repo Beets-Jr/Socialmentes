@@ -1,8 +1,4 @@
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import { Box, Stack, Typography } from "@mui/material";
@@ -10,6 +6,14 @@ import IconButton from '@mui/material/IconButton';
 import CancelIcon from '@mui/icons-material/Cancel';
 import WorkIcon from '@mui/icons-material/Work'
 import Divider from '@mui/material/Divider';
+import SyncAltIcon from '@mui/icons-material/SyncAlt';
+
+import { useState } from 'react';
+
+import { db } from "../../Database/FirebaseConfig.mjs"
+import { doc, updateDoc } from 'firebase/firestore/lite';
+
+import DialogConfirmation from "../ElementsInterface/DialogConfirmation";
 
 function stringToColor(string) {
   let hash = 0;
@@ -38,69 +42,122 @@ function stringAvatar(name) {
   };
 }
 
+function Form({ open, handleClose, photo, name, initialPosition, userID}) {
+  const [currentPosition, setCurrentPosition] = useState(initialPosition);
+  const availablePositions = ['Paciente', 'Responsável', 'Administrador', 'Psicólogo'];
+  const [positionChanged, setPositionChanged] = useState(false);
+  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
 
-function Form({ open, handleClose, photo, name, initialPosition }) {
-  // aqui tem q ter a lógica para fechar (se )
+  
+
+  const handlePositionChange = (position) => {
+    setCurrentPosition(position);
+    setPositionChanged(position !== currentPosition);
+  }
+
+  const handleConfirmChange = async () => {
+    const getUserDocRef = doc(db, 'userProfiles', userID);
+    try {
+      await updateDoc(getUserDocRef,{ position: currentPosition });
+      console.log('Position updated successfully!');
+      setPositionChanged(false); // Reset positionChanged after successful update
+    } catch (error) {
+      console.error('Error updating position:', error);
+    }
+  };
+
+  const handleClickClose = async () => {
+    if (positionChanged) {
+      setConfirmDialogOpen(true);
+    } else {
+      await handleClose(); // Esperar a conclusão da função assíncrona
+      window.location.reload(); // Tentar recarregar a página
+    }
+
+  };
+
+  const handleConfirmDialogClose = () => {
+    setConfirmDialogOpen(false);
+  }
+
+  const handleDiscardChanges = () => {
+    setConfirmDialogOpen(false);
+    handleClose();
+  };
+  
   return (
+    <>
     <Dialog 
       open={open} 
-      onClose={handleClose} 
+      onClose={handleClickClose} 
       sx={{
         '& .MuiPaper-root': {
           borderRadius: '30px',
+          width:'70vw',
+          height:'70vw'
         },
       }}
     >
-      <Box sx={{display:'flex', justifyContent:'flex-end', alignItems:'center', m:'1vw'}}>
-        <Typography sx={{color:'var(--color-gray-5)', fontFamily:'var(--font-text)'}}>Fechar</Typography>
-        <IconButton onClick={handleClose} sx={{color:'var(--color-blue-3)'}}>
-          <CancelIcon />
+        <Box sx={{display:'flex', justifyContent:'flex-end', alignItems:'center', m:'1vw'}}>
+        <Typography sx={{color:'var(--color-gray-5)', fontFamily:'var(--font-text)', fontSize: { xs: '0.5rem', sm: '0.8rem', md: '1.0rem' },}}>Fechar</Typography>
+        <IconButton 
+          onClick={handleClickClose} 
+          sx={{
+            color:'var(--color-blue-3)', 
+            '&:hover': { 
+              boxShadow: 'none',
+              backgroundColor: 'transparent', 
+            },
+          }}
+        >
+          <CancelIcon sx={{fontSize: { xs: '1rem', sm: '1.5rem' }, }} />
         </IconButton>
       </Box>
-      { photo ? ( // ve se a foto é nula ou não
+      
+      { photo ? (
         <Box
-            sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-            }}
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
         >
-            <Avatar // recebe a foto de perfil 
-                alt={`${name}'s profile picture`}
-                src={photo}
-                sx={{ margin: 'auto', width: '10vw', height: '10vw' }}
-                
-            />
+          <Avatar // recebe a foto de perfil 
+            alt={`${name}'s profile picture`}
+            src={photo}
+            sx={{ margin: 'auto', border: '2px solid var(--color-gray-3)', minWidth:'42px', width:'4vw', minHeight: '42px', height: '4vw'}}
+          />
         </Box>
-        ) : (
-            <Box
-                sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}
-            >
-                <Avatar {...stringAvatar(name)} /> 
-            </Box>
-        )
-      }
-      <DialogTitle
+      ) : (
+        <Box
+          sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+          }}
+      >
+          <Avatar {...stringAvatar(name)} sx={{ margin: 'auto', width: '10vw', height: '10vw', border: '2px solid var(--color-gray-3)'}} /> 
+      </Box>
+      )}
+
+      <Typography
         sx={{
           color: "var(--color-gray-5)", 
           fontFamily: "var(--font-text)",
-          textAlign: "center"
+          textAlign: "center", 
+          fontWeight: '500', 
+          mt: '1vh'
         }}
       >
         {name}
-      </DialogTitle>
+      </Typography>
+
       <Box
-        display="flex"
-        alignItems="center"
         sx={{
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            mt: 1, // margem superior
+            mb: 2
         }}
       >
         <WorkIcon 
@@ -119,40 +176,83 @@ function Form({ open, handleClose, photo, name, initialPosition }) {
               fontSize: 15,
           }}
         >
-          {initialPosition}
+          {currentPosition}
         </Typography>
       </Box>
+
       <Divider 
         variant="middle"
         sx={{
-          height: '2px', // Define a espessura
-          width: '40%', // Define o comprimento
-          background: 'linear-gradient(45deg, var(--color-blue-3), var(--color-blue-2))', 
-          margin: 'auto', // Centraliza horizontalmente
+          height: '2px',
+          width: '40%', 
+          background: 'linear-gradient(90deg, var(--color-blue-1) 0%, var(--color-blue-2) 50.5%, var(--color-blue-1) 100.01%)', 
+          margin: '0 auto', 
+          border: 'none'
         }}
       />
-      <DialogContent>
-        <DialogContentText>
-          Cargos
-        </DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        <Stack direction="row" spacing={2}>
-          <Button onClick={handleClose} color="primary">
-            Paciente
+
+      <Typography
+        sx={{
+          color: "var(--color-gray-4)", 
+          fontFamily: "var(--font-text)",
+          textAlign: "center", 
+          fontWeight:'500',
+        }}
+      >
+        Cargos
+      </Typography>
+
+      <Stack 
+        direction="row" 
+        spacing={2} 
+        sx={{
+          display:'flex', 
+          justifyContent:'center', 
+          margin:'auto '
+        }}
+      >
+        { availablePositions.map((position, index) => (
+          <Button 
+            key={index} 
+            variant='outlined'
+            sx={{
+              fontFamily: "var(--font-text)",
+              fontWeight: "400",
+              color: currentPosition !== position ? "var(--color-gray-5)" : "transparent",
+              background: currentPosition !== position ? 'none' :  'linear-gradient(90deg, var(--color-blue-4), var(--color-blue-2))', 
+              WebkitBackgroundClip: currentPosition !== position ? 'none' : 'text' 
+            }}
+            onClick={() => handlePositionChange(position)}
+          >
+            {position}
           </Button>
-          <Button onClick={handleClose} color="primary" autoFocus>
-            Responsável
-          </Button>
-          <Button onClick={handleClose} color="primary">
-            Administrador
-          </Button>
-          <Button onClick={handleClose} color="primary" autoFocus>
-            Psicólogo
-          </Button>
-        </Stack>
-      </DialogActions>
+        ))}
+      </Stack>
+
+      { positionChanged && (
+        <Button 
+          variant="contained" 
+          endIcon={<SyncAltIcon sx={{transform: 'rotate(90deg)'}} />}
+          sx={{
+            background: 'linear-gradient(to left, var(--color-blue-4), var(--color-blue-2))',
+            fontFamily: 'var(--font-title)',
+            fontWeight: '600',
+            fontSize: { xs: '0.5rem', sm: '0.8rem', md: '1.0rem' }, 
+            mt: '8vh', mb:'8vh', maxWidth:'40vw', margin:'auto'
+          }}
+          onClick={handleConfirmChange}
+        >
+            CONFIRMAR TROCA
+        </Button>
+      )}
+      
     </Dialog>
+    <DialogConfirmation 
+        open={confirmDialogOpen} 
+        onClose={handleConfirmDialogClose}
+        onConfirm={handleDiscardChanges}
+      />
+    </>
   )
 }
 

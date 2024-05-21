@@ -35,7 +35,7 @@ function stringAvatar(name) {
     };
 }
 
-function Position({photoUrl, fullName, position}) {
+function Position({photoUrl, fullName, position, id}) {
     const [open, setOpen] = useState(false);
 
     const handleClickOpen = () => {
@@ -70,7 +70,7 @@ function Position({photoUrl, fullName, position}) {
                                 <Avatar // recebe a foto de perfil 
                                     alt={`${fullName}'s profile picture`}
                                     src={photoUrl}
-                                    sx={{ margin: 'auto' }}
+                                    sx={{ margin: 'auto', border: '2px solid var(--color-gray-3)', minWidth:'42px', width:'4vw', minHeight: '42px', height: '4vw'}}
                                     
                                 />
                             </Box>
@@ -82,7 +82,7 @@ function Position({photoUrl, fullName, position}) {
                                         justifyContent: 'center',
                                     }}
                                 >
-                                    <Avatar {...stringAvatar(fullName)} /> 
+                                    <Avatar {...stringAvatar(fullName)} sx={{ margin: 'auto', border: '2px solid var(--color-gray-3)', minWidth:'42px', width:'4vw', minHeight: '42px', height: '4vw'}} /> 
                                 </Box>
                             )
                         }
@@ -129,7 +129,7 @@ function Position({photoUrl, fullName, position}) {
                     </CardContent>
                 </Card>
             </ButtonBase>
-            <Form open={open} handleClose={handleClose} photo={photoUrl} name={fullName} initialPosition={position}/>
+            <Form open={open} handleClose={handleClose} photo={photoUrl} name={fullName} initialPosition={position} userID={id}/>
         </>
         
     );

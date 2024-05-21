@@ -5,18 +5,12 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-import { useState } from 'react';
 
-function DialogConfirmation(OnClick) {
-  const [open, setOpen] = useState(OnClick);
-
-  const handleClose = () => {
-    setOpen(false);
-  }
+function DialogConfirmation({open, onClose, onConfirm}) {
   return ( 
     <Dialog
       open={open}
-      onClose={handleClose}
+      
       aria-labelledby="dialog-confirmation-title"
       aria-describedby="dialog-confirmation-description"
       sx={{
@@ -60,7 +54,7 @@ function DialogConfirmation(OnClick) {
       >
         <Button 
           variant="outlined" 
-          onClick={handleClose}
+          onClick={onConfirm}
           sx={{
             fontFamily: "var(--font-text)",
             fontWeight: "400",
@@ -79,7 +73,7 @@ function DialogConfirmation(OnClick) {
         </Button>
         <Button 
           variant="outlined"  
-          onClick={handleClose} autofocus
+          onClick={onClose} autofocus
           sx={{
             fontFamily: "var(--font-text)",
             fontWeight: "400",

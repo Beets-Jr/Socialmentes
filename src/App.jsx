@@ -3,7 +3,7 @@ import DialogConfirmation from "./Components/ElementsInterface/DialogConfirmatio
 
 function App() {
   return (
-    <div><Positions/><DialogConfirmation></DialogConfirmation></div>
+    <div><Positions/></div>
   )
 }
 

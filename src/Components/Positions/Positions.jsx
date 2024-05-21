@@ -29,7 +29,7 @@ function Positions() {
         <Grid container spacing={4}>
           {profiles.map((profile) => (
             <Grid item key={profile.id} xs={12} sm={6} md={4} >
-              <Position photoUrl={profile.photoUrl} fullName={profile.fullName} position={profile.position}/>
+              <Position photoUrl={profile.photoUrl} fullName={profile.fullName} position={profile.position} id={profile.id}/>
             </Grid>
           ))}
         </Grid> 
