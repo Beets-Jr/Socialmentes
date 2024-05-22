@@ -8,7 +8,7 @@ import WorkIcon from '@mui/icons-material/Work'
 import Divider from '@mui/material/Divider';
 import SyncAltIcon from '@mui/icons-material/SyncAlt';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { db } from "../../Database/FirebaseConfig.mjs"
 import { doc, updateDoc } from 'firebase/firestore/lite';
@@ -47,12 +47,13 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
   const availablePositions = ['Paciente', 'Responsável', 'Administrador', 'Psicólogo'];
   const [positionChanged, setPositionChanged] = useState(false);
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
+  const [confirmedChange, setConfirmedChange] = useState(false);
 
   
 
   const handlePositionChange = (position) => {
     setCurrentPosition(position);
-    setPositionChanged(position !== currentPosition);
+    setPositionChanged((position !== currentPosition) && (initialPosition !== position));
   }
 
   const handleConfirmChange = async () => {
@@ -60,18 +61,18 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
     try {
       await updateDoc(getUserDocRef,{ position: currentPosition });
       console.log('Position updated successfully!');
-      setPositionChanged(false); // Reset positionChanged after successful update
+      setPositionChanged(false); // Reset após mudança feita com sucesso 
+      setConfirmedChange(true); // set a confimação de update
     } catch (error) {
       console.error('Error updating position:', error);
     }
   };
 
-  const handleClickClose = async () => {
+  const handleClickClose = () => {
     if (positionChanged) {
       setConfirmDialogOpen(true);
     } else {
-      await handleClose(); // Esperar a conclusão da função assíncrona
-      window.location.reload(); // Tentar recarregar a página
+      handleClose(); // Esperar a conclusão da função assíncrona
     }
 
   };
@@ -82,9 +83,17 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
 
   const handleDiscardChanges = () => {
     setConfirmDialogOpen(false);
+    setPositionChanged(false);
+    setConfirmedChange(true); // set a confimação de update
     handleClose();
   };
   
+  useEffect(() => {
+    if (confirmedChange) {
+      window.location.reload();
+    }
+  }, [confirmedChange]);
+
   return (
     <>
     <Dialog 
@@ -94,7 +103,8 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
         '& .MuiPaper-root': {
           borderRadius: '30px',
           width:'70vw',
-          height:'70vw'
+          height:'70vh', 
+          padding:'0 40px'
         },
       }}
     >
@@ -218,9 +228,22 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
             sx={{
               fontFamily: "var(--font-text)",
               fontWeight: "400",
-              color: currentPosition !== position ? "var(--color-gray-5)" : "transparent",
-              background: currentPosition !== position ? 'none' :  'linear-gradient(90deg, var(--color-blue-4), var(--color-blue-2))', 
-              WebkitBackgroundClip: currentPosition !== position ? 'none' : 'text' 
+              fontFamily: "var(--font-text)",
+              color: currentPosition !== position ? "var(--color-gray-5)" : "white",
+              border: currentPosition !== position ? "1px solid var(--color-gray-3)" : "1px solid transparent", // Borda transparente para o gradiente
+              background: currentPosition !== position ? "none" : " var(--color-blue-3)",
+              WebkitBackgroundClip: currentPosition !== position ? "none" : "text", // Faz o texto ter a cor do gradiente
+              WebkitTextFillColor: currentPosition !== position ? "initial" : "transparent", // Faz o texto ter a cor do gradiente
+              // Borda com cor do gradiente
+              '&.Mui-selected': {
+                border: currentPosition !== position ? "1px solid var(--color-gray-3)" : "1px solid var(--color-blue-2)",
+                background: "linear-gradient(0deg, var(--color-blue-2) 100%, var(--color-blue-3) 100%)",
+                WebkitBackgroundClip: currentPosition !== position ? "none" : "text", // Faz o texto ter a cor do gradiente
+                WebkitTextFillColor: currentPosition !== position ? "initial" : "transparent", // Faz o texto ter a cor do gradiente
+              },
+              '&:hover': {
+
+              }
             }}
             onClick={() => handlePositionChange(position)}
           >
@@ -238,7 +261,9 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
             fontFamily: 'var(--font-title)',
             fontWeight: '600',
             fontSize: { xs: '0.5rem', sm: '0.8rem', md: '1.0rem' }, 
-            mt: '8vh', mb:'8vh', maxWidth:'40vw', margin:'auto'
+            maxWidth:'40vw', 
+            margin:'auto', 
+            padding: '0px 40px'
           }}
           onClick={handleConfirmChange}
         >
