@@ -1,12 +1,7 @@
-import Dialog from '@mui/material/Dialog';
-import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
-import { Box, Stack, Typography } from "@mui/material";
-import IconButton from '@mui/material/IconButton';
-import CancelIcon from '@mui/icons-material/Cancel';
-import WorkIcon from '@mui/icons-material/Work'
-import Divider from '@mui/material/Divider';
-import SyncAltIcon from '@mui/icons-material/SyncAlt';
+import { Box, Stack, Typography, Dialog, Button, Avatar, Divider, IconButton } from "@mui/material";
+import CancelIcon from "@mui/icons-material/Cancel";
+import WorkIcon from "@mui/icons-material/Work";
+import SyncAltIcon from "@mui/icons-material/SyncAlt"
 
 import { useState, useEffect } from 'react';
 
@@ -53,7 +48,7 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
 
   const handlePositionChange = (position) => {
     setCurrentPosition(position);
-    setPositionChanged((position !== currentPosition) && (initialPosition !== position));
+    setPositionChanged(initialPosition !== position);
   }
 
   const handleConfirmChange = async () => {
@@ -72,6 +67,7 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
     if (positionChanged) {
       setConfirmDialogOpen(true);
     } else {
+      setConfirmedChange(true); // set a confimação de update
       handleClose(); // Esperar a conclusão da função assíncrona
     }
 
@@ -98,13 +94,10 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
     <>
     <Dialog 
       open={open} 
-      onClose={handleClickClose} 
       sx={{
         '& .MuiPaper-root': {
           borderRadius: '30px',
-          width:'70vw',
-          height:'70vh', 
-          padding:'0 40px'
+          minWidth:'70vw',
         },
       }}
     >
@@ -135,7 +128,7 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
           <Avatar // recebe a foto de perfil 
             alt={`${name}'s profile picture`}
             src={photo}
-            sx={{ margin: 'auto', border: '2px solid var(--color-gray-3)', minWidth:'42px', width:'4vw', minHeight: '42px', height: '4vw'}}
+            sx={{ margin: 'auto', border: '2px solid var(--color-gray-3)', minWidth:'47px', width:'4vw', minHeight: '47px', height: '4vw'}}
           />
         </Box>
       ) : (
@@ -211,67 +204,71 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
       >
         Cargos
       </Typography>
-
-      <Stack 
-        direction="row" 
-        spacing={2} 
-        sx={{
-          display:'flex', 
-          justifyContent:'center', 
-          margin:'auto '
-        }}
-      >
-        { availablePositions.map((position, index) => (
-          <Button 
-            key={index} 
-            variant='outlined'
-            sx={{
-              fontFamily: "var(--font-text)",
-              fontWeight: "400",
-              fontFamily: "var(--font-text)",
-              color: currentPosition !== position ? "var(--color-gray-5)" : "white",
-              border: currentPosition !== position ? "1px solid var(--color-gray-3)" : "1px solid transparent", // Borda transparente para o gradiente
-              background: currentPosition !== position ? "none" : " var(--color-blue-3)",
-              WebkitBackgroundClip: currentPosition !== position ? "none" : "text", // Faz o texto ter a cor do gradiente
-              WebkitTextFillColor: currentPosition !== position ? "initial" : "transparent", // Faz o texto ter a cor do gradiente
-              // Borda com cor do gradiente
-              '&.Mui-selected': {
-                border: currentPosition !== position ? "1px solid var(--color-gray-3)" : "1px solid var(--color-blue-2)",
-                background: "linear-gradient(0deg, var(--color-blue-2) 100%, var(--color-blue-3) 100%)",
+      
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3, mb:'20px' }}>
+        <Stack 
+          direction="row" 
+          spacing={2} 
+          sx={{
+            display:'flex', 
+            justifyContent:'center', 
+            margin:'5px auto'
+          }}
+        >
+          { availablePositions.map((position, index) => (
+            <Button 
+              key={index} 
+              variant='outlined'
+              sx={{
+                fontFamily: "var(--font-text)",
+                fontWeight: "400",
+                margin: '0 auto ',
+                padding: '0 auto',
+                color: currentPosition !== position ? "var(--color-gray-5)" : "white",
+                border: currentPosition !== position ? "1px solid var(--color-gray-3)" : "1px solid transparent", // Borda transparente para o gradiente
+                background: currentPosition !== position ? "none" : " var(--color-blue-3)",
                 WebkitBackgroundClip: currentPosition !== position ? "none" : "text", // Faz o texto ter a cor do gradiente
                 WebkitTextFillColor: currentPosition !== position ? "initial" : "transparent", // Faz o texto ter a cor do gradiente
-              },
-              '&:hover': {
+                // Borda com cor do gradiente
+                '&.Mui-selected': {
+                  border: currentPosition !== position ? "1px solid var(--color-gray-3)" : "1px solid var(--color-blue-2)",
+                  background: "linear-gradient(0deg, var(--color-blue-2) 100%, var(--color-blue-3) 100%)",
+                  WebkitBackgroundClip: currentPosition !== position ? "none" : "text", // Faz o texto ter a cor do gradiente
+                  WebkitTextFillColor: currentPosition !== position ? "initial" : "transparent", // Faz o texto ter a cor do gradiente
+                },
+                '&:hover': {
 
-              }
+                }
+              }}
+              onClick={() => handlePositionChange(position)}
+            >
+              {position}
+            </Button>
+          ))}
+        </Stack>
+
+        { positionChanged && (
+          <Button 
+            variant="contained" 
+            endIcon={<SyncAltIcon sx={{transform: 'rotate(90deg)'}} />}
+            sx={{
+              background: 'linear-gradient(to left, var(--color-blue-4), var(--color-blue-2))',
+              fontFamily: 'var(--font-title)',
+              fontWeight: '600',
+              fontSize: { xs: '0.5rem', sm: '0.8rem', md: '1.0rem' }, 
+              maxWidth:'40vw', 
+              margin:'auto', 
+              padding: '0px 40px'
             }}
-            onClick={() => handlePositionChange(position)}
+            onClick={handleConfirmChange}
           >
-            {position}
+              CONFIRMAR TROCA
           </Button>
-        ))}
-      </Stack>
-
-      { positionChanged && (
-        <Button 
-          variant="contained" 
-          endIcon={<SyncAltIcon sx={{transform: 'rotate(90deg)'}} />}
-          sx={{
-            background: 'linear-gradient(to left, var(--color-blue-4), var(--color-blue-2))',
-            fontFamily: 'var(--font-title)',
-            fontWeight: '600',
-            fontSize: { xs: '0.5rem', sm: '0.8rem', md: '1.0rem' }, 
-            maxWidth:'40vw', 
-            margin:'auto', 
-            padding: '0px 40px'
-          }}
-          onClick={handleConfirmChange}
-        >
-            CONFIRMAR TROCA
-        </Button>
-      )}
+        )}
+      </Box>
       
     </Dialog>
+
     <DialogConfirmation 
         open={confirmDialogOpen} 
         onClose={handleConfirmDialogClose}

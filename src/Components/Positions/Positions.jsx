@@ -1,5 +1,5 @@
 import { db } from "../../Database/FirebaseConfig.mjs"
-import { Grid, Typography } from "@mui/material";
+import { Grid, Typography, Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { collection, getDocs } from 'firebase/firestore/lite';
 import Position from "./Position";
@@ -34,7 +34,17 @@ function Positions() {
           ))}
         </Grid> 
       ) :(
-        <Typography sx={{fontFamily: 'var(--font-text)', color:'var(--color-gray-3)'}}>Sem perfis</Typography>
+        <Box
+          sx={{ // para deixar a frase bem no meio da tela
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100vh', 
+            width: '100vw',  
+          }}
+        >
+          <Typography sx={{fontFamily: 'var(--font-text)', color:'var(--color-gray-3)'}}>Sem perfis</Typography>
+        </Box>
       )}
     </div>
   )
