@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { Avatar, Badge, Tooltip, styled } from "@mui/material";
+import { Avatar, Badge, Tooltip, styled, useTheme } from "@mui/material";
 import { AddPhotoAlternateRounded } from "@mui/icons-material";
 import { useField } from "@unform/core"
 
-import avatar_empty from "../assets/avatar_empty.svg";
+import avatar_empty from "../assets/avatar.svg";
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -18,6 +18,8 @@ const VisuallyHiddenInput = styled('input')({
 });
 
 export const VUploadPhoto = ({ name }) => {
+
+    const theme = useTheme();
 
     const {fieldName, registerField} = useField(name);
     const [photo, setPhoto] = useState(undefined || '');
@@ -59,7 +61,8 @@ export const VUploadPhoto = ({ name }) => {
                                 marginRight: 1,
                                 marginBottom: 1,
                                 borderRadius: '50%',
-                                bgcolor: '#ABABAB',
+                                bgcolor: theme.palette.secondary.main,
+                                border: '1px solid #D7D7D7',
                                 color: 'white'
                             }}
                         />
@@ -68,15 +71,23 @@ export const VUploadPhoto = ({ name }) => {
             }
             sx={{
                 '& .MuiSvgIcon-root': {
+                    transition: 'background-color .5s',
                     '&:hover': {
                         cursor: 'pointer',
-                        bgcolor: '#7DB9F0'
+                        bgcolor: theme.palette.primary.light,
+                        borderColor: theme.palette.primary.light
                     }
                 }
             }}
         >
             <Avatar
-                sx={{ width: 100, height: 100 }}
+                sx={{
+                    width: 100, 
+                    height: 100,
+                    border: '2px solid #D7D7D7',
+                    boxShadow: '0 0 10px #D7D7D7',
+                    marginY: 1
+                 }}
                 src={photoUrl || avatar_empty}
             />
         </Badge>
