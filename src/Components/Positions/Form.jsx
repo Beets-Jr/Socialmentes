@@ -246,8 +246,15 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
             </Button>
           ))}
         </Stack>
-
-        { positionChanged && (
+        <Box
+          sx={{
+            visibility: positionChanged ? 'visible' : 'hidden',
+            display: 'flex',
+            justifyContent: 'center',
+            width: '100%',
+            mt: 2
+          }}
+        >
           <Button 
             variant="contained" 
             endIcon={<SyncAltIcon sx={{transform: 'rotate(90deg)'}} />}
@@ -264,7 +271,7 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
           >
               CONFIRMAR TROCA
           </Button>
-        )}
+        </Box>
       </Box>
       
     </Dialog>
