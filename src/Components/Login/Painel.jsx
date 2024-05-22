@@ -1,8 +1,8 @@
+import React, { useState } from "react";
 import LoginForm from "./LoginForm";
-
+import PasswordReset from "./PasswordReset";
 import styles from "../Login/Styles/Login.module.css";
 import Line from "./Images/Line";
-
 import SocialLoginButton from "../Login/Social Login/SocialLoginButton";
 import {
   signInWithPopup,
@@ -12,6 +12,8 @@ import {
 } from "firebase/auth";
 
 function Painel() {
+  const [showPasswordReset, setShowPasswordReset] = useState(false);
+
   const signInWithFacebook = () => {
     const provider = new FacebookAuthProvider();
     const auth_facebook = getAuth();
@@ -49,25 +51,30 @@ function Painel() {
 
   return (
     <div className={styles.painel}>
-      <div className={styles.titulo}>Bem-vindo!</div>
-      <div className={styles.subtitulo}>Sentimos a sua falta!</div>
+      {showPasswordReset ? (
+        <PasswordReset />
+      ) : (
+        <>
+          <div className={styles.titulo}>Bem-vindo!</div>
+          <div className={styles.subtitulo}>Sentimos a sua falta!</div>
 
-      <LoginForm />
+          <LoginForm onPasswordResetClick={() => setShowPasswordReset(true)} />
 
-      <div className={styles.campoEsqueceuSenha}>
-        Esqueceu sua senha? <span>&nbsp;Clique aqui!</span>
-      </div>
+          <div className={styles.campoContinuar}>
+            <Line />
+            <div>Ou continue com</div>
+            <Line />
+          </div>
 
-      <div className={styles.campoContinuar}>
-        <Line />
-        <div>Ou continue com</div>
-        <Line />
-      </div>
-
-      <div className={styles.loginButtons}>
-        <SocialLoginButton onClick={signInWithGoogle} provider="Google" />
-        <SocialLoginButton onClick={signInWithFacebook} provider="Facebook" />
-      </div>
+          <div className={styles.loginButtons}>
+            <SocialLoginButton onClick={signInWithGoogle} provider="Google" />
+            <SocialLoginButton
+              onClick={signInWithFacebook}
+              provider="Facebook"
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 }
