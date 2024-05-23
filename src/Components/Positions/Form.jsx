@@ -1,7 +1,11 @@
 import { Box, Stack, Typography, Dialog, Button, Avatar, Divider, IconButton } from "@mui/material";
 import CancelIcon from "@mui/icons-material/Cancel";
 import WorkIcon from "@mui/icons-material/Work";
-import SyncAltIcon from "@mui/icons-material/SyncAlt"
+import SyncAltIcon from "@mui/icons-material/SyncAlt";
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import GroupIcon from '@mui/icons-material/Group';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+
 
 import { useState, useEffect } from 'react';
 
@@ -37,6 +41,17 @@ function stringAvatar(name) {
   };
 }
 
+const positionIcons = {
+  "Paciente": <PersonOutlineIcon sx={{ mr: 1, mb:0.2, color: "var(--color-gray-3)", fontSize: 18, }}></PersonOutlineIcon>,
+  "Responsável": <GroupIcon sx={{ mr: 1, mb:0.2, color: "var(--color-gray-3)", fontSize: 18, }}></GroupIcon>,
+  "Administrador": <AdminPanelSettingsIcon sx={{ mr: 1, mb:0.2, color: "var(--color-gray-3)", fontSize: 20, }}></AdminPanelSettingsIcon>,
+  "Psicólogo": <WorkIcon sx={{ mr: 1, mb:0.2, color: "var(--color-gray-3)", fontSize: 18, }}></WorkIcon>
+}
+
+function getPositionIcon(position) {
+  return positionIcons[position];
+}
+
 function Form({ open, handleClose, photo, name, initialPosition, userID}) {
   const [currentPosition, setCurrentPosition] = useState(initialPosition);
   const availablePositions = ['Paciente', 'Responsável', 'Administrador', 'Psicólogo'];
@@ -48,7 +63,7 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
 
   const handlePositionChange = (position) => {
     setCurrentPosition(position);
-    setPositionChanged(initialPosition !== position);
+    setPositionChanged(initialPosition !== position && currentPosition !== position);
   }
 
   const handleConfirmChange = async () => {
@@ -57,7 +72,6 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
       await updateDoc(getUserDocRef,{ position: currentPosition });
       console.log('Position updated successfully!');
       setPositionChanged(false); // Reset após mudança feita com sucesso 
-      setConfirmedChange(true); // set a confimação de update
     } catch (error) {
       console.error('Error updating position:', error);
     }
@@ -163,13 +177,7 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
             mb: 2
         }}
       >
-        <WorkIcon 
-          sx={{
-              mr: 1, mb:0.2,
-              color: "var(--color-gray-3)",
-              fontSize: 15,
-          }}
-        />
+        {getPositionIcon(currentPosition)}
         <Typography
           sx={{
               fontFamily: "var(--font-text)",
@@ -189,7 +197,7 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
           height: '2px',
           width: '40%', 
           background: 'linear-gradient(90deg, var(--color-blue-1) 0%, var(--color-blue-2) 50.5%, var(--color-blue-1) 100.01%)', 
-          margin: '0 auto', 
+          margin: '0 auto 10px auto', 
           border: 'none'
         }}
       />
@@ -220,29 +228,43 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
               key={index} 
               variant='outlined'
               sx={{
-                fontFamily: "var(--font-text)",
-                fontWeight: "400",
-                margin: '0 auto ',
+                margin: '0 auto',
                 padding: '0 auto',
-                color: currentPosition !== position ? "var(--color-gray-5)" : "white",
-                border: currentPosition !== position ? "1px solid var(--color-gray-3)" : "1px solid transparent", // Borda transparente para o gradiente
-                background: currentPosition !== position ? "none" : " var(--color-blue-3)",
+                color: currentPosition !== position ? "var(--color-gray-5)" : "transparent",
+                border: currentPosition !== position ? "2px solid var(--color-gray-3)" : "2px solid transparent", // Borda transparente para o gradiente
+                background: currentPosition !== position ? "none" : " linear-gradient(0deg, var(--color-blue-2) 100%, var(--color-blue-4) 100%)",
                 WebkitBackgroundClip: currentPosition !== position ? "none" : "text", // Faz o texto ter a cor do gradiente
                 WebkitTextFillColor: currentPosition !== position ? "initial" : "transparent", // Faz o texto ter a cor do gradiente
-                // Borda com cor do gradiente
-                '&.Mui-selected': {
-                  border: currentPosition !== position ? "1px solid var(--color-gray-3)" : "1px solid var(--color-blue-2)",
-                  background: "linear-gradient(0deg, var(--color-blue-2) 100%, var(--color-blue-3) 100%)",
-                  WebkitBackgroundClip: currentPosition !== position ? "none" : "text", // Faz o texto ter a cor do gradiente
-                  WebkitTextFillColor: currentPosition !== position ? "initial" : "transparent", // Faz o texto ter a cor do gradiente
+                borderImage: currentPosition !== position ? "none" : "linear-gradient(0deg, var(--color-blue-2) 100%, var(--color-blue-3) 100%) 1",   
+                borderRadius: '5px',            
+                '&.active': { // Adding a class for active state
+                  border: "2px solid #92C8FB", 
+                  background: "linear-gradient(0deg, #AFD6FA 100%, var(--color-blue-2) 100%)",
+                  color: "var(--color-gray-1)", 
+                  WebkitBackgroundClip: "none" , 
+                  WebkitTextFillColor: "initial", 
                 },
-                '&:hover': {
-
+                '&:hover' : {
+                  color:"transparent",
+                  border: "2px solid transparent",
+                  background: " linear-gradient(0deg, var(--color-blue-2) 100%, var(--color-blue-4) 100%)",
+                  WebkitBackgroundClip: "text", // Faz o texto ter a cor do gradiente
+                  WebkitTextFillColor: "transparent", // Faz o texto ter a cor do gradiente
+                  borderImage: "linear-gradient(0deg, var(--color-blue-2) 100%, var(--color-blue-3) 100%) 1 stretch",   
+                  borderRadius: '5px',            
                 }
               }}
+              className={positionChanged && currentPosition === position ? 'active' : ''}
               onClick={() => handlePositionChange(position)}
             >
-              {position}
+              <Typography
+                sx={{
+                  fontFamily: "var(--font-text)",
+                  fontWeight: "400",
+                }}
+              >
+                {position}
+              </Typography>
             </Button>
           ))}
         </Stack>

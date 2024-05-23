@@ -1,5 +1,4 @@
 import Positions from "./Components/Positions/Positions"
-import DialogConfirmation from "./Components/ElementsInterface/DialogConfirmation"
 
 function App() {
   return (

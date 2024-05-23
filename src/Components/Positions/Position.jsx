@@ -3,6 +3,9 @@ import CardContent from '@mui/material/CardContent';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import WorkIcon from '@mui/icons-material/Work';
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import GroupIcon from '@mui/icons-material/Group';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 import { useState } from "react";
 
@@ -33,6 +36,17 @@ function stringAvatar(name) {
         },
         children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
     };
+}
+
+const positionIcons = {
+    "Paciente": <PersonOutlineIcon sx={{ mr: 1, mb:0.2, color: "var(--color-gray-3)", fontSize: 18, }}></PersonOutlineIcon>,
+    "Responsável": <GroupIcon sx={{ mr: 1, mb:0.2, color: "var(--color-gray-3)", fontSize: 18, }}></GroupIcon>,
+    "Administrador": <AdminPanelSettingsIcon sx={{ mr: 1, mb:0.2, color: "var(--color-gray-3)", fontSize: 20, }}></AdminPanelSettingsIcon>,
+    "Psicólogo": <WorkIcon sx={{ mr: 1, mb:0.2, color: "var(--color-gray-3)", fontSize: 18, }}></WorkIcon>
+}
+
+function getPositionIcon(position) {
+    return positionIcons[position];
 }
 
 function Position({photoUrl, fullName, position, id}) {
@@ -107,13 +121,7 @@ function Position({photoUrl, fullName, position, id}) {
                                 mt: 1, // margem superior
                             }}
                         >
-                            <WorkIcon 
-                                sx={{
-                                    mr: 1, mb:0.2,
-                                    color: "var(--color-gray-3)",
-                                    fontSize: 15,
-                                }}
-                            />
+                            {getPositionIcon(position)}
                             <Typography
                                 sx={{
                                     fontFamily: "var(--font-text)",
