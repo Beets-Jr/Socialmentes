@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Alert } from "@mui/material";
 
-function ErrorMessage( {error}) {
+function ErrorMessage( {condition, errorMessage}) {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
 
     useEffect(() => {
-      if (error) {
+      if (condition) {
         setShowErrorMessage(true);
         const timer = setTimeout(() => {
           setShowErrorMessage(false);
-        }, 2000);
+        }, 3000);
         return () => clearTimeout(timer);
       }
-    }, [error]);
+    }, [condition]);
 
   return (
     <>
       {showErrorMessage && (
-        <Alert severity="error">{"E-mail ou senha incorretos!"}</Alert>
+        <Alert severity="error" sx={{marginTop: "5px"}}>{errorMessage}</Alert>
       )}
     </>
   );

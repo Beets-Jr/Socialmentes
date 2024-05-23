@@ -34,8 +34,8 @@ function LoginForm({ onPasswordResetClick }) {
         >
           {loading ? <CircularProgress size={24} /> : "ENTRAR"}
         </Button>
-        <ErrorMessage error={error} />
-        <SuccessMessage user={user} />
+        <ErrorMessage condition={error} errorMessage={"E-mail ou senha incorretos!"}/>
+        <SuccessMessage condition={user} successMesage={"Login bem-sucedido!"} />
 
         <div className={styles.campoEsqueceuSenha}>
           Esqueceu sua senha?

@@ -18,14 +18,14 @@ function Login() {
             alignItems="center"
             height="100vh"
             sx={{
-              width: "100%", // Alterado para 100% em telas pequenas
-              maxWidth: "50vw", // Limita a largura em telas grandes
+              width: "100%",
+              maxWidth: "50vw",
             }}
           >
             <Painel />
           </Box>
         </Grid>
-        {/* Metade direita da página */}
+        {/* metade direita da página*/}
         <Grid item xs={12} md={6}>
           <Box
             display="flex"
@@ -33,8 +33,8 @@ function Login() {
             alignItems="center"
             height="100vh"
             sx={{
-              width: "100%", // Alterado para 100% em telas pequenas
-              maxWidth: "50vw", // Limita a largura em telas grandes
+              width: "100%",
+              maxWidth: "50vw",
             }}
           >
             <img src={Logo} alt="Logo" style={{ maxWidth: "100%" }} />

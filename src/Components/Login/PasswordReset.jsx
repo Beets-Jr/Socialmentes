@@ -12,6 +12,9 @@ import { sendPasswordResetEmail } from "firebase/auth";
 import styles from "../Login/Styles/Login.module.css";
 import theme from "./Theme/theme";
 
+import ErrorMessage from "./TextFields/ErrorMessage";
+import SuccessMessage from "./TextFields/SuccessMessage";
+
 function PasswordReset() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
@@ -30,7 +33,7 @@ function PasswordReset() {
         "Email de recuperação de senha enviado!"
       );
     } catch (error) {
-      setError(error.message);
+      setError("Erro ao enviar e-mail de recuperação.");
     } finally {
       setLoading(false);
     }
@@ -62,8 +65,10 @@ function PasswordReset() {
             "Enviar Email de Recuperação"
           )}
         </Button>
-        {message && <Typography color="primary">{message}</Typography>}
-        {error && <Typography color="error">{error}</Typography>}
+        
+        <ErrorMessage condition={error} errorMessage={error}/>
+        <SuccessMessage condition={message} successMessage={message}/>
+        
       </form>
     </ThemeProvider>
   );

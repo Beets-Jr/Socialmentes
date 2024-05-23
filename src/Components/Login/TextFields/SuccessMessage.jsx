@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Alert } from "@mui/material";
 
-function SuccessMessage({ user }) {
+function SuccessMessage({ condition, successMessage }) {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   useEffect(() => {
-    if (user) {
+    if (condition) {
       setShowSuccessMessage(true);
       const timer = setTimeout(() => {
         setShowSuccessMessage(false);
-      }, 2000);
+      }, 3000);
       return () => clearTimeout(timer);
     }
-  }, [user]);
+  }, [condition]);
 
   return (
     <>
       {showSuccessMessage && (
-        <Alert severity="success">Login bem-sucedido!</Alert>
+        <Alert severity="success" sx={{marginTop: "5px"}}>{successMessage}</Alert>
       )}
     </>
   );
