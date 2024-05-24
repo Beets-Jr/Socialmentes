@@ -156,15 +156,15 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
           { availablePositions.map((position, index) => (
             <ButtonBase key={index} onClick={() => handlePositionChange(position)} sx={{borderRadius:'5px'}}>
               <Box
-                sx={{
-                  margin: '0 auto', padding: '0 auto',
+                sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center',
+                  margin: '10px 0 0 0', padding: '0 20px', minWidth:'140px', minHeight:'40px',
                   color: currentPosition !== position ? "var(--color-gray-5)" : "transparent",
                   border: currentPosition !== position ? "2px solid var(--color-gray-3)" : "2px solid transparent", // Borda transparente para o gradiente
                   background: currentPosition !== position ? "none" : "linear-gradient(to bottom, var(--color-blue-2) 0%, var(--color-blue-4) 100%)",
                   WebkitBackgroundClip: currentPosition !== position ? "none" : "text", // Faz o texto ter a cor do gradiente
                   WebkitTextFillColor: currentPosition !== position ? "initial" : "transparent", // Faz o texto ter a cor do gradiente
                   borderImage: currentPosition !== position ? "none" : "linear-gradient(to bottom, var(--color-blue-2) 0%, var(--color-blue-4) 100%) 1 round",  
-                  borderRadius: '5px',            
+                  borderRadius: '5px', overflow:'hidden',            
                   '&.active': { // Adding a class for active state
                     border: "2px solid #92C8FB", 
                     background: "linear-gradient(to right, #AFD6FA 0%, var(--color-blue-2) 100%)",
@@ -178,14 +178,14 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
                     background: "linear-gradient(to bottom, var(--color-blue-2) 0%, var(--color-blue-4) 100%)",
                     WebkitBackgroundClip: "text", // Faz o texto ter a cor do gradiente
                     WebkitTextFillColor: "transparent", // Faz o texto ter a cor do gradiente
-                    borderImage: "linear-gradient(to bottom, var(--color-blue-2) 0%, var(--color-blue-4) 100%) 2px stretch",   
+                    borderImage: "linear-gradient(to bottom, var(--color-blue-2) 0%, var(--color-blue-4) 100%) 1 stretch",   
                     borderRadius: '5px',            
                     overflow:'hidden',
                   }
                 }}
                 className={positionChanged && currentPosition === position ? 'active' : ''}
               >
-                  <Typography sx={{fontFamily: "var(--font-text)", fontWeight: "400",}}>
+                  <Typography sx={{fontFamily: "var(--font-text)", fontWeight: "400", fontSize: { xs: '0.5rem', sm: '0.8rem', md: '1.2rem' }}}>
                       {position}
                   </Typography>
               </Box>
