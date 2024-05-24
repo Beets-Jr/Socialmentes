@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Box, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 import { useField } from '@unform/core';
 
-export const VSelect = ({ name, fullWidth, label, label_icon, placeholder, items, ...rest }) => {
+export const VSelect = ({ name, fullWidth, label, label_icon, placeholder, items, onChange, onKeyDown, ...rest }) => {
 
     const { fieldName, registerField, defaultValue, error, clearError } = useField(name);
 
@@ -32,11 +32,11 @@ export const VSelect = ({ name, fullWidth, label, label_icon, placeholder, items
                 onChange={e => {
                     setValue(e.target.value);
                     setLabelIem( items.filter( item => item.value === e.target.value )[0].label );
-                    rest.onChange?.(e);
+                    onChange?.(e);
                 }}
                 onKeyDown={(e) => {
                     error && clearError();
-                    rest.onKeyDown?.(e);
+                    onKeyDown?.(e);
                 }}
                 renderValue={ (selected) => {
                     if (!selected) {

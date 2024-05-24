@@ -5,7 +5,7 @@
     border-radius: 20px;
 }
 
-.dialogTitle {
+.containerTitle {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,15 +13,12 @@
     margin-top: 5px;
 }
 
+.title {
+    margin-right: 30px;
+}
+
 .buttonClose {
     position: absolute;
     top: 23px;
     right: 23px;
-}
-
-.gridContainer {
-    flex-direction: column;
-    gap: 16px;
-    padding-left: 64px;
-    padding-right: 64px;
 }

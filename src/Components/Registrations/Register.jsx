@@ -1,7 +1,7 @@
 import { Avatar, Box, Button, Card, CardActions, CardContent, Typography } from "@mui/material";
 import { IconEmail, IconPosition } from "./assets/icons";
 
-import './Register.css';
+import './styles/Register.css';
 
 function Register({ register }) {
 

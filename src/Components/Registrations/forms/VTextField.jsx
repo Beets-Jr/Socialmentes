@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Box, TextField } from '@mui/material';
 import { useField } from '@unform/core';
 
-export const VTextField = ({ name, label, label_icon, ...rest }) => {
+export const VTextField = ({ name, label, label_icon, onChange, onKeyDown, ...rest }) => {
     
     const { fieldName, registerField, defaultValue, error, clearError } = useField(name);
     
@@ -25,11 +25,11 @@ export const VTextField = ({ name, label, label_icon, ...rest }) => {
             value={value}
             onChange={e => {
                 setValue(e.target.value);
-                rest.onChange?.(e);
+                onChange?.(e);
             }}
             onKeyDown={(e) => {
                 error && clearError();
-                rest.onKeyDown?.(e);
+                onKeyDown?.(e);
             }}
             label={
                 <Box display='flex' gap={.5} pt={.3}>

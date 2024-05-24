@@ -1,0 +1,6 @@
+.gridContainer {
+    flex-direction: column;
+    gap: 16px;
+    padding-left: 64px;
+    padding-right: 64px;
+}

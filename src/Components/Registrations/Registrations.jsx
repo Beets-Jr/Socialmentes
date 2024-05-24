@@ -4,12 +4,12 @@ import { AddRounded } from "@mui/icons-material";
 import { CacheProvider } from "@emotion/react";
 import createCache from '@emotion/cache';
 
-import { ERRORS, RegistrationsService, RegistrationsMiddleware } from "./services";
-import Register from './Register';
-import Form from "./Form";
-
-import './Registrations.css';
 import { theme } from "./theme";
+import { RegistrationsService } from "./services";
+import Register from './Register';
+import AddRegister from "./AddRegister";
+
+import './styles/Registrations.css';
 
 const cache = createCache({
     key: 'css',
@@ -18,12 +18,10 @@ const cache = createCache({
 
 function Registrations() {
 
-    const [isLoading, setIsLoading] = useState(true); // informa se a página está carregando
-    const [registerCreated, setRegisterCreated] = useState(false); // informa se um registro foi criado, para atualizar a lista de registros
-    const [registrations, setRegistrations] = useState([]); // lista de registros
+    const [isLoading, setIsLoading] = useState(true); // informa se os registros estão sendo carregados
+    const [registerCreated, setRegisterCreated] = useState(false); // informa se um registro foi criado com sucesso, para atualizar a lista de registros
+    const [registrations, setRegistrations] = useState([]); // a própria lista de registros
     const [openDialog, setOpenDialog] = useState(false); // controla a exibição do Dialog
-    const [disabledForm, setDisabledForm] = useState(false); // disabilita os campos do formulário quando ele é submitado
-    const [message, setMessage] = useState(''); // mensagem de erro exibida no Form
 
     // atualiza a lista de registros
     useEffect(() => {
@@ -34,44 +32,10 @@ function Registrations() {
             });
     }, [registerCreated]);
 
-    // apaga a mensagem de erro
-    useEffect(() => {
-        setMessage('');
-    }, [openDialog]);
-
     // trata o fechamento do Dialog
     const handleClose = () => {
         setOpenDialog(false);
     }
-
-    // trata o envio do formulário
-    const handleSubmit = (data) => {
-        setDisabledForm(true);
-
-        RegistrationsMiddleware.formValidationSchema.validate(data, { abortEarly: false })
-            .then(validatedData => {
-                const treatData = RegistrationsMiddleware.treatValidatedData(validatedData);
-                return RegistrationsService.createRegister(treatData);
-            })
-            .then(result => {
-                if (result instanceof Error) {
-                    setMessage(result);
-                } else {
-                    setRegisterCreated(oldValue => !oldValue);
-                    setMessage('Cadastro criado com sucesso!');
-                }
-            })
-            .catch(errors => {
-                if (errors.errors.filter(error => error === ERRORS.REQUIRED).length >= 0) {
-                    setMessage(ERRORS.REQUIRED);
-                } else {
-                    setMessage(errors.errors[0]);
-                }
-            })
-            .finally(() => {
-                setDisabledForm(false);
-            });
-    };
 
     return (
 
@@ -80,6 +44,7 @@ function Registrations() {
                 <StyledEngineProvider injectFirst >
                     <Box className='containerRegistrations'>
 
+                        {/** Carregamento da lista de registros ou mensagem de lista vazia */}
                         {registrations.length === 0 ? (
                             <Box className='containerNoRegistrations'>
                                 {isLoading ? (
@@ -110,6 +75,7 @@ function Registrations() {
                             </Box>
                         )}
 
+                        {/** Botão flutuante */}
                         <Fab
                             className="fab"
                             color='primary'
@@ -119,13 +85,11 @@ function Registrations() {
                             <AddRounded />
                         </Fab>
 
-                        <Form
+                        {/** Dialog */}
+                        <AddRegister
                             openDialog={openDialog}
-                            disabledForm={disabledForm}
                             handleClose={handleClose}
-                            handleSubmit={handleSubmit}
-                            message={message}
-                            setMessage={setMessage}
+                            setRegisterCreated={setRegisterCreated}
                         />
 
                     </Box >

@@ -1,156 +1,162 @@
-import { Box, Button, Dialog, DialogContent, DialogTitle, Grid, IconButton, Typography, useTheme } from "@mui/material";
-import { CloseRounded, PlaylistAddRounded } from "@mui/icons-material";
+import { useEffect, useState } from "react";
+import { Grid, useTheme } from "@mui/material";
 
-import { VForm, VTextField, VSelect, VUploadPhoto } from './forms';
-import { IconCalendar, IconEmail, IconGender, IconIdentity, IconPerson, IconPhone } from "./assets/icons";
+import { ERRORS, RegistrationsMiddleware } from "./services";
+import { VTextField, VSelect, VUploadPhoto } from './forms';
+import { useDebounce } from "./hooks/useDebounce";
+import { IconAttention, IconCity, IconEmail, IconIdentity, IconLocation, IconPerson, IconPhone, IconPositionForm } from "./assets/icons";
 
-import './Form.css';
-import { IconClose } from "./assets/icons/IconClose";
+import './styles/Form.css';
 
-function Form({ openDialog, disabledForm, handleClose, handleSubmit, message, setMessage }) {
+function Form({ formRef, disabledForm, setDisabledForm, setHandleProceed, setDisabledButton, setMessage }) {
 
-    const theme = useTheme();
+    // usada na ativação do useDebounce
+    const [alteredField, setAlteredField] = useState(false);
+
+    // seta a função executada ao clicar no botão
+    useEffect( () => {
+        setHandleProceed( () => (data) => {
+            setDisabledForm(true);
+
+            RegistrationsMiddleware.formValidationSchema.validate(data, { abortEarly: false })
+                .then( () => {
+                    return true;
+                })
+                .catch( errors => {
+                    if (errors.errors.filter(error => error === ERRORS.REQUIRED).length >= 0) {
+                        setMessage(ERRORS.REQUIRED);
+                    } else {
+                        setMessage(errors.errors[0]);
+                    }
+
+                    setDisabledForm(false);
+                    return false;
+                });
+        });
+    });
+
+    // ao alterar o valor de algum campo
+    useDebounce( () => {
+        console.log(formRef.current.getData());
+        // setDisabledButton(false);
+    }, [alteredField], 500, true);
 
     return (
+        <Grid container className='gridContainer'>
 
-        <Dialog
-            PaperProps={{
-                sx: {
-                    borderRadius: 5
-                }
-            }}
-            className='dialog'
-            open={openDialog}
-            onClose={handleClose}
-            // maxWidth="sm"
-            fullWidth
-        >
+            {/** Foto do usuário */}
+            <Grid item xs={12} textAlign='center' >
+                <VUploadPhoto name='photo' />
+            </Grid>
 
-            <DialogTitle className='dialogTitle' >
-                <Typography variant="h2" display='inline'>
-                    Adicionar cadastro
-                </Typography>
+            {/** Nome completo */}
+            <Grid container item xs={12}>
+                <VTextField
+                    name='fullName'
+                    variant='outlined'
+                    label_icon={<IconPerson {...icon_props} />}
+                    label='Nome completo'
+                    placeholder='Digite seu nome'
+                    disabled={disabledForm}
+                    onKeyDown={ () => setAlteredField(oldValue => !oldValue) }
+                    fullWidth
+                />
+            </Grid>
 
-                <IconButton
-                    className="buttonClose"
-                    onClick={ () => handleClose() }
-                >
-                    <IconClose color={theme.palette.secondary.main}/>
-                </IconButton>
-            </DialogTitle>
+            {/** Email do usuário */}
+            <Grid container item xs={12}>
+                <VTextField
+                    name='email'
+                    variant='outlined'
+                    label_icon={<IconEmail {...icon_props} sx={{ mt: .3 }} />}
+                    label='Email'
+                    placeholder='exemplo@email.com'
+                    disabled={disabledForm}
+                    fullWidth
+                />
+            </Grid>
 
-            <DialogContent>
+            {/** CEP e CPF */}
+            <Grid container item direction='row' justifyContent='space-between'>
+                <Grid item xs={5}>
+                    <VTextField
+                        name='cep'
+                        variant='outlined'
+                        label_icon={<IconLocation {...icon_props} />}
+                        label='CEP'
+                        placeholder='NNNNN-NNN'
+                        disabled={disabledForm}
+                    />
+                </Grid>
+                <Grid item xs={6.5}>
+                    <VTextField
+                        name='cpf'
+                        variant='outlined'
+                        label_icon={<IconIdentity {...icon_props} />}
+                        label='CPF'
+                        placeholder='NNN.NNN.NNN-NN'
+                        disabled={disabledForm}
+                    />
+                </Grid>
+            </Grid>
 
-                <VForm
-                    onSubmit={ (data) => handleSubmit(data) }
-                    encType="multipart/form-data"
-                >
-                    <Grid container className='gridContainer'>
+            {/** Cargo e celular */}
+            <Grid container item direction='row' justifyContent='space-between'>
+                <Grid item xs={6.5}>
+                    <VSelect
+                        name='position'
+                        variant='outlined'
+                        label_icon={<IconPositionForm {...icon_props} sx={{ mt: .3 }} />}
+                        label='Cargo'
+                        placeholder='Selecione'
+                        disabled={disabledForm}
+                        items={[ // ATUALIZAR
+                            { value: 'female', label: 'Feminino'},
+                            { value: 'male', label: 'Masculino'},
+                            { value: 'other', label: 'Outro'}
+                        ]}
+                        fullWidth
+                    />
+                </Grid>
+                <Grid item xs={5}>
+                    <VTextField
+                        name='phone'
+                        variant='outlined'
+                        label_icon={<IconPhone {...icon_props} />}
+                        label='Celular'
+                        placeholder='(NN) NNNNNN-NNNN'
+                        disabled={disabledForm}
+                    />
+                </Grid>
+            </Grid>
 
-                        <Grid item xs={12} textAlign='center' >
-                            <VUploadPhoto name='photo' />
-                        </Grid>
+            {/** Estado e Cidade */}
+            <Grid container item direction='row' justifyContent='space-between'>
+                <Grid item xs={3}>
+                    <VTextField
+                        name='state'
+                        variant='outlined'
+                        label_icon={<IconAttention {...icon_props} />}
+                        label='UF'
+                        placeholder='Estado'
+                        disabled={disabledForm}
+                        fullWidth
+                    />
+                </Grid>
+                <Grid item xs={8.5}>
+                    <VTextField
+                        name='city'
+                        variant='outlined'
+                        label_icon={<IconCity {...icon_props} />}
+                        label='Cidade'
+                        placeholder='Cidade'
+                        disabled={disabledForm}
+                        fullWidth
+                    />
+                </Grid>
+            </Grid>
 
-                        <Grid container item xs={12}>
-                            <VTextField
-                                name='fullName'
-                                variant='outlined'
-                                label_icon={<IconPerson />}
-                                label='Nome completo'
-                                placeholder='Digite seu nome'
-                                disabled={disabledForm}
-                                fullWidth
-                            />
-                        </Grid>
-
-                        <Grid container item xs={12}>
-                            <VTextField
-                                name='email'
-                                variant='outlined'
-                                label_icon={<IconEmail />}
-                                label='Email'
-                                placeholder='exemplo@email.com'
-                                disabled={disabledForm}
-                                fullWidth
-                            />
-                        </Grid>
-
-                        <Grid container item direction='row' justifyContent='space-between'>
-                            <Grid item xs={5}>
-                                <VTextField
-                                    name='dateOfBirth'
-                                    variant='outlined'
-                                    label_icon={<IconCalendar />}
-                                    label='Nascimento'
-                                    placeholder='DD/MM/AA'
-                                    disabled={disabledForm}
-                                />
-                            </Grid>
-                            <Grid item xs={6.5}>
-                                <VTextField
-                                    name='cpf'
-                                    variant='outlined'
-                                    label_icon={<IconIdentity />}
-                                    label='CPF'
-                                    placeholder='NNN.NNN.NNN-NN'
-                                    disabled={disabledForm}
-                                />
-                            </Grid>
-                        </Grid>
-
-                        <Grid container item direction='row' justifyContent='space-between'>
-                            <Grid item xs={6}>
-                                <VTextField
-                                    name='phone'
-                                    variant='outlined'
-                                    label_icon={<IconPhone />}
-                                    label='Telefone'
-                                    placeholder='(NN) NNNNNN-NNNN'
-                                    disabled={disabledForm}
-                                />
-                            </Grid>
-                            <Grid item xs={5.5}>
-                                <VSelect
-                                    name='gender'
-                                    variant='outlined'
-                                    label_icon={<IconGender />}
-                                    label='Gênero'
-                                    placeholder='Selecione'
-                                    disabled={disabledForm}
-                                    items={[
-                                        { value: 'female', label: 'Feminino'},
-                                        { value: 'male', label: 'Masculino'},
-                                        { value: 'other', label: 'Outro'}
-                                    ]}
-                                    fullWidth
-                                />
-                            </Grid>
-                        </Grid>
-
-                        <Grid item textAlign='center' py={2}>
-
-                            <Button
-                                sx={{ textTransform: 'none' }}
-                                variant="outlined"
-                                type="submit"
-                                disabled={disabledForm}
-                            >
-                                <PlaylistAddRounded />
-                                Adicionar
-                            </Button>
-
-                        </Grid>
-
-                    </Grid>
-                </VForm>
-
-                <Box>
-                    {message}
-                </Box>
-
-            </DialogContent>
-
-        </Dialog>
+        </Grid>
 
     );
 

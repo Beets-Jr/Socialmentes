@@ -1,13 +1,23 @@
-export { IconPerson } from './IconPerson';
-
-export { IconEmail } from './IconEmail';
+export { IconAttention } from './IconAttention';
 
 export { IconCalendar} from './IconCalendar';
 
-export { IconIdentity } from './IconIdentity';
+export { IconCity } from './IconCity';
 
-export { IconPhone } from './IconPhone';
+export { IconClose } from './IconClose';
+
+export { IconEmail } from './IconEmail';
 
 export { IconGender } from './IconGender';
 
+export { IconIdentity } from './IconIdentity';
+
+export { IconLocation } from './IconLocation';
+
+export { IconPerson } from './IconPerson';
+
+export { IconPhone } from './IconPhone';
+
 export { IconPosition } from './IconPosition'
+
+export { IconPositionForm } from './IconPositionForm'
