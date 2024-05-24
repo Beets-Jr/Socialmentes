@@ -1,4 +1,4 @@
-import { Box, Stack, Typography, Dialog, Button, Avatar, Divider, IconButton } from "@mui/material";
+import { Box, Stack, Typography, Dialog, Button, Avatar, Divider, IconButton, ButtonBase } from "@mui/material";
 import CancelIcon from "@mui/icons-material/Cancel";
 import WorkIcon from "@mui/icons-material/Work";
 import SyncAltIcon from "@mui/icons-material/SyncAlt";
@@ -53,17 +53,19 @@ function getPositionIcon(position) {
 }
 
 function Form({ open, handleClose, photo, name, initialPosition, userID}) {
-  const [currentPosition, setCurrentPosition] = useState(initialPosition);
-  const availablePositions = ['Paciente', 'Responsável', 'Administrador', 'Psicólogo'];
-  const [positionChanged, setPositionChanged] = useState(false);
-  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
-  const [confirmedChange, setConfirmedChange] = useState(false);
+  const [currentPosition, setCurrentPosition] = useState(initialPosition); // armazena o cargo atual 
+  const availablePositions = ['Paciente', 'Responsável', 'Administrador', 'Psicólogo']; // lista de cargos possíveis 
+  const [positionChanged, setPositionChanged] = useState(false); // indica se o cargo mudou 
+  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false); // controla a visibilidade do diálogo de confirmação de saída
+  const [confirmedChange, setConfirmedChange] = useState(false); // indica que uma mudança foi feita 
 
   
 
-  const handlePositionChange = (position) => {
-    setCurrentPosition(position);
-    setPositionChanged(initialPosition !== position && currentPosition !== position);
+  const handlePositionChange = (newPosition) => {
+    if(currentPosition !== newPosition) {
+      setCurrentPosition(newPosition);
+      setPositionChanged(newPosition !== initialPosition); 
+    }
   }
 
   const handleConfirmChange = async () => {
@@ -106,190 +108,99 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
 
   return (
     <>
-    <Dialog 
-      open={open} 
-      sx={{
-        '& .MuiPaper-root': {
-          borderRadius: '30px',
-          minWidth:'70vw',
-        },
-      }}
-    >
-        <Box sx={{display:'flex', justifyContent:'flex-end', alignItems:'center', m:'1vw'}}>
+    <Dialog open={open} sx={{'& .MuiPaper-root': { borderRadius: '30px', minWidth:'70vw', }, }} >
+      <Box sx={{display:'flex', justifyContent:'flex-end', alignItems:'center', m:'1vw'}}>
         <Typography sx={{color:'var(--color-gray-5)', fontFamily:'var(--font-text)', fontSize: { xs: '0.5rem', sm: '0.8rem', md: '1.0rem' },}}>Fechar</Typography>
-        <IconButton 
-          onClick={handleClickClose} 
-          sx={{
-            color:'var(--color-blue-3)', 
-            '&:hover': { 
-              boxShadow: 'none',
-              backgroundColor: 'transparent', 
-            },
-          }}
-        >
+        <IconButton onClick={handleClickClose} sx={{ color:'var(--color-blue-3)', '&:hover': { boxShadow: 'none', backgroundColor: 'transparent', }, }} >
           <CancelIcon sx={{fontSize: { xs: '1rem', sm: '1.5rem' }, }} />
         </IconButton>
       </Box>
       
       { photo ? (
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', }} >
           <Avatar // recebe a foto de perfil 
-            alt={`${name}'s profile picture`}
-            src={photo}
+            alt={`${name}'s profile picture`} src={photo}
             sx={{ margin: 'auto', border: '2px solid var(--color-gray-3)', minWidth:'47px', width:'4vw', minHeight: '47px', height: '4vw'}}
           />
         </Box>
       ) : (
-        <Box
-          sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-          }}
-      >
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', }} >
           <Avatar {...stringAvatar(name)} sx={{ margin: 'auto', width: '10vw', height: '10vw', border: '2px solid var(--color-gray-3)'}} /> 
-      </Box>
+        </Box>
       )}
 
-      <Typography
-        sx={{
-          color: "var(--color-gray-5)", 
-          fontFamily: "var(--font-text)",
-          textAlign: "center", 
-          fontWeight: '500', 
-          mt: '1vh'
-        }}
-      >
+      <Typography sx={{ color: "var(--color-gray-5)", fontFamily: "var(--font-text)", textAlign: "center", fontWeight: '500', mt: '1vh' }} >
         {name}
       </Typography>
 
-      <Box
-        sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            mb: 2
-        }}
-      >
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 2 }} >
         {getPositionIcon(currentPosition)}
-        <Typography
-          sx={{
-              fontFamily: "var(--font-text)",
-              fontWeight: "400",
-              color: "var(--color-gray-5)", 
-              textAlign: "center",
-              fontSize: 15,
-          }}
-        >
+        <Typography sx={{ fontFamily: "var(--font-text)", fontWeight: "400", color: "var(--color-gray-5)", textAlign: "center", fontSize: 15, }} >
           {currentPosition}
         </Typography>
       </Box>
 
-      <Divider 
-        variant="middle"
+      <Divider variant="middle"
         sx={{
-          height: '2px',
-          width: '40%', 
-          background: 'linear-gradient(90deg, var(--color-blue-1) 0%, var(--color-blue-2) 50.5%, var(--color-blue-1) 100.01%)', 
-          margin: '0 auto 10px auto', 
-          border: 'none'
+          height: '2px', width: '40%', margin: '0 auto 10px auto', border: 'none',
+          background: 'linear-gradient(90deg, var(--color-blue-1) 0%, var(--color-blue-2) 50.5%, var(--color-blue-1) 100.01%)',
         }}
       />
 
-      <Typography
-        sx={{
-          color: "var(--color-gray-4)", 
-          fontFamily: "var(--font-text)",
-          textAlign: "center", 
-          fontWeight:'500',
-        }}
-      >
+      <Typography sx={{ color: "var(--color-gray-4)", fontFamily: "var(--font-text)", textAlign: "center", fontWeight:'500', }} >
         Cargos
       </Typography>
       
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3, mb:'20px' }}>
-        <Stack 
-          direction="row" 
-          spacing={2} 
-          sx={{
-            display:'flex', 
-            justifyContent:'center', 
-            margin:'5px auto'
-          }}
-        >
+        <Stack direction="row" spacing={2}  sx={{ display:'flex', justifyContent:'center', margin:'5px auto' }} >
           { availablePositions.map((position, index) => (
-            <Button 
-              key={index} 
-              variant='outlined'
-              sx={{
-                margin: '0 auto',
-                padding: '0 auto',
-                color: currentPosition !== position ? "var(--color-gray-5)" : "transparent",
-                border: currentPosition !== position ? "2px solid var(--color-gray-3)" : "2px solid transparent", // Borda transparente para o gradiente
-                background: currentPosition !== position ? "none" : " linear-gradient(0deg, var(--color-blue-2) 100%, var(--color-blue-4) 100%)",
-                WebkitBackgroundClip: currentPosition !== position ? "none" : "text", // Faz o texto ter a cor do gradiente
-                WebkitTextFillColor: currentPosition !== position ? "initial" : "transparent", // Faz o texto ter a cor do gradiente
-                borderImage: currentPosition !== position ? "none" : "linear-gradient(0deg, var(--color-blue-2) 100%, var(--color-blue-3) 100%) 1",   
-                borderRadius: '5px',            
-                '&.active': { // Adding a class for active state
-                  border: "2px solid #92C8FB", 
-                  background: "linear-gradient(0deg, #AFD6FA 100%, var(--color-blue-2) 100%)",
-                  color: "var(--color-gray-1)", 
-                  WebkitBackgroundClip: "none" , 
-                  WebkitTextFillColor: "initial", 
-                },
-                '&:hover' : {
-                  color:"transparent",
-                  border: "2px solid transparent",
-                  background: " linear-gradient(0deg, var(--color-blue-2) 100%, var(--color-blue-4) 100%)",
-                  WebkitBackgroundClip: "text", // Faz o texto ter a cor do gradiente
-                  WebkitTextFillColor: "transparent", // Faz o texto ter a cor do gradiente
-                  borderImage: "linear-gradient(0deg, var(--color-blue-2) 100%, var(--color-blue-3) 100%) 1 stretch",   
-                  borderRadius: '5px',            
-                }
-              }}
-              className={positionChanged && currentPosition === position ? 'active' : ''}
-              onClick={() => handlePositionChange(position)}
-            >
-              <Typography
+            <ButtonBase key={index} onClick={() => handlePositionChange(position)} sx={{borderRadius:'5px'}}>
+              <Box
                 sx={{
-                  fontFamily: "var(--font-text)",
-                  fontWeight: "400",
+                  margin: '0 auto', padding: '0 auto',
+                  color: currentPosition !== position ? "var(--color-gray-5)" : "transparent",
+                  border: currentPosition !== position ? "2px solid var(--color-gray-3)" : "2px solid transparent", // Borda transparente para o gradiente
+                  background: currentPosition !== position ? "none" : "linear-gradient(to bottom, var(--color-blue-2) 0%, var(--color-blue-4) 100%)",
+                  WebkitBackgroundClip: currentPosition !== position ? "none" : "text", // Faz o texto ter a cor do gradiente
+                  WebkitTextFillColor: currentPosition !== position ? "initial" : "transparent", // Faz o texto ter a cor do gradiente
+                  borderImage: currentPosition !== position ? "none" : "linear-gradient(to bottom, var(--color-blue-2) 0%, var(--color-blue-4) 100%) 1 round",  
+                  borderRadius: '5px',            
+                  '&.active': { // Adding a class for active state
+                    border: "2px solid #92C8FB", 
+                    background: "linear-gradient(to right, #AFD6FA 0%, var(--color-blue-2) 100%)",
+                    color: "var(--color-gray-1)", 
+                    WebkitBackgroundClip: "none" , 
+                    WebkitTextFillColor: "initial", 
+                  },
+                  '&:hover' : {
+                    color:"transparent",
+                    border: "2px solid transparent",
+                    background: "linear-gradient(to bottom, var(--color-blue-2) 0%, var(--color-blue-4) 100%)",
+                    WebkitBackgroundClip: "text", // Faz o texto ter a cor do gradiente
+                    WebkitTextFillColor: "transparent", // Faz o texto ter a cor do gradiente
+                    borderImage: "linear-gradient(to bottom, var(--color-blue-2) 0%, var(--color-blue-4) 100%) 2px stretch",   
+                    borderRadius: '5px',            
+                    overflow:'hidden',
+                  }
                 }}
+                className={positionChanged && currentPosition === position ? 'active' : ''}
               >
-                {position}
-              </Typography>
-            </Button>
+                  <Typography sx={{fontFamily: "var(--font-text)", fontWeight: "400",}}>
+                      {position}
+                  </Typography>
+              </Box>
+          </ButtonBase>
           ))}
         </Stack>
-        <Box
-          sx={{
-            visibility: positionChanged ? 'visible' : 'hidden',
-            display: 'flex',
-            justifyContent: 'center',
-            width: '100%',
-            mt: 2
-          }}
-        >
-          <Button 
-            variant="contained" 
-            endIcon={<SyncAltIcon sx={{transform: 'rotate(90deg)'}} />}
+        <Box sx={{ visibility: positionChanged ? 'visible' : 'hidden', display: 'flex', justifyContent: 'center', width: '100%', mt: 2 }} >
+          <Button variant="contained" endIcon={<SyncAltIcon sx={{transform: 'rotate(90deg)'}} />} onClick={handleConfirmChange}
             sx={{
               background: 'linear-gradient(to left, var(--color-blue-4), var(--color-blue-2))',
               fontFamily: 'var(--font-title)',
-              fontWeight: '600',
-              fontSize: { xs: '0.5rem', sm: '0.8rem', md: '1.0rem' }, 
+              fontWeight: '600', fontSize: { xs: '0.5rem', sm: '0.8rem', md: '1.0rem' }, 
               maxWidth:'40vw', 
-              margin:'auto', 
-              padding: '0px 40px'
+              margin:'auto', padding: '0px 40px'
             }}
-            onClick={handleConfirmChange}
           >
               CONFIRMAR TROCA
           </Button>
@@ -298,11 +209,7 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
       
     </Dialog>
 
-    <DialogConfirmation 
-        open={confirmDialogOpen} 
-        onClose={handleConfirmDialogClose}
-        onConfirm={handleDiscardChanges}
-      />
+    <DialogConfirmation open={confirmDialogOpen} onClose={handleConfirmDialogClose} onConfirm={handleDiscardChanges} />
     </>
   )
 }
