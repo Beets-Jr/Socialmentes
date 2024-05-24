@@ -108,7 +108,7 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
 
   return (
     <>
-    <Dialog open={open} sx={{'& .MuiPaper-root': { borderRadius: '30px', minWidth:'70vw', }, }} >
+    <Dialog open={open} sx={{'& .MuiPaper-root': { borderRadius: '30px', minWidth:'60vw', minHeight:'60vh'}, }} >
       <Box sx={{display:'flex', justifyContent:'flex-end', alignItems:'center', m:'1vw'}}>
         <Typography sx={{color:'var(--color-gray-5)', fontFamily:'var(--font-text)', fontSize: { xs: '0.5rem', sm: '0.8rem', md: '1.0rem' },}}>Fechar</Typography>
         <IconButton onClick={handleClickClose} sx={{ color:'var(--color-blue-3)', '&:hover': { boxShadow: 'none', backgroundColor: 'transparent', }, }} >
@@ -151,16 +151,16 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
         Cargos
       </Typography>
       
-      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3, mb:'20px' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3, mb:'20px', mt:'20px' }}>
         <Stack direction="row" spacing={2}  sx={{ display:'flex', justifyContent:'center', margin:'5px auto' }} >
           { availablePositions.map((position, index) => (
             <ButtonBase key={index} onClick={() => handlePositionChange(position)} sx={{borderRadius:'5px'}}>
               <Box
                 sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center',
-                  margin: '10px 0 0 0', padding: '0 20px', minWidth:'140px', minHeight:'40px',
+                  margin: '0 auto', padding: '0 20px', minWidth:'8vw', maxHeight:'8vh',
                   color: currentPosition !== position ? "var(--color-gray-5)" : "transparent",
                   border: currentPosition !== position ? "2px solid var(--color-gray-3)" : "2px solid transparent", // Borda transparente para o gradiente
-                  background: currentPosition !== position ? "none" : "linear-gradient(to bottom, var(--color-blue-2) 0%, var(--color-blue-4) 100%)",
+                  background: currentPosition !== position ? "none" : "linear-gradient(to bottom, var(--color-blue-2) 0%, var(--color-blue-4) 80%)",
                   WebkitBackgroundClip: currentPosition !== position ? "none" : "text", // Faz o texto ter a cor do gradiente
                   WebkitTextFillColor: currentPosition !== position ? "initial" : "transparent", // Faz o texto ter a cor do gradiente
                   borderImage: currentPosition !== position ? "none" : "linear-gradient(to bottom, var(--color-blue-2) 0%, var(--color-blue-4) 100%) 1 round",  
@@ -175,7 +175,7 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
                   '&:hover' : {
                     color:"transparent",
                     border: "2px solid transparent",
-                    background: "linear-gradient(to bottom, var(--color-blue-2) 0%, var(--color-blue-4) 100%)",
+                    background: "linear-gradient(to bottom, var(--color-blue-2) 0%, var(--color-blue-4) 80%)",
                     WebkitBackgroundClip: "text", // Faz o texto ter a cor do gradiente
                     WebkitTextFillColor: "transparent", // Faz o texto ter a cor do gradiente
                     borderImage: "linear-gradient(to bottom, var(--color-blue-2) 0%, var(--color-blue-4) 100%) 1 stretch",   
