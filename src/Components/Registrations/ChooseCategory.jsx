@@ -1,14 +1,6 @@
-import { useEffect } from "react";
 import { VRadioGroup } from "./forms";
 
-function ChooseCategory({ setHandleProceed, setDisabledButton }) {
-
-    useEffect( () => {
-        setHandleProceed( () => () => {
-            setDisabledButton(true);
-            return true;
-        } );
-    }, []);
+function ChooseCategory({ setDisabledButton }) {
 
     return (
         <VRadioGroup

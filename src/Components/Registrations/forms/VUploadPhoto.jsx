@@ -17,7 +17,7 @@ const VisuallyHiddenInput = styled('input')({
     width: 1,
 });
 
-export const VUploadPhoto = ({ name }) => {
+export const VUploadPhoto = ({ name, onChange }) => {
 
     const theme = useTheme();
 
@@ -50,6 +50,8 @@ export const VUploadPhoto = ({ name }) => {
 
                             setPhoto(e.target.files[0]);
                             setPhotoUrl(URL.createObjectURL(e.target.files[0]));
+
+                            onChange?.(e);
                         }}
                     />
                     <Tooltip title='Adicionar foto' placement="right">

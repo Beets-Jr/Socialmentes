@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, useTheme } from "@mui/material";
 import { PlaylistAddRounded } from "@mui/icons-material";
 
-import { RegistrationsMiddleware, RegistrationsService } from "./services";
+import { ERRORS, RegistrationsMiddleware, RegistrationsService } from "./services";
 import { IconAttention, IconCity, IconClose, IconEmail, IconIdentity, IconLocation, IconPerson, IconPhone, IconPositionForm } from "./assets/icons";
 import { VForm } from "./forms";
 import ChooseCategory from "./ChooseCategory";
@@ -17,13 +17,51 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
     const [step, setStep] = useState(0); // etapa do cadastro (escolher categoria, formulário...)
     const [disabledForm, setDisabledForm] = useState(false); // disabilita os campos do formulário quando ele é submitado
     const [disabledButton, setDisabledButton] = useState(true); // informa se o usuário pode clicar em prosseguir
-    const [handleProceed, setHandleProceed] = useState(); // a função executada ao clicar em prosseguir
     const [message, setMessage] = useState(''); // mensagem de erro exibida no Form
 
-    // apaga a mensagem de erro
+    // ao abrir e fechar o Dialog
     useEffect(() => {
+        setTimeout( () => {
+            setStep(0);
+            setDisabledButton(true);
+        }, 100);
         setMessage('');
     }, [openDialog]);
+
+    // função executada nas etapas intermediárias e antes de salvar os dados no banco
+    const handleProceed = () => {
+        if (step == 0) {
+            setDisabledButton(true);
+            setStep( oldStep => oldStep + 1 );
+        } else if (step == 1) {
+            RegistrationsMiddleware.secondStepValidationSchema.validate( formRef.current.getData(), { abortEarly: false })
+                .then( () => {
+                    setDisabledButton(true);
+                    setStep( oldStep => oldStep + 1 );
+                })
+                .catch( errors => {
+                    if (errors.errors.filter(error => error === ERRORS.REQUIRED).length >= 0) {
+                        setMessage(ERRORS.REQUIRED);
+                    } else {
+                        setMessage(errors.errors[0]);
+                    }
+                    setDisabledForm(false);
+                    return;
+                });
+        } else if (step == 2) {
+            RegistrationsMiddleware.thirdStepValidationSchema.validate( formRef.current.getData(), { abortEarly: false })
+                .then( () => formRef.current.submitForm() )
+                .catch( errors => {
+                    if (errors.errors.filter(error => error === ERRORS.REQUIRED).length >= 0) {
+                        setMessage(ERRORS.REQUIRED);
+                    } else {
+                        setMessage(errors.errors[0]);
+                    }
+                    setDisabledForm(false);
+                    return;
+                });
+        }
+    };
 
     // função executada ao terminar o cadastro
     const handleSubmit = (validatedData) => {
@@ -51,12 +89,14 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
     const itemsSecondStep = [
         [ // Foto do usuário
             {
+                xs: 12,
                 type: 'photo',
                 name: 'photo'
             }
         ],
         [ // Nome completo
             {
+                xs: 12,
                 type: 'text',
                 name: 'fullName',
                 label_icon: <IconPerson {...icon_props} />,
@@ -66,6 +106,7 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
         ],
         [ // Email do usuário
             {
+                xs: 12,
                 type: 'text',
                 name: 'email',
                 label_icon: <IconEmail {...icon_props} sx={{ mt: .3 }} />,
@@ -161,7 +202,6 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
 
             {/** Conteúdo do dialogo, alterado em cada etapa */}
             <DialogContent>
-
                 <VForm
                     ref={formRef}
                     onSubmit={ (data) => handleSubmit(data) }
@@ -169,17 +209,13 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
                 >
                     { step === 0 ? (
                         <ChooseCategory
-                            setHandleProceed={setHandleProceed}
                             setDisabledButton={setDisabledButton}
                         />
                     ) : step === 1 ? (
                         <Form
                             formRef={formRef}
                             disabledForm={disabledForm}
-                            setDisabledForm={setDisabledForm}
-                            setHandleProceed={setHandleProceed}
                             setDisabledButton={setDisabledButton}
-                            setMessage={setMessage}
                             items={itemsSecondStep}
                         />
                     ) : (
@@ -196,10 +232,7 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
                     variant="outlined"
                     type="button"
                     disabled={disabledButton}
-                    onClick={ () => {
-                        if ( handleProceed() )
-                            setStep( oldStep => oldStep + 1 );
-                    }}
+                    onClick={ () => handleProceed() }
                 >
                     <PlaylistAddRounded /> Prosseguir
                 </Button>
