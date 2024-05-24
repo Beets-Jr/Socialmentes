@@ -40,20 +40,12 @@ function Form({ formRef, disabledForm, setDisabledButton, items }) {
 
                             const {xs, type, ...rest} = field;
 
-                            const props_field = {
-                                onKeyDown: () => setAlteredField(oldValue => !oldValue),
-                                variant: 'outlined',
-                                disabled: disabledForm,
-                                fullWidth: true,
-                                ...rest
-                            }
-
                             switch (type) {
                                 case 'photo':
                                     return (
                                         <Grid item xs={xs} key={field.name}>
                                             <VUploadPhoto
-                                                {...props_field}
+                                                {...rest}
                                                 onChange={() => setAlteredField(oldValue => !oldValue)}
                                             />
                                         </Grid>
@@ -62,7 +54,7 @@ function Form({ formRef, disabledForm, setDisabledButton, items }) {
                                     return (
                                         <Grid item xs={xs} key={field.name}>
                                             <VTextField
-                                                {...props_field}
+                                                {...rest}
                                                 onKeyDown={() => setAlteredField(oldValue => !oldValue)}
                                                 variant='outlined'
                                                 disabled={disabledForm}
@@ -74,7 +66,7 @@ function Form({ formRef, disabledForm, setDisabledButton, items }) {
                                     return (
                                         <Grid item xs={xs} key={field.name}>
                                             <VSelect
-                                                {...props_field}
+                                                {...rest}
                                                 onChange={() => setAlteredField(oldValue => !oldValue)}
                                                 variant='outlined'
                                                 disabled={disabledForm}
