@@ -1,12 +1,13 @@
-import { useContext } from 'react'
-import { UserContext } from '../../Contexts/UserContext'
-
 import { Link } from 'react-router-dom'
+import { auth } from '../../Database/FirebaseConfig.mjs'
+
 import { AppBar, Toolbar, Typography, Box } from '@mui/material'
+import { PiUserCircleFill } from 'react-icons/pi'
 import LogoutIcon from './Icons/LogoutIcon'
-import { PiUserCircleFill } from "react-icons/pi";
 
 function Header({title}) {
+
+  const user = auth.currentUser
 
   return (
     <AppBar position='static' sx={{background: '#FFFFFF', width: '80vw', marginLeft: '20vw'}}>
@@ -15,14 +16,14 @@ function Header({title}) {
         <Typography
           variant='h4'
           component='div'
-          sx={{fontFamily: 'var(--font-text)', color: 'var(--color-blue-4)', marginLeft:'50px'}}>
+          sx={{fontFamily: 'var(--font-text)', color: 'var(--color-blue-4)', marginLeft: '50px'}}>
           {title}
         </Typography>
             
-        {userData ? 
-          <Box sx={{display:'flex', flexDirection:'row', alignItems: 'center'}}>
-            <Box>
-              {userData.fullName}
+        {user ? 
+          <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+            <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+              {user.fullName}
               <Typography
               variant='h6'
               component={Link}
@@ -31,7 +32,12 @@ function Header({title}) {
               Editar Perfil
               </Typography>
             </Box>
-            <img src={userData.photoUrl} alt='Foto do usuário'/>
+            {user.photo ? 
+              <img src={user.photo} alt='Foto do usuário'/> :
+              <div>
+                {/* Lógica do avatar */}
+              </div>
+            }
             {/* <LogoutIcon/> */}
           </Box>
           :
