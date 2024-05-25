@@ -1,17 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, useTheme } from "@mui/material";
-import { PlaylistAddRounded } from "@mui/icons-material";
 
 import { msg_errors, RegistrationsMiddleware, RegistrationsService } from "./services";
-import { IconAttention, IconCity, IconClose, IconEmail, IconIdentity, IconLocation, IconPerson, IconPhone, IconPositionForm } from "./assets/icons";
-import { VForm } from "./forms";
+import { IconAttention, IconCity, IconClose, IconEmail, IconIdentity, IconListAdd, IconLocation, IconPerson, IconPhone, IconPositionForm } from "./assets/icons";
+import { VForm, VMessageError } from "./forms";
 import ChooseCategory from "./ChooseCategory";
 import Form from "./Form";
 
 import './styles/AddRegister.css';
-import VMessageError from "./forms/VMessageError";
 
 function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
+
+    const colorGray = useTheme().palette.secondary;
 
     const formRef = useRef(null); // referência do componente de formulário
 
@@ -97,7 +97,7 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
     // propriedades passadas nos ícones
     const icon_props = {
         fontSize: 'inherit',
-        color: useTheme().palette.secondary.dark,
+        color: colorGray.dark,
         sx: { mt: .2 }
     }
 
@@ -192,6 +192,9 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
         ]
     ];
 
+    // campos do formulário da terceira etapa
+    const itemsThirdStep = [];
+
     return (
         <Dialog
             PaperProps={{
@@ -212,7 +215,7 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
                 </DialogTitle>
 
                 <IconButton className="buttonClose" onClick={ () => handleClose() } >
-                    <IconClose color={useTheme().palette.secondary.main}/>
+                    <IconClose color={colorGray.main}/>
                 </IconButton>
             </Box>
 
@@ -240,18 +243,30 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
                 </VForm>
             </DialogContent>
 
-            {/** Botão de prosseguir */}
-            <DialogActions sx={{ textAlign: 'center', py: 2 }}>
-                {/** textAlign='center' py={2} 
-                 * também usar dislabedButton para definir qual a estilização
-                */}
+            {/** Stepper e Botão de prosseguir */}
+            <DialogActions className='dialogActions'>
+                <Box className='stepper'>
+                    { [0, 1, 2].map( i => (
+                        <Box
+                            key={i}
+                            className={i === step ? 'stepActive' : 'stepBase'}
+                        />
+                    ))}
+                </Box>
+
                 <Button
-                    sx={{ textTransform: 'none' }}
+                    className={`buttonBase ${disabledButton ? 'buttonDisabled' : "buttonEnabled"}`}
                     variant="outlined"
                     type="button"
                     onClick={ () => handleProceed() }
                 >
-                    <PlaylistAddRounded /> Prosseguir
+                    {step > 0 && (
+                        <IconListAdd
+                            color={disabledButton ? '#D7D7D7' : '#ffffff'}
+                            sx={{ mr: 2 }}
+                        />
+                    )}
+                    Prosseguir
                 </Button>
             </DialogActions>
 

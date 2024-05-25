@@ -12,6 +12,8 @@ export { IconGender } from './IconGender';
 
 export { IconIdentity } from './IconIdentity';
 
+export { IconListAdd } from './IconListAdd';
+
 export { IconLocation } from './IconLocation';
 
 export { IconPerson } from './IconPerson';

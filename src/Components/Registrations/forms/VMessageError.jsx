@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 
-function VMessageError({ message, setMessage }) {
+export const VMessageError = ({ message, setMessage }) => {
 
     const [showMessage, setShowMessage] = useState(false);
 
@@ -27,5 +27,3 @@ function VMessageError({ message, setMessage }) {
     );
 
 }
-
-export default VMessageError;

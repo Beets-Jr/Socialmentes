@@ -1,15 +1,12 @@
 .dialog {
     margin: auto;
     max-width: 600px;
-    border: 0px;
-    border-radius: 20px;
 }
 
 .containerTitle {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 15px;
     margin-top: 5px;
 }
 
@@ -21,4 +18,59 @@
     position: absolute;
     top: 23px;
     right: 23px;
+}
+
+.dialogActions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 16px;
+    padding-bottom: 24px;
+}
+
+.stepper {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: flex-end;
+    gap: 2px
+}
+
+.stepActive {
+    width: 38px;
+    height: 8px;
+    background: linear-gradient(to right, #7DB9F0, #5095D5);
+}
+
+.stepBase {
+    width: 38px;
+    height: 4px;
+    background-color: #D7D7D7;
+}
+
+.buttonBase {
+    width: 188px;
+    height: 50px;
+    text-transform: none;
+    font-size: 20px;
+    margin-right: 8px;
+    border-radius: 15px;
+}
+
+.buttonDisabled {
+    border: 2px solid #D7D7D7;
+    color: #D7D7D7;
+}
+
+.buttonDisabled:hover {
+    border: 2px solid #D7D7D7;
+}
+
+.buttonEnabled {
+    background: linear-gradient(to right, #7DB9F0, #5095D5);
+    border: 0px;
+    color: white;
+}
+
+.buttonEnabled:hover {
+    border: 0px;
 }

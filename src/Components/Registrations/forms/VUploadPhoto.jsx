@@ -88,7 +88,7 @@ export const VUploadPhoto = ({ name, onChange }) => {
                     height: 100,
                     border: '2px solid #D7D7D7',
                     boxShadow: '0 0 10px #D7D7D7',
-                    marginY: 1
+                    mb: 1
                  }}
                 src={photoUrl || avatar_empty}
             />
