@@ -150,7 +150,7 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
         ],
         [ // Cargo e celular
             {
-                xs: 6.5,
+                xs: 6,
                 type: 'select',
                 name: 'position',
                 label_icon: <IconPositionForm {...icon_props} sx={{ mt: .3 }} />,
@@ -164,12 +164,12 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
                 ]
             },
             {
-                xs: 5,
+                xs: 5.5,
                 type: 'text',
                 name: 'phone',
                 label_icon: <IconPhone {...icon_props} />,
                 label: 'Celular',
-                placeholder: '(NN) NNNNNN-NNNN'
+                placeholder: '(NN) NNNNN-N...'
             }
         ],
         [ // Estado e Cidade
@@ -247,10 +247,7 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
             <DialogActions className='dialogActions'>
                 <Box className='stepper'>
                     { [0, 1, 2].map( i => (
-                        <Box
-                            key={i}
-                            className={i === step ? 'stepActive' : 'stepBase'}
-                        />
+                        <Box key={i} className={i === step ? 'stepActive' : 'stepBase'} />
                     ))}
                 </Box>
 
@@ -261,10 +258,7 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
                     onClick={ () => handleProceed() }
                 >
                     {step > 0 && (
-                        <IconListAdd
-                            color={disabledButton ? '#D7D7D7' : '#ffffff'}
-                            sx={{ mr: 2 }}
-                        />
+                        <IconListAdd color={disabledButton ? '#D7D7D7' : '#ffffff'} sx={{ mr: 2 }} />
                     )}
                     Prosseguir
                 </Button>
