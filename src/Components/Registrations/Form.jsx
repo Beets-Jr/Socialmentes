@@ -11,12 +11,13 @@ function Form({ formRef, disabledForm, setDisabledButton, items }) {
     // quando atualizado indica alguma alteração nos valores do formulário
     const [alteredField, setAlteredField] = useState(false);
 
-    // ao alterar o valor de algum campo
+    // ao alterar o valor de algum campo verifica se ao menos um está vazio
     useDebounce( () => {
         if ( [...Object.values(formRef.current.getData())].some( value => !value ) )
-            return;
-        console.log(formRef.current.getData());
-        setDisabledButton(false);
+            setDisabledButton(true);
+        else {
+            setDisabledButton(false);
+        }
     }, [alteredField], 500, true);
 
     return (

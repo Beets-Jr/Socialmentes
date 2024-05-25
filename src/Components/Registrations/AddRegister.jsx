@@ -2,13 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, useTheme } from "@mui/material";
 import { PlaylistAddRounded } from "@mui/icons-material";
 
-import { ERRORS, RegistrationsMiddleware, RegistrationsService } from "./services";
+import { msg_errors, RegistrationsMiddleware, RegistrationsService } from "./services";
 import { IconAttention, IconCity, IconClose, IconEmail, IconIdentity, IconLocation, IconPerson, IconPhone, IconPositionForm } from "./assets/icons";
 import { VForm } from "./forms";
 import ChooseCategory from "./ChooseCategory";
 import Form from "./Form";
 
 import './styles/AddRegister.css';
+import VMessageError from "./forms/VMessageError";
 
 function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
 
@@ -30,9 +31,15 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
 
     // função executada nas etapas intermediárias e antes de salvar os dados no banco
     const handleProceed = () => {
+        setDisabledForm(false);
         if (step == 0) {
-            setDisabledButton(true);
-            setStep( oldStep => oldStep + 1 );
+            if (formRef.current.getData().category) {
+                setDisabledButton(true);
+                setStep( oldStep => oldStep + 1 );
+            } else {
+                setMessage('Escolha uma das opções para prosseguir');
+            }
+            setDisabledForm(false);
         } else if (step == 1) {
             RegistrationsMiddleware.secondStepValidationSchema.validate( formRef.current.getData(), { abortEarly: false })
                 .then( () => {
@@ -40,25 +47,30 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
                     setStep( oldStep => oldStep + 1 );
                 })
                 .catch( errors => {
-                    if (errors.errors.filter(error => error === ERRORS.REQUIRED).length >= 0) {
-                        setMessage(ERRORS.REQUIRED);
+                    if (errors.errors.some(error => error === msg_errors.REQUIRED)) {
+                        setMessage(msg_errors.REQUIRED);
                     } else {
                         setMessage(errors.errors[0]);
                     }
-                    setDisabledForm(false);
-                    return;
+                })
+                .finally( () => {
+                    setDisabledForm(false)
                 });
         } else if (step == 2) {
             RegistrationsMiddleware.thirdStepValidationSchema.validate( formRef.current.getData(), { abortEarly: false })
-                .then( () => formRef.current.submitForm() )
+                .then( () => {
+                    formRef.current.submitForm()
+                })
                 .catch( errors => {
-                    if (errors.errors.filter(error => error === ERRORS.REQUIRED).length >= 0) {
-                        setMessage(ERRORS.REQUIRED);
+                    if (errors.errors.some(error => error === msg_errors.REQUIRED)) {
+                        setMessage(msg_errors.REQUIRED);
                     } else {
                         setMessage(errors.errors[0]);
                     }
                     setDisabledForm(false);
-                    return;
+                })
+                .finally( () => {
+                    setDisabledForm(false);
                 });
         }
     };
@@ -68,13 +80,17 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
         const treatData = RegistrationsMiddleware.treatValidatedData(validatedData);
 
         RegistrationsService.createRegister(treatData)
-            .then(result => {
+            .then( result => {
                 if (result instanceof Error) {
                     setMessage(result);
                 } else {
                     setRegisterCreated(oldValue => !oldValue);
                     setMessage('Cadastro criado com sucesso!');
                 }
+            })
+            .catch( error => {
+                console.log(error);
+                setMessage('Erro ao cadastrar usuário no banco de dados')
             });
     };
 
@@ -226,12 +242,13 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
 
             {/** Botão de prosseguir */}
             <DialogActions sx={{ textAlign: 'center', py: 2 }}>
-                {/** textAlign='center' py={2} */}
+                {/** textAlign='center' py={2} 
+                 * também usar dislabedButton para definir qual a estilização
+                */}
                 <Button
                     sx={{ textTransform: 'none' }}
                     variant="outlined"
                     type="button"
-                    disabled={disabledButton}
                     onClick={ () => handleProceed() }
                 >
                     <PlaylistAddRounded /> Prosseguir
@@ -239,9 +256,7 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
             </DialogActions>
 
             {/** Mensagem de erro e sucesso */}
-            <Box>
-                {message}
-            </Box>
+            <VMessageError message={message} setMessage={setMessage} />
 
         </Dialog>
     );

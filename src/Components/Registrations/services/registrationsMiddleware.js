@@ -1,43 +1,43 @@
 import * as yup from 'yup';
-import { ERRORS } from './validationMessages';
+import { msg_errors } from './validationMessages';
 
 const secondStepValidationSchema = yup.object({
     photo: yup
         .mixed()
-        .test( 'fileExists', ERRORS.PHOTO,  (photo) => photo instanceof File )
-        .required(ERRORS.REQUIRED),
+        .test( 'fileExists', msg_errors.PHOTO,  (photo) => photo instanceof File )
+        .required(msg_errors.REQUIRED),
     fullName: yup
         .string()
-        .min(3, ERRORS.NAME)
-        .required(ERRORS.REQUIRED),
+        .min(3, msg_errors.FULLNAME)
+        .required(msg_errors.REQUIRED),
     email: yup
         .string()
-        .email(ERRORS.EMAIL)
-        .required(ERRORS.REQUIRED),
+        .email(msg_errors.EMAIL)
+        .required(msg_errors.REQUIRED),
     cep: yup
         .string()
-        .matches(/^\d{5}-\d{3}$/, ERRORS.DATE)
-        .required(ERRORS.REQUIRED),
+        .matches(/^\d{5}-\d{3}$/, msg_errors.CEP)
+        .required(msg_errors.REQUIRED),
     cpf: yup
         .string()
-        .matches(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, ERRORS.CPF)
-        .required(ERRORS.REQUIRED),
+        .matches(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, msg_errors.CPF)
+        .required(msg_errors.REQUIRED),
     position: yup
         .mixed()
-        .oneOf(['speech_therapist', 'psychologist', 'pedagogue', 'occupational_therapist'], ERRORS.GENDER)
-        .required(ERRORS.REQUIRED),
+        .oneOf(['speech_therapist', 'psychologist', 'pedagogue', 'occupational_therapist'], msg_errors.POSITION)
+        .required(msg_errors.REQUIRED),
     phone: yup
         .string()
-        .matches(/^\(\d{2}\) ?\d{5}-\d{4}$/, ERRORS.PHONE)
-        .required(ERRORS.REQUIRED),
+        .matches(/^\(\d{2}\) ?\d{5}-\d{4}$/, msg_errors.PHONE)
+        .required(msg_errors.REQUIRED),
     state: yup
         .string()
-        .length(2)
-        .required(),
+        .length(2, msg_errors.STATE)
+        .required(msg_errors.REQUIRED),
     city: yup
         .string()
-        .min(3)
-        .required()
+        .min(3, msg_errors.CITY)
+        .required(msg_errors.REQUIRED)
 });
 
 const thirdStepValidationSchema = yup.object({});

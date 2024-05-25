@@ -1,26 +1,32 @@
 const REQUIRED = 'Você deve preencher todos os campos antes de continuar';
 
-const PHOTO = 'Você deve adicionar uma foto antes de continuar';
+const PHOTO = 'Uma foto deve ser informada para continuar';
 
-const NAME = 'O nome informado é muito curto para poder continuar';
+const FULLNAME = 'O nome informado é muito curto para continuar';
 
-const EMAIL = 'Você deve informar um email válido antes de continuar';
+const EMAIL = 'O email informado não é um email válido';
 
-const DATE = 'A data de nascimento deve seguir o formato NN/NN/NNNN';
+const CEP = 'O CEP deve seguir o formato: NNNNN-NNN';
 
-const CPF = 'O cpf deve seguir o formato: NNN.NNN.NNN-NN';
+const CPF = 'O CPF deve seguir o formato: NNN.NNN.NNN-NN';
+
+const POSITION = 'O cargo informado não é um cargo válido';
 
 const PHONE = 'O telefone deve seguir o formato: (NN) NNNNN-NNNN';
 
-const GENDER = 'Você deve selecionar um gênero válido antes de continuar';
+const STATE = 'O estado deve ser informado utilizando uma sigla de duas letras';
 
-export const ERRORS = {
+const CITY = 'A cidade informada não pode possuir menos de três letras';
+
+export const msg_errors = {
     REQUIRED,
     PHOTO,
-    NAME,
+    FULLNAME,
     EMAIL,
-    DATE,
+    CEP,
     CPF,
+    POSITION,
     PHONE,
-    GENDER
+    STATE,
+    CITY
 };
