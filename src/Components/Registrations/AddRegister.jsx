@@ -2,16 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, useTheme } from "@mui/material";
 
 import { msg_errors, RegistrationsMiddleware, RegistrationsService } from "./services";
-import { IconAttention, IconCity, IconClose, IconEmail, IconIdentity, IconListAdd, IconLocation, IconPerson, IconPhone, IconPositionForm } from "./assets/icons";
+import { IconClose, IconListAdd } from "./assets/icons";
 import { VForm, VMessageError } from "./forms";
-import ChooseCategory from "./ChooseCategory";
-import Form from "./Form";
+import { ChooseCategory, FirstForm, SecondForm } from './steps';
 
 import './styles/AddRegister.css';
 
 function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
-
-    const colorGray = useTheme().palette.secondary;
 
     const formRef = useRef(null); // referência do componente de formulário
 
@@ -59,7 +56,8 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
         } else if (step == 2) {
             RegistrationsMiddleware.thirdStepValidationSchema.validate( formRef.current.getData(), { abortEarly: false })
                 .then( () => {
-                    formRef.current.submitForm()
+                    console.log(formRef.current.getData());
+                    // formRef.current.submitForm()
                 })
                 .catch( errors => {
                     if (errors.errors.some(error => error === msg_errors.REQUIRED)) {
@@ -94,106 +92,8 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
             });
     };
 
-    // propriedades passadas nos ícones
-    const icon_props = {
-        fontSize: 'inherit',
-        color: colorGray.dark,
-        sx: { mt: .2 }
-    }
-
-    // campos do formulário da segunda etapa
-    const itemsSecondStep = [
-        [ // Foto do usuário
-            {
-                xs: 12,
-                type: 'photo',
-                name: 'photo'
-            }
-        ],
-        [ // Nome completo
-            {
-                xs: 12,
-                type: 'text',
-                name: 'fullName',
-                label_icon: <IconPerson {...icon_props} />,
-                label: 'Nome completo',
-                placeholder: 'Digite seu nome'
-            },
-        ],
-        [ // Email do usuário
-            {
-                xs: 12,
-                type: 'text',
-                name: 'email',
-                label_icon: <IconEmail {...icon_props} sx={{ mt: .3 }} />,
-                label: 'Email',
-                placeholder: 'exemplo@email.com'
-            },
-        ],
-        [ // CEP e CPF
-            {
-                xs: 5,
-                type: 'text',
-                name: 'cep',
-                label_icon: <IconLocation {...icon_props} />,
-                label: 'CEP',
-                placeholder: 'NNNNN-NNN'
-            },
-            {
-                xs: 6.5,
-                type: 'text',
-                name: 'cpf',
-                label_icon: <IconIdentity {...icon_props} />,
-                label: 'CPF',
-                placeholder: 'NNN.NNN.NNN-NN'
-            }
-        ],
-        [ // Cargo e celular
-            {
-                xs: 6,
-                type: 'select',
-                name: 'position',
-                label_icon: <IconPositionForm {...icon_props} sx={{ mt: .3 }} />,
-                label: 'Cargo',
-                placeholder: 'Selecione',
-                items: [ // ATUALIZAR!!!!!!!!
-                    { value: 'speech_therapist', label: 'Fonoaudiólogo(a)'},
-                    { value: 'psychologist', label: 'Psicólogo(a)'},
-                    { value: 'pedagogue', label: 'Pedagogo(a)'},
-                    { value: 'occupational_therapist', label: 'Terapeuta Ocupacional'}
-                ]
-            },
-            {
-                xs: 5.5,
-                type: 'text',
-                name: 'phone',
-                label_icon: <IconPhone {...icon_props} />,
-                label: 'Celular',
-                placeholder: '(NN) NNNNN-N...'
-            }
-        ],
-        [ // Estado e Cidade
-            {
-                xs: 3,
-                type: 'text',
-                name: 'state',
-                label_icon: <IconAttention {...icon_props} />,
-                label: 'UF',
-                placeholder: 'Estado',
-            },
-            {
-                xs: 8.5,
-                type: 'text',
-                name: 'city',
-                label_icon: <IconCity {...icon_props} />,
-                label: 'Cidade',
-                placeholder: 'Cidade'
-            }
-        ]
-    ];
-
     // campos do formulário da terceira etapa
-    const itemsThirdStep = [];
+    // const itemsThirdStep = [];
 
     return (
         <Dialog
@@ -215,7 +115,7 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
                 </DialogTitle>
 
                 <IconButton className="buttonClose" onClick={ () => handleClose() } >
-                    <IconClose color={colorGray.main}/>
+                    <IconClose color={useTheme().palette.secondary.main}/>
                 </IconButton>
             </Box>
 
@@ -231,14 +131,17 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
                             setDisabledButton={setDisabledButton}
                         />
                     ) : step === 1 ? (
-                        <Form
+                        <FirstForm
                             formRef={formRef}
                             disabledForm={disabledForm}
                             setDisabledButton={setDisabledButton}
-                            items={itemsSecondStep}
                         />
                     ) : (
-                        <br />
+                        <SecondForm
+                            formRef={formRef}
+                            disabledForm={disabledForm}
+                            setDisabledButton={setDisabledButton}
+                        />
                     ) }
                 </VForm>
             </DialogContent>
@@ -260,7 +163,7 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
                     {step > 0 && (
                         <IconListAdd color={disabledButton ? '#D7D7D7' : '#ffffff'} sx={{ mr: 2 }} />
                     )}
-                    Prosseguir
+                    {step === 2 ? 'Cadastrar' : 'Prosseguir'}
                 </Button>
             </DialogActions>
 

@@ -1,9 +1,10 @@
 import { Box, Typography } from "@mui/material";
-import { VRadioGroup } from "./forms";
 
-import './styles/ChooseCategory.css';
+import { VRadioGroup } from "../forms";
 
-function ChooseCategory({ setDisabledButton }) {
+import '../styles/ChooseCategory.css';
+
+export const ChooseCategory = ({ setDisabledButton }) => {
 
     return (
         <Box className='boxContainer'>
@@ -28,5 +29,3 @@ function ChooseCategory({ setDisabledButton }) {
     );
 
 }
-
-export default ChooseCategory;

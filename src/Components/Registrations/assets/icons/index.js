@@ -1,5 +1,7 @@
 export { IconAttention } from './IconAttention';
 
+export { IconBank } from './IconBank';
+
 export { IconCalendar} from './IconCalendar';
 
 export { IconCity } from './IconCity';
