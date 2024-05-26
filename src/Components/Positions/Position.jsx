@@ -33,6 +33,8 @@ function stringAvatar(name) {
     return {
         sx: {
             bgcolor: stringToColor(name),
+            margin: 'auto', border: '2px solid var(--color-gray-3)', 
+            width:'60px', height: '60px'
         },
         children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
     };
@@ -64,14 +66,13 @@ function Position({photoUrl, fullName, position, id}) {
         <>
             <ButtonBase 
                 sx={{
-                    width: '100%',
-                    maxWidth: '327px',
+                    width: '327px',
                     display: 'block', // Para garantir que ele se comporte como um bloco
                     textAlign: 'inherit', // Para herdar o alinhamento de texto do Card
                 }} 
                 onClick={handleClickOpen}
             >
-                <Card style={{width: '100%'}}>
+                <Card style={{display: 'flex', alignItems: 'center', justifyContent: 'center',width: '100%', height:'202px', boxShadow: '0px 4px 4px 0px #00000026', borderRadius:'11px', border:'2px solid #E0E0E0'}}>
                     <CardContent>
                         { photoUrl ? ( // ve se a foto é nula ou não
                             <Box
@@ -84,7 +85,7 @@ function Position({photoUrl, fullName, position, id}) {
                                 <Avatar // recebe a foto de perfil 
                                     alt={`${fullName}'s profile picture`}
                                     src={photoUrl}
-                                    sx={{ margin: 'auto', border: '2px solid var(--color-gray-3)', minWidth:'42px', width:'4vw', minHeight: '42px', height: '4vw'}}
+                                    sx={{ margin: 'auto', border: '2px solid var(--color-gray-3)', width:'60px', height: '60px', }}
                                     
                                 />
                             </Box>
@@ -96,7 +97,7 @@ function Position({photoUrl, fullName, position, id}) {
                                         justifyContent: 'center',
                                     }}
                                 >
-                                    <Avatar {...stringAvatar(fullName)} sx={{ margin: 'auto', border: '2px solid var(--color-gray-3)', minWidth:'42px', width:'4vw', minHeight: '42px', height: '4vw'}} /> 
+                                    <Avatar {...stringAvatar(fullName)} /> 
                                 </Box>
                             )
                         }

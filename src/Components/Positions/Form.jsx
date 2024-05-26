@@ -1,4 +1,4 @@
-import { Box, Stack, Typography, Dialog, Button, Avatar, Divider, IconButton, ButtonBase } from "@mui/material";
+import { Box, Stack, Typography, Dialog, Button, Avatar, Divider, IconButton, ButtonBase, Grid } from "@mui/material";
 import CancelIcon from "@mui/icons-material/Cancel";
 import WorkIcon from "@mui/icons-material/Work";
 import SyncAltIcon from "@mui/icons-material/SyncAlt";
@@ -36,6 +36,8 @@ function stringAvatar(name) {
   return {
       sx: {
           bgcolor: stringToColor(name),
+          margin: 'auto', border: '2px solid var(--color-gray-3)', 
+          width:'150px', height: '150px'
       },
       children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
   };
@@ -108,7 +110,7 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
 
   return (
     <>
-    <Dialog open={open} sx={{'& .MuiPaper-root': { borderRadius: '30px', minWidth:'60vw', minHeight:'60vh'}, }} >
+    <Dialog open={open} sx={{'& .MuiPaper-root': { borderRadius: '30px', width:'1041px', height:'606px', maxWidth:'1041px'}, }} >
       <Box sx={{display:'flex', justifyContent:'flex-end', alignItems:'center', m:'1vw'}}>
         <Typography sx={{color:'var(--color-gray-5)', fontFamily:'var(--font-text)', fontSize: { xs: '0.5rem', sm: '0.8rem', md: '1.0rem' },}}>Fechar</Typography>
         <IconButton onClick={handleClickClose} sx={{ color:'var(--color-blue-3)', '&:hover': { boxShadow: 'none', backgroundColor: 'transparent', }, }} >
@@ -120,7 +122,7 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', }} >
           <Avatar // recebe a foto de perfil 
             alt={`${name}'s profile picture`} src={photo}
-            sx={{ margin: 'auto', border: '2px solid var(--color-gray-3)', minWidth:'47px', width:'4vw', minHeight: '47px', height: '4vw'}}
+            sx={{ margin: 'auto', border: '2px solid var(--color-gray-3)', width:'150px', height: '150px'}}
           />
         </Box>
       ) : (
@@ -129,13 +131,13 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
         </Box>
       )}
 
-      <Typography sx={{ color: "var(--color-gray-5)", fontFamily: "var(--font-text)", textAlign: "center", fontWeight: '500', mt: '1vh' }} >
+      <Typography sx={{ color: "var(--color-gray-5)", fontFamily: "var(--font-text)", textAlign: "center", fontWeight: '500', mt: '1vh', fontSize:'32px' }} >
         {name}
       </Typography>
 
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 2 }} >
         {getPositionIcon(currentPosition)}
-        <Typography sx={{ fontFamily: "var(--font-text)", fontWeight: "400", color: "var(--color-gray-5)", textAlign: "center", fontSize: 15, }} >
+        <Typography sx={{ fontFamily: "var(--font-text)", fontWeight: "400", color: "var(--color-gray-5)", textAlign: "center", fontSize: '20px', }} >
           {currentPosition}
         </Typography>
       </Box>
@@ -147,59 +149,83 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
         }}
       />
 
-      <Typography sx={{ color: "var(--color-gray-4)", fontFamily: "var(--font-text)", textAlign: "center", fontWeight:'500', }} >
-        Cargos
+      <Typography sx={{ color: "var(--color-gray-5)", fontFamily: "var(--font-text)", textAlign: "center", fontWeight:'500', fontSize:'18px'}} >
+        CARGOS
       </Typography>
       
-      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3, mb:'20px', mt:'20px' }}>
-        <Stack direction="row" spacing={2}  sx={{ display:'flex', justifyContent:'center', margin:'5px auto' }} >
-          { availablePositions.map((position, index) => (
-            <ButtonBase key={index} onClick={() => handlePositionChange(position)} sx={{borderRadius:'5px'}}>
-              <Box
-                sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center',
-                  margin: '0 auto', padding: '0 20px', minWidth:'8vw', maxHeight:'8vh',
-                  color: currentPosition !== position ? "var(--color-gray-5)" : "transparent",
-                  border: currentPosition !== position ? "2px solid var(--color-gray-3)" : "2px solid transparent", // Borda transparente para o gradiente
-                  background: currentPosition !== position ? "none" : "linear-gradient(to bottom, var(--color-blue-2) 0%, var(--color-blue-4) 80%)",
-                  WebkitBackgroundClip: currentPosition !== position ? "none" : "text", // Faz o texto ter a cor do gradiente
-                  WebkitTextFillColor: currentPosition !== position ? "initial" : "transparent", // Faz o texto ter a cor do gradiente
-                  borderImage: currentPosition !== position ? "none" : "linear-gradient(to bottom, var(--color-blue-2) 0%, var(--color-blue-4) 100%) 1 round",  
-                  borderRadius: '5px', overflow:'hidden',            
-                  '&.active': { // Adding a class for active state
-                    border: "2px solid #92C8FB", 
-                    background: "linear-gradient(to right, #AFD6FA 0%, var(--color-blue-2) 100%)",
-                    color: "var(--color-gray-1)", 
-                    WebkitBackgroundClip: "none" , 
-                    WebkitTextFillColor: "initial", 
-                  },
-                  '&:hover' : {
-                    color:"transparent",
-                    border: "2px solid transparent",
-                    background: "linear-gradient(to bottom, var(--color-blue-2) 0%, var(--color-blue-4) 80%)",
-                    WebkitBackgroundClip: "text", // Faz o texto ter a cor do gradiente
-                    WebkitTextFillColor: "transparent", // Faz o texto ter a cor do gradiente
-                    borderImage: "linear-gradient(to bottom, var(--color-blue-2) 0%, var(--color-blue-4) 100%) 1 stretch",   
-                    borderRadius: '5px',            
-                    overflow:'hidden',
-                  }
-                }}
-                className={positionChanged && currentPosition === position ? 'active' : ''}
-              >
-                  <Typography sx={{fontFamily: "var(--font-text)", fontWeight: "400", fontSize: { xs: '0.5rem', sm: '0.8rem', md: '1.2rem' }}}>
-                      {position}
-                  </Typography>
-              </Box>
-          </ButtonBase>
-          ))}
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, mb:'20px', mt:'20px', }}>
+        <Stack direction="row" spacing={2}  sx={{ display:'flex', justifyContent:'center', margin:'5px 110px'}} >
+          <Grid container spacing={2} justifyContent="center" alignItems='center'>
+            { availablePositions.map((position, index) => (
+              <Grid item xs={12} sm={6} md={6} lg={3} key={index} >
+                <ButtonBase key={index} onClick={() => handlePositionChange(position)} sx={{borderRadius:'5px'}}>
+                  <Box
+                    sx={{ 
+                      display: 'flex', justifyContent: 'center', alignItems: 'center', position:'relative',
+                      margin: '0 auto', padding: '0 auto', width:'190px', height:'40px',
+                      color: currentPosition !== position ? "var(--color-gray-5)" : "transparent",
+                      border: currentPosition !== position ? "2px solid var(--color-gray-3)" : "2px solid transparent", // Borda transparente para o gradiente
+                      background: currentPosition !== position ? "none" : "linear-gradient(to bottom, var(--color-blue-2) 0%, var(--color-blue-4) 80%)",
+                      WebkitBackgroundClip: currentPosition !== position ? "none" : "text", // Faz o texto ter a cor do gradiente
+                      WebkitTextFillColor: currentPosition !== position ? "initial" : "transparent", // Faz o texto ter a cor do gradiente
+                      borderRadius: '5px', overflow:'hidden',    
+                      
+                      '&::after': (currentPosition === position && !positionChanged) ? { // Para arredondar a borda com gradiente
+                        content: '""', 
+                        position: 'absolute',
+                        top: 0, left: 0, right: 0, bottom: 0,
+                        border: '2px solid transparent',
+                        borderImage: 'linear-gradient(to bottom, var(--color-blue-2), var(--color-blue-4)) 1',
+                        borderRadius: '5px',
+                        pointerEvents: 'none' // Evita que o pseudo-elemento interfira nos eventos do mouse
+                      } : {},  
+
+                      '&.active': { // Adding a class for active state
+                        border: "2px solid #92C8FB", 
+                        background: "linear-gradient(to right, #AFD6FA 0%, var(--color-blue-2) 100%)",
+                        color: "var(--color-gray-1)", 
+                        WebkitBackgroundClip: "none" , 
+                        WebkitTextFillColor: "initial", 
+                      },
+                      '&:hover': {
+                        color: "transparent",
+                        border: "2px solid transparent",
+                        background: "linear-gradient(to bottom, var(--color-blue-2) 0%, var(--color-blue-4) 80%)",
+                        WebkitBackgroundClip: "text", // Faz o texto ter a cor do gradiente
+                        WebkitTextFillColor: "transparent", // Faz o texto ter a cor do gradiente
+                        overflow: 'hidden',
+                        position: 'relative', // Necessário para posicionar o pseudo-elemento ::after
+                        '&::after': {
+                          content: '""', 
+                          position: 'absolute',
+                          top: 0, left: 0, right: 0, bottom: 0,
+                          border: '2px solid transparent',
+                          borderImage: 'linear-gradient(to bottom, var(--color-blue-2), var(--color-blue-4)) 1',
+                          borderRadius: '5px',
+                          pointerEvents: 'none'
+                        }
+                      }
+                    }}
+                    className={positionChanged && currentPosition === position ? 'active' : ''}
+                  >
+                      <Typography sx={{fontFamily: "var(--font-text)", fontWeight: "400", fontSize:'20px'}}>
+                          {position}
+                      </Typography>
+                  </Box>
+                </ButtonBase>
+              </Grid>
+            ))}
+          </Grid>
         </Stack>
-        <Box sx={{ visibility: positionChanged ? 'visible' : 'hidden', display: 'flex', justifyContent: 'center', width: '100%', mt: 2 }} >
+        <Box sx={{ visibility: positionChanged ? 'visible' : 'hidden', display: 'flex', justifyContent: 'center', width: '100%', mt:'40px' }} >
           <Button variant="contained" endIcon={<SyncAltIcon sx={{transform: 'rotate(90deg)'}} />} onClick={handleConfirmChange}
             sx={{
-              background: 'linear-gradient(to left, var(--color-blue-4), var(--color-blue-2))',
-              fontFamily: 'var(--font-title)',
-              fontWeight: '600', fontSize: { xs: '0.5rem', sm: '0.8rem', md: '1.0rem' }, 
-              maxWidth:'40vw', 
-              margin:'auto', padding: '0px 40px'
+              background: 'linear-gradient(90deg, var(--color-blue-2) 0%, var(--color-blue-3) 100%)',
+              border:'1px solid #65AAEA',
+              fontFamily: 'var(--font-title)', fontSize:'16px',
+              fontWeight: '600', 
+              width:'386px', height:'40px',
+              margin:'auto', padding: '0px auto'
             }}
           >
               CONFIRMAR TROCA
