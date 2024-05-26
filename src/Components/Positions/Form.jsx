@@ -157,7 +157,7 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
         <Stack direction="row" spacing={2}  sx={{ display:'flex', justifyContent:'center', margin:'5px 110px'}} >
           <Grid container spacing={2} justifyContent="center" alignItems='center'>
             { availablePositions.map((position, index) => (
-              <Grid item xs={12} sm={6} md={6} lg={3} key={index} >
+              <Grid display="flex" justifyContent="center" alignItems="center" item xs={12} sm={6} md={6} lg={3} key={index} >
                 <ButtonBase key={index} onClick={() => handlePositionChange(position)} sx={{borderRadius:'5px'}}>
                   <Box
                     sx={{ 
