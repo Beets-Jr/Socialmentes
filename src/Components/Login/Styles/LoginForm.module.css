@@ -1,0 +1,45 @@
+/*LoginForm*/
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 5vh;
+  width: 100%;
+}
+
+.botaoEntrar {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 1px solid #65aaea;
+  background: linear-gradient(90deg, #7db9f0 0%, #5095d5 100%);
+  box-shadow: 0px 2px 4px 0px rgba(153, 198, 239, 0.59);
+  color: white;
+  font-family: "Fira Sans";
+}
+
+.campoEsqueceuSenha {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  color: #ababab;
+  text-align: right;
+  font-family: "Fira Sans";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.cliqueAqui {
+  border-style: none;
+  color: #3575b1;
+  font-family: "Fira Sans";
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+}

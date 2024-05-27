@@ -7,7 +7,7 @@ import EmailTextField from "./TextFields/EmailTextField";
 import PasswordTextField from "./TextFields/PasswordTextField";
 import ErrorMessage from "./Messages/ErrorMessage";
 import SuccessMessage from "./Messages/SuccessMessage";
-import styles from "./Styles/Login.module.css";
+import styles from "./Styles/LoginForm.module.css";
 import theme from "./Theme/theme";
 
 import ArrowIcon from "./Images/Icons/ArrowIcon";
@@ -53,7 +53,7 @@ function LoginForm() {
 
         <div className={styles.campoEsqueceuSenha}>
           Esqueceu sua senha?
-          <Link to="/login/reset-password">Clique aqui!</Link>
+          <Link className={styles.cliqueAqui} to="/login/reset-password">&nbsp;Clique aqui!</Link>
         </div>
       </form>
     </ThemeProvider>

@@ -1,9 +1,9 @@
-import Elipse1 from "./Images/Elipses/Elipse1.png";
-import Elipse2 from "./Images/Elipses/Elipse2.png";
-import Elipse3 from "./Images/Elipses/Elipse3.png";
-import Elipse4 from "./Images/Elipses/Elipse4.png";
-import Elipse5 from "./Images/Elipses/Elipse5.png";
-import Elipse6 from "./Images/Elipses/Elipse6.png";
+import Elipse1 from "../Images/Elipses/Elipse1.png";
+import Elipse2 from "../Images/Elipses/Elipse2.png";
+import Elipse3 from "../Images/Elipses/Elipse3.png";
+import Elipse4 from "../Images/Elipses/Elipse4.png";
+import Elipse5 from "../Images/Elipses/Elipse5.png";
+import Elipse6 from "../Images/Elipses/Elipse6.png";
 
 function DesignRightSide() {
   return (
@@ -55,7 +55,6 @@ function DesignRightSide() {
           height: "200px",
         }}
       >
-        {/* Elipse6 na borda inferior direita */}
         <img
           src={Elipse6}
           style={{
@@ -66,7 +65,6 @@ function DesignRightSide() {
             zIndex: 3,
           }}
         />
-        {/* Elipse2 acima da Elipse1 */}
         <img
           src={Elipse2}
           style={{
@@ -77,7 +75,6 @@ function DesignRightSide() {
             zIndex: 2,
           }}
         />
-        {/* Elipse1 abaixo da Elipse2 e Elipse6 */}
         <img
           src={Elipse1}
           style={{

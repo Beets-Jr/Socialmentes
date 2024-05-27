@@ -17,7 +17,7 @@ function ErrorMessage({ condition, errorMessage }) {
   return (
     <>
       {showErrorMessage && (
-        <Alert severity="error" sx={{ marginTop: "5px" }}>
+        <Alert severity="error" >
           {errorMessage}
         </Alert>
       )}

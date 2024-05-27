@@ -3,7 +3,7 @@ import { Button, CircularProgress, ThemeProvider } from "@mui/material";
 import { auth } from "../../../Database/FirebaseConfig.mjs";
 import { sendPasswordResetEmail } from "firebase/auth";
 
-import styles from "../Login/Styles/Login.module.css";
+import styles from "../Styles/PasswordReset.module.css";
 import theme from "../Theme/theme";
 
 import ErrorMessage from "../Messages/ErrorMessage";
@@ -39,27 +39,30 @@ function PasswordReset() {
         className={styles.recuperarSenhaContainer}
       >
         <div className={styles.recuperarSenha}>Recuperar Senha</div>
+        <EmailTextField email={email} setEmail={setEmail} />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          disabled={loading}
+          fullWidth
+          style={{ marginTop: "16px" }}
+        >
+          {loading ? (
+            <CircularProgress size={24} />
+          ) : (
+            "Enviar Email de Recuperação"
+          )}
+        </Button>
 
-        <div className={styles.form}>
-          <EmailTextField email={email} setEmail={setEmail} />
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            disabled={loading}
-            fullWidth
-            style={{ marginTop: "16px" }}
-          >
-            {loading ? (
-              <CircularProgress size={24} />
-            ) : (
-              "Enviar Email de Recuperação"
-            )}
-          </Button>
-        </div>
-
-        <ErrorMessage condition={error} errorMessage={error} />
-        <SuccessMessage condition={message} successMessage={message} />
+        <ErrorMessage 
+          condition={error} 
+          errorMessage={error} 
+        />
+        <SuccessMessage 
+          condition={message} 
+          successMessage={message} 
+        />
       </form>
     </ThemeProvider>
   );

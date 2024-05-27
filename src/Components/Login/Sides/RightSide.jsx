@@ -1,5 +1,7 @@
 import { Box, Grid } from "@mui/material";
 import DesignRightSide from "./DesignRightSide";
+import Jigsaw from "../Images/jigsaw.png";
+import Logo from "../Images/LogoSocialmentes1.png"
 
 function RightSide() {
     return (

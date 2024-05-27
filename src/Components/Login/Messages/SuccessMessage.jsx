@@ -17,7 +17,7 @@ function SuccessMessage({ condition, successMessage }) {
   return (
     <>
       {showSuccessMessage && (
-        <Alert severity="success" sx={{marginTop: "5px"}}>{successMessage}</Alert>
+        <Alert severity="success" >{successMessage}</Alert>
       )}
     </>
   );
