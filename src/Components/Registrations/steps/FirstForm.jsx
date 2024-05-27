@@ -1,8 +1,8 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useTheme } from "@mui/material";
 
 import { IconAttention, IconCity, IconEmail, IconIdentity, IconLocation, IconPerson, IconPhone, IconPositionForm } from "../assets/icons";
-import { VFormContent } from "../forms";
+import { VFormContent, VRow, VSelect, VTextField, useVFormContext } from "../forms";
 
 export const FirstForm = ({ formRef, disabledForm, setDisabledButton }) => {
 
@@ -10,14 +10,14 @@ export const FirstForm = ({ formRef, disabledForm, setDisabledButton }) => {
     const darkGray = theme.palette.secondary.dark;
     const blue = theme.palette.primary.main;
 
-    const [currentField, setCurrentField] = useState();
+    const { getFieldValue, focusedField } = useVFormContext();
 
     // propriedades passadas nos ícones
     function icon_props(field, mt) {
-        const fieldValue = formRef.current.getData()[field];
+        const fieldValue = getFieldValue(field);
         return {
             fontSize: 'inherit',
-            color: (fieldValue || field === currentField) ? blue : darkGray,
+            color: (fieldValue || field === focusedField) ? blue : darkGray,
             sx: {
                 mt: mt ? mt : .2,
             }
@@ -95,35 +95,50 @@ export const FirstForm = ({ formRef, disabledForm, setDisabledButton }) => {
                     placeholder: '(NN) NNNNN-N...'
                 }
             ],
-            [ // Estado e Cidade
-                {
-                    xs: 3,
-                    type: 'text',
-                    name: 'state',
-                    label_icon: <IconAttention {...icon_props('state')} />,
-                    label: 'UF',
-                    placeholder: 'Estado',
-                },
-                {
-                    xs: 8.7,
-                    type: 'text',
-                    name: 'city',
-                    label_icon: <IconCity {...icon_props('city')} />,
-                    label: 'Cidade',
-                    placeholder: 'Cidade'
-                }
-            ]
         ]
-    }, [currentField]);
+    }, [focusedField]);
 
     return (
-        <VFormContent
-            formRef={formRef}
-            setCurrentField={setCurrentField}
-            disabledForm={disabledForm}
-            setDisabledButton={setDisabledButton}
-            items={itemsSecondStep}
-        />
+        <VFormContent>
+            <VRow>
+                <VSelect
+                    xs={6.5}
+                    name='position'
+                    label_icon={<IconPositionForm {...icon_props('position', .3)} />}
+                    label='Cargo'
+                    placeholder='Selecione'
+                    items={[ // ATUALIZAR!!!!!!!!
+                        { value: 'speech_therapist', label: 'Fonoaudiólogo(a)'},
+                        { value: 'psychologist', label: 'Psicólogo(a)'},
+                        { value: 'pedagogue', label: 'Pedagogo(a)'},
+                        { value: 'occupational_therapist', label: 'Terapeuta Ocupacional'}
+                    ]}
+                />
+                <VTextField
+                    xs={5.2}
+                    name='phone'
+                    label_icon={<IconPhone {...icon_props('phone')} />}
+                    label='Celular'
+                    placeholder='(NN) NNNNN-N...'
+                />
+            </VRow>
+            <VRow>
+                <VTextField
+                    xs={3}
+                    name='state'
+                    label_icon={<IconAttention {...icon_props('state')} />}
+                    label='UF'
+                    placeholder='Estado'
+                />
+                <VTextField
+                    xs={8.7}
+                    name='city'
+                    label_icon={<IconCity {...icon_props('city')} />}
+                    label='Cidade'
+                    placeholder='Cidade'
+                />
+            </VRow>
+        </VFormContent>
     )
 
 };

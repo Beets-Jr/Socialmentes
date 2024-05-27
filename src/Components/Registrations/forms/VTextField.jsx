@@ -1,74 +1,89 @@
-import { useEffect, useState } from 'react';
-import { Box, TextField } from '@mui/material';
-import { useField } from '@unform/core';
+import { useEffect, useRef, useState } from 'react';
+import { Box, Grid, TextField, styled } from '@mui/material';
+import { useVFormContext } from '.';
 
-export const VTextField = ({ name, label, label_icon, onChange, onKeyDown, ...rest }) => {
+const StylizedTextField = styled(TextField)({
+    '& label': {
+        color: "#727272",
+    },
+    "& .MuiOutlinedInput-root": {
+        height: 50,
+        "& ::placeholder": {
+            fontStyle: 'italic'
+        },
+        "& fieldset": {
+            borderRadius: "15px",
+            borderColor: "#727272",
+            borderWidth: "2px",
+        },
+        "&:hover fieldset": {
+            borderColor: "#5095D5",
+        },
+        "&.Mui-focused fieldset": {
+            borderColor: "#5095d5",
+            borderWidth: "3px",
+            borderRadius: "15px",
+            pointerEvents: "none",
+        },
+        "& .MuiOutlinedInput-input": {
+            color: "#727272",
+            fontFamily: "Fira Sans",
+            fontSize: "16px",
+        },
+    }
+});
 
-    const { fieldName, registerField, defaultValue, error, clearError } = useField(name);
+export const VTextField = ({ xs = 12, name, label, label_icon, onChange, onFocus, onBlur, ...rest }) => {
 
-    const [value, setValue] = useState(defaultValue || '');
+    const { getFieldValue, setFieldValue, setFocusedField, setFocusedFieldData } = useVFormContext();
+
+    const inputRef = useRef(null);
+    const [value, setValue] = useState(getFieldValue(name) || '');
 
     useEffect(() => {
-        registerField({
-            name: fieldName,
-            getValue: () => value,
-            setValue: (ref, newValue) => setValue(newValue)
-        });
-    }, [registerField, fieldName, value]);
+        setFieldValue(name, value);
+    }, [value]);
 
     return (
-        <TextField
-            {...rest}
-            error={!!error}
-            helperText={error}
-            defaultValue={defaultValue}
-            value={value}
-            onChange={e => {
-                setValue(e.target.value);
-                onChange?.(e);
-            }}
-            onKeyDown={(e) => {
-                error && clearError();
-                onKeyDown?.(e);
-            }}
-            label={
-                <Box display='flex' gap={.5} pt={.3}>
-                    {label_icon}
-                    {label}
-                </Box>
-            }
-            InputLabelProps={{ shrink: true }}
-            sx={{
-                '& label': {
-                    color: value ? "#5095d5" : "#727272",
-                },
-                "& .MuiOutlinedInput-root": {
-                    height: 50,
-                    "& ::placeholder": {
-                        fontStyle: 'italic'
+        <Grid item xs={xs}>
+            <StylizedTextField
+                ref={inputRef}
+                sx={{
+                    '& label': {
+                        color: value ? "#5095d5" : "#727272",
                     },
-                    "& fieldset": {
-                        borderRadius: "15px",
+                    "& .MuiOutlinedInput-root fieldset": {
                         borderColor: value ? "#5095d5" : "#727272",
-                        borderWidth: "2px",
-                    },
-                    "&:hover fieldset": {
-                        borderColor: "#5095D5",
-                    },
-                    "&.Mui-focused fieldset": {
-                        borderColor: "#5095d5",
-                        borderWidth: "3px",
-                        borderRadius: "15px",
-                        pointerEvents: "none",
-                    },
-                    "& .MuiOutlinedInput-input": {
-                        color: "#727272",
-                        fontFamily: "Fira Sans",
-                        fontSize: "16px",
-                    },
+                    }
+                }}
+                label={
+                    <Box display='flex' gap={.5} pt={.3}>
+                        {label_icon}
+                        {label}
+                    </Box>
                 }
-            }}
-        />
+                InputLabelProps={{
+                    shrink: true
+                }}
+                onChange={ (e) => {
+                    setValue(e.target.value);
+                    setFocusedFieldData(e.target.value);
+                    onChange?.(e);
+                }}
+                onFocus={(e) => {
+                    setFocusedField(name);
+                    onFocus?.(e);
+                }}
+                onBlur={(e) => {
+                    setFocusedField('');
+                    onBlur?.(e);
+                }}
+                variant='outlined'
+                value={value}
+                fullWidth
+                {...rest}
+            />
+        </Grid>
     );
 
 };

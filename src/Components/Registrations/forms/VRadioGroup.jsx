@@ -1,61 +1,67 @@
-import { useEffect, useState } from 'react';
-import { FormControl, FormControlLabel, FormHelperText, FormLabel, Radio, RadioGroup } from '@mui/material';
-import { useField } from '@unform/core';
+import { useEffect, useRef, useState } from 'react';
+import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, SvgIcon } from '@mui/material';
+
+import { useVFormContext } from './VForm';
 
 const RadioButton = ({ checked }) => (
-    <svg
-        width="24px"
-        height="24px"
-        viewBox="0 0 24 24"
-        fontSize="24px">
-        <circle
-            cx="50%"
-            cy="50%"
-            r="11px"
-            stroke="#727272"
-            strokeWidth="2px"
-            fill="none"
-        />
-        {checked && (
+    <SvgIcon>
+        <svg
+            width="24px"
+            height="24px"
+            viewBox="0 0 24 24"
+            fontSize="24px">
             <circle
                 cx="50%"
                 cy="50%"
-                r="7px"
-                fill="#5095D5"
+                r="11px"
+                stroke="#727272"
+                strokeWidth="2px"
+                fill="none"
             />
-        )}
-    </svg>
+            {checked && (
+                <circle
+                    cx="50%"
+                    cy="50%"
+                    r="7px"
+                    fill="#5095D5"
+                />
+            )}
+        </svg>
+    </SvgIcon>
 );
 
-export const VRadioGroup = ({ name, label, categories, onChange, onKeyDown, fontSize, ...rest }) => {
+export const VRadioGroup = ({ name, label, categories, onChange, onFocus, onBlur, fontSize, ...rest }) => {
 
-    const { fieldName, registerField, defaultValue, error, clearError } = useField(name);
+    const { getFieldValue, setFieldValue, setFocusedField, setFocusedFieldData } = useVFormContext();
 
-    const [value, setValue] = useState(defaultValue || '');
+    const inputRef = useRef(null);
+    const [value, setValue] = useState(getFieldValue(name) || '');
 
     useEffect(() => {
-        registerField({
-            name: fieldName,
-            getValue: () => value,
-            setValue: (ref, newValue) => setValue(newValue)
-        });
-    }, [registerField, fieldName, value]);
+        setFieldValue(name, value);
+    }, [value]);
 
     return (
-        <FormControl error={!!error} >
-            <FormLabel id={`${fieldName}_label`}>{label}</FormLabel>
+        <FormControl>
+            <FormLabel id={`${name}_label`}>{label}</FormLabel>
             <RadioGroup
-                aria-labelledby={`${fieldName}_label`}
-                value={value}
+                ref={inputRef}
+                aria-labelledby={`${name}_label`}
                 onChange={e => {
                     setValue(e.target.value);
+                    setFocusedFieldData(e.target.value);
                     onChange?.(e);
                 }}
-                onKeyDown={e => {
-                    error && clearError();
-                    onKeyDown?.(e);
+                onFocus={(e) => {
+                    setFocusedField(name);
+                    onFocus?.(e);
                 }}
-                name={fieldName}
+                onBlur={(e) => {
+                    setFocusedField('');
+                    onBlur?.(e);
+                }}
+                name={name}
+                value={value}
                 {...rest}
             >
                 {categories.map((category, index) => (
@@ -65,17 +71,16 @@ export const VRadioGroup = ({ name, label, categories, onChange, onKeyDown, font
                                 fontSize: fontSize
                             }
                         }}
-                        key={index}
                         control={<Radio
                             icon={<RadioButton />}
                             checkedIcon={<RadioButton checked />}
                         />}
+                        key={index}
                         value={category.value}
                         label={category.label}
                     />
                 ))}
             </RadioGroup>
-            <FormHelperText>{error}</FormHelperText>
         </FormControl>
     );
 

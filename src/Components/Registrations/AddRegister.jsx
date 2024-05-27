@@ -3,10 +3,11 @@ import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconBut
 
 import { msg_errors, RegistrationsMiddleware, RegistrationsService } from "./services";
 import { IconClose, IconListAdd } from "./assets/icons";
-import { VForm, VMessageError } from "./forms";
+import { VForm, VFormContent, VMessageError, VRow, VTextField } from "./forms";
 import { ChooseCategory, FirstForm, SecondForm } from './steps';
 
 import './styles/AddRegister.css';
+import { Form } from "@unform/web";
 
 function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
 
@@ -29,8 +30,9 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
     // função executada nas etapas intermediárias e antes de salvar os dados no banco
     const handleProceed = () => {
         setDisabledForm(false);
+        console.log(formRef.current.getData());
         if (step == 0) {
-            if (formRef.current.getData().category) {
+            if (formRef.current.getFieldValue('category')) {
                 setDisabledButton(true);
                 setStep( oldStep => oldStep + 1 );
             } else {
@@ -121,10 +123,39 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
 
             {/** Conteúdo do dialogo, alterado em cada etapa */}
             <DialogContent>
+                {/* <VForm
+                    defaultValues={{
+                        name: 'teste'
+                    }}
+                    onSubmit={(data)=>console.log(data)}
+                >
+                    <VFormContent
+                        onChange={(data) => {
+                            if (data.name && data.email) {
+                                setDisabledButton(false);
+                            }
+                        }}
+                    >
+                        <VRow unique={true}>
+                            <VTextField
+                                name='name'
+                                label='Nome'
+                            />
+                        </VRow>
+                        <VRow unique={true}>
+                            <VTextField
+                                name='email'
+                                label='Email'
+                            />
+                        </VRow>
+                        <VRow unique={true}>
+                            <Button type="submit">Submit</Button>
+                        </VRow>
+                    </VFormContent>
+                </VForm> */}
                 <VForm
                     ref={formRef}
                     onSubmit={ (data) => handleSubmit(data) }
-                    encType="multipart/form-data"
                 >
                     { step === 0 ? (
                         <ChooseCategory
