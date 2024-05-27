@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { TextField, IconButton, InputAdornment } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import LockIcon from "../Images/LockIcon"
-import LockIconFocused from "../Images/LockIconFocused";
+import LockIcon from "../Images/Icons/LockIcon"
+import LockIconFocused from "../Images/Icons/LockIconFocused";
 
 import "../../../Styles/variables.css"
 

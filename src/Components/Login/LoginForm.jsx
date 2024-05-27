@@ -1,20 +1,18 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
-
 import { Button, CircularProgress, ThemeProvider } from "@mui/material";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "../../Database/FirebaseConfig.mjs";
-
+import { Link } from "react-router-dom";
 import EmailTextField from "./TextFields/EmailTextField";
 import PasswordTextField from "./TextFields/PasswordTextField";
-import ErrorMessage from "./TextFields/ErrorMessage";
-import SuccessMessage from "./TextFields/SuccessMessage";
+import ErrorMessage from "./Messages/ErrorMessage";
+import SuccessMessage from "./Messages/SuccessMessage";
 import styles from "./Styles/Login.module.css";
 import theme from "./Theme/theme";
 
-import ArrowIcon from "../Login/Images/ArrowIcon";
+import ArrowIcon from "./Images/Icons/ArrowIcon";
 
-function LoginForm({ onPasswordResetClick }) {
+function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [signInWithEmailAndPassword, user, loading, error] =
@@ -55,7 +53,7 @@ function LoginForm({ onPasswordResetClick }) {
 
         <div className={styles.campoEsqueceuSenha}>
           Esqueceu sua senha?
-          <Link className={styles.cliqueAqui} to="/recuperar-senha">&nbsp;Clique aqui!</Link>
+          <Link to="/login/reset-password">Clique aqui!</Link>
         </div>
       </form>
     </ThemeProvider>

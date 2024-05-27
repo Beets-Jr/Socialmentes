@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import LoginForm from "./LoginForm";
-import PasswordReset from "./PasswordReset";
+import PasswordReset from "./Reset Password/PasswordReset";
 import styles from "../Login/Styles/Login.module.css";
-import Line from "./Images/Line";
+import Line from "./Images/Icons/Line";
 import SocialLoginButton from "../Login/Social Login/SocialLoginButton";
 import {
   signInWithPopup,

@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Button, CircularProgress, ThemeProvider } from "@mui/material";
-import { auth } from "../../Database/FirebaseConfig.mjs";
+import { auth } from "../../../Database/FirebaseConfig.mjs";
 import { sendPasswordResetEmail } from "firebase/auth";
 
 import styles from "../Login/Styles/Login.module.css";
-import theme from "./Theme/theme";
+import theme from "../Theme/theme";
 
-import ErrorMessage from "./TextFields/ErrorMessage";
-import SuccessMessage from "./TextFields/SuccessMessage";
-import EmailTextField from "../Login/TextFields/EmailTextField"; // Substitua o caminho pelo caminho real do componente
+import ErrorMessage from "../Messages/ErrorMessage";
+import SuccessMessage from "../Messages/SuccessMessage";
+import EmailTextField from "../TextFields/EmailTextField";
 
 function PasswordReset() {
   const [email, setEmail] = useState("");

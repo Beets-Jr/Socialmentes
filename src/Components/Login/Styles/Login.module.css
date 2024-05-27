@@ -83,8 +83,11 @@ body {
   margin-top: 5%;
 }
 
-.cliqueAqui {
+.campoEsqueceuSenha button {
+  border-style: none;
   color: #3575b1;
+  font-family: "Fira Sans";
+  font-size: 16px;
   font-weight: 700;
   cursor: pointer;
   text-decoration: none;
@@ -143,16 +146,12 @@ body {
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-  margin-top: 10vh;
   margin-bottom: 5vh;
+  width: 100%;
 }
 .recuperarSenhaContainer {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-}
-
-.form {
-  width: 25%;
 }
