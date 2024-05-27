@@ -12,8 +12,6 @@ import {
 } from "firebase/auth";
 
 function Painel() {
-  const [showPasswordReset, setShowPasswordReset] = useState(false);
-
   const signInWithFacebook = () => {
     const provider = new FacebookAuthProvider();
     const auth_facebook = getAuth();
@@ -51,30 +49,21 @@ function Painel() {
 
   return (
     <div className={styles.painel}>
-      {showPasswordReset ? (
-        <PasswordReset />
-      ) : (
-        <>
-          <div className={styles.titulo}>Bem-vindo!</div>
-          <div className={styles.subtitulo}>Sentimos a sua falta!</div>
+      <div className={styles.titulo}>Bem-vindo!</div>
+      <div className={styles.subtitulo}>Sentimos a sua falta!</div>
 
-          <LoginForm onPasswordResetClick={() => setShowPasswordReset(true)} />
+      <LoginForm />
 
-          <div className={styles.campoContinuar}>
-            <Line />
-            <div>Ou continue com</div>
-            <Line />
-          </div>
+      <div className={styles.campoContinuar}>
+        <Line />
+        <div>Ou continue com</div>
+        <Line />
+      </div>
 
-          <div className={styles.loginButtons}>
-            <SocialLoginButton onClick={signInWithGoogle} provider="Google" />
-            <SocialLoginButton
-              onClick={signInWithFacebook}
-              provider="Facebook"
-            />
-          </div>
-        </>
-      )}
+      <div className={styles.loginButtons}>
+        <SocialLoginButton onClick={signInWithGoogle} provider="Google" />
+        <SocialLoginButton onClick={signInWithFacebook} provider="Facebook" />
+      </div>
     </div>
   );
 }

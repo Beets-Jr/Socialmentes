@@ -10,7 +10,7 @@ function Login() {
   return (
     <div className={styles.viewport}>
       <Grid container>
-        {/* Metade esquerda da página */}
+        {/* metade esquerda da página */}
         <Grid item xs={12} md={6}>
           <Box
             display="flex"
@@ -26,18 +26,25 @@ function Login() {
           </Box>
         </Grid>
         {/* metade direita da página*/}
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} sx={{display: "flex", alignItems: "center", justifyContent: "center"}}>
           <Box
+            height="95vh"
+            margin="10px"
             display="flex"
             justifyContent="center"
             alignItems="center"
-            height="100vh"
+            
             sx={{
-              width: "100%",
-              maxWidth: "50vw",
+              width: '100%',
+              maxWidth: '50vw',
+              backgroundImage: `url(${Jigsaw})`,
+              backgroundSize: '90% 100%',
+              backgroundRepeat: 'no-repeat',
+              borderRadius: '10px',
+              margin: "15px"
             }}
           >
-            <img src={Logo} alt="Logo" style={{ maxWidth: "100%" }} />
+            <img src={Logo} alt="Logo" style={{ maxWidth: "100%"}} />
           </Box>
         </Grid>
       </Grid>

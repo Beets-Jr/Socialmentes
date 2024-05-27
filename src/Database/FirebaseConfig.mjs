@@ -7,8 +7,9 @@ import { getAuth } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Configuração do Firebase usando variáveis de ambiente para fins de testes preliminares
+
+// Your web app's Firebase configuration (configuração correta)
 const firebaseConfig = {
   apiKey: "AIzaSyDRf2z_EtQpMcFfj4_0ALIPM7IQw8LFX6Q",
   authDomain: "social-mentes.firebaseapp.com",

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
+
 import { Button, CircularProgress, ThemeProvider } from "@mui/material";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "../../Database/FirebaseConfig.mjs";
@@ -9,6 +11,8 @@ import ErrorMessage from "./TextFields/ErrorMessage";
 import SuccessMessage from "./TextFields/SuccessMessage";
 import styles from "./Styles/Login.module.css";
 import theme from "./Theme/theme";
+
+import ArrowIcon from "../Login/Images/ArrowIcon";
 
 function LoginForm({ onPasswordResetClick }) {
   const [email, setEmail] = useState("");
@@ -32,14 +36,26 @@ function LoginForm({ onPasswordResetClick }) {
           color="primary"
           disabled={loading}
         >
-          {loading ? <CircularProgress size={24} /> : "ENTRAR"}
+          {!loading ? (
+            <>
+              ENTRAR <ArrowIcon />
+            </>
+          ) : (
+            <CircularProgress size={24} />
+          )}
         </Button>
-        <ErrorMessage condition={error} errorMessage={"E-mail ou senha incorretos!"}/>
-        <SuccessMessage condition={user} successMesage={"Login bem-sucedido!"} />
+        <ErrorMessage
+          condition={error}
+          errorMessage={"E-mail ou senha incorretos!"}
+        />
+        <SuccessMessage
+          condition={user}
+          successMessage={"Login bem-sucedido!"}
+        />
 
         <div className={styles.campoEsqueceuSenha}>
           Esqueceu sua senha?
-          <span onClick={onPasswordResetClick}>&nbsp;Clique aqui!</span>
+          <Link className={styles.cliqueAqui} to="/recuperar-senha">&nbsp;Clique aqui!</Link>
         </div>
       </form>
     </ThemeProvider>

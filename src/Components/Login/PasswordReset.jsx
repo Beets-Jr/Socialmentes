@@ -1,12 +1,6 @@
 import React, { useState } from "react";
-import {
-  Button,
-  TextField,
-  CircularProgress,
-  Typography,
-  ThemeProvider,
-} from "@mui/material";
-import { auth } from "../../Database/FirebaseConfig.mjs"; // Certifique-se de que o caminho está correto
+import { Button, CircularProgress, ThemeProvider } from "@mui/material";
+import { auth } from "../../Database/FirebaseConfig.mjs";
 import { sendPasswordResetEmail } from "firebase/auth";
 
 import styles from "../Login/Styles/Login.module.css";
@@ -14,6 +8,7 @@ import theme from "./Theme/theme";
 
 import ErrorMessage from "./TextFields/ErrorMessage";
 import SuccessMessage from "./TextFields/SuccessMessage";
+import EmailTextField from "../Login/TextFields/EmailTextField"; // Substitua o caminho pelo caminho real do componente
 
 function PasswordReset() {
   const [email, setEmail] = useState("");
@@ -29,9 +24,7 @@ function PasswordReset() {
 
     try {
       await sendPasswordResetEmail(auth, email);
-      setMessage(
-        "Email de recuperação de senha enviado!"
-      );
+      setMessage("Email de recuperação de senha enviado!");
     } catch (error) {
       setError("Erro ao enviar e-mail de recuperação.");
     } finally {
@@ -41,34 +34,32 @@ function PasswordReset() {
 
   return (
     <ThemeProvider theme={theme}>
-      <form onSubmit={handlePasswordReset}>
-        <div className={styles.subtitulo}>Recuperar Senha</div>
-        <TextField
-          label="Email"
-          type="email"
-          fullWidth
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          disabled={loading}
-          fullWidth
-          style={{ marginTop: "16px" }}
-        >
-          {loading ? (
-            <CircularProgress size={24} />
-          ) : (
-            "Enviar Email de Recuperação"
-          )}
-        </Button>
-        
-        <ErrorMessage condition={error} errorMessage={error}/>
-        <SuccessMessage condition={message} successMessage={message}/>
-        
+      <form
+        onSubmit={handlePasswordReset}
+        className={styles.recuperarSenhaContainer}
+      >
+        <div className={styles.recuperarSenha}>Recuperar Senha</div>
+
+        <div className={styles.form}>
+          <EmailTextField email={email} setEmail={setEmail} />
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            disabled={loading}
+            fullWidth
+            style={{ marginTop: "16px" }}
+          >
+            {loading ? (
+              <CircularProgress size={24} />
+            ) : (
+              "Enviar Email de Recuperação"
+            )}
+          </Button>
+        </div>
+
+        <ErrorMessage condition={error} errorMessage={error} />
+        <SuccessMessage condition={message} successMessage={message} />
       </form>
     </ThemeProvider>
   );

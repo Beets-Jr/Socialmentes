@@ -6,7 +6,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           display: "flex",
-          width: "383px",
+          width: "100%",
           padding: "10px 20px",
           justifyContent: "center",
           alignItems: "center",
