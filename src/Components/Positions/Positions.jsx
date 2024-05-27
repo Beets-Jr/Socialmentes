@@ -1,5 +1,5 @@
 import { db } from "../../Database/FirebaseConfig.mjs"
-import { Grid, Typography, Box } from "@mui/material";
+import { Grid, Typography, Box, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import { collection, getDocs } from 'firebase/firestore/lite';
 import Position from "./Position";
@@ -8,6 +8,7 @@ function Positions() {
 
   const [profiles, setProfiles] = useState([]);
   const [isPositionSet, setIsPositionsSet] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,6 +19,8 @@ function Positions() {
         setIsPositionsSet(data.length > 0); // senão, imprime na tela a mensagem "sem perfis"
       } catch(err) {
         console.error("Error fetching data ", err);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -25,7 +28,19 @@ function Positions() {
   }, [])
   return ( 
     <div style={{margin:'3vw'}}>
-      { isPositionSet ? (
+      { loading ? (
+        <Box
+          sx={{ // para deixar o componente de carregamento bem no meio da tela
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100vh', 
+            width: '100vw',  
+          }}
+        >
+          <CircularProgress sx={{color:'var(--color-gray-3)'}}/>
+        </Box>
+      ) : isPositionSet ? (
         <Grid container spacing={4}>
           {profiles.map((profile) => (
             <Grid item key={profile.id} xs={12} sm={6} md={4} >

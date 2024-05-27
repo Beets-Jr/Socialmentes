@@ -1,5 +1,5 @@
 import { db } from '../FirebaseConfig.mjs';
-import { Timestamp, addDoc, collection, getDocs } from 'firebase/firestore/lite';
+import { Timestamp, addDoc, collection } from 'firebase/firestore/lite';
 import faker from 'faker';
 
 
