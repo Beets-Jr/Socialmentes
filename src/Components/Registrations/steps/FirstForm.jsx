@@ -96,10 +96,10 @@ export const FirstForm = ({ disabledForm, setDisabledButton }) => {
                     label='Cargo'
                     placeholder='Selecione'
                     items={[ // ATUALIZAR!!!!!!!!
-                        { value: 'speech_therapist', label: 'Fonoaudiólogo(a)'},
-                        { value: 'psychologist', label: 'Psicólogo(a)'},
-                        { value: 'pedagogue', label: 'Pedagogo(a)'},
-                        { value: 'occupational_therapist', label: 'Terapeuta Ocupacional'}
+                        { value: 'Fonoaudiólogo(a)', label: 'Fonoaudiólogo(a)'},
+                        { value: 'Psicólogo(a)', label: 'Psicólogo(a)'},
+                        { value: 'Pedagogo(a)', label: 'Pedagogo(a)'},
+                        { value: 'Terapeuta Ocupacional', label: 'Terapeuta Ocupacional'}
                     ]}
                     disabled={disabledForm}
                 />

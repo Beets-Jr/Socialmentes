@@ -24,7 +24,7 @@ const secondStepValidationSchema = yup.object({
         .required(msg_errors.REQUIRED),
     position: yup
         .mixed()
-        .oneOf(['speech_therapist', 'psychologist', 'pedagogue', 'occupational_therapist'], msg_errors.POSITION)
+        .oneOf(['Fonoaudiólogo(a)', 'Psicólogo(a)', 'Pedagogo(a)', 'Terapeuta Ocupacional'], msg_errors.POSITION)
         .required(msg_errors.REQUIRED),
     phone: yup
         .string()

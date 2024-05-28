@@ -1,45 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { Box, FormControl, Grid, InputLabel, MenuItem, Select, Typography, styled } from '@mui/material';
+import { Box, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 import { ExpandMoreRounded } from '@mui/icons-material';
+
 import { useVFormContext } from '.';
-
-const StylizedSelect = styled(Select)({
-    '& .MuiSelect-select': {
-        color: "#727272",
-        padding: 1.63,
-    },
-    '& .MuiOutlinedInput-notchedOutline': {
-        borderRadius: "15px",
-        borderColor: "#727272",
-        borderWidth: "2px"
-    },
-    '&:hover .MuiOutlinedInput-notchedOutline': {
-        borderColor: "#5095d5",
-    },
-    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-        borderColor: "#5095d5",
-        borderWidth: "3px"
-    },
-    '& .MuiSelect-icon': {
-        color: "#727272"
-    },
-    '& .MuiSelect-iconOpen': {
-        color: "#5095d5",
-        transform: 'rotate(0deg)'
-    }
-});
-
-const Label = ({ value, label_icon, label }) => {
-    <Box
-        display='flex'
-        gap={.5}
-        pt={.3}
-        color={ value && "#5095d5" }
-    >
-        {label_icon}
-        {label}
-    </Box>
-};
 
 export const VSelect = ({ xs = 12, name, label, label_icon, placeholder, items, onChange, onFocus, onBlur, ...rest }) => {
 

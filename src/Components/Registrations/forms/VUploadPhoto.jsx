@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState } from "react";
-import { Avatar, Badge, CircularProgress, Grid, Tooltip, styled, useTheme } from "@mui/material";
+import { useEffect, useState } from "react";
+import { Avatar, Badge, Grid, Tooltip, styled, useTheme } from "@mui/material";
 import { AddPhotoAlternateRounded } from "@mui/icons-material";
-import { useField } from "@unform/core"
 
 import avatar_empty from "../assets/avatar.svg";
 import { useVFormContext } from "./VForm";
