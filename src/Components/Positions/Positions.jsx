@@ -1,7 +1,11 @@
+import Header from '../Header/Header'
 
 function Positions() {
   return (
-    <div>Positions</div>
+    <>
+      <Header title="Alterar Cargos" />
+      <div>Positions</div>
+    </>
   )
 }
 
