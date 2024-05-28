@@ -33,7 +33,7 @@ function Register({ register }) {
         <Box className='textContainer'>
           <IconEmail sx={{ fontSize: 12 }} color='#A2A2A2' />
           <Typography className='text' variant="body2">
-            {register.email}
+            {register.email || 'sem email'}
           </Typography>
         </Box>
 

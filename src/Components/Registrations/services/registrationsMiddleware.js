@@ -22,7 +22,7 @@ const secondStepValidationSchema = yup.object({
         .string()
         .matches(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, msg_errors.CPF)
         .required(msg_errors.REQUIRED),
-    position: yup
+    specialization: yup
         .mixed()
         .oneOf(['Fonoaudiólogo(a)', 'Psicólogo(a)', 'Pedagogo(a)', 'Terapeuta Ocupacional'], msg_errors.POSITION)
         .required(msg_errors.REQUIRED),

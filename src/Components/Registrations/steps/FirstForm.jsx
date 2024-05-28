@@ -1,4 +1,3 @@
-import { useMemo, useState } from "react";
 import { useTheme } from "@mui/material";
 
 import { IconAttention, IconCity, IconEmail, IconIdentity, IconLocation, IconPerson, IconPhone, IconPositionForm } from "../assets/icons";
@@ -14,7 +13,7 @@ export const FirstForm = ({ disabledForm, setDisabledButton }) => {
         'email',
         'cep',
         'cpf',
-        'position',
+        'specialization',
         'phone',
         'state',
         'city'
@@ -91,8 +90,8 @@ export const FirstForm = ({ disabledForm, setDisabledButton }) => {
             <VRow>
                 <VSelect
                     xs={6.7}
-                    name='position'
-                    label_icon={<IconPositionForm {...icon_props('position', .3)} />}
+                    name='specialization'
+                    label_icon={<IconPositionForm {...icon_props('specialization', .3)} />}
                     label='Cargo'
                     placeholder='Selecione'
                     items={[

@@ -56,7 +56,7 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
         } else if (step == 2) {
             RegistrationsMiddleware.thirdStepValidationSchema.validate( formRef.current.getData(), { abortEarly: false })
                 .then( () => {
-                    formRef.current.submitForm()
+                    formRef.current.submitForm();
                 })
                 .catch( errors => {
                     if (errors.errors.some(error => error === msg_errors.REQUIRED)) {
@@ -66,9 +66,6 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
                     }
                     setDisabledForm(false);
                 })
-                .finally( () => {
-                    setDisabledForm(false);
-                });
         }
     };
 
@@ -92,6 +89,9 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
             .catch( error => {
                 console.log(error);
                 setMessage('Erro ao cadastrar usuário no banco de dados')
+            })
+            .finally( () => {
+                setDisabledForm(false);
             });
     };
 
