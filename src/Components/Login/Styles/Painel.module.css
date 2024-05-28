@@ -1,0 +1,74 @@
+/*Painel*/
+.painel {
+  display: flex;
+  flex-direction: column;
+}
+
+.titulo {
+  font-family: "Poppins", sans serif;
+  font-size: 64px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  background: linear-gradient(90deg, #7db9f0 0%, #5095d5 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitulo {
+  color: #ababab;
+  font-family: "Fira Sans";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-bottom: 8vh;
+}
+
+.campoContinuar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 15%;
+}
+
+.campoContinuar div {
+  margin: 0 10px;
+  color: var(--Cinza-3, #ababab);
+  text-align: right;
+  font-family: "Fira Sans";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.loginButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-top: 30px;
+  gap: 30px;
+}
+
+@media (max-width: 800px) {
+  .titulo {
+    text-align: center;
+    font-size: 8vw;
+  }
+  .subtitulo {
+    text-align: center;
+    font-size: 3vw; 
+  }
+  .campoContinuar div {
+    font-size: 2.5vw;
+    text-wrap: nowrap;
+  }
+}
+
