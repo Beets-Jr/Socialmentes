@@ -13,6 +13,9 @@ function App() {
 
   return (
     <Router>
+      <Routes>
+        <Route path="/pagina-login" element={<Login/>}/>
+      </Routes>
       <UserStorage>
         <div style={{ display: 'flex' }}>
           <Sidebar />
@@ -23,7 +26,7 @@ function App() {
               <Route path="/pacientes" element={<DialogConfirmation />} />
               <Route path="/cargos" element={<Positions />} />
               <Route path="/cadastros" element={<Registrations />} />
-              <Route path="/opcoes" element={<Login />} />
+              <Route path="/opcoes" element={<DialogConfirmation />} />
             </Routes>
           </div>
         </div>
