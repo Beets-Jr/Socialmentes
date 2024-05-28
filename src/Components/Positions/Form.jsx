@@ -127,7 +127,7 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
         </Box>
       ) : (
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', }} >
-          <Avatar {...stringAvatar(name)} sx={{ margin: 'auto', width: '10vw', height: '10vw', border: '2px solid var(--color-gray-3)'}} /> 
+          <Avatar {...stringAvatar(name)} /> 
         </Box>
       )}
 
