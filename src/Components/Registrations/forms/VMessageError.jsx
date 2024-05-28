@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 export const VMessageError = ({ message, setMessage }) => {
 
@@ -19,8 +19,22 @@ export const VMessageError = ({ message, setMessage }) => {
     return (
         <>
             {showMessage && (
-                <Box>
-                    {message}
+                <Box
+                    width='510px'
+                    marginX={2}
+                    position='fixed'
+                    bottom={50}
+                    padding={1.7}
+                    bgcolor='white'
+                    borderRadius={20}
+                    textAlign='center'
+                >
+                    <Typography
+                        variant="body1"
+                        fontFamily='"Ubuntu", sans-serif'
+                    >
+                        {message}
+                    </Typography>
                 </Box>
             )}
         </>

@@ -4,13 +4,14 @@ import { useDebounce } from "../hooks";
 
 export const VFormContent = ({ children, onChange }) => {
 
-    const { data, focusedFieldData } = useVFormContext();
+    const { getData, focusedField, focusedFieldData } = useVFormContext();
 
     useDebounce( () => {
+        const data = getData();
         if (data) {
             onChange?.(data);
         }
-    }, [focusedFieldData], 500, true);
+    }, [focusedField, focusedFieldData], 500, true);
 
     return (
         <Grid container

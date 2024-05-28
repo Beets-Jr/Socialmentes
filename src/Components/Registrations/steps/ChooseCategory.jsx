@@ -4,7 +4,7 @@ import { VRadioGroup } from "../forms";
 
 import '../styles/ChooseCategory.css';
 
-export const ChooseCategory = ({ setDisabledButton }) => {
+export const ChooseCategory = ({ disabledForm, setDisabledButton }) => {
 
     return (
         <Box className='boxContainer'>
@@ -23,6 +23,7 @@ export const ChooseCategory = ({ setDisabledButton }) => {
                 } }
                 sx={{ display: 'flex', gap: 7, ml: 2 }}
                 fontSize={20}
+                disabled={disabledForm}
                 row
             />
         </Box>

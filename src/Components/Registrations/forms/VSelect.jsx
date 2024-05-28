@@ -6,7 +6,7 @@ import { useVFormContext } from '.';
 const StylizedSelect = styled(Select)({
     '& .MuiSelect-select': {
         color: "#727272",
-        padding: 1.63
+        padding: 1.63,
     },
     '& .MuiOutlinedInput-notchedOutline': {
         borderRadius: "15px",
@@ -60,34 +60,51 @@ export const VSelect = ({ xs = 12, name, label, label_icon, placeholder, items, 
             <FormControl fullWidth>
 
                 <InputLabel shrink id={name}>
-                    <Label
-                        value={value}
-                        label_icon={label_icon}
-                        label={label}
-                    />
+                    <Box display='flex' gap={.5} pt={.3} color={value && "#5095d5"}>
+                        {label_icon}
+                        {label}
+                    </Box>
                 </InputLabel>
 
-                <StylizedSelect
+                <Select
                     ref={inputRef}
                     sx={{
+                        '& .MuiSelect-select': {
+                            color: "#727272",
+                            padding: 1.63
+                        },
                         '& .MuiOutlinedInput-notchedOutline': {
+                            borderRadius: "15px",
                             borderColor: value ? "#5095d5" : "#727272",
+                            borderWidth: "2px"
+                        },
+                        '&:hover .MuiOutlinedInput-notchedOutline': {
+                            borderColor: "#5095d5",
+                        },
+                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                            borderColor: "#5095d5",
+                            borderWidth: "3px"
                         },
                         '& .MuiSelect-icon': {
                             color: value ? "#5095d5" : "#727272"
+                        },
+                        '& .MuiSelect-iconOpen': {
+                            color: "#5095d5",
+                            transform: 'rotate(0deg)'
                         }
                     }}
                     label={
-                        <Label
-                            value={value}
-                            label_icon={label_icon}
-                            label={label}
-                        />
+                        <Box display='flex' gap={.5} pt={.3} color={value && "#5095d5"}>
+                            {label_icon}
+                            {label}
+                        </Box>
                     }
                     MenuProps={{
                         PaperProps: {
                             sx: {
+                                overflow: 'auto',
                                 width: '150px',
+                                maxHeight: 200,
                                 mt: -1.8,
                                 boxShadow: 'none',
                                 border: '3px solid #5095d5',
@@ -101,9 +118,16 @@ export const VSelect = ({ xs = 12, name, label, label_icon, placeholder, items, 
                                         color: '#5095d5',
                                         backgroundColor: 'white'
                                     }
+                                },
+                                '&::-webkit-scrollbar': {
+                                    width: '4px'
+                                },
+                                '&::-webkit-scrollbar-thumb': {
+                                    bgcolor: '#7DB9F0',
+                                    borderRadius: '10px',
                                 }
                             }
-                        }
+                        },
                     }}
                     renderValue={(selected) => {
                         if (!selected) {
@@ -148,12 +172,20 @@ export const VSelect = ({ xs = 12, name, label, label_icon, placeholder, items, 
                             key={index}
                             value={item.value}
                         >
-                            {item.label}
+                            <Typography
+                                sx={{
+                                    overflow: 'hidden',
+                                    whiteSpace: 'nowrap',
+                                    textOverflow: 'ellipsis',
+                                }}
+                            >
+                                {item.label}
+                            </Typography>
                         </MenuItem>
 
                     ))}
 
-                </StylizedSelect>
+                </Select>
 
             </FormControl>
 

@@ -8,6 +8,8 @@ const VFormContext = createContext();
 // eslint-disable-next-line react/display-name
 export const VForm = forwardRef(( props, ref ) => {
 
+    const formRef = useRef();
+
     const { children, defaultValues, onSubmit } = props;
 
     const data = useMemo(() => {
@@ -40,10 +42,15 @@ export const VForm = forwardRef(( props, ref ) => {
         }
     }
 
+    const submitForm = () => {
+        formRef.current.requestSubmit();
+    }
+
     useImperativeHandle(ref, () => ({
         getData,
         getFieldValue,
-        setFieldValue
+        setFieldValue,
+        submitForm
     }));
 
     return (
@@ -58,6 +65,7 @@ export const VForm = forwardRef(( props, ref ) => {
         } } >
 
             <form
+                ref={formRef}
                 onSubmit={ (e) => {
                     e.preventDefault(e);
                     onSubmit(data);

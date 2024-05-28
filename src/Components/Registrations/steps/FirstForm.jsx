@@ -1,19 +1,39 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useTheme } from "@mui/material";
 
 import { IconAttention, IconCity, IconEmail, IconIdentity, IconLocation, IconPerson, IconPhone, IconPositionForm } from "../assets/icons";
-import { VFormContent, VRow, VSelect, VTextField, useVFormContext } from "../forms";
+import { VFormContent, VRow, VSelect, VTextField, VUploadPhoto, useVFormContext } from "../forms";
 
-export const FirstForm = ({ formRef, disabledForm, setDisabledButton }) => {
+export const FirstForm = ({ disabledForm, setDisabledButton }) => {
+
+    const { getFieldValue, focusedField } = useVFormContext();
+
+    const fieldsRequireds = [
+        'photo',
+        'fullName',
+        'email',
+        'cep',
+        'cpf',
+        'position',
+        'phone',
+        'state',
+        'city'
+    ];
+
+    const handleChange = (data) => {
+        if ([...Object.entries(data)].some( field => fieldsRequireds.includes(field[0]) && !field[1] ))
+            setDisabledButton(true);
+        else {
+            setDisabledButton(false);
+        }
+    }
 
     const theme = useTheme();
     const darkGray = theme.palette.secondary.dark;
     const blue = theme.palette.primary.main;
 
-    const { getFieldValue, focusedField } = useVFormContext();
-
     // propriedades passadas nos ícones
-    function icon_props(field, mt) {
+    const icon_props = (field, mt) => {
         const fieldValue = getFieldValue(field);
         return {
             fontSize: 'inherit',
@@ -24,82 +44,50 @@ export const FirstForm = ({ formRef, disabledForm, setDisabledButton }) => {
         };
     }
 
-    const itemsSecondStep = useMemo(() => {
-        return [
-            [ // Foto do usuário
-                {
-                    xs: 12,
-                    type: 'photo',
-                    name: 'photo'
-                }
-            ],
-            [ // Nome completo
-                {
-                    xs: 12,
-                    type: 'text',
-                    name: 'fullName',
-                    label_icon: <IconPerson {...icon_props('fullName')} />,
-                    label: 'Nome completo',
-                    placeholder: 'Digite seu nome'
-                },
-            ],
-            [ // Email do usuário
-                {
-                    xs: 12,
-                    type: 'text',
-                    name: 'email',
-                    label_icon: <IconEmail {...icon_props('email', .3)} />,
-                    label: 'Email',
-                    placeholder: 'exemplo@email.com'
-                },
-            ],
-            [ // CEP e CPF
-                {
-                    xs: 5,
-                    type: 'text',
-                    name: 'cep',
-                    label_icon: <IconLocation {...icon_props('cep')} />,
-                    label: 'CEP',
-                    placeholder: 'NNNNN-NNN'
-                },
-                {
-                    xs: 6.7,
-                    type: 'text',
-                    name: 'cpf',
-                    label_icon: <IconIdentity {...icon_props('cpf')} />,
-                    label: 'CPF',
-                    placeholder: 'NNN.NNN.NNN-NN'
-                }
-            ],
-            [ // Cargo e celular
-                {
-                    xs: 6.5,
-                    type: 'select',
-                    name: 'position',
-                    label_icon: <IconPositionForm {...icon_props('position', .3)} />,
-                    label: 'Cargo',
-                    placeholder: 'Selecione',
-                    items: [ // ATUALIZAR!!!!!!!!
-                        { value: 'speech_therapist', label: 'Fonoaudiólogo(a)'},
-                        { value: 'psychologist', label: 'Psicólogo(a)'},
-                        { value: 'pedagogue', label: 'Pedagogo(a)'},
-                        { value: 'occupational_therapist', label: 'Terapeuta Ocupacional'}
-                    ]
-                },
-                {
-                    xs: 5.2,
-                    type: 'text',
-                    name: 'phone',
-                    label_icon: <IconPhone {...icon_props('phone')} />,
-                    label: 'Celular',
-                    placeholder: '(NN) NNNNN-N...'
-                }
-            ],
-        ]
-    }, [focusedField]);
-
     return (
-        <VFormContent>
+        <VFormContent onChange={handleChange}>
+            <VRow unique>
+                <VUploadPhoto
+                    name='photo'
+                    disabled={disabledForm}
+                />
+            </VRow>
+            <VRow unique>
+                <VTextField
+                    name='fullName'
+                    label_icon={<IconPerson {...icon_props('fullName')} />}
+                    label='Nome completo'
+                    placeholder='Digite seu nome'
+                    disabled={disabledForm}
+                />
+            </VRow>
+            <VRow unique>
+                <VTextField
+                    name='email'
+                    label_icon={<IconEmail {...icon_props('email', .3)} />}
+                    label='Email'
+                    placeholder='exemplo@email.com'
+                    disabled={disabledForm}
+                />
+            </VRow>
+            <VRow>
+                <VTextField
+                    xs={5}
+                    name='cep'
+                    label_icon={<IconLocation {...icon_props('cep')} />}
+                    label='CEP'
+                    placeholder='NNNNN-NNN'
+                    disabled={disabledForm}
+                />
+                <VTextField
+                    xs={6.7}
+                    name='cpf'
+                    label_icon={<IconIdentity {...icon_props('cpf')} />}
+                    label='CPF'
+                    placeholder='NNN.NNN.NNN-NN'
+                    disabled={disabledForm}
+                />
+            </VRow>
             <VRow>
                 <VSelect
                     xs={6.5}
@@ -113,6 +101,7 @@ export const FirstForm = ({ formRef, disabledForm, setDisabledButton }) => {
                         { value: 'pedagogue', label: 'Pedagogo(a)'},
                         { value: 'occupational_therapist', label: 'Terapeuta Ocupacional'}
                     ]}
+                    disabled={disabledForm}
                 />
                 <VTextField
                     xs={5.2}
@@ -120,6 +109,7 @@ export const FirstForm = ({ formRef, disabledForm, setDisabledButton }) => {
                     label_icon={<IconPhone {...icon_props('phone')} />}
                     label='Celular'
                     placeholder='(NN) NNNNN-N...'
+                    disabled={disabledForm}
                 />
             </VRow>
             <VRow>
@@ -129,6 +119,7 @@ export const FirstForm = ({ formRef, disabledForm, setDisabledButton }) => {
                     label_icon={<IconAttention {...icon_props('state')} />}
                     label='UF'
                     placeholder='Estado'
+                    disabled={disabledForm}
                 />
                 <VTextField
                     xs={8.7}
@@ -136,6 +127,7 @@ export const FirstForm = ({ formRef, disabledForm, setDisabledButton }) => {
                     label_icon={<IconCity {...icon_props('city')} />}
                     label='Cidade'
                     placeholder='Cidade'
+                    disabled={disabledForm}
                 />
             </VRow>
         </VFormContent>

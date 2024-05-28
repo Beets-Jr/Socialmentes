@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Avatar, Badge, CircularProgress, Grid, Tooltip, styled, useTheme } from "@mui/material";
 import { AddPhotoAlternateRounded } from "@mui/icons-material";
 import { useField } from "@unform/core"
 
 import avatar_empty from "../assets/avatar.svg";
+import { useVFormContext } from "./VForm";
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -17,22 +18,18 @@ const VisuallyHiddenInput = styled('input')({
     width: 1,
 });
 
-export const VUploadPhoto = ({ name, xs = 12, defaultValue, onChange }) => {
+export const VUploadPhoto = ({ name, xs = 12, onChange, onFocus, onBlur }) => {
 
     const theme = useTheme();
 
-    const {fieldName, registerField} = useField(name);
+    const { getFieldValue, setFieldValue, setFocusedField, setFocusedFieldData } = useVFormContext();
 
-    const [photo, setPhoto] = useState(defaultValue || '');
-    const [photoUrl, setPhotoUrl] = useState(defaultValue ? URL.createObjectURL(defaultValue) : undefined);
+    const [value, setValue] = useState(getFieldValue(name) || '');
+    const [photoUrl, setPhotoUrl] = useState(value ? URL.createObjectURL(value) : undefined);
 
-    useEffect( () => {
-        registerField({
-            name: fieldName,
-            getValue: () => photo,
-            setValue: (ref, newValue) => setPhoto(newValue)
-        });
-    }, [fieldName, registerField, photo]);
+    useEffect(() => {
+        setFieldValue(name, value);
+    }, [value]);
 
     return (
 
@@ -57,13 +54,22 @@ export const VUploadPhoto = ({ name, xs = 12, defaultValue, onChange }) => {
                         <VisuallyHiddenInput
                             type='file'
                             accept="image/*"
-                            id={fieldName}
-                            name={fieldName}
+                            id={name}
+                            name={name}
                             onChange={ (e) => {
                                 if (!e.target.files[0]) return;
-                                setPhoto(e.target.files[0]);
+                                setValue(e.target.files[0]);
                                 setPhotoUrl(URL.createObjectURL(e.target.files[0]));
+                                setFocusedFieldData(e.target.value);
                                 onChange?.(e);
+                            }}
+                            onFocus={(e) => {
+                                setFocusedField(name);
+                                onFocus?.(e);
+                            }}
+                            onBlur={(e) => {
+                                setFocusedField('');
+                                onBlur?.(e);
                             }}
                         />
                         <Tooltip title='Adicionar foto' placement="right">
@@ -92,10 +98,10 @@ export const VUploadPhoto = ({ name, xs = 12, defaultValue, onChange }) => {
                         width: 100, 
                         height: 100,
                         mb: 1,
-                        boxShadow: `0 0 10px ${photo ? '#A5A5A5' : '#D7D7D7'}`,
+                        boxShadow: `0 0 10px ${value ? '#A5A5A5' : '#D7D7D7'}`,
                         borderWidth: "2px",
                         borderStyle: 'solid',
-                        borderColor: photo ? "#ABABAB" : "#D7D7D7",
+                        borderColor: value ? "#ABABAB" : "#D7D7D7",
                         transition: '.5s',
                         '&:hover': {
                             cursor: 'pointer'

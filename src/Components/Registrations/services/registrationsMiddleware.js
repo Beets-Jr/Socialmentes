@@ -40,17 +40,71 @@ const secondStepValidationSchema = yup.object({
         .required(msg_errors.REQUIRED)
 });
 
-const thirdStepValidationSchema = yup.object({});
+const thirdStepValidationSchema = yup.object({
+    photo: yup
+        .mixed()
+        .test( 'fileExists', msg_errors.PHOTO, (photo) => photo instanceof File )
+        .required(msg_errors.REQUIRED),
+    neighborhood: yup
+        .string()
+        .min(3, msg_errors.NEIGHBORHOOD)
+        .required(msg_errors.REQUIRED),
+    street: yup
+        .string()
+        .min(3, msg_errors.STREET)
+        .required(msg_errors.REQUIRED),
+    number: yup
+        .string()
+        .matches(/^\d+$/, msg_errors.NUMBER)
+        .required(msg_errors.REQUIRED),
+    addressDetails: yup
+        .string()
+        .optional(),
+    bank: yup
+        .string()
+        .length(3, msg_errors.BANK)
+        .matches(/^\d+$/, msg_errors.BANK)
+        .required(msg_errors.REQUIRED),
+    branch: yup
+        .string()
+        .length(4, msg_errors.BRANCH)
+        .matches(/^\d+$/, msg_errors.BRANCH)
+        .required(msg_errors.REQUIRED),
+    account: yup
+        .string()
+        .matches(/^\d+$/, msg_errors.ACCOUNT)
+        .required(msg_errors.REQUIRED),
+    pix: yup
+        .string()
+        .optional()
+});
 
-const treatValidatedData = ({ cpf, phone, ...validatedData }) => {
+const treatValidatedData = ({ cpf, phone, state, city, neighborhood, street, number, cep, addressDetails, bank, branch, account, pix, ...validatedData }) => {
 
     const treatedCpf = cpf.replace(/\.|-/g, '');
     const treatedPhone = phone.replace(/[-() ]/g, '');
+    const address = {
+        state: state.toUpperCase(),
+        city,
+        neighborhood,
+        street,
+        number,
+        cep,
+        addressDetails
+    };
+    const bankData = {
+        bank,
+        branch,
+        account,
+        pix
+    };
 
     return {
+        ...validatedData,
         cpf: treatedCpf,
         phone: treatedPhone,
-        ...validatedData
+        address,
+        bankData
     }
 
 };
