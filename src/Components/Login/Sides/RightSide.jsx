@@ -13,7 +13,7 @@ function RightSide() {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            padding: "20px 20px 20px 0",
+            padding: "20px 20px 20px 20px",
             position: "relative",
           }}
         >
@@ -30,6 +30,10 @@ function RightSide() {
               borderRadius: "20px",
               boxSizing: "border-box",
               position: "relative",
+              overflow: "hidden",
+              '@media (max-width: 900px)': {
+                height: "100vh", // Height for screens below 800px
+              },
             }}
           >
             <DesignRightSide />

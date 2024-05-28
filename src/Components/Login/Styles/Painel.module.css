@@ -14,8 +14,6 @@
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-top: 5vh;
-  margin-bottom: 0;
 }
 
 .subtitulo {
@@ -25,7 +23,7 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-  margin-bottom: 5vh;
+  margin-bottom: 8vh;
 }
 
 .campoContinuar {
@@ -58,3 +56,19 @@
   margin-top: 30px;
   gap: 30px;
 }
+
+@media (max-width: 800px) {
+  .titulo {
+    text-align: center;
+    font-size: 8vw;
+  }
+  .subtitulo {
+    text-align: center;
+    font-size: 3vw; 
+  }
+  .campoContinuar div {
+    font-size: 2.5vw;
+    text-wrap: nowrap;
+  }
+}
+

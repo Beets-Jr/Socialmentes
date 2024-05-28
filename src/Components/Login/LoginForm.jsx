@@ -50,12 +50,12 @@ function LoginForm() {
           condition={user}
           successMessage={"Login bem-sucedido!"}
         />
+      </form>
 
-        <div className={styles.campoEsqueceuSenha}>
+      <div className={styles.campoEsqueceuSenha}>
           Esqueceu sua senha?
           <Link className={styles.cliqueAqui} to="/login/reset-password">&nbsp;Clique aqui!</Link>
-        </div>
-      </form>
+      </div>
     </ThemeProvider>
   );
 }

@@ -22,10 +22,10 @@ const theme = createTheme({
           fontWeight: "600",
           lineHeight: "normal",
           "&:hover": {
-            background: "linear-gradient(90deg, #5095D5 0%, #7DB9F0 100%)", // exemplo de hover
+            background: "linear-gradient(90deg, #5095D5 0%, #7DB9F0 100%)",
           },
           "&.Mui-disabled": {
-            background: "linear-gradient(90deg, #7DB9F0 0%, #5095D5 100%)", // manter o gradiente quando desativado
+            background: "linear-gradient(90deg, #7DB9F0 0%, #5095D5 100%)",
             opacity: 0.7,
           },
         },
