@@ -75,11 +75,13 @@ export const VSelect = ({ xs = 12, name, label, label_icon, placeholder, items, 
                                 borderBottomRightRadius: '15px',
                                 borderTop: '0',
                                 '& .MuiMenuItem-root': {
-                                    pl: 1.3,
+                                    pl: 1,
                                     py: .3,
                                     '&:hover': {
+                                        backgroundColor: 'white',
+                                    },
+                                    '&:hover p': {
                                         color: '#5095d5',
-                                        backgroundColor: 'white'
                                     }
                                 },
                                 '&::-webkit-scrollbar': {

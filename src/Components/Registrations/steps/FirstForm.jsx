@@ -90,12 +90,12 @@ export const FirstForm = ({ disabledForm, setDisabledButton }) => {
             </VRow>
             <VRow>
                 <VSelect
-                    xs={6.5}
+                    xs={6.7}
                     name='position'
                     label_icon={<IconPositionForm {...icon_props('position', .3)} />}
                     label='Cargo'
                     placeholder='Selecione'
-                    items={[ // ATUALIZAR!!!!!!!!
+                    items={[
                         { value: 'Fonoaudiólogo(a)', label: 'Fonoaudiólogo(a)'},
                         { value: 'Psicólogo(a)', label: 'Psicólogo(a)'},
                         { value: 'Pedagogo(a)', label: 'Pedagogo(a)'},
@@ -104,7 +104,7 @@ export const FirstForm = ({ disabledForm, setDisabledButton }) => {
                     disabled={disabledForm}
                 />
                 <VTextField
-                    xs={5.2}
+                    xs={5}
                     name='phone'
                     label_icon={<IconPhone {...icon_props('phone')} />}
                     label='Celular'

@@ -56,7 +56,6 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
         } else if (step == 2) {
             RegistrationsMiddleware.thirdStepValidationSchema.validate( formRef.current.getData(), { abortEarly: false })
                 .then( () => {
-                    setStep( oldStep => oldStep + 1 );
                     formRef.current.submitForm()
                 })
                 .catch( errors => {
@@ -82,10 +81,12 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
                 if (result instanceof Error) {
                     setMessage(result);
                 } else {
+                    setStep( oldStep => oldStep + 1 );
+                    setDisabledButton(true);
                     setTimeout(() => {
                         setRegisterCreated(oldValue => !oldValue);
                         handleClose();
-                    }, 3000);
+                    }, 2000);
                 }
             })
             .catch( error => {
