@@ -1,0 +1,45 @@
+.card {
+    border: 2px solid #E0E0E0;
+    border-radius: 20px;
+    box-shadow: 3px 3px 5px #E0E0E0;
+}
+
+.cardContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    margin: 2px;
+    border: 2px solid #ABABAB;
+    box-shadow: 0 0 7.8px rgb(165, 165, 165, .52);
+}
+
+.textContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+}
+
+.text {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.cardActions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.button {
+    text-transform: none;
+    font-size: 20px;
+    color: var(--color-blue-4);
+}
