@@ -44,6 +44,11 @@ const generateRandomGender = () => {
 const generateRandomPhotoUrl = () => {
   return faker.image.avatar();
 };
+
+const generateRandomPosition = () => {
+  const positions = ['paciente', 'administrador', 'responsável', 'psicologo'];
+  return faker.random.arrayElement(positions);
+}
 const seedData = async () => {
   await clearCollection('userProfiles');
 
@@ -58,7 +63,8 @@ const seedData = async () => {
         phone: generateRandomPhone(),
         gender: generateRandomGender(),
         photoUrl: generateRandomPhotoUrl(),
-        createdAt: Timestamp.now().toDate().toISOString()
+        createdAt: Timestamp.now().toDate().toISOString(),
+        position: generateRandomPosition()
       };
 
       const userRef = await addDoc(collection(db, "userProfiles"), user);
