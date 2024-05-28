@@ -5,6 +5,8 @@ import { auth } from '../../Database/FirebaseConfig.mjs'
 import { AppBar, Toolbar, Typography, Box, IconButton, Avatar } from '@mui/material'
 import { PiUserCircleFill } from 'react-icons/pi'
 import LogoutIcon from './Icons/LogoutIcon'
+import { UserContext } from "../../UserContext"
+import { useContext } from "react"
 
 function stringAvatar(name){
 
@@ -20,7 +22,9 @@ function stringAvatar(name){
 
 }
 
-function Header({title}) {
+function Header() {
+  
+  const {title} = useContext(UserContext);
 
   // Recupera o usuário que está logado
   const user = auth.currentUser

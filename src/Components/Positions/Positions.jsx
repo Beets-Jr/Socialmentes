@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import Header from '../Header/Header'
 import { db } from "../../Database/FirebaseConfig.mjs"
 import { Grid, Typography, Box, CircularProgress } from "@mui/material";
@@ -30,44 +31,41 @@ function Positions() {
   }, [])
 
   return (
-    <>
-      <Header title="Alterar Cargos" />
-      <div style={{ margin: '3vw' }}>
-        {loading ? (
-          <Box
-            sx={{ // para deixar o componente de carregamento bem no meio da tela
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '100vh',
-              width: '100vw',
-            }}
-          >
-            <CircularProgress sx={{ color: 'var(--color-gray-3)' }} />
-          </Box>
-        ) : isPositionSet ? (
-          <Grid container spacing={4}>
-            {profiles.map((profile) => (
-              <Grid item key={profile.id} xs={12} sm={6} md={4} >
-                <Position photoUrl={profile.photoUrl} fullName={profile.fullName} position={profile.position} id={profile.id} />
-              </Grid>
-            ))}
-          </Grid>
-        ) : (
-          <Box
-            sx={{ // para deixar a frase bem no meio da tela
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '100vh',
-              width: '100vw',
-            }}
-          >
-            <Typography sx={{ fontFamily: 'var(--font-text)', color: 'var(--color-gray-3)' }}>Sem perfis</Typography>
-          </Box>
-        )}
-      </div>
-    </>
+    <div style={{ margin: '3vw' }}>
+      {loading ? (
+        <Box
+          sx={{ // para deixar o componente de carregamento bem no meio da tela
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100vh',
+            width: '100vw',
+          }}
+        >
+          <CircularProgress sx={{ color: 'var(--color-gray-3)' }} />
+        </Box>
+      ) : isPositionSet ? (
+        <Grid container spacing={4}>
+          {profiles.map((profile) => (
+            <Grid item key={profile.id} xs={12} sm={6} md={4} >
+              <Position photoUrl={profile.photoUrl} fullName={profile.fullName} position={profile.position} id={profile.id} />
+            </Grid>
+          ))}
+        </Grid>
+      ) : (
+        <Box
+          sx={{ // para deixar a frase bem no meio da tela
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100vh',
+            width: '100vw',
+          }}
+        >
+          <Typography sx={{ fontFamily: 'var(--font-text)', color: 'var(--color-gray-3)' }}>Sem perfis</Typography>
+        </Box>
+      )}
+    </div>
   )
 }
 
