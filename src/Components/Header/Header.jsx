@@ -22,7 +22,7 @@ function stringAvatar(name){
 function Header({title}) {
 
   // Recupera o usuário que está logado
-  const user = auth.currentUser
+  // const user = auth.currentUser
 
   // Usuário para teste e estilização
   // const user = {
@@ -31,37 +31,37 @@ function Header({title}) {
   // }
 
   // Usuário sem foto para teste
-  // const user = {
-  //   fullName: 'José Antônio',
-  //   photo: null
-  // }
+  const user = {
+    fullName: 'José Antônio',
+    photo: null
+  }
 
-  function logout(){
+  const logout = () => {
     auth.signOut()
   }
 
   return (
-    <AppBar position='static' sx={{background: '#FFFFFF', width: '80vw', marginLeft: '20vw', borderRadius: '0 0 15px 15px', height: '15vh', display: 'flex', justifyContent: 'center'}}>
+    <AppBar position='static' sx={{background: '#FFFFFF', width: '100%', borderRadius: '0 0 15px 15px', height: '15vh', display: 'flex', justifyContent: 'center'}}>
       <Toolbar sx={{display: 'flex', justifyContent: 'space-between'}}>
 
         {/* Título do Header */}
         <Typography
           variant='h4'
           component='div'
-          sx={{fontFamily: 'var(--font-title)', color: 'var(--color-blue-4)', marginLeft: '50px'}}>
+          sx={{fontFamily: 'var(--font-title)', color: 'var(--color-blue-4)', marginLeft: '50px', fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem', lg: '3rem' }, '@media (max-width: 600px)': {marginLeft: '0px'}}}>
           {title}
         </Typography>
             
         {/* Se o usuário existir deve ser exibido o seu nome e sua foto, caso contrário, deve-se exibir uma opção para o login*/}
         {user ? 
-          <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1.5vw'}}>
+          <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1.5vw', '@media (max-width: 600px)': {gap: '0px'}}}>
 
             {/* Caixa de texto para quando o usuário está logado */}
             <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>         
               <Typography
                 variant='subtitle2'
                 component='div'
-                sx={{fontFamily: 'var(--font-title)', color: 'var(--color-blue-2)'}}>
+                sx={{fontFamily: 'var(--font-title)', color: 'var(--color-blue-2)', fontSize: { xs: '0.75rem', sm: '1rem' }}}>
               {user.fullName}
               </Typography>
 
@@ -69,7 +69,7 @@ function Header({title}) {
                 variant='subtitle2'
                 component={Link}
                 to = '/conta'
-                sx={{fontFamily: 'var(--font-text)', color: 'var(--color-blue-1)', textDecoration: 'none'}}>
+                sx={{fontFamily: 'var(--font-text)', color: 'var(--color-blue-1)', textDecoration: 'none', fontSize: { xs: '0.75rem', sm: '1rem' }}}>
               Editar Perfil
               </Typography>
             </Box>
@@ -82,7 +82,7 @@ function Header({title}) {
             }
 
             {/* Botão de logout */}
-            <IconButton onClick={logout()}>
+            <IconButton onClick={logout} >
               <LogoutIcon/>
             </IconButton>
           </Box>
@@ -94,7 +94,7 @@ function Header({title}) {
               variant='h5'
               component={Link}
               to = '/login'
-              sx={{fontFamily: 'var(--font-text)', color: 'var(--color-blue-3)', textDecoration: 'none'}}>
+              sx={{fontFamily: 'var(--font-text)', color: 'var(--color-blue-3)', textDecoration: 'none', fontSize: { xs: '1rem', sm: '1.25rem' }}}>
             Login
             </Typography>
 
