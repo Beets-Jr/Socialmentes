@@ -22,19 +22,7 @@ function stringAvatar(name){
 function Header({title}) {
 
   // Recupera o usuário que está logado
-  // const user = auth.currentUser
-
-  // Usuário para teste e estilização
-  // const user = {
-  //   fullName:'João da Silva',
-  //   photo: 'src/Components/Header/Icons/fotoTeste.png'
-  // }
-
-  // Usuário sem foto para teste
-  const user = {
-    fullName: 'José Antônio',
-    photo: null
-  }
+  const user = auth.currentUser
 
   const logout = () => {
     auth.signOut()
