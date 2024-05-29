@@ -1,16 +1,46 @@
-import { useEffect, useRef, useState } from 'react';
-import { Box, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { Autocomplete, Box, Grid, TextField, Typography, styled } from '@mui/material';
 import { ExpandMoreRounded } from '@mui/icons-material';
 
 import { useVFormContext } from '.';
+
+const StylizedTextField = styled(TextField)({
+    '& label': {
+        color: "#727272",
+    },
+    "& .MuiOutlinedInput-root": {
+        height: 50,
+        "& ::placeholder": {
+            fontStyle: 'italic'
+        },
+        "& fieldset": {
+            borderRadius: "15px",
+            borderColor: "#727272",
+            borderWidth: "2px",
+        },
+        "&:hover fieldset": {
+            borderColor: "#5095D5",
+        },
+        "&.Mui-focused fieldset": {
+            borderColor: "#5095d5",
+            borderWidth: "3px",
+            borderRadius: "15px",
+            pointerEvents: "none"
+        },
+        "& .MuiOutlinedInput-input": {
+            color: "#727272",
+            fontFamily: "Fira Sans",
+            fontSize: "16px",
+        },
+    }
+});
 
 export const VSelect = ({ xs = 12, name, label, label_icon, placeholder, items, onChange, onFocus, onBlur, ...rest }) => {
 
     const { getFieldValue, setFieldValue, setFocusedField, setFocusedFieldData } = useVFormContext();
 
-    const inputRef = useRef(null);
     const [value, setValue] = useState(getFieldValue(name) || '');
-    const [labelItem, setLabelIem] = useState('');
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         setFieldValue(name, value);
@@ -20,139 +50,100 @@ export const VSelect = ({ xs = 12, name, label, label_icon, placeholder, items, 
 
         <Grid item xs={xs}>
 
-            <FormControl fullWidth>
-
-                <InputLabel shrink id={name}>
-                    <Box display='flex' gap={.5} pt={.3} color={value && "#5095d5"}>
-                        {label_icon}
-                        {label}
-                    </Box>
-                </InputLabel>
-
-                <Select
-                    ref={inputRef}
-                    sx={{
-                        '& .MuiSelect-select': {
-                            color: "#727272",
-                            padding: 1.63
-                        },
-                        '& .MuiOutlinedInput-notchedOutline': {
-                            borderRadius: "15px",
-                            borderColor: value ? "#5095d5" : "#727272",
-                            borderWidth: "2px"
-                        },
-                        '&:hover .MuiOutlinedInput-notchedOutline': {
-                            borderColor: "#5095d5",
-                        },
-                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                            borderColor: "#5095d5",
-                            borderWidth: "3px"
-                        },
-                        '& .MuiSelect-icon': {
-                            color: value ? "#5095d5" : "#727272"
-                        },
-                        '& .MuiSelect-iconOpen': {
-                            color: "#5095d5",
-                            transform: 'rotate(0deg)'
-                        }
-                    }}
-                    label={
-                        <Box display='flex' gap={.5} pt={.3} color={value && "#5095d5"}>
-                            {label_icon}
-                            {label}
-                        </Box>
-                    }
-                    MenuProps={{
-                        PaperProps: {
-                            sx: {
-                                overflow: 'auto',
-                                width: '150px',
-                                maxHeight: 200,
-                                mt: -1.8,
-                                boxShadow: 'none',
-                                border: '3px solid #5095d5',
-                                borderBottomLeftRadius: '15px',
-                                borderBottomRightRadius: '15px',
-                                borderTop: '0',
-                                '& .MuiMenuItem-root': {
-                                    pl: 1,
-                                    py: .3,
-                                    '&:hover': {
-                                        backgroundColor: 'white',
-                                    },
-                                    '&:hover p': {
-                                        color: '#5095d5',
-                                    }
-                                },
-                                '&::-webkit-scrollbar': {
-                                    width: '4px'
-                                },
-                                '&::-webkit-scrollbar-thumb': {
-                                    bgcolor: '#7DB9F0',
-                                    borderRadius: '10px',
+            <Autocomplete
+                renderInput={({ InputLabelProps, ...params }) => (
+                    <StylizedTextField
+                        sx={{
+                            '& label': {
+                                color: value ? "#5095d5" : "#727272",
+                            },
+                            "& .MuiOutlinedInput-root fieldset": {
+                                borderColor: value ? "#5095d5" : "#727272"
+                            },
+                            "& .MuiOutlinedInput-root": {
+                                "&.Mui-focused fieldset": {
+                                    borderBottomLeftRadius: open && 0,
+                                    borderBottomRightRadius: open && 0,
+                                    borderBottom: open && 0,
+                                    marginBottom: open && -5
                                 }
                             }
-                        },
-                    }}
-                    renderValue={(selected) => {
-                        if (!selected) {
-                            return (
-                                <Typography
-                                    sx={{
-                                        fontStyle: 'italic',
-                                        color: "#ABABAB"
-                                    }}
-                                > {placeholder} </Typography>
-                            );
-                        } else {
-                            return labelItem;
+                        }}
+                        label={
+                            <Box display='flex' gap={.5} pt={.3}>
+                                {label_icon}
+                                {label}
+                            </Box>
                         }
+                        InputLabelProps={{
+                            shrink: true
+                        }}
+                        placeholder={placeholder}
+                        variant='outlined'
+                        value={value}
+                        fullWidth
+                        {...params}
+                    />
+                )}
+                ListboxProps={{
+                    sx: {
+                        maxHeight: 160,
+                        border: '3px solid #5095d5',
+                        borderBottomLeftRadius: '15px',
+                        borderBottomRightRadius: '15px',
+                        borderTop: '0',
+                        '& .MuiAutocomplete-option': {
+                            padding: .3,
+                            paddingLeft: 1,
+                            '& p': {
+                                overflow: 'hidden',
+                                whiteSpace: 'nowrap',
+                                textOverflow: 'ellipsis',
+                            },
+                            '&:hover p': {
+                                color: '#5095d5'
+                            }
+                        },
+                        '&::-webkit-scrollbar': {
+                            width: '4px'
+                        },
+                        '&::-webkit-scrollbar-thumb': {
+                            bgcolor: '#7DB9F0',
+                            borderRadius: '10px',
+                        }
+                    }
+                }}
+                renderOption={(props, option) => (
+                    <li {...props} key={option.value}>
+                        <Typography>{option.label}</Typography>
+                    </li>
+                )}
+                onChange={(event, newValue) => {
+                    setValue(newValue.value);
+                    setFocusedFieldData(newValue);
+                    onChange?.(event, newValue);
+                }}
+                onFocus={(e) => {
+                    setFocusedField(name);
+                    onFocus?.(e);
+                }}
+                onBlur={(e) => {
+                    setFocusedField('');
+                    onBlur?.(e);
+                }}
+                onOpen={() => setOpen(true)}
+                onClose={() => setOpen(false)}
+                popupIcon={<ExpandMoreRounded
+                    sx={{
+                        transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
+                        color: (value || open) ? "#5095d5" : "#727272",
                     }}
-                    onChange={e => {
-                        setValue(e.target.value);
-                        setLabelIem(items.filter(item => item.value === e.target.value)[0].label);
-                        setFocusedFieldData(e.target.value);
-                        onChange?.(e);
-                    }}
-                    onFocus={(e) => {
-                        setFocusedField(name);
-                        onFocus?.(e);
-                    }}
-                    onBlur={(e) => {
-                        setFocusedField('');
-                        onBlur?.(e);
-                    }}
-                    IconComponent={ExpandMoreRounded}
-                    labelId={name}
-                    value={value}
-                    displayEmpty
-                    notched
-                    {...rest}
-                >
-
-                    <MenuItem disabled value=''></MenuItem>
-                    {items.map((item, index) => (
-
-                        <MenuItem
-                            key={index}
-                            value={item.value}
-                        >
-                            <Typography
-                                sx={{
-                                    overflow: 'hidden',
-                                    whiteSpace: 'nowrap',
-                                    textOverflow: 'ellipsis',
-                                }}
-                            >
-                                {item.label}
-                            </Typography>
-                        </MenuItem>
-
-                    ))}
-
-                </Select>
-
-            </FormControl>
+                />}
+                open={open}
+                options={items}
+                disableClearable
+                blurOnSelect
+            />
 
         </Grid>
 

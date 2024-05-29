@@ -31,9 +31,12 @@ function Sidebar() {
 
   return (
     <AppBar
-      position='static'
+      position='sticky'
       sx={{
         background:'linear-gradient(to bottom, #7DB9F0, #6EADE7, #5397D6)',
+        top: 0,
+        left: 0,
+        bottom: 0,
         display:'flex',
         flexDirection:'column',
         width: open ? '20vw' : '5vw',
@@ -43,8 +46,12 @@ function Sidebar() {
         transition: 'width 0.5s ease',
         '@media (max-width: 600px)': {
           boxShadow: open ? '2px 0 5px rgba(0, 0, 0, 0.75)' : '2px 0 5px rgba(0, 0, 0, 0.4)',
-          position: open ? 'fixed' : 'static',
+          position: open ? 'fixed' : 'sticky',
           width: open ? '70vw' : '15vw',
+          top: 0,
+          left: 0,
+          bottom: 0,
+          height:'100vh',
         }
       }}
     >
