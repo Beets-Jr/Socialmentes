@@ -1,9 +1,8 @@
 import { addDoc, collection, doc, getDocs, serverTimestamp, updateDoc } from "firebase/firestore/lite";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
-import { db, storage } from "../../../Database/FirebaseConfig.mjs";
+import { db, storage, auth } from "../../../../Database/FirebaseConfig.mjs";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../Database/FirebaseConfig.mjs";
 
 
 const colRegistrations = collection(db, 'userProfiles');

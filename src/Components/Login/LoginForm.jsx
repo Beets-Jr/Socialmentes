@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button, CircularProgress, ThemeProvider } from "@mui/material";
 import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
@@ -25,7 +25,7 @@ function LoginForm() {
   };
 
   if (isRedirecting && user) {
-    return <Navigate to="/cargos" />;
+    return <Navigate to="/painel-adm" />;
   }
 
   return (
@@ -59,7 +59,7 @@ function LoginForm() {
 
       <div className={styles.campoEsqueceuSenha}>
         Esqueceu sua senha?
-        <Link className={styles.cliqueAqui} to="/reset-password">
+        <Link className={styles.cliqueAqui} to="/login/recuperar-senha">
           &nbsp;Clique aqui!
         </Link>
       </div>

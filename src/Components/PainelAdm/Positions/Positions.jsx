@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import Header from '../Header/Header'
-import { db } from "../../Database/FirebaseConfig.mjs"
+import { db } from "../../../Database/FirebaseConfig.mjs"
 import { Grid, Typography, Box, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import { collection, getDocs } from 'firebase/firestore/lite';

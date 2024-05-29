@@ -10,14 +10,14 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined'
 import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { BsPersonFillAdd } from "react-icons/bs"
-import { AppContext } from '../../Contexts/AppContext'
+import { AppContext } from '../../../Contexts/AppContext'
 
 // Armazena as opções que serão exibidas ao usuário na sidebar
 const sidebarOptions = [
-  { icon: <ArticleOutlinedIcon style={{color:'#FFFFFF'}}/>, text:'Pacientes' , to:'/pacientes' },
-  { icon: <ManageAccountsOutlinedIcon style={{color:'#FFFFFF'}}/>, text:'Cargos' , to:'/cargos' },
-  { icon: <BsPersonFillAdd style={{color:'#FFFFFF'}}/>, text:'Cadastros' , to:'/cadastros' },
-  { icon: <SettingsOutlinedIcon style={{color:'#FFFFFF'}}/>, text:'Opções' , to:'/opcoes' }
+  { icon: <ArticleOutlinedIcon style={{color:'#FFFFFF'}}/>, text:'Pacientes' , to:'/painel-adm/pacientes' },
+  { icon: <ManageAccountsOutlinedIcon style={{color:'#FFFFFF'}}/>, text:'Cargos' , to:'/painel-adm/cargos' },
+  { icon: <BsPersonFillAdd style={{color:'#FFFFFF'}}/>, text:'Cadastros' , to:'/painel-adm/cadastros' },
+  { icon: <SettingsOutlinedIcon style={{color:'#FFFFFF'}}/>, text:'Opções' , to:'/painel-adm/opcoes' }
 ]
 
 function Sidebar() {

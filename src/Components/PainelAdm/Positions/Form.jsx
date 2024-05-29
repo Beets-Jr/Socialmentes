@@ -9,10 +9,10 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 import { useState, useEffect } from 'react';
 
-import { db } from "../../Database/FirebaseConfig.mjs"
+import { db } from "../../../Database/FirebaseConfig.mjs"
 import { doc, updateDoc } from 'firebase/firestore/lite';
 
-import DialogConfirmation from "../ElementsInterface/DialogConfirmation";
+import DialogConfirmation from "../../ElementsInterface/DialogConfirmation";
 
 function stringToColor(string) {
   let hash = 0;
@@ -54,6 +54,7 @@ function getPositionIcon(position) {
   return positionIcons[position];
 }
 
+// eslint-disable-next-line react/prop-types
 function Form({ open, handleClose, photo, name, initialPosition, userID}) {
   const [currentPosition, setCurrentPosition] = useState(initialPosition); // armazena o cargo atual 
   const availablePositions = ['Paciente', 'Responsável', 'Administrador', 'Psicólogo']; // lista de cargos possíveis 

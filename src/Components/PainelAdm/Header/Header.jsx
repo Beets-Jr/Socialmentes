@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import { Link } from 'react-router-dom'
-import { auth } from '../../Database/FirebaseConfig.mjs'
+import { auth } from '../../../Database/FirebaseConfig.mjs'
 
 import { AppBar, Toolbar, Typography, Box, IconButton, Avatar } from '@mui/material'
 import { PiUserCircleFill } from 'react-icons/pi'
 import LogoutIcon from './Icons/LogoutIcon'
-import { AppContext } from "../../Contexts/AppContext"
+import { AppContext } from "../../../Contexts/AppContext"
 import { useContext } from "react"
 
 function stringAvatar(name){

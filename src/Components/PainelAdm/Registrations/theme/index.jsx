@@ -1,6 +1,6 @@
 import { createTheme } from "@mui/material";
 
-import '../../../Styles/variables.css';
+import '../../../../Styles/variables.css';
 
 export const theme = createTheme({
     palette: {
