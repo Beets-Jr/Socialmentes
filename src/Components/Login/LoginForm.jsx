@@ -1,27 +1,32 @@
 import React, { useState } from "react";
 import { Button, CircularProgress, ThemeProvider } from "@mui/material";
-import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { auth } from "../../Database/FirebaseConfig.mjs";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { useAuth } from "./AuthContext";
+
 import EmailTextField from "./TextFields/EmailTextField";
 import PasswordTextField from "./TextFields/PasswordTextField";
 import ErrorMessage from "./Messages/ErrorMessage";
 import SuccessMessage from "./Messages/SuccessMessage";
+import ArrowIcon from "./Images/Icons/ArrowIcon";
+
 import styles from "./Styles/LoginForm.module.css";
 import theme from "./Theme/theme";
-
-import ArrowIcon from "./Images/Icons/ArrowIcon";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [signInWithEmailAndPassword, user, loading, error] =
-    useSignInWithEmailAndPassword(auth);
+  const { signInWithEmail, error, user, loading } = useAuth();
+  const [isRedirecting, setIsRedirecting] = useState(false);
 
-  const handleSignIn = (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
-    signInWithEmailAndPassword(email, password);
+    await signInWithEmail(email, password);
+    setIsRedirecting(true);
   };
+
+  if (isRedirecting && user) {
+    return <Navigate to="/cargos" />;
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -53,8 +58,10 @@ function LoginForm() {
       </form>
 
       <div className={styles.campoEsqueceuSenha}>
-          Esqueceu sua senha?
-          <Link className={styles.cliqueAqui} to="/login/reset-password">&nbsp;Clique aqui!</Link>
+        Esqueceu sua senha?
+        <Link className={styles.cliqueAqui} to="/reset-password">
+          &nbsp;Clique aqui!
+        </Link>
       </div>
     </ThemeProvider>
   );

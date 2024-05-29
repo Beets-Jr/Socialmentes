@@ -1,38 +1,87 @@
-import Registrations from "./Components/Registrations/Registrations"
-import Positions from "./Components/Positions/Positions"
-import Login from "./Components/Login/Login"
-import DialogConfirmation from "./Components/ElementsInterface/DialogConfirmation"
-import Sidebar from "./Components/Sidebar/Sidebar"
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-// eslint-disable-next-line no-unused-vars
-import Header from "./Components/Header/Header"
-import { UserStorage } from "./UserContext"
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
+import Registrations from "./Components/Registrations/Registrations";
+import Positions from "./Components/Positions/Positions";
+import Login from "./Components/Login/Login";
+import PasswordResetPainel from "./Components/Login/Reset Password/PasswordResetPainel";
+import DialogConfirmation from "./Components/ElementsInterface/DialogConfirmation";
+import { UserStorage } from "./UserContext";
+import ProtectedRoute from "./Components/Login/ProtectedRoute";
+import Sidebar from "./Components/Sidebar/Sidebar";
+import Header from "./Components/Header/Header";
 
-function App() {
-
+function AppContent() {
+  const location = useLocation();
+  const isAuthPage =
+    location.pathname === "/login" || location.pathname === "/reset-password";
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/pagina-login" element={<Login/>}/>
-      </Routes>
-      <UserStorage>
-        <div style={{ display: 'flex' }}>
-          <Sidebar />
-          <div style={{ display: 'block' }}>
-            <Header/>
-            <Routes>
-              <Route path="/" element={<DialogConfirmation />} />
-              <Route path="/pacientes" element={<DialogConfirmation />} />
-              <Route path="/cargos" element={<Positions />} />
-              <Route path="/cadastros" element={<Registrations />} />
-              <Route path="/opcoes" element={<DialogConfirmation />} />
-            </Routes>
-          </div>
+    <UserStorage>
+      <div style={{ display: "flex" }}>
+        {!isAuthPage && <Sidebar />}
+        <div style={{ display: "block" }}>
+          {!isAuthPage && <Header />}
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/reset-password" element={<PasswordResetPainel />} />
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <DialogConfirmation />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/pacientes"
+              element={
+                <ProtectedRoute>
+                  <DialogConfirmation />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/cargos"
+              element={
+                <ProtectedRoute>
+                  <Positions />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/cadastros"
+              element={
+                <ProtectedRoute>
+                  <Registrations />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/opcoes"
+              element={
+                <ProtectedRoute>
+                  <DialogConfirmation />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
         </div>
-      </UserStorage>
-    </Router>
-  )
+      </div>
+    </UserStorage>
+  );
 }
 
-export default App
+function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
+  );
+}
+
+export default App;
