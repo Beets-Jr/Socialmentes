@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import styles from "./Styles/Login.module.css";
-import { Box, Grid } from "@mui/material";
-import PasswordReset from "./Reset Password/PasswordReset"
-import DesignRightSide from "./Sides/DesignRightSide";
+import { Grid } from "@mui/material";
+
 import RightSide from "./Sides/RightSide";
 import Painel from "./Painel";
 import { Route, Routes } from "react-router-dom";
