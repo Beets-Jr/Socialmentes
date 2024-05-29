@@ -10,7 +10,7 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import { useState, useEffect } from 'react';
 
 import { db } from "../../../Database/FirebaseConfig.mjs"
-import { doc, updateDoc } from 'firebase/firestore/lite';
+import { doc, updateDoc } from 'firebase/firestore';
 
 import DialogConfirmation from "../../ElementsInterface/DialogConfirmation";
 

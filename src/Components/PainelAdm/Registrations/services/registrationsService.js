@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, getDocs, serverTimestamp, updateDoc } from "firebase/firestore/lite";
+import { addDoc, collection, doc, getDocs, serverTimestamp, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 import { db, storage, auth } from "../../../../Database/FirebaseConfig.mjs";

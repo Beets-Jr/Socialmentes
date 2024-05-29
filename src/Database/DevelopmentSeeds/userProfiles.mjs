@@ -3,7 +3,7 @@ import { db } from '../FirebaseConfig.mjs'
 import faker from 'faker';
 import * as firebase from 'firebase/app';
 import { clearCollection } from './clearCollection.mjs'
-import { Timestamp, addDoc, collection, doc, setDoc } from 'firebase/firestore/lite';
+import { Timestamp, addDoc, collection, doc, setDoc } from 'firebase/firestore';
 
 const generateRandomCPF = () => {
   // Função para gerar um dígito aleatório

@@ -1,11 +1,12 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { auth } from "../../Database/FirebaseConfig.mjs";
+import { auth, db } from "../../Database/FirebaseConfig.mjs";
 import {
   FacebookAuthProvider,
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { doc, getDoc } from "firebase/firestore"; // Import doc and getDoc
 
 // Criando o contexto
 const AuthContext = createContext();
@@ -15,17 +16,22 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null); // Inicializado como null
   const [user, setUser] = useState(null);
-  const [signInWithEmailAndPassword, , loading, error] =
-    useSignInWithEmailAndPassword(auth);
+  const [signInWithEmailAndPassword, , loading, error] = useSignInWithEmailAndPassword(auth);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        setUser(user);
-        setIsAuthenticated(true);
-      } else {
-        setUser(null);
-        setIsAuthenticated(false);
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      try {
+        if (user && user.uid) {
+          const userDocRef = doc(db, "userProfiles", user.uid);
+          const docSnap = await getDoc(userDocRef);
+          setUser(docSnap.data());
+          setIsAuthenticated(true);
+        } else {
+          setUser(null);
+          setIsAuthenticated(false);
+        }
+      } catch (error) {
+        console.error("Error fetching user document: ", error);
       }
     });
 
@@ -36,7 +42,9 @@ export const AuthProvider = ({ children }) => {
     const provider = new FacebookAuthProvider();
     try {
       const result = await signInWithPopup(auth, provider);
-      setUser(result.user);
+      const userDocRef = doc(db, "userProfiles", result.user.uid); // Create DocumentReference
+      const docSnap = await getDoc(userDocRef);
+      setUser(docSnap.data());
       setIsAuthenticated(true);
       console.log("Successfully signed in with Facebook.");
     } catch (error) {
@@ -48,7 +56,9 @@ export const AuthProvider = ({ children }) => {
     const provider = new GoogleAuthProvider();
     try {
       const result = await signInWithPopup(auth, provider);
-      setUser(result.user);
+      const userDocRef = doc(db, "userProfiles", result.user.uid); // Create DocumentReference
+      const docSnap = await getDoc(userDocRef);
+      setUser(docSnap.data());
       setIsAuthenticated(true);
       console.log("Successfully signed in with Google.");
     } catch (error) {
@@ -59,7 +69,9 @@ export const AuthProvider = ({ children }) => {
   const signInWithEmail = async (email, password) => {
     try {
       const result = await signInWithEmailAndPassword(email, password);
-      setUser(result.user);
+      const userDocRef = doc(db, "userProfiles", result.user.uid); // Create DocumentReference
+      const docSnap = await getDoc(userDocRef);
+      setUser(docSnap.data());
       setIsAuthenticated(true);
       console.log("Successfully signed in with email and password.");
     } catch (error) {

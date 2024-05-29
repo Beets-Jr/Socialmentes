@@ -11,7 +11,6 @@ export const AppStorage = ({ children }) => {
 
     useEffect(() => {
         const { pathname } = location;
-        console.log(pathname);
         switch (pathname) {
           case '/painel-adm/cargos':
             setTitle('Gerenciar Cargos');

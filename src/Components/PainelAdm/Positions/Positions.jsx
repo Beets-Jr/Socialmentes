@@ -3,7 +3,7 @@ import Header from '../Header/Header'
 import { db } from "../../../Database/FirebaseConfig.mjs"
 import { Grid, Typography, Box, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
-import { collection, getDocs } from 'firebase/firestore/lite';
+import { collection, getDocs } from 'firebase/firestore';
 import Position from "./Position";
 
 

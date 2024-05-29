@@ -1,4 +1,4 @@
-import { collection, getDocs, deleteDoc } from 'firebase/firestore/lite';
+import { collection, getDocs, deleteDoc } from 'firebase/firestore';
 import { db } from '../FirebaseConfig.mjs';
 
 export const clearCollection = async (collectionName) => {

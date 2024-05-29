@@ -7,6 +7,7 @@ import { PiUserCircleFill } from 'react-icons/pi'
 import LogoutIcon from './Icons/LogoutIcon'
 import { AppContext } from "../../../Contexts/AppContext"
 import { useContext } from "react"
+import { useAuth } from '../../Login/AuthContext'
 
 function stringAvatar(name){
 
@@ -27,7 +28,7 @@ function Header() {
   const {title} = useContext(AppContext);
 
   // Recupera o usuário que está logado
-  const user = auth.currentUser
+  const {user} = useAuth();
 
   const logout = () => {
     auth.signOut()
@@ -37,7 +38,8 @@ function Header() {
     <AppBar position='static' sx={{background: '#FFFFFF', width: '100%', borderRadius: '0 0 15px 15px', height: '15vh', display: 'flex', justifyContent: 'center'}}>
       <Toolbar sx={{display: 'flex', justifyContent: 'space-between'}}>
 
-        {/* Título do Header */}
+        {/* Título do Header */
+        console.log(user)}
         <Typography
           variant='h4'
           component='div'
