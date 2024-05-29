@@ -1,8 +1,8 @@
-import { addDoc, collection, doc, getDocs, serverTimestamp, updateDoc } from "firebase/firestore";
+import { collection, doc, getDocs, serverTimestamp, setDoc, updateDoc } from "firebase/firestore/lite";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 import { db, storage, auth } from "../../../../Database/FirebaseConfig.mjs";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 
 
 const colRegistrations = collection(db, 'userProfiles');
@@ -53,7 +53,9 @@ const createRegister = async ({ email, photo, ...registerData }) => {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         uid = userCredential.user.uid;
 
-        await addDoc(colRegistrations, {
+        const userDocRef = doc(colRegistrations, uid);
+
+        await setDoc( userDocRef, {
             uid,
             ...registerData
         });
@@ -62,9 +64,8 @@ const createRegister = async ({ email, photo, ...registerData }) => {
         if (result instanceof Error) {
             throw new Error('Ocorreu um erro ao subir a imagem para o banco de dados');
         } else {
-            const refDoc = doc(colRegistrations, uid);
-            await updateDoc(refDoc, {
-                photoUrl: result,
+            await updateDoc(userDocRef, {
+                urlPhoto: result,
                 createdAt: serverTimestamp()
             });
         }

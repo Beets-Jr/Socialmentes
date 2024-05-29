@@ -4,7 +4,7 @@ import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconBut
 import { msg_errors, RegistrationsMiddleware, RegistrationsService } from "./services";
 import { IconClose, IconListAdd } from "./assets/icons";
 import { VForm, VMessageError } from "./forms";
-import { ChooseCategory, FirstForm, SecondForm, Success } from './steps';
+import { FirstForm, SecondForm, Success } from './steps';
 
 import './styles/AddRegister.css';
 
@@ -16,6 +16,7 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
     const [disabledForm, setDisabledForm] = useState(false); // disabilita os campos do formulário quando ele é submitado
     const [disabledButton, setDisabledButton] = useState(true); // informa se o usuário pode clicar em prosseguir
     const [message, setMessage] = useState(''); // mensagem de erro exibida no Form
+    const [success, setSuccess] = useState(); // o usuário foi criado com sucesso?
 
     // ao abrir e fechar o Dialog
     useEffect(() => {
@@ -29,15 +30,7 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
     // função executada nas etapas intermediárias e antes de salvar os dados no banco
     const handleProceed = () => {
         setDisabledForm(true);
-        if (step == 0) {
-            if (formRef.current.getFieldValue('category')) {
-                setDisabledButton(true);
-                setStep( oldStep => oldStep + 1 );
-            } else {
-                setMessage('Escolha uma das opções para prosseguir');
-            }
-            setDisabledForm(false);
-        } else if (step == 1) {
+        if (step === 0) {
             RegistrationsMiddleware.secondStepValidationSchema.validate( formRef.current.getData(), { abortEarly: false })
                 .then( () => {
                     setDisabledButton(true);
@@ -53,7 +46,7 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
                 .finally( () => {
                     setDisabledForm(false)
                 });
-        } else if (step == 2) {
+        } else if (step === 1) {
             RegistrationsMiddleware.thirdStepValidationSchema.validate( formRef.current.getData(), { abortEarly: false })
                 .then( () => {
                     formRef.current.submitForm();
@@ -76,8 +69,14 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
         RegistrationsService.createRegister(treatData)
             .then( result => {
                 if (result instanceof Error) {
-                    setMessage(result);
+                    setSuccess(false);
+                    setStep( oldStep => oldStep + 1 );
+                    setDisabledButton(true);
+                    setTimeout(() => {
+                        handleClose();
+                    }, 3000);
                 } else {
+                    setSuccess(true);
                     setStep( oldStep => oldStep + 1 );
                     setDisabledButton(true);
                     setTimeout(() => {
@@ -126,22 +125,17 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
                     onSubmit={ (data) => handleSubmit(data) }
                 >
                     { step === 0 ? (
-                        <ChooseCategory
-                            disabledForm={disabledForm}
-                            setDisabledButton={setDisabledButton}
-                        />
-                    ) : step === 1 ? (
                         <FirstForm
                             disabledForm={disabledForm}
                             setDisabledButton={setDisabledButton}
                         />
-                    ) : step === 2 ? (
+                    ) : step === 1 ? (
                         <SecondForm
                             disabledForm={disabledForm}
                             setDisabledButton={setDisabledButton}
                         />
                     ) : (
-                        <Success />
+                        <Success success={success} />
                     )}
                 </VForm>
             </DialogContent>
@@ -149,7 +143,7 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
             {/** Stepper e Botão de prosseguir */}
             <DialogActions className='dialogActions'>
                 <Box className='stepper'>
-                    { [0, 1, 2].map( i => (
+                    { [0, 1].map( i => (
                         <Box key={i} className={i === step ? 'stepActive' : 'stepBase'} />
                     ))}
                 </Box>
@@ -160,10 +154,11 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
                     type="button"
                     onClick={ () => disabledForm ? null :  handleProceed() }
                 >
-                    {step > 0 && (
-                        <IconListAdd color={disabledButton ? '#D7D7D7' : '#ffffff'} sx={{ mr: 2 }} />
-                    )}
-                    {step === 2 ? 'Cadastrar' : 'Prosseguir'}
+                    <IconListAdd
+                        color={disabledButton ? '#D7D7D7' : '#ffffff'}
+                        sx={{ mr: 2 }}
+                    />
+                    {step === 1 ? 'Cadastrar' : 'Prosseguir'}
                 </Button>
             </DialogActions>
 
