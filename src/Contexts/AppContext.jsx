@@ -11,16 +11,16 @@ export const AppStorage = ({ children }) => {
 
     useEffect(() => {
         const { pathname } = location;
+        console.log(pathname);
         switch (pathname) {
-          case '/cargos':
+          case '/painel-adm/cargos':
             setTitle('Gerenciar Cargos');
             break;
-          case '/cadastros':
+          case '/painel-adm/cadastros':
             setTitle('Gerenciar Cadastros');
             break;
           default:
             setTitle('Insira seu Titulo Aqui');
-            
         }
       }, [location]);
 

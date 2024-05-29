@@ -4,13 +4,21 @@ import Positions from "./Positions/Positions";
 import DialogConfirmation from "../ElementsInterface/DialogConfirmation";
 import Sidebar from "./Sidebar/Sidebar";
 import Header from "./Header/Header";
+import { useContext } from "react";
+import { AppContext } from "../../Contexts/AppContext";
 
 
-function App() {
+function PainelAdm() {
+    const {open} = useContext(AppContext);
+    const width = open ? "80vw" : "95vw";
+
     return (
         <div style={{ display: "flex" }}>
             <Sidebar />
-            <div style={{ display: "block" }}>
+            <div style={{ 
+                display: "block",
+                width: width
+                }}>
                 <Header />
                 <Routes>
                     <Route path="/" element={<DialogConfirmation />} />
@@ -24,4 +32,4 @@ function App() {
     );
 }
 
-export default App;
+export default PainelAdm;

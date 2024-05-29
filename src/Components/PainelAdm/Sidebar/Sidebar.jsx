@@ -60,7 +60,7 @@ function Sidebar() {
       {/* Box com a logo no topo da sidebar */}
       <Box sx={{backgroundColor: '#FFFFFF', borderRadius:'0 0 15px 15px', width: '100%', height:'15vh', display:'flex', alignItems:'center', justifyContent:'center', marginBottom:'5vh'}}>
         {open ?
-          <img src='src/Components/Sidebar/Icons/LogoSocialMentes1.png' alt="logo" style={{height:'25vh', userSelect: 'none'}}/>
+          <img src='../src/Components/PainelAdm/Sidebar/Icons/LogoSocialMentes1.png' alt="logo" style={{height:'25vh', userSelect: 'none'}}/>
           :
           <IconButton onClick={toggleSidebar} sx={{color: 'var(--color-blue-3)'}}>
             <MenuIcon />

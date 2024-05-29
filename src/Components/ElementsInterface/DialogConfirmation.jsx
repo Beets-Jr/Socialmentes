@@ -20,7 +20,7 @@ function DialogConfirmation({open, onClose, onConfirm}) {
       }}
     > 
       <img 
-        src="src\Assets\LogoSociaMentes1.png" 
+        src="..\src\Assets\LogoSociaMentes1.png" 
         alt="socialmentes-logo" 
         style={{width:"25%", height:"auto",margin:"0 auto"}}
       />
@@ -73,7 +73,7 @@ function DialogConfirmation({open, onClose, onConfirm}) {
         </Button>
         <Button 
           variant="outlined"  
-          onClick={onClose} autofocus
+          onClick={onClose} autoFocus
           sx={{
             fontFamily: "var(--font-text)",
             fontWeight: "400",

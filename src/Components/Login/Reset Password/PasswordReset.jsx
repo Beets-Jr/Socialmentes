@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button, CircularProgress, ThemeProvider } from "@mui/material";
 import { auth } from "../../../Database/FirebaseConfig.mjs";
 import { sendPasswordResetEmail } from "firebase/auth";
