@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { auth } from "../../Database/FirebaseConfig.mjs";
 import {
   FacebookAuthProvider,
@@ -11,6 +11,7 @@ import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 const AuthContext = createContext();
 
 // Criando o provedor
+// eslint-disable-next-line react/prop-types
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null); // Inicializado como null
   const [user, setUser] = useState(null);

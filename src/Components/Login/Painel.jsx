@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import LoginForm from "./LoginForm";
 import styles from "../Login/Styles/Painel.module.css";
 import Line from "./Images/Icons/Line";

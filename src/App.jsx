@@ -1,4 +1,3 @@
-import React from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -10,7 +9,7 @@ import Positions from "./Components/Positions/Positions";
 import Login from "./Components/Login/Login";
 import PasswordResetPainel from "./Components/Login/Reset Password/PasswordResetPainel";
 import DialogConfirmation from "./Components/ElementsInterface/DialogConfirmation";
-import { UserStorage } from "./UserContext";
+import { AppStorage } from "./Contexts/AppContext";
 import ProtectedRoute from "./Components/Login/ProtectedRoute";
 import Sidebar from "./Components/Sidebar/Sidebar";
 import Header from "./Components/Header/Header";
@@ -21,7 +20,7 @@ function AppContent() {
     location.pathname === "/login" || location.pathname === "/reset-password";
 
   return (
-    <UserStorage>
+    <AppStorage>
       <div style={{ display: "flex" }}>
         {!isAuthPage && <Sidebar />}
         <div style={{ display: "block" }}>
@@ -72,7 +71,7 @@ function AppContent() {
           </Routes>
         </div>
       </div>
-    </UserStorage>
+    </AppStorage>
   );
 }
 

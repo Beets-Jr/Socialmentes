@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import { useState } from 'react'
+import { useContext} from 'react'
 
 // eslint-disable-next-line no-unused-vars
 import { AppBar, List, ListItemButton, ListItemIcon, ListItemText, Box, IconButton, Drawer, useMediaQuery } from '@mui/material'
@@ -10,6 +10,7 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined'
 import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { BsPersonFillAdd } from "react-icons/bs"
+import { AppContext } from '../../Contexts/AppContext'
 
 // Armazena as opções que serão exibidas ao usuário na sidebar
 const sidebarOptions = [
@@ -21,7 +22,7 @@ const sidebarOptions = [
 
 function Sidebar() {
 
-  const[open, setOpen] = useState(false)
+  const {open, setOpen} = useContext(AppContext);
   const location = useLocation()
 
   // Função para mostrar/ocultar a sidebar

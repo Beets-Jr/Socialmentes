@@ -5,7 +5,7 @@ import { auth } from '../../Database/FirebaseConfig.mjs'
 import { AppBar, Toolbar, Typography, Box, IconButton, Avatar } from '@mui/material'
 import { PiUserCircleFill } from 'react-icons/pi'
 import LogoutIcon from './Icons/LogoutIcon'
-import { UserContext } from "../../UserContext"
+import { AppContext } from "../../Contexts/AppContext"
 import { useContext } from "react"
 
 function stringAvatar(name){
@@ -24,7 +24,7 @@ function stringAvatar(name){
 
 function Header() {
   
-  const {title} = useContext(UserContext);
+  const {title} = useContext(AppContext);
 
   // Recupera o usuário que está logado
   const user = auth.currentUser
@@ -46,7 +46,7 @@ function Header() {
         </Typography>
             
         {/* Se o usuário existir deve ser exibido o seu nome e sua foto, caso contrário, deve-se exibir uma opção para o login*/}
-        {user ? 
+        {user && user.fullName ? 
           <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1.5vw', '@media (max-width: 600px)': {gap: '0px'}}}>
 
             {/* Caixa de texto para quando o usuário está logado */}

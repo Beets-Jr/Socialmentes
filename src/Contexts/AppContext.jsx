@@ -1,11 +1,12 @@
 import { createContext, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
 
-export const UserContext = createContext();
+export const AppContext = createContext();
 
 // eslint-disable-next-line react/prop-types
-export const UserStorage = ({ children }) => {
+export const AppStorage = ({ children }) => {
     const [title, setTitle] = useState('');
+    const [open, setOpen] = useState(false);
     const location = useLocation();
 
     useEffect(() => {
@@ -23,5 +24,5 @@ export const UserStorage = ({ children }) => {
         }
       }, [location]);
 
-    return <UserContext.Provider value={{title}}>{children}</UserContext.Provider>
+    return <AppContext.Provider value={{title, open, setOpen}}>{children}</AppContext.Provider>
 }

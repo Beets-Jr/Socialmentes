@@ -2,6 +2,8 @@ import { addDoc, collection, doc, getDocs, serverTimestamp, updateDoc } from "fi
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 import { db, storage } from "../../../Database/FirebaseConfig.mjs";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../../Database/FirebaseConfig.mjs";
 
 
 const colRegistrations = collection(db, 'userProfiles');
@@ -44,40 +46,35 @@ const createPhoto = (uid, photo) => {
 
 };
 
-const createRegister = ({ photo, ...registerData }) => {
+const createRegister = async ({ email, photo, ...registerData }) => {
+    let uid;
+    const password = "123456"; // senha padrão para todos os usuários
 
-    let uid = undefined;
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        uid = userCredential.user.uid;
 
-    return addDoc( colRegistrations, {
-        ...registerData
-    })
-        .then( (snapshot) => {
-            uid = snapshot.id;
-            return createPhoto(uid, photo);
-        })
-        .then( (result) => {
-            if (result instanceof Error) {
-                return Error('Ocorreu um erro ao subir a imagem para o banco de dados');
-            } else {
-                const refDoc = doc(colRegistrations, uid);
-                return updateDoc(refDoc, {
-                    photoUrl: result,
-                    createdAt: serverTimestamp()
-                })
-            }
-        })
-        .then( (result) => {
-            if (result instanceof Error) {
-                return result;
-            } else {
-                return uid;
-            }
-        })
-        .catch( (error) => {
-            console.log(error);
-            return Error(error.code);
+        await addDoc(colRegistrations, {
+            uid,
+            ...registerData
         });
 
+        const result = await createPhoto(uid, photo);
+        if (result instanceof Error) {
+            throw new Error('Ocorreu um erro ao subir a imagem para o banco de dados');
+        } else {
+            const refDoc = doc(colRegistrations, uid);
+            await updateDoc(refDoc, {
+                photoUrl: result,
+                createdAt: serverTimestamp()
+            });
+        }
+
+        return uid;
+    } catch (error) {
+        console.log(error);
+        return new Error(error.code);
+    }
 };
 
 export const RegistrationsService = {
