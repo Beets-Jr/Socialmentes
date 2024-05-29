@@ -1,11 +1,13 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import styles from "./Styles/Login.module.css";
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 
 import RightSide from "./Sides/RightSide";
 import Painel from "./Painel";
 import { Route, Routes } from "react-router-dom";
+
+import PasswordReset from "./Reset Password/PasswordReset";
 
 function Login() {
   return (
