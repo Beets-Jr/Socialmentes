@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import { Link } from 'react-router-dom'
-import { auth } from '../../../Database/FirebaseConfig.mjs'
 
 import { AppBar, Toolbar, Typography, Box, IconButton, Avatar } from '@mui/material'
 import { PiUserCircleFill } from 'react-icons/pi'
@@ -30,9 +29,7 @@ function Header() {
   // Recupera o usuário que está logado
   const {user} = useAuth();
 
-  const logout = () => {
-    auth.signOut()
-  }
+  const {logout} = useAuth();
 
   return (
     <AppBar position='static' sx={{background: '#FFFFFF', width: '100%', borderRadius: '0 0 15px 15px', height: '15vh', display: 'flex', justifyContent: 'center'}}>
