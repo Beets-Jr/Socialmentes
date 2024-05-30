@@ -51,7 +51,8 @@ function getPositionIcon(position) {
     return positionIcons[position];
 }
 
-function Position({photoUrl, fullName, position, id}) {
+// eslint-disable-next-line react/prop-types
+function Position({setConfirmedChange, photoUrl, fullName, position, id}) {
     const [open, setOpen] = useState(false);
 
     const handleClickOpen = () => {
@@ -138,7 +139,7 @@ function Position({photoUrl, fullName, position, id}) {
                     </CardContent>
                 </Card>
             </ButtonBase>
-            <Form open={open} handleClose={handleClose} photo={photoUrl} name={fullName} initialPosition={position} userID={id}/>
+            <Form setConfirmedChange={setConfirmedChange} open={open} handleClose={handleClose} photo={photoUrl} name={fullName} initialPosition={position} userID={id}/>
         </>
         
     );

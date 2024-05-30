@@ -69,7 +69,6 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
         RegistrationsService.createRegister(treatData)
             .then( result => {
                 if (result instanceof Error) {
-                    console.log(result);
                     setCreateResult({
                         code: 'error',
                         msg: result == 'Error: auth/email-already-in-use' ? 'Já existe um cadastro com o email informado!' : 'Erro ao cadastrar'

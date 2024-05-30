@@ -7,7 +7,7 @@ import GroupIcon from '@mui/icons-material/Group';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import { db } from "../../../Database/FirebaseConfig.mjs"
 import { doc, updateDoc } from 'firebase/firestore';
@@ -55,13 +55,11 @@ function getPositionIcon(position) {
 }
 
 // eslint-disable-next-line react/prop-types
-function Form({ open, handleClose, photo, name, initialPosition, userID}) {
+function Form({ open, handleClose, photo, name, initialPosition, userID, setConfirmedChange}) {
   const [currentPosition, setCurrentPosition] = useState(initialPosition); // armazena o cargo atual 
   const availablePositions = ['Paciente', 'Responsável', 'Administrador', 'Psicólogo']; // lista de cargos possíveis 
   const [positionChanged, setPositionChanged] = useState(false); // indica se o cargo mudou 
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false); // controla a visibilidade do diálogo de confirmação de saída
-  const [confirmedChange, setConfirmedChange] = useState(false); // indica que uma mudança foi feita 
-
   
 
   const handlePositionChange = (newPosition) => {
@@ -103,11 +101,6 @@ function Form({ open, handleClose, photo, name, initialPosition, userID}) {
     handleClose();
   };
   
-  useEffect(() => {
-    if (confirmedChange) {
-      window.location.reload();
-    }
-  }, [confirmedChange]);
 
   return (
     <>

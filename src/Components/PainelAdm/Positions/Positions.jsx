@@ -12,6 +12,7 @@ function Positions() {
   const [profiles, setProfiles] = useState([]);
   const [isPositionSet, setIsPositionsSet] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [confirmedChange, setConfirmedChange] = useState(false); // indica que uma mudança foi feita 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,7 +29,7 @@ function Positions() {
     };
 
     fetchData();
-  }, [])
+  }, [confirmedChange])
 
   return (
     <div style={{ margin: '3vw' }}>
@@ -48,7 +49,7 @@ function Positions() {
         <Grid container spacing={4}>
           {profiles.map((profile) => (
             <Grid item key={profile.id} xs={12} sm={6} md={4} >
-              <Position photoUrl={profile.photoUrl} fullName={profile.fullName} position={profile.position} id={profile.id} />
+              <Position setConfirmedChange={setConfirmedChange} photoUrl={profile.photoUrl} fullName={profile.fullName} position={profile.position} id={profile.id} />
             </Grid>
           ))}
         </Grid>

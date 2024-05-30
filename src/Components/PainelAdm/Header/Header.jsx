@@ -38,8 +38,7 @@ function Header() {
     <AppBar position='static' sx={{background: '#FFFFFF', width: '100%', borderRadius: '0 0 15px 15px', height: '15vh', display: 'flex', justifyContent: 'center'}}>
       <Toolbar sx={{display: 'flex', justifyContent: 'space-between'}}>
 
-        {/* Título do Header */
-        console.log(user)}
+        {/* Título do Header */}
         <Typography
           variant='h4'
           component='div'
@@ -63,15 +62,15 @@ function Header() {
               <Typography
                 variant='subtitle2'
                 component={Link}
-                to = '/conta'
+                to = '/conta'//mudar depois
                 sx={{fontFamily: 'var(--font-text)', color: 'var(--color-blue-1)', textDecoration: 'none', fontSize: { xs: '0.75rem', sm: '1rem' }}}>
               Editar Perfil
               </Typography>
             </Box>
 
             {/* Exibe a foto do usuário caso ela exista ou um avatar com as suas iniciais caso não exista */}
-            {user.photo ? 
-              <Avatar src={user.photo} sx={{width: '50px', height: '50px', border: '2.5px solid var(--color-blue-1)'}}></Avatar>
+            {user.photoUrl ? 
+              <Avatar src={user.photoUrl} sx={{width: '50px', height: '50px', border: '2.5px solid var(--color-blue-1)'}}></Avatar>
               :
               <Avatar {...stringAvatar(user.fullName)} sx={{width: '50px', height: '50px', border: '2.5px solid var(--color-blue-1)'}}></Avatar>
             }
