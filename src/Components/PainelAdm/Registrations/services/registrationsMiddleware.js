@@ -1,18 +1,14 @@
 import * as yup from 'yup';
 import { msg_errors } from './validationMessages';
 
-const secondStepValidationSchema = yup.object({
+const firstStepValidationSchema = yup.object({
     photo: yup
         .mixed()
-        .test( 'fileExists', msg_errors.PHOTO,  (photo) => photo instanceof File )
+        .test( 'fileExists', msg_errors.PHOTO, (photo) => photo instanceof File )
         .required(msg_errors.REQUIRED),
     fullName: yup
         .string()
         .min(3, msg_errors.FULLNAME)
-        .required(msg_errors.REQUIRED),
-    email: yup
-        .string()
-        .email(msg_errors.EMAIL)
         .required(msg_errors.REQUIRED),
     cep: yup
         .string()
@@ -38,6 +34,22 @@ const secondStepValidationSchema = yup.object({
         .string()
         .min(3, msg_errors.CITY)
         .required(msg_errors.REQUIRED)
+});
+
+const secondStepValidationSchema = yup.object({
+    photo: yup
+        .mixed()
+        .test( 'fileExists', msg_errors.PHOTO,  (photo) => photo instanceof File )
+        .required(msg_errors.REQUIRED),
+    emails: yup
+        .array()
+        .compact()
+        .of(
+            yup
+            .string()
+            .email(msg_errors.EMAIL)
+        )
+        .min(1, 'Pelo menos um email deve ser informado')
 });
 
 const thirdStepValidationSchema = yup.object({
@@ -110,6 +122,7 @@ const treatValidatedData = ({ cpf, phone, state, city, neighborhood, street, num
 };
 
 export const RegistrationsMiddleware = {
+    firstStepValidationSchema,
     secondStepValidationSchema,
     thirdStepValidationSchema,
     treatValidatedData

@@ -50,7 +50,7 @@ const createRegister = async ({ email, photo, ...registerData }) => {
     const password = "123456"; // senha padrão para todos os usuários
 
     try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const userCredential = await createUserWithEmailAndPassword(auth, email[0], password);
         uid = userCredential.user.uid;
 
         const userDocRef = doc(colRegistrations, uid);

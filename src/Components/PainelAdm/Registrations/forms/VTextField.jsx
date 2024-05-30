@@ -3,7 +3,7 @@ import { Box, Grid, TextField, styled } from '@mui/material';
 
 import { useVFormContext } from '.';
 
-const StylizedTextField = styled(TextField)({
+export const StylizedTextField = styled(TextField)({
     '& label': {
         color: "#727272",
     },

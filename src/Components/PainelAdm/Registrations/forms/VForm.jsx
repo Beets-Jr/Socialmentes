@@ -25,21 +25,11 @@ export const VForm = forwardRef(( props, ref ) => {
     }
 
     const getFieldValue = (name) => {
-        const tree = name.split('.');
-        if (tree.length === 1) {
-            return data[tree[0]];
-        } else {
-            return data[tree[0]][tree[1]];
-        }
+        return data[name]
     };
 
     const setFieldValue = (name, value) => {
-        const tree = name.split('.');
-        if (tree.length === 1) {
-            data[tree[0]] = value;
-        } else {
-            data[tree[0]][tree[1]] = value;
-        }
+        data[name] = value;
     }
 
     const submitForm = () => {

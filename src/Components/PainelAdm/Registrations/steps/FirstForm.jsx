@@ -1,6 +1,6 @@
 import { useTheme } from "@mui/material";
 
-import { IconAttention, IconCity, IconEmail, IconIdentity, IconLocation, IconPerson, IconPhone, IconPositionForm } from "../assets/icons";
+import { IconAttention, IconCity, IconIdentity, IconLocation, IconPerson, IconPhone, IconPositionForm } from "../assets/icons";
 import { VFormContent, VRow, VSelect, VTextField, VUploadPhoto, useVFormContext } from "../forms";
 
 export const FirstForm = ({ disabledForm, setDisabledButton }) => {
@@ -10,7 +10,7 @@ export const FirstForm = ({ disabledForm, setDisabledButton }) => {
     const fieldsRequireds = [
         'photo',
         'fullName',
-        'email',
+        // 'email',
         'cep',
         'cpf',
         'specialization',
@@ -60,7 +60,7 @@ export const FirstForm = ({ disabledForm, setDisabledButton }) => {
                     disabled={disabledForm}
                 />
             </VRow>
-            <VRow unique>
+            {/* <VRow unique>
                 <VTextField
                     name='email'
                     label_icon={<IconEmail {...icon_props('email', .3)} />}
@@ -68,7 +68,7 @@ export const FirstForm = ({ disabledForm, setDisabledButton }) => {
                     placeholder='exemplo@email.com'
                     disabled={disabledForm}
                 />
-            </VRow>
+            </VRow> */}
             <VRow>
                 <VTextField
                     xs={5}
