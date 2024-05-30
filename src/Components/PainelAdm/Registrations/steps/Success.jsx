@@ -1,17 +1,13 @@
 import { Box, Typography } from "@mui/material";
 
-import '../styles/ChooseCategory.css';
+import '../styles/Success.css';
 
-export const Success = ({ success }) => {
+export const Success = ({ status }) => {
 
     return (
         <Box className='boxContainer'>
-            <Typography variant="h3" color={success && 'red'}>
-                { success ?
-                    'Cadastrado com sucesso!'
-                    :
-                    'Erro ao cadastrar'
-                }
+            <Typography variant="h3" color={status.code != 'ok' && 'red'}>
+                { status.msg }
             </Typography>
         </Box>
     );

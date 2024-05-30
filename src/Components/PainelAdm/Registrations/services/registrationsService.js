@@ -57,6 +57,7 @@ const createRegister = async ({ email, photo, ...registerData }) => {
 
         await setDoc( userDocRef, {
             uid,
+            email,
             ...registerData
         });
 

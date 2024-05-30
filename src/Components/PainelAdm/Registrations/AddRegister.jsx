@@ -16,7 +16,7 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
     const [disabledForm, setDisabledForm] = useState(false); // disabilita os campos do formulário quando ele é submitado
     const [disabledButton, setDisabledButton] = useState(true); // informa se o usuário pode clicar em prosseguir
     const [message, setMessage] = useState(''); // mensagem de erro exibida no Form
-    const [success, setSuccess] = useState(); // o usuário foi criado com sucesso?
+    const [createResult, setCreateResult] = useState(); // o usuário foi criado com sucesso?
 
     // ao abrir e fechar o Dialog
     useEffect(() => {
@@ -69,14 +69,21 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
         RegistrationsService.createRegister(treatData)
             .then( result => {
                 if (result instanceof Error) {
-                    setSuccess(false);
+                    console.log(result);
+                    setCreateResult({
+                        code: 'error',
+                        msg: result == 'Error: auth/email-already-in-use' ? 'Já existe um cadastro com o email informado!' : 'Erro ao cadastrar'
+                    });
                     setStep( oldStep => oldStep + 1 );
                     setDisabledButton(true);
                     setTimeout(() => {
                         handleClose();
-                    }, 3000);
+                    }, 5000);
                 } else {
-                    setSuccess(true);
+                    setCreateResult({
+                        code: 'ok',
+                        msg: 'Cadastrado com sucesso!'
+                    });
                     setStep( oldStep => oldStep + 1 );
                     setDisabledButton(true);
                     setTimeout(() => {
@@ -135,7 +142,7 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
                             setDisabledButton={setDisabledButton}
                         />
                     ) : (
-                        <Success success={success} />
+                        <Success status={createResult} />
                     )}
                 </VForm>
             </DialogContent>
