@@ -1,0 +1,38 @@
+.background {
+    position: relative;
+    overflow: hidden;
+}
+
+.background::before {
+    content: "";
+    padding-top: 15vh;
+    width: 105%;
+    height: 100%;
+    position: absolute;
+    opacity: 0.15;
+    background-image: url('../../Assets/Logo.svg'); 
+    background-size: 50%; 
+    background-repeat: no-repeat; 
+    background-position: bottom right; 
+    background-attachment: scroll;
+}
+
+.noBackground {
+    background-color: #fff;
+}
+
+.noBackground::before {
+    content: none;
+}
+
+@media(max-width: 1200px) {
+    .background::before {
+        background-size: 40%;
+    }
+}
+
+@media(max-width: 676px) {
+    .background::before {
+        background: none;
+    }
+}

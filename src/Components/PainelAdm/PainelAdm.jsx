@@ -8,6 +8,7 @@ import { useContext } from "react";
 import { AppContext } from "../../Contexts/AppContext";
 import { useAuth } from "../Login/AuthContext";
 import { Box, Typography } from "@mui/material";
+import styles from "./PainelAdm.module.css";
 
 const PermissionDeniedMessage = () => (
     <Box
@@ -33,8 +34,8 @@ function PainelAdm() {
     return (
         <div style={{ display: "flex" }}>
             <Sidebar />
-            <div style={{ display: "block", width: width }}>
-                <Header />
+            <div className={styles.background} style={{ display: "block", width: width }}>
+                <Header sx={{backgroundColor:'#fff', }}/>
                 {user.position === "Administrador" ? (
                     <Routes>
                         <Route path="/" element={<DialogConfirmation />} />
