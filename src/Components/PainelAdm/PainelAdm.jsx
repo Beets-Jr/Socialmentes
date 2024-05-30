@@ -9,7 +9,7 @@ import { AppContext } from "../../Contexts/AppContext";
 import { useAuth } from "../Login/AuthContext";
 import { Box, Typography } from "@mui/material";
 
-const PermissionDeniedMessage = () => (
+const PermissionDeniedMessage = () => ( //provisório
     <Box
         sx={{
             display: 'flex',
