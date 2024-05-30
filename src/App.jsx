@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import Login from "./Components/Login/Login";
 import { AppStorage } from "./Contexts/AppContext";
 import RouteIsLogged from "./Components/Login/RouteIsLogged";
@@ -12,6 +12,7 @@ function App() {
       <AppStorage>
         <AuthProvider>
           <Routes>
+            <Route path="/" element={<Navigate to="/login" />} />
             <Route path="login/*" element={<RouteIsLogged><Login /></RouteIsLogged>} />
             <Route path="painel-adm/*" element={<ProtectedRoute><PainelAdm /></ProtectedRoute>} />
           </Routes>
