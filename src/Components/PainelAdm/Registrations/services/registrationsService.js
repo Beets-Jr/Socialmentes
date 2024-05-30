@@ -46,12 +46,17 @@ const createPhoto = (uid, photo) => {
 };
 
 const createRegister = async ({ email, photo, ...registerData }) => {
+
+    const user = auth.currentUser;
+
     let uid;
     const password = "123456"; // senha padrão para todos os usuários
 
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, email[0], password);
         uid = userCredential.user.uid;
+
+        await auth.updateCurrentUser(user);
 
         const userDocRef = doc(colRegistrations, uid);
 

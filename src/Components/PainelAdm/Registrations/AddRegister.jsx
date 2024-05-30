@@ -24,6 +24,7 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
         setTimeout( () => {
             setStep(0);
             setEmails(['']);
+            setDisabledForm(false);
             setDisabledButton(true);
         }, 100);
         setMessage('');
@@ -50,7 +51,6 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
                 });
         } else if (step === 1) {
             const data = { emails, photo: formRef.current.getFieldValue('photo') };
-            console.log(data);
             RegistrationsMiddleware.secondStepValidationSchema.validate( data, { abortEarly: false } )
                 .then( () => {
                     formRef.current.setFieldValue('email', emails);
