@@ -30,12 +30,15 @@ function PainelAdm() {
     const width = open ? "80vw" : "95vw";
     const { user } = useAuth();
 
+    // Verifica se user existe e se a propriedade position existe antes de acessá-la
+    const isAdmin = user && user.position && user.position === "Administrador";
+
     return (
         <div style={{ display: "flex" }}>
             <Sidebar />
             <div style={{ display: "block", width: width }}>
                 <Header />
-                {user.position === "Administrador" ? (
+                {isAdmin ? (
                     <Routes>
                         <Route path="/" element={<DialogConfirmation />} />
                         <Route path="pacientes" element={<DialogConfirmation />} />
@@ -52,5 +55,6 @@ function PainelAdm() {
         </div>
     );
 }
+
 
 export default PainelAdm;
