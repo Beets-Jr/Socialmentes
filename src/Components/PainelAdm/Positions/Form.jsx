@@ -39,7 +39,7 @@ function stringAvatar(name) {
           margin: 'auto', border: '2px solid var(--color-gray-3)', 
           width:'150px', height: '150px'
       },
-      children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+      children: `${name.split(' ')[0][0]}${name.split(' ').length > 1 ? name.split(' ')[1][0] : name.split(' ')[0][1]}`,
   };
 }
 

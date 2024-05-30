@@ -66,7 +66,7 @@ const createRegister = async ({ email, photo, ...registerData }) => {
             throw new Error('Ocorreu um erro ao subir a imagem para o banco de dados');
         } else {
             await updateDoc(userDocRef, {
-                urlPhoto: result,
+                photoUrl: result,
                 createdAt: serverTimestamp()
             });
         }

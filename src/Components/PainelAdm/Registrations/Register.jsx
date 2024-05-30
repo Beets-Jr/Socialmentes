@@ -13,7 +13,7 @@ function Register({ register }) {
 
         <Avatar
           className='avatar'
-          src={register.urlPhoto}
+          src={register.photoUrl}
           alt='Foto de perfil do usuário'
         />
 
