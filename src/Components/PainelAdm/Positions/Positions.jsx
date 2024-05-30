@@ -59,8 +59,8 @@ function Positions() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            height: '100vh',
-            width: '100vw',
+            height: '85vh',
+            width: '100%',
           }}
         >
           <Typography sx={{ fontFamily: 'var(--font-text)', color: 'var(--color-gray-3)' }}>Sem perfis</Typography>
