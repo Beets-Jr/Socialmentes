@@ -10,14 +10,10 @@
     margin-top: 5px;
 }
 
-.title {
-    margin-right: 30px;
-}
 
 .buttonClose {
     position: absolute;
-    top: 23px;
-    right: 23px;
+    right: -70px;
 }
 
 .dialogActions {

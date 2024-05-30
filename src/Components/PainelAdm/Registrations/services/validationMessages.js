@@ -4,7 +4,7 @@ const PHOTO = 'Uma foto deve ser informada para continuar';
 
 const FULLNAME = 'O nome informado é muito curto para continuar';
 
-const EMAIL = 'O email informado não é um email válido';
+const EMAIL = 'Todos os emails informados devem ser válidos para continuar';
 
 const CEP = 'O CEP deve seguir o formato: NNNNN-NNN';
 

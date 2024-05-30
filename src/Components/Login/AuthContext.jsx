@@ -6,7 +6,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { doc, getDoc } from "firebase/firestore"; // Import doc and getDoc
+import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore"; // Import doc and getDoc
 
 // Criando o contexto
 const AuthContext = createContext();
@@ -17,6 +17,7 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null); // Inicializado como null
   const [user, setUser] = useState(null);
   const [signInWithEmailAndPassword, , loading, error] = useSignInWithEmailAndPassword(auth);
+  const userProfilesRef = collection(db, "userProfiles");
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -42,13 +43,19 @@ export const AuthProvider = ({ children }) => {
     const provider = new FacebookAuthProvider();
     try {
       const result = await signInWithPopup(auth, provider);
-      const userDocRef = doc(db, "userProfiles", result.user.uid); // Create DocumentReference
-      const docSnap = await getDoc(userDocRef);
-      setUser(docSnap.data());
-      setIsAuthenticated(true);
-      console.log("Successfully signed in with Facebook.");
+      const q = query(userProfilesRef, where("emails", "array-contains", result.user.email));
+      const querySnapshot = await getDocs(q);
+      if (!querySnapshot.empty) { //email está cadastrado no firestore
+        const docSnap = querySnapshot.docs[0];
+        setUser(docSnap.data());
+        setIsAuthenticated(true);
+        console.log("Successfully signed in with Google.");
+      } else {
+        console.log("Nenhum documento encontrado contendo este email.");
+        throw new Error('Nenhum documento encontrado contendo este email');
+      }
     } catch (error) {
-      console.error("Error signing in with Facebook: ", error);
+      console.error("Error signing in with Google: ", error);
     }
   };
 
@@ -56,11 +63,17 @@ export const AuthProvider = ({ children }) => {
     const provider = new GoogleAuthProvider();
     try {
       const result = await signInWithPopup(auth, provider);
-      const userDocRef = doc(db, "userProfiles", result.user.uid); // Create DocumentReference
-      const docSnap = await getDoc(userDocRef);
-      setUser(docSnap.data());
-      setIsAuthenticated(true);
-      console.log("Successfully signed in with Google.");
+      const q = query(userProfilesRef, where("emails", "array-contains", result.user.email));
+      const querySnapshot = await getDocs(q);
+      if (!querySnapshot.empty) { //email está cadastrado no firestore
+        const docSnap = querySnapshot.docs[0];
+        setUser(docSnap.data());
+        setIsAuthenticated(true);
+        console.log("Successfully signed in with Google.");
+      } else {
+        console.log("Nenhum documento encontrado contendo este email.");
+        throw new Error('Nenhum documento encontrado contendo este email');
+      }
     } catch (error) {
       console.error("Error signing in with Google: ", error);
     }

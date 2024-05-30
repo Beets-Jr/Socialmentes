@@ -10,7 +10,7 @@ import { useAuth } from "../Login/AuthContext";
 import { Box, Typography } from "@mui/material";
 import styles from "./PainelAdm.module.css";
 
-const PermissionDeniedMessage = () => (
+const PermissionDeniedMessage = () => ( //provisório
     <Box
         sx={{
             display: 'flex',
@@ -31,12 +31,15 @@ function PainelAdm() {
     const width = open ? "80vw" : "95vw";
     const { user } = useAuth();
 
+    // Verifica se user existe e se a propriedade position existe antes de acessá-la
+    const isAdmin = user && user.position && user.position === "Administrador";
+
     return (
         <div style={{ display: "flex" }}>
             <Sidebar />
             <div className={styles.background} style={{ display: "block", width: width }}>
-                <Header sx={{backgroundColor:'#fff', }}/>
-                {user.position === "Administrador" ? (
+                <Header className={styles.noBackground}/>
+                {isAdmin ? (
                     <Routes>
                         <Route path="/" element={<DialogConfirmation />} />
                         <Route path="pacientes" element={<DialogConfirmation />} />
@@ -53,5 +56,6 @@ function PainelAdm() {
         </div>
     );
 }
+
 
 export default PainelAdm;

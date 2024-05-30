@@ -25,6 +25,7 @@ function Positions() {
         console.error("Error fetching data ", err);
       } finally {
         setLoading(false);
+        setConfirmedChange(false);
       }
     };
 
