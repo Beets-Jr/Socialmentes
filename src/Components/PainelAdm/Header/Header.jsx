@@ -70,8 +70,8 @@ function Header() {
             </Box>
 
             {/* Exibe a foto do usuário caso ela exista ou um avatar com as suas iniciais caso não exista */}
-            {user.photo ? 
-              <Avatar src={user.photo} sx={{width: '50px', height: '50px', border: '2.5px solid var(--color-blue-1)'}}></Avatar>
+            {user.photoUrl ? 
+              <Avatar src={user.photoUrl} sx={{width: '50px', height: '50px', border: '2.5px solid var(--color-blue-1)'}}></Avatar>
               :
               <Avatar {...stringAvatar(user.fullName)} sx={{width: '50px', height: '50px', border: '2.5px solid var(--color-blue-1)'}}></Avatar>
             }
