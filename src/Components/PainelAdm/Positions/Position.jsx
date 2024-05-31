@@ -67,7 +67,7 @@ function Position({setConfirmedChange, photoUrl, fullName, position, id}) {
         <>
             <ButtonBase 
                 sx={{
-                    width: '327px',
+                    width: '100%',
                     display: 'block', // Para garantir que ele se comporte como um bloco
                     textAlign: 'inherit', // Para herdar o alinhamento de texto do Card
                 }} 

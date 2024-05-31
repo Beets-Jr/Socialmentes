@@ -11,12 +11,13 @@ function Positions() {
 
   const [profiles, setProfiles] = useState([]);
   const [isPositionSet, setIsPositionsSet] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(null);
   const [confirmedChange, setConfirmedChange] = useState(false); // indica que uma mudança foi feita 
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const querySnapshot = await getDocs(collection(db, 'userProfiles')); // puxar os perfis cadastrados
         const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         setProfiles(data);
@@ -33,41 +34,39 @@ function Positions() {
   }, [confirmedChange])
 
   return (
-    <div style={{ margin: '3vw' }}>
-      {loading ? (
-        <Box
-          sx={{ // para deixar o componente de carregamento bem no meio da tela
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '100vh',
-            width: '100vw',
-          }}
-        >
-          <CircularProgress sx={{ color: 'var(--color-gray-3)' }} />
-        </Box>
-      ) : isPositionSet ? (
-        <Grid container spacing={4}>
-          {profiles.map((profile) => (
-            <Grid item key={profile.id} xs={12} sm={6} md={4} >
-              <Position setConfirmedChange={setConfirmedChange} photoUrl={profile.photoUrl} fullName={profile.fullName} position={profile.position} id={profile.id} />
-            </Grid>
-          ))}
-        </Grid>
-      ) : (
-        <Box
-          sx={{ // para deixar a frase bem no meio da tela
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '85vh',
-            width: '100%',
-          }}
-        >
-          <Typography sx={{ fontFamily: 'var(--font-text)', color: 'var(--color-gray-3)' }}>Sem perfis</Typography>
-        </Box>
-      )}
-    </div>
+    loading ? (
+      <Box
+        sx={{ // para deixar o componente de carregamento bem no meio da tela
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '85vh',
+          width: '100%',
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    ) : isPositionSet ? (
+      <Grid sx={{ marginTop: '3vh', padding: '0 2vw' }} container spacing={4} columnSpacing={5}>
+        {profiles.map((profile) => (
+          <Grid item key={profile.id} xs={12} sm={6} md={4} >
+            <Position setConfirmedChange={setConfirmedChange} photoUrl={profile.photoUrl} fullName={profile.fullName} position={profile.position} id={profile.id} />
+          </Grid>
+        ))}
+      </Grid>
+    ) : (
+      <Box
+        sx={{ // para deixar a frase bem no meio da tela
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '85vh',
+          width: '100%',
+        }}
+      >
+        <Typography sx={{ fontSize: '2rem', fontFamily: 'var(--font-text)', color: 'var(--color-gray-3)' }}>Sem perfis</Typography>
+      </Box>
+    )
   )
 }
 
