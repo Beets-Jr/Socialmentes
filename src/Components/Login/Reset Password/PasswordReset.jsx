@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { Button, CircularProgress, ThemeProvider } from "@mui/material";
-import CustomArrowBackIcon from "./CustomArrowBackIcon";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { auth } from "../../../Database/FirebaseConfig.mjs";
 import { sendPasswordResetEmail } from "firebase/auth";
 import styles from "../Styles/PasswordReset.module.css";
 import theme from "../Theme/theme";
-import ErrorMessage from "../Messages/ErrorMessage";
-import SuccessMessage from "../Messages/SuccessMessage";
 import EmailTextField from "../TextFields/EmailTextField";
 import { useNavigate } from "react-router-dom";
+import FeedbackMessage from "../../ElementsInterface/FeedbackMessage";
 
 function PasswordReset() {
   const [email, setEmail] = useState("");
@@ -60,10 +59,13 @@ function PasswordReset() {
           )}
         </Button>
 
-        <ErrorMessage condition={error} errorMessage={error} />
-        <SuccessMessage condition={message} successMessage={message} />
+        {error && <FeedbackMessage condition="error" message={error} />}
+        {message && <FeedbackMessage condition="success" message={message} />}
 
-        <CustomArrowBackIcon onClick={handleClick} />
+        <div className={styles.iconContainer} onClick={handleClick}>
+          Voltar
+          <ArrowBackIcon />
+        </div>
       </form>
     </ThemeProvider>
   );

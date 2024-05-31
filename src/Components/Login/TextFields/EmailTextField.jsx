@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { TextField } from "@mui/material";
-import EmailIcon from "../Images/Icons/EmailIcon";
-import EmailIconFocused from "../Images/Icons/EmailIconFocused";
+import EmailIcon from "../../../Assets/Icons/EmailIcon";
+import EmailIconFocused from "../../../Assets/Icons/EmailIconFocused";
 
 import "../../../Styles/variables.css"
 

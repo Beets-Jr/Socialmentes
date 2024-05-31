@@ -1,9 +1,9 @@
-import Elipse1 from "../Images/Elipses/Elipse1.png";
-import Elipse2 from "../Images/Elipses/Elipse2.png";
-import Elipse3 from "../Images/Elipses/Elipse3.png";
-import Elipse4 from "../Images/Elipses/Elipse4.png";
-import Elipse5 from "../Images/Elipses/Elipse5.png";
-import Elipse6 from "../Images/Elipses/Elipse6.png";
+import Elipse1 from "../../../Assets/Elipses/Elipse1.png";
+import Elipse2 from "../../../Assets/Elipses/Elipse2.png";
+import Elipse3 from "../../../Assets/Elipses/Elipse3.png";
+import Elipse4 from "../../../Assets/Elipses/Elipse4.png";
+import Elipse5 from "../../../Assets/Elipses/Elipse5.png";
+import Elipse6 from "../../../Assets/Elipses/Elipse6.png";
 
 function DesignRightSide() {
   return (

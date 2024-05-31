@@ -1,7 +1,7 @@
 import React from "react";
 
-import Google from "../Images/google.png"
-import Facebook from "../Images/facebook.png"
+import Google from "../../../Assets/google.png"
+import Facebook from "../../../Assets/facebook.png"
 
 import styles from "../Styles/Login.module.css"
 

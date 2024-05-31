@@ -1,6 +1,6 @@
 import LoginForm from "./LoginForm";
 import styles from "../Login/Styles/Painel.module.css";
-import Line from "./Images/Icons/Line";
+import Line from "../../Assets/Icons/Line";
 import SocialLoginButton from "../Login/Social Login/SocialLoginButton";
 import { useAuth } from "./AuthContext";
 
