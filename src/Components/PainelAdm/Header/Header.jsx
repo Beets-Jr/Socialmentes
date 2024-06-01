@@ -6,7 +6,7 @@ import { PiUserCircleFill } from 'react-icons/pi'
 import LogoutIcon from './Icons/LogoutIcon'
 import { AppContext } from "../../../Contexts/AppContext"
 import { useContext } from "react"
-import { useAuth } from '../../Login/AuthContext'
+import { useAuth } from '../../../Contexts/AuthContext'
 
 function stringAvatar(name){
 

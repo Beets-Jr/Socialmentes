@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, CircularProgress, ThemeProvider } from "@mui/material";
 import { Link, Navigate } from "react-router-dom";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "../../Contexts/AuthContext";
 
 import EmailTextField from "./TextFields/EmailTextField";
 import PasswordTextField from "./TextFields/PasswordTextField";

@@ -6,7 +6,7 @@ import Sidebar from "./Sidebar/Sidebar";
 import Header from "./Header/Header";
 import { useContext } from "react";
 import { AppContext } from "../../Contexts/AppContext";
-import { useAuth } from "../Login/AuthContext";
+import { useAuth } from "../../Contexts/AuthContext";
 import { Box, Typography } from "@mui/material";
 import styles from "./PainelAdm.module.css";
 

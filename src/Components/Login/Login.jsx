@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import styles from "./Styles/Login.module.css";
 import { Box, Grid } from "@mui/material";
 
-import RightSide from "./Sides/RightSide";
+import RightSide from "./RightSide/RightSide";
 import Painel from "./Painel";
 import { Route, Routes } from "react-router-dom";
 

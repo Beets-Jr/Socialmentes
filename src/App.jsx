@@ -4,7 +4,7 @@ import { AppStorage } from "./Contexts/AppContext";
 import RouteIsLogged from "./Components/Login/RouteIsLogged";
 import ProtectedRoute from "./Components/Login/ProtectedRoute";
 import PainelAdm from "./Components/PainelAdm/PainelAdm"
-import { AuthProvider } from "./Components/Login/AuthContext";
+import { AuthProvider } from "./Contexts/AuthContext";
 
 function App() {
   return (
