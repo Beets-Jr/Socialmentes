@@ -11,6 +11,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { BsPersonFillAdd } from "react-icons/bs"
 import { AppContext } from '../../../Contexts/AppContext'
+import styles from './Styles/Sidebar.module.css'
 
 // Armazena as opções que serão exibidas ao usuário na sidebar
 const sidebarOptions = [
@@ -33,32 +34,20 @@ function Sidebar() {
   return (
     <AppBar
       position='sticky'
+      className={styles.sbBackground}
       sx={{
-        background:'linear-gradient(to bottom, #7DB9F0, #6EADE7, #5397D6)',
-        top: 0,
-        left: 0,
-        bottom: 0,
-        display:'flex',
-        flexDirection:'column',
         width: open ? '20vw' : '5vw',
-        height:'100vh',
-        borderRadius:'0 0 15px 0',
-        overflow: 'hidden',
         transition: 'width 0.5s ease',
         '@media (max-width: 600px)': {
           boxShadow: open ? '2px 0 5px rgba(0, 0, 0, 0.75)' : '2px 0 5px rgba(0, 0, 0, 0.4)',
           position: open ? 'fixed' : 'sticky',
-          width: open ? '70vw' : '15vw',
-          top: 0,
-          left: 0,
-          bottom: 0,
-          height:'100vh',
+          width: open ? '70vw' : '15vw'
         }
       }}
     >
 
       {/* Box com a logo no topo da sidebar */}
-      <Box sx={{backgroundColor: '#FFFFFF', borderRadius:'0 0 15px 15px', width: '100%', height:'15vh', display:'flex', alignItems:'center', justifyContent:'center', marginBottom:'5vh'}}>
+      <Box className={styles.sbContainerLogo}>
         {open ?
           <img src='../src/Components/PainelAdm/Sidebar/Icons/LogoSocialMentes1.png' alt="logo" style={{height:'25vh', userSelect: 'none'}}/>
           :
@@ -69,17 +58,13 @@ function Sidebar() {
       </Box>
 
       {/* Lista para as opções da sidebar */}
-      <List component='nav' sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+      <List component='nav' className={styles.sbListOpt}>
         {sidebarOptions.map((opt, i) =>
           <ListItemButton
             component={Link}
             to={opt.to}
-            sx={{ display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  width:'100%',
-                  position: 'relative',
-                  // Condição para exibir um destaque quando o usuário estiver naquela página
+            className={styles.sbOpt}
+            sx={{ // Condição para exibir um destaque quando o usuário estiver naquela página
                   backgroundColor: location.pathname === opt.to ? 'rgba(100%, 100%, 100%, 0.24)' : 'transparent',
                   '&::after': location.pathname === opt.to ? {
                     content: '""',
@@ -108,7 +93,7 @@ function Sidebar() {
 
       {/* Botão para recolher a sidebar */}
       {open && (
-        <Box sx={{marginTop: 'auto', padding: '10px', display: 'flex', justifyContent: 'end'}}>
+        <Box className={styles.sbToogleBtn}>
           <IconButton onClick={toggleSidebar} sx={{color: '#FFFFFF'}}>
             <ChevronLeftIcon />
           </IconButton>
