@@ -42,7 +42,7 @@ function Positions() {
     ) : isPositionSet ? (
       <Grid container spacing={4} columnSpacing={5} className={styles.gridContainer}>
         {profiles.map((profile) => (
-          <Grid item key={profile.id} xs={12} sm={6} md={4} >
+          <Grid item key={profile.id} xs={12} sm={6} md={4} lg={3} xl={2} >
             <Position setConfirmedChange={setConfirmedChange} photoUrl={profile.photoUrl} fullName={profile.fullName} position={profile.position} id={profile.id} />
           </Grid>
         ))}
