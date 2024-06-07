@@ -5,6 +5,7 @@ import { Grid, Typography, Box, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import { collection, getDocs } from 'firebase/firestore';
 import Position from "./Position";
+import styles from "./styles/Positions.module.css"
 
 
 function Positions() {
@@ -35,19 +36,11 @@ function Positions() {
 
   return (
     loading ? (
-      <Box
-        sx={{ // para deixar o componente de carregamento bem no meio da tela
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '85vh',
-          width: '100%',
-        }}
-      >
+      <Box className={styles.classBox}>
         <CircularProgress />
       </Box>
     ) : isPositionSet ? (
-      <Grid sx={{ marginTop: '3vh', padding: '0 2vw' }} container spacing={4} columnSpacing={5}>
+      <Grid container spacing={4} columnSpacing={5} className={styles.gridContainer}>
         {profiles.map((profile) => (
           <Grid item key={profile.id} xs={12} sm={6} md={4} >
             <Position setConfirmedChange={setConfirmedChange} photoUrl={profile.photoUrl} fullName={profile.fullName} position={profile.position} id={profile.id} />
@@ -55,16 +48,8 @@ function Positions() {
         ))}
       </Grid>
     ) : (
-      <Box
-        sx={{ // para deixar a frase bem no meio da tela
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '85vh',
-          width: '100%',
-        }}
-      >
-        <Typography sx={{ fontSize: '2rem', fontFamily: 'var(--font-text)', color: 'var(--color-gray-3)' }}>Sem perfis</Typography>
+      <Box className={styles.classBox}>
+        <Typography className={styles.text} >Sem perfis</Typography>
       </Box>
     )
   )
