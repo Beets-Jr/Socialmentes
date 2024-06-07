@@ -7,8 +7,53 @@ import LogoutIcon from './Icons/LogoutIcon'
 import { AppContext } from "../../../Contexts/AppContext"
 import { useContext } from "react"
 import { useAuth } from '../../../Contexts/AuthContext'
-import styles from './Styles/Header.module.css'
 
+import styles from './Styles/Header.module.css'
+import styled, {css} from 'styled-components'
+
+// Variáveis para criação de um título e um texto que sejam responsivos de acordo com o tamanho da tela
+const breakpoints = {
+  xs: '(max-width: 600px)',
+  sm: '(min-width: 600px) and (max-width: 960px)',
+  md: '(min-width: 960px) and (max-width: 1280px)',
+  lg: '(min-width: 1280px)'
+}
+
+const fontSizeStyles = {
+  title: css`
+    @media ${breakpoints.xs} {
+      font-size: 1.5rem;
+    }
+    @media ${breakpoints.sm} {
+      font-size: 2rem;
+    }
+    @media ${breakpoints.md} {
+      font-size: 2.5rem;
+    }
+    @media ${breakpoints.lg} {
+      font-size: 3rem;
+    }
+  `,
+  text: css`
+    @media ${breakpoints.xs} {
+    font-size: 0.75rem;
+    }
+    @media ${breakpoints.sm} {
+      font-size: 1rem;
+    }
+  `
+}
+
+// Componente que torna o texto responsivo de acordo com o tamanho da tela
+const Title = styled(Typography)`
+  ${fontSizeStyles.title}
+`
+
+const Text = styled(Typography)`
+  ${fontSizeStyles.text}
+`
+
+// Função que pega as iniciais do nome do usuário para gerar o avatar com as suas letras
 function stringAvatar(name){
 
   const nameParts = name.split(' ');
@@ -37,34 +82,36 @@ function Header() {
       <Toolbar className={styles.headerContentBox}>
 
         {/* Título do Header */}
-        <Typography
+        <Title
           variant='h4'
           component='div'
           className={styles.headerTitle}
-          sx={{fontFamily: 'var(--font-title)', fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem', lg: '3rem' }, '@media (max-width: 600px)': {marginLeft: '0px'}}}>
-          {title}
-        </Typography>
+          sx={{fontFamily: 'var(--font-title)', '@media (max-width: 600px)': {marginLeft: '0px'}}}>
+        {title}
+        </Title>
             
         {/* Se o usuário existir deve ser exibido o seu nome e sua foto, caso contrário, deve-se exibir uma opção para o login*/}
         {user && user.fullName ? 
           <Box className={styles.headerUserBox} sx={{gap: '1.5vw', '@media (max-width: 600px)': {gap: '0px'}}}>
 
             {/* Caixa de texto para quando o usuário está logado */}
-            <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>         
-              <Typography
+            <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+
+              <Text
                 variant='subtitle2'
                 component='div'
-                sx={{fontFamily: 'var(--font-title)', color: 'var(--color-blue-2)', fontSize: { xs: '0.75rem', sm: '1rem' }}}>
+                sx={{fontFamily: 'var(--font-title)', color: 'var(--color-blue-2)'}}>
               {user.fullName}
-              </Typography>
+              </Text>           
 
-              <Typography
+              <Text
                 variant='subtitle2'
                 component={Link}
                 to = '/conta'//mudar depois
-                sx={{fontFamily: 'var(--font-text)', color: 'var(--color-blue-1)', textDecoration: 'none', fontSize: { xs: '0.75rem', sm: '1rem' }}}>
+                sx={{fontFamily: 'var(--font-text)', color: 'var(--color-blue-1)', textDecoration: 'none'}}>
               Editar Perfil
-              </Typography>
+              </Text>
+              
             </Box>
 
             {/* Exibe a foto do usuário caso ela exista ou um avatar com as suas iniciais caso não exista */}
@@ -83,13 +130,13 @@ function Header() {
           <Box className={styles.headerUserBox} sx={{gap: '10px'}}>
 
             {/* Texto que redireciona para o login se o usuário estiver deslogado */}
-            <Typography
+            <Text
               variant='h5'
               component={Link}
               to = '/login'
-              sx={{fontFamily: 'var(--font-text)', color: 'var(--color-blue-3)', textDecoration: 'none', fontSize: { xs: '1rem', sm: '1.25rem' }}}>
+              sx={{fontFamily: 'var(--font-text)', color: 'var(--color-blue-3)', textDecoration: 'none'}}>
             Login
-            </Typography>
+            </Text>
 
             <PiUserCircleFill className={styles.headerUserIcon}/>
 
