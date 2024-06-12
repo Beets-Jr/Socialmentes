@@ -2,7 +2,7 @@ import { Typography, useTheme } from "@mui/material";
 
 import { IconAttention, IconBank, IconIdentity } from "../assets/icons";
 import { VFormContent, VRow, VSelect, VTextField, VUploadPhoto, useVFormContext } from "../forms";
-import { banks } from "../services";
+import { banks } from "../../../../Database/Middleware";
 
 export const SecondForm = ({ disabledForm, setDisabledButton }) => {
 

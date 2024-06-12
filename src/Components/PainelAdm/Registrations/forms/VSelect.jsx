@@ -142,7 +142,6 @@ export const VSelect = ({ xs = 12, name, label, label_icon, placeholder, items, 
                 open={open}
                 options={items}
                 disableClearable
-                blurOnSelect
             />
 
         </Grid>

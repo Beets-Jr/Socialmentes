@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, useTheme } from "@mui/material";
 
-import { msg_errors, RegistrationsMiddleware, RegistrationsService } from "./services";
+import { RegistrationsMiddleware, msg_errors } from '../../../Database/Middleware';
+import { UserService } from '../../../Database/Services';
 import { IconClose, IconListAdd } from "./assets/icons";
 import { VForm, VMessageError } from "./forms";
 import { AddEmail, FirstForm, SecondForm, Success } from './steps';
@@ -83,7 +84,7 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
     const handleSubmit = (validatedData) => {
         const treatData = RegistrationsMiddleware.treatValidatedData(validatedData);
 
-        RegistrationsService.createRegister(treatData)
+        UserService.createUser(treatData)
             .then( result => {
                 if (result instanceof Error) {
                     setCreateResult({

@@ -5,7 +5,7 @@ import { CacheProvider } from "@emotion/react";
 import createCache from '@emotion/cache';
 
 import { theme } from "./theme";
-import { RegistrationsService } from "./services";
+import { UserService } from '../../../Database/Services';
 import Register from './Register';
 import AddRegister from "./AddRegister";
 
@@ -25,7 +25,7 @@ function Registrations() {
 
     // atualiza a lista de registros
     useEffect(() => {
-        RegistrationsService.getAllRegistrations()
+        UserService.getAllUsers()
             .then((registrations) => {
                 setIsLoading(false);
                 setRegistrations(registrations);
