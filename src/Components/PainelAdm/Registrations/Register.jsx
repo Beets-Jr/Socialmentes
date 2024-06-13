@@ -5,12 +5,11 @@ import { Avatar, Box, Button, Card, CardActions, CardContent, Typography } from 
 import { IconEmail, IconPosition } from "./assets/icons";
 
 import './styles/Register.css';
-import { vars } from "../../../Styles/variables";
 
 function Register({ register }) {
 
   return (
-    <Card className='card' variant="elevation" style={vars}>
+    <Card className='card' variant="elevation">
 
       <CardContent className='cardContent'>
 

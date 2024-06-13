@@ -5,28 +5,28 @@ import '../../../../Styles/variables.css';
 export const theme = createTheme({
     typography: {
         h2: {
-            fontFamily: ['"Ubuntu"', 'sans-serif'].join(','),
+            fontFamily: 'var(--font-sub)',
             fontSize: 32,
             fontWeight: 400,
-            color: '#3575B1'
+            color: 'var(--color-blue-4)'
         },
         h3: {
-            fontFamily: ['"Ubuntu"', 'sans-serif'].join(','),
+            fontFamily: 'var(--font-sub)',
             fontSize: 20,
             fontWeight: 400,
-            color: '#727272'
+            color: 'var(--color-gray-4)'
         },
         body1: {
-            fontFamily: ['"Fira Sans"', 'sans-serif'].join(','),
+            fontFamily: 'var(--font-text)',
             fontSize: 16,
             fontWeight: 400,
-            color: '#727272'
+            color: 'var(--color-gray-4)'
         },
         body2: {
-            fontFamily: ['"Fira Sans"', 'sans-serif'].join(','),
+            fontFamily: 'var(--font-text)',
             fontSize: 15,
             fontWeight: 400,
-            color: '#727272'
+            color: 'var(--color-gray-4)'
         }
     }
 });
