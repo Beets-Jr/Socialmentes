@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import { useEffect, useRef, useState } from 'react';
 import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, SvgIcon } from '@mui/material';
 
@@ -14,7 +16,7 @@ const RadioButton = ({ checked }) => (
                 cx="50%"
                 cy="50%"
                 r="11px"
-                stroke="#727272"
+                stroke="var(--color-gray-4)"
                 strokeWidth="2px"
                 fill="none"
             />
@@ -23,7 +25,7 @@ const RadioButton = ({ checked }) => (
                     cx="50%"
                     cy="50%"
                     r="7px"
-                    fill="#5095D5"
+                    fill="var(--color-blue-3)"
                 />
             )}
         </svg>

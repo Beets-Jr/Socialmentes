@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import { Grid } from "@mui/material";
 
 import { useVFormContext } from "./VForm";

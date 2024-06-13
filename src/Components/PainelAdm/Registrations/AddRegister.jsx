@@ -1,5 +1,7 @@
+/* eslint-disable react/prop-types */
+
 import { useEffect, useRef, useState } from "react";
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, useTheme } from "@mui/material";
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from "@mui/material";
 
 import { RegistrationsMiddleware, msg_errors } from '../../../Database/Middleware';
 import { UserService } from '../../../Database/Services';
@@ -138,7 +140,7 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
                 </DialogTitle>
 
                 <IconButton className="buttonClose" onClick={ () => handleClose() } >
-                    <IconClose color={useTheme().palette.secondary.main}/>
+                    <IconClose color='var(--color-gray-3)'/>
                 </IconButton>
             </Box>
 
@@ -186,7 +188,7 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
                     onClick={ () => disabledForm ? null :  handleProceed() }
                 >
                     <IconListAdd
-                        color={disabledButton ? '#D7D7D7' : '#ffffff'}
+                        color={disabledButton ? 'var(--color-gray-2)' : 'white'}
                         sx={{ mr: 2 }}
                     />
                     {step === 2 ? 'Cadastrar' : 'Prosseguir'}

@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import { Box, Typography } from "@mui/material";
 
 import '../styles/Success.css';

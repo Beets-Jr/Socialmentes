@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import { useState, useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 
@@ -31,7 +33,7 @@ export const VMessageError = ({ message, setMessage }) => {
                 >
                     <Typography
                         variant="body1"
-                        fontFamily='"Ubuntu", sans-serif'
+                        fontFamily='var(--font-sub)'
                     >
                         {message}
                     </Typography>

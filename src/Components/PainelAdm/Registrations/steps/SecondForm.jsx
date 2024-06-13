@@ -1,8 +1,10 @@
-import { Typography, useTheme } from "@mui/material";
+/* eslint-disable react/prop-types */
 
+import { Typography } from "@mui/material";
+
+import { banks } from "../../../../Database/Middleware";
 import { IconAttention, IconBank, IconIdentity } from "../assets/icons";
 import { VFormContent, VRow, VSelect, VTextField, VUploadPhoto, useVFormContext } from "../forms";
-import { banks } from "../../../../Database/Middleware";
 
 export const SecondForm = ({ disabledForm, setDisabledButton }) => {
 
@@ -26,16 +28,12 @@ export const SecondForm = ({ disabledForm, setDisabledButton }) => {
         }
     }
 
-    const theme = useTheme();
-    const darkGray = theme.palette.secondary.dark;
-    const blue = theme.palette.primary.main;
-
     // propriedades passadas nos ícones
     const icon_props = (field, mt) => {
         const fieldValue = getFieldValue(field);
         return {
             fontSize: 'inherit',
-            color: (fieldValue || field === focusedField) ? blue : darkGray,
+            color: (fieldValue || field === focusedField) ? 'var(--color-blue-3)' : 'var(--color-gray-4',
             sx: {
                 mt: mt ? mt : .2,
             }
@@ -73,7 +71,7 @@ export const SecondForm = ({ disabledForm, setDisabledButton }) => {
                 <VTextField
                     xs={4.5}
                     name='number'
-                    label_icon={<Typography variant="inherit" color={getFieldValue('number') || focusedField === 'number' ? blue : darkGray} fontWeight={700}>123</Typography>}
+                    label_icon={<Typography variant="inherit" color={getFieldValue('number') || focusedField === 'number' ? 'var(--color-blue-3)' : 'var(--color-gray-4'} fontWeight={700}>123</Typography>}
                     label='Número'
                     placeholder='NNN'
                     disabled={disabledForm}

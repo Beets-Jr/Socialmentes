@@ -1,4 +1,4 @@
-import { useTheme } from "@mui/material";
+/* eslint-disable react/prop-types */
 
 import { IconAttention, IconCity, IconIdentity, IconLocation, IconPerson, IconPhone, IconPositionForm } from "../assets/icons";
 import { VFormContent, VRow, VSelect, VTextField, VUploadPhoto, useVFormContext } from "../forms";
@@ -10,7 +10,6 @@ export const FirstForm = ({ disabledForm, setDisabledButton }) => {
     const fieldsRequireds = [
         'photo',
         'fullName',
-        // 'email',
         'cep',
         'cpf',
         'specialization',
@@ -27,16 +26,12 @@ export const FirstForm = ({ disabledForm, setDisabledButton }) => {
         }
     }
 
-    const theme = useTheme();
-    const darkGray = theme.palette.secondary.dark;
-    const blue = theme.palette.primary.main;
-
     // propriedades passadas nos ícones
     const icon_props = (field, mt) => {
         const fieldValue = getFieldValue(field);
         return {
             fontSize: 'inherit',
-            color: (fieldValue || field === focusedField) ? blue : darkGray,
+            color: (fieldValue || field === focusedField) ? 'var(--color-blue-3)' : 'var(--color-gray-4)',
             sx: {
                 mt: mt ? mt : .2,
             }
@@ -60,15 +55,6 @@ export const FirstForm = ({ disabledForm, setDisabledButton }) => {
                     disabled={disabledForm}
                 />
             </VRow>
-            {/* <VRow unique>
-                <VTextField
-                    name='email'
-                    label_icon={<IconEmail {...icon_props('email', .3)} />}
-                    label='Email'
-                    placeholder='exemplo@email.com'
-                    disabled={disabledForm}
-                />
-            </VRow> */}
             <VRow>
                 <VTextField
                     xs={5}

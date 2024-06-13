@@ -1,41 +1,12 @@
+/* eslint-disable react/prop-types */
+
 import { useEffect, useState } from 'react';
-import { Autocomplete, Box, Grid, TextField, Typography, styled } from '@mui/material';
+import { Autocomplete, Box, Grid, Typography } from '@mui/material';
 import { ExpandMoreRounded } from '@mui/icons-material';
 
-import { useVFormContext } from '.';
+import { StylizedTextField, useVFormContext } from '.';
 
-const StylizedTextField = styled(TextField)({
-    '& label': {
-        color: "#727272",
-    },
-    "& .MuiOutlinedInput-root": {
-        height: 50,
-        "& ::placeholder": {
-            fontStyle: 'italic'
-        },
-        "& fieldset": {
-            borderRadius: "15px",
-            borderColor: "#727272",
-            borderWidth: "2px",
-        },
-        "&:hover fieldset": {
-            borderColor: "#5095D5",
-        },
-        "&.Mui-focused fieldset": {
-            borderColor: "#5095d5",
-            borderWidth: "3px",
-            borderRadius: "15px",
-            pointerEvents: "none"
-        },
-        "& .MuiOutlinedInput-input": {
-            color: "#727272",
-            fontFamily: "Fira Sans",
-            fontSize: "16px",
-        },
-    }
-});
-
-export const VSelect = ({ xs = 12, name, label, label_icon, placeholder, items, onChange, onFocus, onBlur, ...rest }) => {
+export const VSelect = ({ xs = 12, name, label, label_icon, placeholder, items, onChange, onFocus, onBlur }) => {
 
     const { getFieldValue, setFieldValue, setFocusedField, setFocusedFieldData } = useVFormContext();
 
@@ -55,10 +26,10 @@ export const VSelect = ({ xs = 12, name, label, label_icon, placeholder, items, 
                     <StylizedTextField
                         sx={{
                             '& label': {
-                                color: value ? "#5095d5" : "#727272",
+                                color: value ? "var(--color-blue-3)" : 'var(--color-gray-4)',
                             },
                             "& .MuiOutlinedInput-root fieldset": {
-                                borderColor: value ? "#5095d5" : "#727272"
+                                borderColor: value ? "var(--color-blue-3)" : 'var(--color-gray-4)'
                             },
                             "& .MuiOutlinedInput-root": {
                                 "&.Mui-focused fieldset": {
@@ -88,7 +59,7 @@ export const VSelect = ({ xs = 12, name, label, label_icon, placeholder, items, 
                 ListboxProps={{
                     sx: {
                         maxHeight: 160,
-                        border: '3px solid #5095d5',
+                        border: '3px solid var(--color-blue-3)',
                         borderBottomLeftRadius: '15px',
                         borderBottomRightRadius: '15px',
                         borderTop: '0',
@@ -101,14 +72,14 @@ export const VSelect = ({ xs = 12, name, label, label_icon, placeholder, items, 
                                 textOverflow: 'ellipsis',
                             },
                             '&:hover p': {
-                                color: '#5095d5'
+                                color: 'var(--color-blue-3)'
                             }
                         },
                         '&::-webkit-scrollbar': {
                             width: '4px'
                         },
                         '&::-webkit-scrollbar-thumb': {
-                            bgcolor: '#7DB9F0',
+                            bgcolor: 'var(--color-blue-2)',
                             borderRadius: '10px',
                         }
                     }
@@ -136,7 +107,7 @@ export const VSelect = ({ xs = 12, name, label, label_icon, placeholder, items, 
                 popupIcon={<ExpandMoreRounded
                     sx={{
                         transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
-                        color: (value || open) ? "#5095d5" : "#727272",
+                        color: (value || open) ? "var(--color-blue-3)" : 'var(--color-gray-4)',
                     }}
                 />}
                 open={open}
