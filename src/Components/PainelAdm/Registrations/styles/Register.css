@@ -12,8 +12,6 @@
 }
 
 .avatar {
-    width: 100px;
-    height: 100px;
     margin: 2px;
     border: 2px solid #ABABAB;
     box-shadow: 0 0 7.8px rgb(165, 165, 165, .52);

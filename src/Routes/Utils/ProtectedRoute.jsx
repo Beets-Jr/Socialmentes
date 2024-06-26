@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "../../Contexts/AuthContext";
 
 // eslint-disable-next-line react/prop-types
 const ProtectedRoute = ({ children }) => {

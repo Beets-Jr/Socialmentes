@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
-import Login from "./Components/Login/Login";
+import Login from "./Screens/Login/Login";
 import { AppStorage } from "./Contexts/AppContext";
-import RouteIsLogged from "./Components/Login/RouteIsLogged";
-import ProtectedRoute from "./Components/Login/ProtectedRoute";
-import PainelAdm from "./Components/PainelAdm/PainelAdm"
-import { AuthProvider } from "./Components/Login/AuthContext";
+import RouteIsLogged from "./Routes/Utils/RouteIsLogged";
+import ProtectedRoute from "./Routes/Utils/ProtectedRoute";
+import PainelAdm from "./Routes/PainelAdmRoute"
+import { AuthProvider } from "./Contexts/AuthContext";
 
 function App() {
   return (

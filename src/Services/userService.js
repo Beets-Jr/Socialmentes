@@ -2,16 +2,16 @@ import { collection, doc, getDocs, serverTimestamp, setDoc, updateDoc } from "fi
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
-import { db, storage, auth } from "../../../../Database/FirebaseConfig.mjs";
+import { db, storage, auth } from "../Database/FirebaseConfig.mjs";
 
 
-const colRegistrations = collection(db, 'userProfiles');
-const bucketPhotos = ref(storage, 'userPhotos');
+const userProfiles = collection(db, 'userProfiles');
+const userPhotos = ref(storage, 'userPhotos');
 
 
-const getAllRegistrations = () => {
+const getAllUsers = () => {
 
-    return getDocs(colRegistrations)
+    return getDocs(userProfiles)
         .then( (snapshot) => {
             let registrations = [];
             snapshot.forEach( (doc) => {
@@ -32,7 +32,7 @@ const createPhoto = (uid, photo) => {
     const metadata = {
         contentType: photo.type
     };
-    const refUserPhoto = ref( bucketPhotos, `${uid}.${type}` );
+    const refUserPhoto = ref( userPhotos, `${uid}.${type}` );
 
     return uploadBytes(refUserPhoto, photo, metadata)
         .then( (snapshot) => {
@@ -45,7 +45,7 @@ const createPhoto = (uid, photo) => {
 
 };
 
-const createRegister = async ({ email, photo, ...registerData }) => {
+const createUser = async ({ email, photo, ...registerData }) => {
 
     const user = auth.currentUser;
 
@@ -58,7 +58,7 @@ const createRegister = async ({ email, photo, ...registerData }) => {
 
         await auth.updateCurrentUser(user);
 
-        const userDocRef = doc(colRegistrations, uid);
+        const userDocRef = doc(userProfiles, uid);
 
         await setDoc( userDocRef, {
             uid,
@@ -83,7 +83,7 @@ const createRegister = async ({ email, photo, ...registerData }) => {
     }
 };
 
-export const RegistrationsService = {
-    getAllRegistrations,
-    createRegister
+export const UserService = {
+    getAllUsers,
+    createUser
 };

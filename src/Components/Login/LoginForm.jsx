@@ -1,16 +1,15 @@
 import { useState } from "react";
 import { Button, CircularProgress, ThemeProvider } from "@mui/material";
 import { Link, Navigate } from "react-router-dom";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "../../Contexts/AuthContext";
 
 import EmailTextField from "./TextFields/EmailTextField";
 import PasswordTextField from "./TextFields/PasswordTextField";
-import ErrorMessage from "./Messages/ErrorMessage";
-import SuccessMessage from "./Messages/SuccessMessage";
-import ArrowIcon from "./Images/Icons/ArrowIcon";
+import ArrowIcon from "../../Assets/Icons/ArrowIcon";
 
 import styles from "./Styles/LoginForm.module.css";
 import theme from "./Theme/theme";
+import FeedbackMessage from "../ElementsInterface/FeedbackMessage";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -47,14 +46,8 @@ function LoginForm() {
             <CircularProgress size={24} />
           )}
         </Button>
-        <ErrorMessage
-          condition={error}
-          errorMessage={"E-mail ou senha incorretos!"}
-        />
-        <SuccessMessage
-          condition={user}
-          successMessage={"Login bem-sucedido!"}
-        />
+        {error && <FeedbackMessage condition="error" message="E-mail ou senha incorretos!"/>}
+        {user && <FeedbackMessage condition="success" message="Login bem-sucedido!"/>}
       </form>
 
       <div className={styles.campoEsqueceuSenha}>

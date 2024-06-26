@@ -1,7 +1,10 @@
-import { useEffect, useRef, useState } from "react";
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, useTheme } from "@mui/material";
+/* eslint-disable react/prop-types */
 
-import { msg_errors, RegistrationsMiddleware, RegistrationsService } from "./services";
+import { useEffect, useRef, useState } from "react";
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from "@mui/material";
+
+import { RegistrationsMiddleware, msg_errors } from '../../../Database/Middleware';
+import { UserService } from '../../../Services';
 import { IconClose, IconListAdd } from "./assets/icons";
 import { VForm, VMessageError } from "./forms";
 import { AddEmail, FirstForm, SecondForm, Success } from './steps';
@@ -83,7 +86,7 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
     const handleSubmit = (validatedData) => {
         const treatData = RegistrationsMiddleware.treatValidatedData(validatedData);
 
-        RegistrationsService.createRegister(treatData)
+        UserService.createUser(treatData)
             .then( result => {
                 if (result instanceof Error) {
                     setCreateResult({
@@ -137,7 +140,7 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
                 </DialogTitle>
 
                 <IconButton className="buttonClose" onClick={ () => handleClose() } >
-                    <IconClose color={useTheme().palette.secondary.main}/>
+                    <IconClose color='var(--color-gray-3)'/>
                 </IconButton>
             </Box>
 
@@ -185,7 +188,7 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
                     onClick={ () => disabledForm ? null :  handleProceed() }
                 >
                     <IconListAdd
-                        color={disabledButton ? '#D7D7D7' : '#ffffff'}
+                        color={disabledButton ? 'var(--color-gray-2)' : 'white'}
                         sx={{ mr: 2 }}
                     />
                     {step === 2 ? 'Cadastrar' : 'Prosseguir'}

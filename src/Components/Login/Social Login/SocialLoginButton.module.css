@@ -1,0 +1,12 @@
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 75px; /* Tamanho do círculo externo */
+    height: 75px; /* Tamanho do círculo externo */
+    border: 3px solid #d7d7d7; /* Cor e largura da borda do círculo externo */
+    border-radius: 50%;
+    padding: 10px; /* Espaço entre os dois círculos */
+    box-sizing: border-box;
+    cursor: pointer;
+  }

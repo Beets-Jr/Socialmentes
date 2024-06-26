@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import { useEffect, useRef, useState } from 'react';
 import { Box, Grid, TextField, styled } from '@mui/material';
 
@@ -5,7 +7,7 @@ import { useVFormContext } from '.';
 
 export const StylizedTextField = styled(TextField)({
     '& label': {
-        color: "#727272",
+        color: 'var(--color-gray-4)',
     },
     "& .MuiOutlinedInput-root": {
         height: 50,
@@ -14,21 +16,21 @@ export const StylizedTextField = styled(TextField)({
         },
         "& fieldset": {
             borderRadius: "15px",
-            borderColor: "#727272",
+            borderColor: 'var(--color-gray-4)',
             borderWidth: "2px",
         },
         "&:hover fieldset": {
-            borderColor: "#5095D5",
+            borderColor: "var(--color-blue-3)",
         },
         "&.Mui-focused fieldset": {
-            borderColor: "#5095d5",
+            borderColor: "var(--color-blue-3)",
             borderWidth: "3px",
             borderRadius: "15px",
             pointerEvents: "none",
         },
         "& .MuiOutlinedInput-input": {
-            color: "#727272",
-            fontFamily: "Fira Sans",
+            color: 'var(--color-gray-4)',
+            fontFamily: "var(--font-text)",
             fontSize: "16px",
         },
     }
@@ -51,10 +53,10 @@ export const VTextField = ({ xs = 12, name, label, label_icon, onChange, onFocus
                 ref={inputRef}
                 sx={{
                     '& label': {
-                        color: value ? "#5095d5" : "#727272",
+                        color: value ? "var(--color-blue-3)" : 'var(--color-gray-4)',
                     },
                     "& .MuiOutlinedInput-root fieldset": {
-                        borderColor: value ? "#5095d5" : "#727272",
+                        borderColor: value ? "var(--color-blue-3)" : 'var(--color-gray-4)',
                     }
                 }}
                 label={

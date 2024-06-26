@@ -1,0 +1,190 @@
+.exitContainer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 1vw;
+}
+
+.exitText { 
+    color: var(--color-gray-5);
+    font-family: var(--font-text) !important;
+}
+
+.exitButton { 
+    color: var(--color-blue-3) !important;
+}
+
+.exitButton:hover { 
+    box-shadow: none !important;
+    background-color: transparent !important;
+}
+
+.avatarContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nameText { 
+    text-align: center;
+    color: var(--color-gray-5);
+    font-family: var(--font-text) !important;
+    font-weight: 500 !important;
+    margin-top: 1vh !important;
+}
+
+.positionContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2vh;
+}
+
+.positionText {
+    text-align: center;
+    font-family: var(--font-text) !important;
+    color: var(--color-gray-5) !important;
+}
+
+.divider {
+    height: 2px;
+    width: 40%;
+    margin: 0 auto 10px auto !important;
+    border: none;
+    background: linear-gradient(90deg, var(--color-blue-1) 0%, var(--color-blue-2) 50.5%, var(--color-blue-1) 100.01%);
+}
+
+.positionTitle {
+    text-align: center;
+    color: var(--color-gray-5);
+    font-family: var(--font-text) !important;
+    font-weight: 500 !important;
+}
+
+.positionsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2;
+    margin: 20px auto !important;
+}
+
+.positionsStack {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px auto;
+}
+
+.positionButtonBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin: 0 auto !important;
+    padding: 0 auto !important;
+    width: 190px;
+    height: 40px;
+    border-radius: 5px;
+    overflow: hidden;
+    color:transparent;
+    border: 2px solid transparent;
+    background: linear-gradient(to bottom, var(--color-blue-2) 0%, var(--color-blue-4) 80%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.positionButtonBox::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid transparent;
+    border-image: linear-gradient(to bottom, var(--color-blue-2), var(--color-blue-4)) 1;
+    border-radius: 5px;
+    pointer-events: none;
+}
+.positionButtonBoxActive {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin: 0 auto !important;
+    padding: 0 auto !important;
+    width: 190px;
+    height: 40px;
+    border-radius: 5px;
+    overflow: hidden;
+    border: 2px solid #92C8FB;
+    background: linear-gradient(to right, #AFD6FA 0%, var(--color-blue-2) 100%);
+    color: var(--color-gray-1);
+    background-clip: none;
+    -webkit-background-clip: none;
+    -webkit-text-fill-color: initial;
+}
+  
+.positionButtonBox:hover {
+    color: transparent;
+    border: 2px solid transparent;
+    background: linear-gradient(to bottom, var(--color-blue-2) 0%, var(--color-blue-4) 80%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    overflow: hidden;
+    position: relative;
+}
+  
+.positionButtonBox:hover::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid transparent;
+    border-image: linear-gradient(to bottom, var(--color-blue-2), var(--color-blue-4)) 1;
+    border-radius: 5px;
+    pointer-events: none;
+}
+
+.availablePositionButtonBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin: 0 auto !important;
+    padding: 0 auto !important;
+    width: 190px;
+    height: 40px;
+    border-radius: 5px;
+    overflow: hidden;
+    color: var(--color-gray-5);
+    border: 2px solid var(--color-gray-3);
+}
+
+.confirmationContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 40px;
+}
+
+.confirmationText {
+    background: linear-gradient(90deg, var(--color-blue-2) 0%, var(--color-blue-3) 100%);
+    border: 1px solid #65AAEA;
+    font-family: var(--font-title) !important;
+    font-size: 16px;
+    font-weight: 600 !important;
+    width: 386px;
+    margin: auto;
+    padding: 0 auto !important;
+}
+
+@media (max-width: 550px) {
+    .confirmationText {
+        max-width: 200px;
+    }
+}

@@ -1,5 +1,7 @@
+/* eslint-disable react/prop-types */
+
 import { useEffect, useState } from "react";
-import { Avatar, Badge, Grid, Tooltip, styled, useTheme } from "@mui/material";
+import { Avatar, Badge, Grid, Tooltip, styled } from "@mui/material";
 import { AddPhotoAlternateRounded } from "@mui/icons-material";
 
 import avatar_empty from "../assets/avatar.svg";
@@ -18,8 +20,6 @@ const VisuallyHiddenInput = styled('input')({
 });
 
 export const VUploadPhoto = ({ name, xs = 12, onChange, onFocus, onBlur }) => {
-
-    const theme = useTheme();
 
     const { getFieldValue, setFieldValue, setFocusedField, setFocusedFieldData } = useVFormContext();
 
@@ -44,7 +44,7 @@ export const VUploadPhoto = ({ name, xs = 12, onChange, onFocus, onBlur }) => {
                         transition: '.5s',
                         '&:hover': {
                             cursor: 'pointer',
-                            boxShadow: `0 0 10px ${theme.palette.primary.light}`
+                            boxShadow: `0 0 10px var(--color-blue-2)`
                         }
                     }
                 }}
@@ -80,8 +80,8 @@ export const VUploadPhoto = ({ name, xs = 12, onChange, onFocus, onBlur }) => {
                                     marginRight: 2,
                                     marginBottom: 3,
                                     borderRadius: '50%',
-                                    bgcolor: theme.palette.secondary.main,
-                                    border: '1px solid #D7D7D7',
+                                    bgcolor: 'var(--color-gray-3)',
+                                    border: '1px solid var(--color-gray-2)',
                                     color: 'white'
                                 }}
                             />
@@ -97,10 +97,10 @@ export const VUploadPhoto = ({ name, xs = 12, onChange, onFocus, onBlur }) => {
                         width: 100, 
                         height: 100,
                         mb: 1,
-                        boxShadow: `0 0 10px ${value ? '#A5A5A5' : '#D7D7D7'}`,
-                        borderWidth: "2px",
+                        boxShadow: `0 0 10px ${value ? 'var(--color-gray-3)' : 'var(--color-gray-2)'}`,
+                        borderWidth: '2px',
                         borderStyle: 'solid',
-                        borderColor: value ? "#ABABAB" : "#D7D7D7",
+                        borderColor: value ? 'var(--color-gray-3)' : 'var(--color-gray-2)',
                         transition: '.5s',
                         '&:hover': {
                             cursor: 'pointer'

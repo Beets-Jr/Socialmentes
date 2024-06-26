@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { auth, db } from "../../Database/FirebaseConfig.mjs";
+import { auth, db } from "../Database/FirebaseConfig.mjs";
 import {
   FacebookAuthProvider,
   GoogleAuthProvider,

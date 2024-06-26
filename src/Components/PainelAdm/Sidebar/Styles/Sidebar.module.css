@@ -1,0 +1,43 @@
+.sbBackground {
+    background: linear-gradient(to bottom, #7DB9F0, #6EADE7, #5397D6);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    border-radius: 0 0 15px 0;
+    overflow: hidden;
+}
+
+.sbContainerLogo {
+    background-color: #FFFFFF;
+    border-radius: 0 0 15px 15px;
+    width: 100%;
+    height: 15vh;
+    display: flex;
+    align-items: center;
+    justify-content: center ;
+    margin-bottom: 5vh;
+}
+
+.sbListOpt {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.sbOpt {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    position: relative;
+}
+
+.sbToogleBtn {
+    margin-top: auto;
+    padding: 10px;
+    display: flex;
+    justify-content: end;
+}

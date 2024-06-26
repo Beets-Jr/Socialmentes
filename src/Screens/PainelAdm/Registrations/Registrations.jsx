@@ -4,12 +4,12 @@ import { AddRounded } from "@mui/icons-material";
 import { CacheProvider } from "@emotion/react";
 import createCache from '@emotion/cache';
 
-import { theme } from "./theme";
-import { RegistrationsService } from "./services";
-import Register from './Register';
-import AddRegister from "./AddRegister";
+import { theme } from "../../../Components/PainelAdm/Registrations/theme";
+import { UserService } from '../../../Services';
+import Register from '../../../Components/PainelAdm/Registrations/Register';
+import AddRegister from "../../../Components/PainelAdm/Registrations/AddRegister";
 
-import './styles/Registrations.css';
+import './Registrations.css';
 
 const cache = createCache({
     key: 'css',
@@ -25,7 +25,7 @@ function Registrations() {
 
     // atualiza a lista de registros
     useEffect(() => {
-        RegistrationsService.getAllRegistrations()
+        UserService.getAllUsers()
             .then((registrations) => {
                 setIsLoading(false);
                 setRegistrations(registrations);

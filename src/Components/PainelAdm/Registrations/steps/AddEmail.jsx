@@ -1,5 +1,7 @@
+/* eslint-disable react/prop-types */
+
 import { useEffect, useState } from "react";
-import { Box, Button, Grid, IconButton, useTheme } from "@mui/material";
+import { Box, Button, Grid, IconButton } from "@mui/material";
 import { AddCircleOutlineRounded, RemoveCircleOutlineRounded } from "@mui/icons-material";
 
 import { IconEmail } from "../assets/icons";
@@ -32,30 +34,28 @@ export const AddEmail = ({ disabledForm, setDisabledButton, emails, setEmails })
     }
 
     const removeEmail = (index) => {
-        const emailsNew = emails.filter( (email, i) => i !== index);
+        const emailsNew = emails.filter( (_, i) => i !== index);
         setEmails(emailsNew);
     }
 
-    const theme = useTheme();
-    const darkGray = theme.palette.secondary.dark;
-    const blue = theme.palette.primary.main;
+    // 'var(--color-blue-3)' : 'var(--color-gray-4)',
 
     const field_props = (index) => {
         const value = emails[index];
         return {
             sx: {
                 '& label': {
-                    color: value ? "#5095d5" : "#727272",
+                    color: value ? 'var(--color-blue-3)' : 'var(--color-gray-4)',
                 },
                 "& .MuiOutlinedInput-root fieldset": {
-                    borderColor: value ? "#5095d5" : "#727272",
+                    borderColor: value ? 'var(--color-blue-3)' : 'var(--color-gray-4)',
                 }
             },
             label: (
                 <Box display='flex' gap={.5} pt={.3}>
                     <IconEmail
                         fontSize='inherit'
-                        color={(value || index === focusedIndex) ? blue : darkGray}
+                        color={(value || index === focusedIndex) ? 'var(--color-blue-3)' : 'var(--color-gray-4'}
                         sx={{ mt: .3 }}
                     />
                     {`email ${index+1}`}
@@ -92,7 +92,7 @@ export const AddEmail = ({ disabledForm, setDisabledButton, emails, setEmails })
                     {...field_props(0)}
                 />
             </VRow>
-            { emails.slice(1).map( (email, index) => (
+            { emails.slice(1).map( (_, index) => (
                 <VRow key={index+1}>
                     <Grid item xs={10}>
                         <StylizedTextField
@@ -111,7 +111,7 @@ export const AddEmail = ({ disabledForm, setDisabledButton, emails, setEmails })
                     sx={{
                         textTransform: 'none',
                         fontSize: 16,
-                        color: '#3575B1'
+                        color: 'var(--color-blue-4)'
                     }}
                     onClick={() => {
                         setEmail(emails.length, '');
