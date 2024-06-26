@@ -2,7 +2,7 @@ import { collection, doc, getDocs, serverTimestamp, setDoc, updateDoc } from "fi
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
-import { db, storage, auth } from "../FirebaseConfig.mjs";
+import { db, storage, auth } from "../Database/FirebaseConfig.mjs";
 
 
 const userProfiles = collection(db, 'userProfiles');

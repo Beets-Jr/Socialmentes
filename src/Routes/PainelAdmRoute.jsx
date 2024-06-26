@@ -1,30 +1,14 @@
 import { Route, Routes } from "react-router-dom";
-import Registrations from "./Registrations/Registrations";
-import Positions from "./Positions/Positions";
-import DialogConfirmation from "../ElementsInterface/DialogConfirmation";
-import Sidebar from "./Sidebar/Sidebar";
-import Header from "./Header/Header";
+import Registrations from "../Components/PainelAdm/Registrations/Registrations";
+import Positions from "../Components/PainelAdm/Positions/Positions";
+import DialogConfirmation from "../Components/ElementsInterface/DialogConfirmation";
+import Sidebar from "../Components/PainelAdm/Sidebar/Sidebar";
+import Header from "../Components/PainelAdm/Header/Header";
 import { useContext } from "react";
-import { AppContext } from "../../Contexts/AppContext";
-import { useAuth } from "../../Contexts/AuthContext";
-import { Box, Typography } from "@mui/material";
+import { AppContext } from "../Contexts/AppContext";
+import { useAuth } from "../Contexts/AuthContext";
 import styles from "./PainelAdm.module.css";
-
-const PermissionDeniedMessage = () => ( //provisório
-    <Box
-        sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '85vh',
-            width: '100%',
-        }}
-    >
-        <Typography sx={{ fontFamily: 'var(--font-text)', color: 'var(--color-gray-3)' }}>
-            Você não tem permissão para acessar essa página
-        </Typography>
-    </Box>
-);
+import PermissionDeniedMessage from "../Components/ElementsInterface/PermissionDeniedMessage";
 
 function PainelAdm() {
     const { open } = useContext(AppContext);
