@@ -10,20 +10,23 @@ import { useAuth } from "../Login/AuthContext";
 import { Box, Typography } from "@mui/material";
 import styles from "./PainelAdm.module.css";
 
-const PermissionDeniedMessage = () => ( //provisório
-    <Box
-        sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '85vh',
-            width: '100%',
-        }}
+const PermissionDeniedMessage = () => (
+  //provisório
+  <Box
+    sx={{
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      height: "85vh",
+      width: "100%",
+    }}
+  >
+    <Typography
+      sx={{ fontFamily: "var(--font-text)", color: "var(--color-gray-3)" }}
     >
-        <Typography sx={{ fontFamily: 'var(--font-text)', color: 'var(--color-gray-3)' }}>
-            Você não tem permissão para acessar essa página
-        </Typography>
-    </Box>
+      Você não tem permissão para acessar essa página
+    </Typography>
+  </Box>
 );
 
 function PainelAdm() {
