@@ -3,11 +3,11 @@ import React, { useState } from "react";
 import styles from "./Styles/Login.module.css";
 import { Box, Grid } from "@mui/material";
 
-import RightSide from "./RightSide/RightSide";
-import Painel from "./Painel";
+import RightSide from "../../Components/Login/RightSide/RightSide";
+import Painel from "../../Components/Login/Painel";
 import { Route, Routes } from "react-router-dom";
 
-import PasswordReset from "./Reset Password/PasswordReset";
+import PasswordReset from "../../Components/Login/Reset Password/PasswordReset";
 
 function Login() {
   return (

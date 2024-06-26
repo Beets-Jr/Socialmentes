@@ -4,10 +4,10 @@ import { AddRounded } from "@mui/icons-material";
 import { CacheProvider } from "@emotion/react";
 import createCache from '@emotion/cache';
 
-import { theme } from "./theme";
+import { theme } from "../../../Components/PainelAdm/Registrations/theme";
 import { UserService } from '../../../Database/Services';
-import Register from './Register';
-import AddRegister from "./AddRegister";
+import Register from '../../../Components/PainelAdm/Registrations/Register';
+import AddRegister from "../../../Components/PainelAdm/Registrations/AddRegister";
 
 import './styles/Registrations.css';
 

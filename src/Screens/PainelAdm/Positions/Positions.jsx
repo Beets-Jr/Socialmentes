@@ -1,10 +1,10 @@
 // eslint-disable-next-line no-unused-vars
-import Header from '../Header/Header'
+import Header from '../../../Components/PainelAdm/Header/Header'
 import { db } from "../../../Database/FirebaseConfig.mjs"
 import { Grid, Typography, Box, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import { collection, getDocs } from 'firebase/firestore';
-import Position from "./Position";
+import Position from "../../../Components/PainelAdm/Positions/Position";
 import styles from "./styles/Positions.module.css"
 
 
