@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
-import Registrations from "../Components/PainelAdm/Registrations/Registrations";
-import Positions from "../Components/PainelAdm/Positions/Positions";
+import Registrations from "../Screens/PainelAdm/Registrations/Registrations";
+import Positions from "../Screens/PainelAdm/Positions/Positions";
 import DialogConfirmation from "../Components/ElementsInterface/DialogConfirmation";
 import Sidebar from "../Components/PainelAdm/Sidebar/Sidebar";
 import Header from "../Components/PainelAdm/Header/Header";

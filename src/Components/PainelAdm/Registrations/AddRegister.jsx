@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from "@mui/material";
 
 import { RegistrationsMiddleware, msg_errors } from '../../../Database/Middleware';
-import { UserService } from '../../../Database/Services';
+import { UserService } from '../../../Services';
 import { IconClose, IconListAdd } from "./assets/icons";
 import { VForm, VMessageError } from "./forms";
 import { AddEmail, FirstForm, SecondForm, Success } from './steps';

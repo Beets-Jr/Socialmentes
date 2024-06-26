@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
-import Login from "./Components/Login/Login";
+import Login from "./Screens/Login/Login";
 import { AppStorage } from "./Contexts/AppContext";
 import RouteIsLogged from "./Routes/Utils/RouteIsLogged";
 import ProtectedRoute from "./Routes/Utils/ProtectedRoute";

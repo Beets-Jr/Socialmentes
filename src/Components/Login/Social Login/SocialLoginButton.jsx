@@ -3,7 +3,7 @@ import React from "react";
 import Google from "../../../Assets/google.png"
 import Facebook from "../../../Assets/facebook.png"
 
-import styles from "../Styles/Login.module.css"
+import styles from "./SocialLoginButton.module.css"
 
 const SocialLoginButton = ({ onClick, provider }) => {
   return (

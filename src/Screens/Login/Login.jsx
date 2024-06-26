@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import styles from "./Styles/Login.module.css";
+import styles from "./Login.module.css";
 import { Box, Grid } from "@mui/material";
 
 import RightSide from "../../Components/Login/RightSide/RightSide";

@@ -5,7 +5,7 @@ import { Grid, Typography, Box, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import { collection, getDocs } from 'firebase/firestore';
 import Position from "../../../Components/PainelAdm/Positions/Position";
-import styles from "./styles/Positions.module.css"
+import styles from "./Positions.module.css"
 
 
 function Positions() {

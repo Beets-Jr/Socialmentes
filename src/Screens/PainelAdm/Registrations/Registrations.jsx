@@ -5,11 +5,11 @@ import { CacheProvider } from "@emotion/react";
 import createCache from '@emotion/cache';
 
 import { theme } from "../../../Components/PainelAdm/Registrations/theme";
-import { UserService } from '../../../Database/Services';
+import { UserService } from '../../../Services';
 import Register from '../../../Components/PainelAdm/Registrations/Register';
 import AddRegister from "../../../Components/PainelAdm/Registrations/AddRegister";
 
-import './styles/Registrations.css';
+import './Registrations.css';
 
 const cache = createCache({
     key: 'css',
