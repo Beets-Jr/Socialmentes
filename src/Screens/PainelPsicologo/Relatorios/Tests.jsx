@@ -5,7 +5,7 @@ function Tests() {
     return (
       <>
         <Test 
-          key='12345' 
+          index='12345' 
           createdAt={new Date()} 
           type='TipoA'
           status='Ativo'
