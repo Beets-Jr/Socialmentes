@@ -1,0 +1,10 @@
+.column_name {
+    color: var(--color-blue-4);
+    font-family: var(--font-sub);
+    font-weight: 400;
+}
+
+.row {
+    border: 2px solid #323223;
+    border-radius: 20px;
+}
