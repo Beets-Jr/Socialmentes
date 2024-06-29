@@ -14,12 +14,14 @@ function Patients() {
 
     const [isLoading, setIsLoading] = useState(true);
     const [patients, setPatients] = useState([]);
+    const [filteredPatients, setFilteredPacients] = useState([]);
 
     useEffect(() => {
         UserService.getByPosition('Paciente')
             .then((patients) => {
                 setIsLoading(false);
                 setPatients(patients);
+                setFilteredPacients(patients);
             });
     }, []);
 
@@ -32,13 +34,18 @@ function Patients() {
                 </Box>
             ) : (
                 <>
-                    <SearchField placeholder="Pesquisar paciente" />
+                    <SearchField
+                        placeholder="Pesquisar paciente"
+                        data={patients}
+                        field='fullName'
+                        setFilteredData={setFilteredPacients}
+                    />
                     <Box mt={4}>
                         <DataTable
                             xs={[ 4.5, 3, 4.5 ]}
                             columns={[ 'fullName', 'phone', 'specialization' ]}
                             head={[ 'Nome', 'Idade', 'Responsável' ]}
-                            body={patients}
+                            body={filteredPatients}
                             onAdd={() => console.log('click!')}
                             actions={[
                                 {
