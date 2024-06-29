@@ -1,3 +1,7 @@
+.container_table {
+    text-align: center;
+}
+
 .container_table p {
     overflow: hidden;
     white-space: nowrap;

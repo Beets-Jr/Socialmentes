@@ -1,4 +1,4 @@
-import { collection, doc, getDocs, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
+import { collection, doc, getDocs, query, serverTimestamp, setDoc, updateDoc, where } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
@@ -12,6 +12,27 @@ const userPhotos = ref(storage, 'userPhotos');
 const getAllUsers = () => {
 
     return getDocs(userProfiles)
+        .then( (snapshot) => {
+            let registrations = [];
+            snapshot.forEach( (doc) => {
+                registrations.push({
+                    id: doc.id,
+                    ...doc.data()
+                });
+            });
+            return registrations;
+        });
+
+};
+
+const getByPosition = (position) => {
+
+    const q = query(
+        userProfiles,
+        where('position', '==', position)
+    );
+
+    return getDocs(q)
         .then( (snapshot) => {
             let registrations = [];
             snapshot.forEach( (doc) => {
@@ -85,5 +106,6 @@ const createUser = async ({ email, photo, ...registerData }) => {
 
 export const UserService = {
     getAllUsers,
+    getByPosition,
     createUser
 };
