@@ -56,6 +56,7 @@ function Sidebar() {
       className={styles.sbBackground}
       sx={{
         width: open ? '20vw' : '5vw',
+        minWidth: open ? '160px' : '50px',
         transition: 'width 0.5s ease',
         '@media (max-width: 600px)': {
           boxShadow: open ? '2px 0 5px rgba(0, 0, 0, 0.75)' : '2px 0 5px rgba(0, 0, 0, 0.4)',
