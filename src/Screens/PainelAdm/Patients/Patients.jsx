@@ -7,6 +7,7 @@ import DataTable from '../../../Components/ElementsInterface/DataTable';
 import { UserService } from '../../../Services/userService';
 import { EditIcon } from "../../../Assets/Icons/EditIcon";
 import { VisibilityIcon } from "../../../Assets/Icons/VisibilityIcon";
+// import { FileIcon } from "../../../Assets/Icons/FileIcon";
 
 import styles from './Patients.module.css';
 
@@ -14,14 +15,14 @@ function Patients() {
 
     const [isLoading, setIsLoading] = useState(true);
     const [patients, setPatients] = useState([]);
-    const [filteredPatients, setFilteredPacients] = useState([]);
+    const [filteredPatients, setFilteredPatients] = useState([]);
 
     useEffect(() => {
         UserService.getByPosition('Paciente')
             .then((patients) => {
                 setIsLoading(false);
                 setPatients(patients);
-                setFilteredPacients(patients);
+                setFilteredPatients(patients);
             });
     }, []);
 
@@ -38,15 +39,21 @@ function Patients() {
                         placeholder="Pesquisar paciente"
                         data={patients}
                         field='fullName'
-                        setFilteredData={setFilteredPacients}
+                        setFilteredData={setFilteredPatients}
                     />
                     <Box mt={4}>
                         <DataTable
-                            xs={[ 4.5, 3, 4.5 ]}
-                            columns={[ 'fullName', 'phone', 'specialization' ]}
+                            md={[ 5, 2.5, 3, 2 ]}
+                            sm={[ 4, 2.5, 3, 3 ]}
+                            xs={[ 3, 2, 3, 4 ]}
                             head={[ 'Nome', 'Idade', 'Responsável' ]}
+                            columns={[
+                                (row) => row.fullName,
+                                (row) => row.phone,
+                                (row) => row.specialization
+                            ]}
                             body={filteredPatients}
-                            onAdd={() => console.log('click!')}
+                            onAdd={ () => console.log('click!') }
                             actions={[
                                 {
                                     func: (id) => console.log(`eye ${id}`),
@@ -55,7 +62,11 @@ function Patients() {
                                 {
                                     func: (id) => console.log(`edit ${id}`),
                                     icon: <EditIcon/>
-                                }
+                                },
+                                // {
+                                //     func: (id) => console.log(`file ${id}`),
+                                //     icon: <FileIcon />
+                                // }
                             ]}
                             emptyText='Nenhum paciente cadastrado'
                         />
