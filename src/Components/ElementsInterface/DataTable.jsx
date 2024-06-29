@@ -35,7 +35,7 @@ function DataTable({ xl, lg, md, sm, xs, head, columns, body, onAdd, actions, em
                 <Grid container>
 
                     {/* Head */}
-                    <Grid container item /*columns={numColumns}*/ alignItems='center' >
+                    <Grid container item alignItems='center' >
 
                         {/* Nomes das colunas */}
                         { head.map( (column, index) => (
@@ -57,7 +57,10 @@ function DataTable({ xl, lg, md, sm, xs, head, columns, body, onAdd, actions, em
                         ))}
 
                         {/* Botão de adicionar novo */}
-                        <Grid item xs textAlign='center'>
+                        <Grid item
+                            {...columns_width(head.length)}
+                            textAlign='center'
+                        >
                             { onAdd && <IconButton
                                 onMouseLeave={() => setFocusedButton(false)}
                                 onMouseOver={() => setFocusedButton(true)}
@@ -93,7 +96,6 @@ function DataTable({ xl, lg, md, sm, xs, head, columns, body, onAdd, actions, em
                             // Linha da tabela
                             <Grid container item
                                 key={row.id}
-                                // columns={numColumns}
                                 className={styles.row}
                             >
 
@@ -115,7 +117,10 @@ function DataTable({ xl, lg, md, sm, xs, head, columns, body, onAdd, actions, em
                                 ))}
 
                                 {/* Botões de ação */}
-                                <Grid item xs textAlign='center'>
+                                <Grid item
+                                    {...columns_width(head.length)}
+                                    textAlign='center'
+                                >
                                     { actions.map( (action, index) => (
                                         <IconButton
                                             key={index}
