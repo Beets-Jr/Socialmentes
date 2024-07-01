@@ -1,0 +1,38 @@
+.container {
+    font-family: var(--font-sub);
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 2.5em;
+    margin-left: 3.75em;
+}
+
+.nivel {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 5vh;
+}
+
+.nivel div {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1em;
+    box-shadow: 2px 2px 2.8px 0px rgba(0, 0, 0, 0.10);
+    border-radius: 15px;
+    border: 2px solid var( --color-gray-3);
+    color: var( --color-gray-3);
+    font-size: 32px;
+}
+
+.titulo {
+    color: var(--color-blue-4);
+    font-size: 32px;
+}
+
+.mensagem {
+    color: #989898;
+    font-size: 24px;
+}

@@ -20,13 +20,3 @@
     margin-top: 5vh;
     margin-bottom: 5vh;
 }
-
-.nivel {
-    display: flex;
-    gap: 10px;
-}
-
-.nivel div {
-    border: 2px solid black;
-    padding: 1em;
-}
