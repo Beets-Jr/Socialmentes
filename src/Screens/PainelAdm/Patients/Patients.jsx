@@ -30,7 +30,7 @@ function Patients() {
     }, []);
 
     return (
-        <Box className={styles.container_patients}>
+        <Box className={styles.container_patients} sx={{ position: "sticky"}}>
 
             { isLoading ? (
                 <Box className={styles.container_empty}>

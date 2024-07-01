@@ -30,8 +30,8 @@ function PainelAdm() {
                     <Routes>
                         <Route path="/" element={<DialogConfirmation />} />
                         <Route path="pacientes" element={<Patients />} />
-                        <Route path="pacientes" element={<PacientesPage />} />
-                        <Route path="pacientes/criar-teste" element={<CriarTeste />} />
+                        <Route path="psicologo/pacientes" element={<PacientesPage />} />
+                        <Route path="psicologo/pacientes/criar-teste" element={<CriarTeste />} />
                         <Route path="cargos" element={<Positions />} />
                         <Route path="cadastros" element={<Registrations />} />
                         <Route path="opcoes" element={<DialogConfirmation />} />
