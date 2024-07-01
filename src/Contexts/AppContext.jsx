@@ -6,6 +6,8 @@ export const AppContext = createContext();
 // eslint-disable-next-line react/prop-types
 export const AppStorage = ({ children }) => {
     const [title, setTitle] = useState('');
+    const [subtitle, setSubtitle] = useState('');
+    const [value, setValue] = useState();
     const [open, setOpen] = useState(false);
     const location = useLocation();
 
@@ -14,9 +16,15 @@ export const AppStorage = ({ children }) => {
         switch (pathname) {
           case '/painel-adm/cargos':
             setTitle('Gerenciar Cargos');
+            setSubtitle('');
             break;
           case '/painel-adm/cadastros':
             setTitle('Gerenciar Cadastros');
+            setSubtitle('');
+            break;
+          case '/painel-adm/pacientes':
+            setTitle(value ? 'Pacientes' : 'Pacientes cadastrados');
+            setSubtitle(value ? `${value} pacientes cadastrados` : '')
             break;
           case '/painel-adm/pacientes':
             setTitle('Pacientes Cadastrados');
@@ -24,7 +32,7 @@ export const AppStorage = ({ children }) => {
           default:
             setTitle('Insira seu Titulo Aqui');
         }
-      }, [location]);
+      }, [location, value]);
 
-    return <AppContext.Provider value={{title, open, setOpen}}>{children}</AppContext.Provider>
+    return <AppContext.Provider value={{title, subtitle, setValue, open, setOpen}}>{children}</AppContext.Provider>
 }

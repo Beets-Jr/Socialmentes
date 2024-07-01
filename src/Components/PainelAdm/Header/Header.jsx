@@ -70,7 +70,7 @@ function stringAvatar(name){
 
 function Header() {
   
-  const {title} = useContext(AppContext);
+  const {title, subtitle} = useContext(AppContext);
 
   // Recupera o usuário que está logado
   const {user} = useAuth();
@@ -81,14 +81,24 @@ function Header() {
     <AppBar position='static' className={styles.headerBackground} sx={{background: '#FFFFFF'}}>
       <Toolbar className={styles.headerContentBox}>
 
-        {/* Título do Header */}
-        <Title
-          variant='h4'
-          component='div'
-          className={styles.headerTitle}
-          sx={{fontFamily: 'var(--font-title)', '@media (max-width: 600px)': {marginLeft: '0px'}}}>
-        {title}
-        </Title>
+        {/* Título e subtítulo do Header */}
+        <Box
+          display='flex'
+          flexDirection='column'
+        >
+          <Title
+            variant='h4'
+            component='div'
+            className={styles.headerTitle}
+            sx={{fontFamily: 'var(--font-title)', '@media (max-width: 600px)': {marginLeft: '0px'}}}>
+          {title}
+          </Title>
+          <Text
+            variant='subtitle2'
+            sx={{fontFamily: 'var(--font-sub)', color: 'var(--color-blue-3)'}}>
+          {subtitle}
+          </Text>
+        </Box>
             
         {/* Se o usuário existir deve ser exibido o seu nome e sua foto, caso contrário, deve-se exibir uma opção para o login*/}
         {user && user.fullName ? 
