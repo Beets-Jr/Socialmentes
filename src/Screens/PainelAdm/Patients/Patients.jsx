@@ -20,7 +20,7 @@ function Patients() {
     const [filteredPatients, setFilteredPatients] = useState([]);
 
     useEffect(() => {
-        UserService.getByPosition('Paciente')
+        UserService.getByPosition('Paciente') // deve ser atualizado
             .then((patients) => {
                 setIsLoading(false);
                 setPatients(patients);
@@ -51,9 +51,15 @@ function Patients() {
                             xs={[ 3, 2, 3, 4 ]}
                             head={[ 'Nome', 'Idade', 'Responsável' ]}
                             columns={[
-                                (row) => row.fullName,
-                                (row) => row.phone, // Idade
-                                (row) => row.email // Responsável
+                                {
+                                    func: (row) => row.fullName
+                                },
+                                {
+                                    func: (row) => row.phone // trocar para idade
+                                },
+                                {
+                                    func: (row) => row.email // trocar para responsável
+                                }
                             ]}
                             body={filteredPatients}
                             onAdd={ () => console.log('click!') }
