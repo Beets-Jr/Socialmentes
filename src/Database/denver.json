@@ -2365,631 +2365,94 @@
                 "perguntas": [
                     {
                         "id": 0,
-                        "pergunta": "",
-                        "descricao": ""
+                        "pergunta": "Gere todas etapas envolvidas na ida à casa de banho de forma autônoma ao níve dos pares.",
+                        "descricao": "Usa o bacio conforme necessário (embora o adulto possa solicitar idas à casa de banho), puxa as próprias calças/cuecas para cima e para baixo, puxa o autoclismo e lava as mãos."
                     }, 
                     {
                         "id": 1,
-                        "pergunta": "",
-                        "descricao": ""
+                        "pergunta": "Vai à casa de banho sozinha quando precisa.",
+                        "descricao": "Vai sozinha à casa de banho se necessário (sem precisar de ajuda do adulto)."
                     },
                     {
                         "id": 2,
-                        "pergunta": "",
-                        "descricao": ""
+                        "pergunta": "Lava as mãos de forma autônoma ao nível dos pares.",
+                        "descricao": "A criança abre a torneira, coloca as mãos debaixo da água, põe sabão nas mãos, esfrega as mãos ensaboadas, tira o sabão, fecha a água e seca as mãos com a toalha."
                     },
                     {
                         "id": 3,
-                        "pergunta": "",
-                        "descricao": ""
+                        "pergunta": "Lava a cara com a esponja autonomamente.",
+                        "descricao": "Durante o banho, a criança molha a esponja, aplica o sabão e esfrega a cara com a esponja."
                     },
                     {
                         "id": 4,
-                        "pergunta": "",
-                        "descricao": ""
+                        "pergunta": "Escova ou penteia o cabelo autonomamente.",
+                        "descricao": "Quando o adulto pede à criança paa pentear/escovar o cabelo, a criança pega no utensílio e passa-o ao longo do cabelo. Pode haver exceções apropriadas mediante a idade para as dificuldades com cabelos longos ou encaracolados."
                     },
                     {
                         "id": 5,
-                        "pergunta": "",
-                        "descricao": ""
+                        "pergunta": "Dá assistência ativa no baho, seca-se sozinha depois do banho.",
+                        "descricao": "Esfrega o corpo com a esponja, aplica sabao no corpo, e esfrega o próprio couro cabeludo quando o shampoo é aplicado. Secase razoavelmente bem; pode precisar de 'estímulo'."
                     },
                     {
                         "id": 6,
-                        "pergunta": "",
-                        "descricao": ""
+                        "pergunta": "Realiza todas as etapas da escovagem dos dentes de forma autônoma, embora o adulto também possa escovar-lhe os dentes para uma maior perfeição.",
+                        "descricao": "A partir do momento em que a criança entra na casa de banho até que a escova de dentes e a pasta são colocados no local próprio, a criança consegue realizar todas as etapas de forma autônoma."
                     },
                     {
                         "id": 7,
-                        "pergunta": "",
-                        "descricao": ""
+                        "pergunta": "Aperta a própria roupa-botões, molas e fechos.",
+                        "descricao": "Aperta os próprios botões, fechos e molas quando estes estão presentes na sua roupa."
                     },
                     {
                         "id": 8,
-                        "pergunta": "",
-                        "descricao": ""
+                        "pergunta": "Assoa o nariz quando se chama à atenção, usa lenço quando espirra, tapa a boca quando tosse ou o nariz quando espirra.",
+                        "descricao": "Quando o adulto diz, 'Assoa o nariz', a criança pega num lenço e assoa o nariz com o lenço. Quando a criança espirra, cobre a boca com a mão ou com o braço."
                     },
                     {
                         "id": 9,
-                        "pergunta": "",
-                        "descricao": ""
+                        "pergunta": "Para na rua; atravessa depois de olhar para os dois lados quando acompanhada.",
+                        "descricao": "Ao aproximar-se de um passeio ou rua com um parceiro, a criança para automaticamente, espera, olha e aguarda que o parceiro indique que pode atravessar."
                     },
                     {
                         "id": 10,
-                        "pergunta": "",
-                        "descricao": ""
+                        "pergunta": "Anda em segurança ao lado de um adulto autonomamente em parques de estacionamento, lojas, etc.",
+                        "descricao": "A criança anda sem dar as mãos e fica perto do adulto, monitorizando a localização do adulto e mantendo uma proximidade por iniciativa própria."
                     }, 
                     {
-                        "id": 1, 
-                        "nome":"Comunicação Expressiva",
-                        "perguntas": [
-                            {
-                                "id": 0,
-                                "pergunta": "Responde a questões complexas ('Quem?', 'Como?').",
-                                "descricao": "A criança responde corretamente a questões sobre estes conceitos (por exemplo, 'Porque lavas as mãos?', 'Como lavas os dentes?')."
-                            }, 
-                            {
-                                "id": 1,
-                                "pergunta": "Descreve a função dos objetos e resposta a uma pergunta (por exemplo, 'O que é que tu fazes com uma colher?').",
-                                "descricao": "Consegue descrever as funções de cinco ou mais objetos comuns com frases simples."
-                            },
-                            {
-                                "id": 2,
-                                "pergunta": "Fala com enunciados de três-quatro palavras consistentemente.",
-                                "descricao": "Numa variedade de contextos, parceiros e atividades."
-                            },
-                            {
-                                "id": 3,
-                                "pergunta": "Usa uma variedade de sintagmas nominais.",
-                                "descricao": "A criança combina uma variedade de palavras para fazer frases nominais que podem ter até quatro palavras, incluindo artigos, possessivos, adjetivos e quantificadores (por exemplo, 'O cavalo pequeno', 'A minha caneta vermelha'. 'Este caminhão', 'Duas bolachas', 'O quadrado vermelho grande', 'Um batido de chocolate', 'Mais algumas batatas fritas')."
-                            },
-                            {
-                                "id": 4,
-                                "pergunta": "Usa locuções preposicionais (por exemplo, debaixo, próximo de, atrás, por trás de, em frente de).",
-                                "descricao": "A criança produz todas as preposições listadas ao lado para descrever arranjos de objetos, responder a perguntas e instruir os outros tanto em formatos naturais como estruturados."
-                            },
-                            {
-                                "id": 5,
-                                "pergunta": "Usa uma variedade de expressões verbais (por exemplo, ele chora, ela gosta dele, ele caiu, ele estava feliz, ele está feliz, poderia, deveria, faria).",
-                                "descricao": "Autoexplicativo."
-                            },
-                            {
-                                "id": 6,
-                                "pergunta": "Demonstra uma produção precisa de pelo menos 80% de todas as consoantes e misturas de consoantes dentro do discurso conectado.",
-                                "descricao": "A criança demonstra uma produção precisa em 80% dos sons durante a conversa; a inteligibilidade é considerada boa por um ouvinte ingênuo."
-                            },
-                            {
-                                "id": 7,
-                                "pergunta": "Descreve experiências recentes usando enunciados de três a quatro palavras.",
-                                "descricao": "Quando lhe é perguntado, a criança descreve uma experiência recente com pelo menos dois componentes das experiências (quem, o quê, onde, quando). Exemplos, 'O que fizeste na tua festa de aniversário?', 'Recebi presentes do David'."
-                            },
-                            {
-                                "id": 8,
-                                "pergunta": "Pede permissão para continuar uma atividade.",
-                                "descricao": "A criança pede autorização antes de começar uma atividade regulamentada: 'Posso mexer?' (panela ao lume), 'Posso fazer isto?' (usando uma ferramenta de adulto). Também é usado se a criança quer mudar de atividade 'Podemos ouvir música?''."
-                            },
-                            {
-                                "id": 9,
-                                "pergunta": "Usa formas plurais.",
-                                "descricao": "A criança usa plurais regulares de forma consistente e espontânea e usa também duas formas irregulares (por exemplo, pires, lápis)."
-                            },
-                            {
-                                "id": 10,
-                                "pergunta": "Usa possessivos (por exemplo, dele, dela, o chapéu da mãe).",
-                                "descricao": "A criança usa-os de forma regular."
-                            }, 
-                            {
-                                "id": 11,
-                                "pergunta": "Usa o passado regular.",
-                                "descricao": "A criança usa as formas do passado de forma espontânea e regular."
-                            },
-                            {
-                                "id": 12,
-                                "pergunta": "Usa artigos como um, uma, o.",
-                                "descricao": "A criança aplica-os de forma consistente em frases."
-                            },
-                            {
-                                "id": 13,
-                                "pergunta": "Usa comparativos/superlativos.",
-                                "descricao": "Usa cinco ou mais corretamente: melhor, o melhor, maior, o maior, menor, o menor, mais gordo, o mais gordo."
-                            },
-                            {
-                                "id": 14,
-                                "pergunta": "Usa a negativa.",
-                                "descricao": "Exemplos, 'Eu não estou a chorar', 'Eu não lhe bati', 'Eu não me vou sentar'."
-                            },
-                            {
-                                "id": 15,
-                                "pergunta": "Usa verbos no presente.",
-                                "descricao": "Verbaliza uma frase incluindo uma forma verbal, estou/está/estão com um verbo terminado em 'ndo'. Por exemplo, 'O menino está andando'."
-                            },
-                            {
-                                "id": 16,
-                                "pergunta": "Usa palavras para descrever estados físicos.",
-                                "descricao": "A criança usa cinco ou mais palavras para descrever o seu estado: 'Tenho fome, frio, sede, cansaço, dor'."
-                            },
-                            {
-                                "id": 17,
-                                "pergunta": "Responde a perguntas sobre estados físicos: 'O que fazes quando estás...?'",
-                                "descricao": "Responde corretamente a cinco ou mais."
-                            },
-                            {
-                                "id": 18,
-                                "pergunta": "Usa as categorias dos nomes para objetos familiares.",
-                                "descricao": "Refere-se a um item ou a um conjunto de itens pela sua categoria. Os exemplos incluem animais, transportes, comida, roupas."
-                            },
-                            {
-                                "id": 19,
-                                "pergunta": "Descreve as características dos objetos.",
-                                "descricao": "A criança consegue nomear três ou mais características de cinco objetos comuns quando lhe pedem, 'Fala-me sobre...'."
-                            },
-                            {
-                                "id": 20,
-                                "pergunta": "Usa pronomes reflexos.",
-                                "descricao": "Usa dois ou mais pronomes reflexivos, inclusive me, te, se, nos, vos, se."
-                            }, 
-                            {
-                                "id": 21,
-                                "pergunta": "Atende ao telefone apropriadamente incuindo cumprimentar a pessoa.",
-                                "descricao": "Dirige-se ao telefone que toca, pega no auscultador e encosta-o ao ouvido, emite uma saudação verbal e chama a pessoa que o interlocutor pediu."
-                            },
-                            {
-                                "id": 22,
-                                "pergunta": "Participa numa conversa iniciada pelo adulto em duas ou três tomadas de vez envolvendo uma variedade de funções (por exemplo, comentar reciprocamente, responder ou perguntar informações).",
-                                "descricao": "A criança mantém conversas ao adicionar elementos, fazendo perguntas, comentando, partilhando experiências, etc. Consegue usar frases mas mantém a conversa durante duas ou três tomadas de vez da parte da criança."
-                            },
-                            {
-                                "id": 23,
-                                "pergunta": "Inicia e mantém uma conversa com o adulto com um tópico de conversação gerado por si mesma.",
-                                "descricao": "A criança inicia uma conversa com o parceiro com um comentário ou perguntas e mantém tópicos através de pelo menos quatro tomadas de vez de conversação."
-                            },
-                            {
-                                "id": 24,
-                                "pergunta": "Descreve sequências de dois ou três eventos de atividades (por exemplo, ir visitar a avó).",
-                                "descricao": "Em resposta a uma pergunta aberta (por exemplo, 'Fala-me sobre a tua visita à casa da avó'), a criança irá descrever duas ou trê atividades ou eventos usando frases."
-                            },
-                            {
-                                "id": 25,
-                                "pergunta": "Expressa 'Não sei' acompanhado do gesto.",
-                                "descricao": "Quando é feita uma pergunta à qual a criança não sabe responder, a criança responde de forma adequada."
-                            },
-                            {
-                                "id": 26,
-                                "pergunta": "Pede explicações se não entendeu o que lhe foi dito.",
-                                "descricao": "A criança diz 'O quê?' ou uma resposta semelhante quando não conseguiu ouvir ou entender um comentário, pergunta ou instrução que lhe é dirigida."
-                            },
-                            {
-                                "id": 27,
-                                "pergunta": "Envolve-se numa variedade de tópicos durante uma conversa.",
-                                "descricao": "A criança inicia conversas sobre uma variedade de tópicos e envolve-se em conversas sobre uma variedade de tópicos."
-                            },
-                            {
-                                "id": 28,
-                                "pergunta": "Reformula a própria comunicação quando o ouvinte não está a compreendê-la.",
-                                "descricao": "A criança demonstra o uso de estratégias de reparo (por exmeplo, repete, reformula, combina a verbalização com o gesto, acrescenta ênfase) para esclarecer a comunicação quando é entendida pelo parceiro."
-                            },
-                            {
-                                "id": 29,
-                                "pergunta": "Responde a perguntas sobre si e sobre os outros.",
-                                "descricao": "A criança pode responder a uma variedade de perguntas simples sobre si mesma e pode também responder a perguntas sobre pessoas muito familiares como membros da família, animais de estimação, o melhor amigo, etc."
-                            }
-                        ]
-                    }, 
+                        "id": 11,
+                        "pergunta": "Ajuda a pôr a mesa.",
+                        "descricao": "A criança consegue colocar pratos, copos, guardanapos e talheres nos lugares corretos de forma autônoma e relativamente ordenada. O adulto pode precisar de marcar o local a colocar e pode disponibilizar à criança os materiais em cima da mesa."
+                    },
                     {
-                        "id": 2,
-                        "nome":"Competências Sociais",
-                        "perguntas": [
-                            {
-                                "id": 0,
-                                "pergunta": "Convida os pares para brincar.",
-                                "descricao": "Faz uma ou mais ofertas para o jogo, verbais ou gestuais, a um parceiro ('Vem brincar com o comboio!', 'Vamos brincar à apanhada', ou acenando para um colega)."
-                            }, 
-                            {
-                                "id": 1,
-                                "pergunta": "Usa termos de cortesia como 'Com licença' ou 'Desculpe'.",
-                                "descricao": "Usa vários termos de cortesia, incluindo, 'Não, obrigado', 'Obrigado', 'De nada', 'Desculpe' e 'Sinto muito'."
-                            },
-                            {
-                                "id": 2,
-                                "pergunta": "Procura os outros para conforto em situações de grupo.",
-                                "descricao": "Quando a criança está com medo, magoada ou frustrada, aproxima-se do adulto ou faz contato físico com ele (abraçando-o, sentando-se ao seu colo, segurando a sua mão)."
-                            },
-                            {
-                                "id": 3,
-                                "pergunta": "Expressa os seus sentimentos de forma aporpriada.",
-                                "descricao": "Verbaliza os seus próprios sentimentos ao dizer 'Estou zangado', etc."
-                            },
-                            {
-                                "id": 4,
-                                "pergunta": "Toma a vez no jogo informal de forma autônoma.",
-                                "descricao": "Troca a vez com os adultos/pares quando envolvido numa atividade de jogo sem tomadas de vez definidas."
-                            },
-                            {
-                                "id": 5,
-                                "pergunta": "Descreve um acontecimento ou experiência a um parceiro.",
-                                "descricao": "Reconta verbalmente uma história a um colega ou irmão, incluindo pelo menos três detalhes."
-                            },
-                            {
-                                "id": 6,
-                                "pergunta": "Identifica o que a faz sentir-se feliz, triste, zangada, assustada.",
-                                "descricao": "Verbaliza um ou mais exemplos para cada conceito (por exemplo, feliz, triste, zangada, assustada). Exemplo: O adulto diz, 'Porque estás triste?' e a criança diz: 'Ela tirou-me o livro e eu estou triste'."
-                            },
-                            {
-                                "id": 7,
-                                "pergunta": "Identifica as emoções dos outros com base em fatores situcionais.",
-                                "descricao": "Durante as atividades de leitura ou conversação, a criança responde adequadamente quando perguntado: 'Por que é que ela está a chorar?' ou 'Por que é que ele está com medo?'."
-                            },
-                            {
-                                "id": 8,
-                                "pergunta": "Começa a esenvolver estratégias para lidar com as situações que a deixam aborrecida, zangada ou assustada.",
-                                "descricao": "Envolve-se em uma ou mais estratégias para lidar com situações. Exemplo: pede uma pausa, pede ajuda, vem para dar um abraço, vai buscar um objeto de conforto."
-                            }
-                        ]
-                    }, 
+                        "id": 12,
+                        "pergunta": "Usa a faca para barrar.",
+                        "descricao": "A criança pode barrar substâncias tipo geleia na superfície de um pedaço de pão sem partir o pão."
+                    },
                     {
-                        "id": 3,
-                        "nome":"Cognição",
-                        "perguntas": [
-                            {
-                                "id": 0,
-                                "pergunta": "Conta de cor até 20.",
-                                "descricao": "Conta em voz alta de um a 20 na ordem correta."
-                            }, 
-                            {
-                                "id": 1,
-                                "pergunta": "Conta objetos com a correspondência 1: 1 até 10.",
-                                "descricao": "Toca ou aponta para imagens ou objetos enquanto conta em sequência, tocando ou apontando uma vez para cada número."
-                            },
-                            {
-                                "id": 2,
-                                "pergunta": "Dá a alguém 'um', 'alguns', 'muitos', 'um pouco', 'todos', 'mais' e 'a maioria'.",
-                                "descricao": "Entrega ao adulto o número correto de itens quando o adulto pede."
-                            },
-                            {
-                                "id": 3,
-                                "pergunta": "Dá a alguém quantidades até 10.",
-                                "descricao": "Entrega ao adulto o número correto de itens quando o adulto pede ('Dá-me cinco bolachas' ou 'Podes dar-me duas almofadas?')."
-                            },
-                            {
-                                "id": 4,
-                                "pergunta": "Conhece termos de conceitos de quantidade.",
-                                "descricao": "Verbaliza dois ou mais conceitos, incluindo 'um', 'alguns' ou 'todos'."
-                            },
-                            {
-                                "id": 5,
-                                "pergunta": "Conhece termos de relações espaciais.",
-                                "descricao": "Verbaliza dois ou mais conceitos, incluindo 'no meio', 'atrás de' ou 'em frente de'."
-                            },
-                            {
-                                "id": 6,
-                                "pergunta": "Faz corresponder e compreende 5-10 associações objeto/palavra.",
-                                "descricao": "Faz corresponder três ou mais objetos com a palavra escrita associada de três a quatro letras."
-                            },
-                            {
-                                "id": 7,
-                                "pergunta": "Consegue ler algumas palavras.",
-                                "descricao": "Lê e pronuncia 10 ou mais palavras de três a quatro letras para ações ou objetos comuns."
-                            },
-                            {
-                                "id": 8,
-                                "pergunta": "Consegue identificar o nome escrito num conjunto de cinco palavras.",
-                                "descricao": "Dá, aponta, mostra ou dirige-se para o seu próprio nome quando este é mostrado numa série de três nomes que inclui um nome que começa pela mesma letra que o nome da criança."
-                            },
-                            {
-                                "id": 9,
-                                "pergunta": "'Lê' sinais e símbolos.",
-                                "descricao": "Identifica o significado de três ou mais sinais e símbolos comuns. Exemplo: sinal de stop, luz verde, o símbolo universal do 'não'."
-                            },
-                            {
-                                "id": 10,
-                                "pergunta": "Identifica números e letras.",
-                                "descricao": "Identifica receptivamente e expressivamente dis os nomes de todas as letras do alfabeto e os seus números de 0-30."
-                            }, 
-                            {
-                                "id": 11,
-                                "pergunta": "Percebe oposto e analogias.",
-                                "descricao": "Quando o adulto diz um conceito, a criança diz o conceito oposto. Exemplo: 'O rato é pequeno, mas o elefante é ______' e a criança diz 'grande'."
-                            }
-                        ]
-                    }, 
+                        "id": 13,
+                        "pergunta": "Limpa quando entorna.",
+                        "descricao": "A criança limpa a sujidade de cima da mesa por iniciativa própria e faz o trabalho completo."
+                    },
                     {
-                        "id": 4, 
-                        "nome":"Jogo",
-                        "perguntas": [
-                            {
-                                "id": 0,
-                                "pergunta": "Desenvolve ações de figuras durante o jogo.",
-                                "descricao": "Usa figuras a demonstrar cinco ou mais ações em três ou mais contextos de jogo. Exemplo: A mamá a conduzir até à loja, a irmã a correr atrás do irmão, o cãozinho a comer."
-                            }, 
-                            {
-                                "id": 1,
-                                "pergunta": "Usa objetos substitutos para simbolizar os adereços do jogo.",
-                                "descricao": "Usa três ou mais ojetos neutros substitutos (Neutro= sem identidade própria). Exemplos: usar um bloco como telefone, um tubo como garrafa, ou uma caixa pequena como carro."
-                            },
-                            {
-                                "id": 2,
-                                "pergunta": "Nomeia as ações e adereços simulados no jogo.",
-                                "descricao": "Nomeia 10 ou mais ações ou adereços a fingir em três ou mais atividades lúdicas de forma espontânea e em resposta a perguntas."
-                            },
-                            {
-                                "id": 3,
-                                "pergunta": "Liga espontaneamente três ou mais comportamentos relacionados num tema de jogo.",
-                                "descricao": "Exemplos: despejar água na panela, mexer a comida, e deitar a comida numa tigela;colocar o chapéu de bombeiro, 'conduzir' o caminhão dos bombeiros e apagar o fogo."
-                            },
-                            {
-                                "id": 4,
-                                "pergunta": "Direciona o parceiro no jogo.",
-                                "descricao": "Fornece três ou mais instruções relevantes direcionadas para o parceiro para realizar algum aspecto do tema em todo o jogo ao longo de dois ou mais episódios de jogo."
-                            },
-                            {
-                                "id": 5,
-                                "pergunta": "Representa vários eventos da vida (por exemplo, festa de aniversário, McDonald's, médico), incluindo o uso de guiões verbais.",
-                                "descricao": "Representa três ou mais instruções eventos da sua vida, cada um contendo pelo menos quatro atividades incorporadas (ver item 4, acima), interagindo com o parceiro através de guioes verbais e ações com objetos."
-                            },
-                            {
-                                "id": 6,
-                                "pergunta": "Representa vários temas de histórias no jogo.",
-                                "descricao": "Representa três ou mais temas da história com o parceiro usando várias ações e guiões, conforme descrito no item acima: Chapeuzinho vermelho, Os três porquinhos, O gato de botas."
-                            },
-                            {
-                                "id": 7,
-                                "pergunta": "Assume o papel de um personagem e representa-o.",
-                                "descricao": "Assume um papel (por exemplo, 'Eu sou a mama') e desempenha um evento da vida com um roteiro verbal, atividades e gestos apropriados ao papel, com três ou mais trocas com o parceiro."
-                            },
-                            {
-                                "id": 8,
-                                "pergunta": "Segue a liderança de outra pessoa durante o jogo.",
-                                "descricao": "Segue as diretivas de jogo do parceiro, verbais ou não verbais, cinco ou mais vezes, ao imitar as ações dos parceiros ou respondendo as suas instruções."
-                            }
-                        ]
-                    }, 
+                        "id": 14,
+                        "pergunta": "Serve-se de água de um recipiente pequeno.",
+                        "descricao": "A criança pode despejar um jarro de 2-4 copos num copo pequeno, ordenadamente e de forma independente."
+                    },
                     {
-                        "id": 5,
-                        "nome":"Motricidade Fina",
-                        "perguntas": [
-                            {
-                                "id": 0,
-                                "pergunta": "Pinta uma imagem com precisão, com várias cores.",
-                                "descricao": "A criança pinta maioritariamente dentro das formas e escolhe cores diferentes para completar a imagem numa página de um livro para colorir."
-                            }, 
-                            {
-                                "id": 1,
-                                "pergunta": "Imita triângulos, letras utilizando material de desenho apropriado.",
-                                "descricao": "A criança copia o círculo o quadrado, o triângulo e algumas letras do alfabeto de forma reconhecível."
-                            },
-                            {
-                                "id": 2,
-                                "pergunta": "Desenha linhas e formas e algumas letras e números de cor.",
-                                "descricao": "A criança começa a desenhar várias formas ou letras/números que são reconhecíveis."
-                            },
-                            {
-                                "id": 3,
-                                "pergunta": "Imita e copia uma variedade de letras, números e formas.",
-                                "descricao": "A criança tanto copia como gera quatro a cinco formas, quatro a cinco letras e vários números que são reconhecíveis."
-                            },
-                            {
-                                "id": 4,
-                                "pergunta": "Escreve o seu primeiro nome sem modelo.",
-                                "descricao": "Autoexplicativo."
-                            },
-                            {
-                                "id": 5,
-                                "pergunta": "Traça formas e letras.",
-                                "descricao": "Autoexplicativo."
-                            },
-                            {
-                                "id": 6,
-                                "pergunta": "Pinta formas desenhadas.",
-                                "descricao": "A criança mantém a cor geralmente dentro dos rebordos."
-                            },
-                            {
-                                "id": 7,
-                                "pergunta": "Une pontos com material de desenho.",
-                                "descricao": "A criança consegue acompanhar os padrões ponto-a-ponto e segue sequências com números."
-                            },
-                            {
-                                "id": 8,
-                                "pergunta": "Desenha linhas para corresponder imagens, palavras ou formas.",
-                                "descricao": "A criança consegue ligar imagens de objetos correspondentes ou relacionados numa linha (como numa atividade escolar)."
-                            },
-                            {
-                                "id": 9,
-                                "pergunta": "Copia uma variedade de desenhos representacionais simples (por exemplo, cara, árvore, casa, flor).",
-                                "descricao": "A criança copia cinco ou mais desenhos diferentes e faz 2-3 imagens reconhecíveis espontaneamente."
-                            },
-                            {
-                                "id": 10,
-                                "pergunta": "Dobra um papel ao meio e coloca-o num envelope.",
-                                "descricao": "Autoexplicativo."
-                            }, 
-                            {
-                                "id": 11,
-                                "pergunta": "Recorta ângulo, linhas direitas e curvas.",
-                                "descricao": "A criança corta os cantos e os rebordos de grandes formatos (7cm ou mais) com uma tesoura de criança de forma independente."
-                            },
-                            {
-                                "id": 12,
-                                "pergunta": "Recorta formas simples.",
-                                "descricao": "A criança corta com sucesso figuras com 7 cm."
-                            },
-                            {
-                                "id": 13,
-                                "pergunta": "Completa projetos de expressão plástica com tres passos - cortar, colorir e colar.",
-                                "descricao": "Assim que o adulto modela a atividade, a criança pode sequenciar a atividade e concluí-la de forma autônoma, desde que cada etapa envolva uma competência em que a criança é totalmente competente."
-                            },
-                            {
-                                "id": 14,
-                                "pergunta": "Usa pincel, selos, marcadores, lápis, borrachas para completar atividades de expressão plástica.",
-                                "descricao": "A criança usa uma variedade de materiais de arte em atividades de expressão plástica livres para criar produtos. A criança também pode imitar o modelo do adulto usando cada uma dessas ferramentas."
-                            },
-                            {
-                                "id": 15,
-                                "pergunta": "Usa a preensão tripla para segurar o material de desenho.",
-                                "descricao": "A criança segura consistentemente o material de escrita com uma preensão tripla."
-                            },
-                            {
-                                "id": 16,
-                                "pergunta": "Faz construções com uma variedade de materiais de construção com o próprio desenho e copia modelos simples a partir de modelos de imagens 3D.",
-                                "descricao": "A criança reúne uma variedade de materiais de construção em projetos complexos e também pode copiar os projetos dos outros, tanto a partir de modelos 3D como de imagens e desenhos a lpis. A criança pode demonstrar cinco ou mais modelos diferentes."
-                            },
-                            {
-                                "id": 17,
-                                "pergunta": "Resolve puzzles de encaixe, puzzles de chão e puzzles de tabuleiro.",
-                                "descricao": "Autoexplicativo."
-                            },
-                            {
-                                "id": 18,
-                                "pergunta": "Usa fita-cola, clipes e chaves apropriadamente.",
-                                "descricao": "Usa todas estas ferramentas de forma independente."
-                            }
-                        ]
-                    }, 
+                        "id": 15,
+                        "pergunta": "Põe os pratos na lava-louça, balcão, ou na pia.",
+                        "descricao": "Após as refeições, a criança limpa rotineiramente o seu lugar e põe os utensílios para comer no local correto de forma autônoma."
+                    },
                     {
-                        "id": 6, 
-                        "nome":"Motricidade Grossa",
-                        "perguntas": [
-                            {
-                                "id": 0,
-                                "pergunta": "Joga à apanhada com uma bola de recreio com um par.",
-                                "descricao": "Pode manter o jogo de apanhada durante seis ou mais tomadas de vez."
-                            }, 
-                            {
-                                "id": 1,
-                                "pergunta": "Atira uma bola de tênis ou de basebol para outra pessoa com direcionalidade por cima da cabeça.",
-                                "descricao": "Autoexplicativo."
-                            },
-                            {
-                                "id": 2,
-                                "pergunta": "Usa o equipamento do recreio autonomamente, incluindo o balanço e o carrossel.",
-                                "descricao": "Autoexplicativo, para todo o equipamente adequado para a idade."
-                            },
-                            {
-                                "id": 3,
-                                "pergunta": "Pontapeia uma bola em movimento.",
-                                "descricao": "A criança ajusta o corpo e dá pontapés com sucesso na bola em movimento."
-                            },
-                            {
-                                "id": 4,
-                                "pergunta": "Joga vários jogos com bolas: atira a bola ao cesto, bate na bola com um bastao, lança a bola, joga golfe, lança saquinhos de feijão para acertar no orifício.",
-                                "descricao": "Joga cinco ou mais jogos com bolas."
-                            },
-                            {
-                                "id": 5,
-                                "pergunta": "Anda confiantemente de bicicleta com rodinhas; é capaz de controlar a velocidade, manobrar e travar.",
-                                "descricao": "Autoexplicativo."
-                            },
-                            {
-                                "id": 6,
-                                "pergunta": "Galopa e salta.",
-                                "descricao": "Imita ambos e executa sem problemas."
-                            },
-                            {
-                                "id": 7,
-                                "pergunta": "Anda sem perder o equilíbrio numa trave, em carros de comboio e no lancil do passeio.",
-                                "descricao": "Autoexplicativo; caminha de forma relativamente calma e não muito lentamente."
-                            },
-                            {
-                                "id": 8,
-                                "pergunta": "Joga jogos motores típicos (por exemplo, 'Red Light, Green Light', 'Red Rover', 'Freeze Tag').",
-                                "descricao": "Joga cinco ou mais destes jogos - conhece as regras e participa ativamente ao longo do jogo e sem ajudas ou treino."
-                            }
-                        ]
-                    }, 
+                        "id": 16,
+                        "pergunta": "Faz um lanche em duas etapas.",
+                        "descricao": "Tira dois itens diferentes, passa-os do recipiente para o prato e coloca-os na mesa. Exemplo: Prepara vegetais cortados e molho, queijo e biscoitos, barra o creme de queijo em bolachas, faz cereais com leite."
+                    },
                     {
-                        "id": 7,
-                        "nome":"Independência Pessoal",
-                        "perguntas": [
-                            {
-                                "id": 0,
-                                "pergunta": "Gere todas etapas envolvidas na ida à casa de banho de forma autônoma ao níve dos pares.",
-                                "descricao": "Usa o bacio conforme necessário (embora o adulto possa solicitar idas à casa de banho), puxa as próprias calças/cuecas para cima e para baixo, puxa o autoclismo e lava as mãos."
-                            }, 
-                            {
-                                "id": 1,
-                                "pergunta": "Vai à casa de banho sozinha quando precisa.",
-                                "descricao": "Vai sozinha à casa de banho se necessário (sem precisar de ajuda do adulto)."
-                            },
-                            {
-                                "id": 2,
-                                "pergunta": "Lava as mãos de forma autônoma ao nível dos pares.",
-                                "descricao": "A criança abre a torneira, coloca as mãos debaixo da água, põe sabão nas mãos, esfrega as mãos ensaboadas, tira o sabão, fecha a água e seca as mãos com a toalha."
-                            },
-                            {
-                                "id": 3,
-                                "pergunta": "Lava a cara com a esponja autonomamente.",
-                                "descricao": "Durante o banho, a criança molha a esponja, aplica o sabão e esfrega a cara com a esponja."
-                            },
-                            {
-                                "id": 4,
-                                "pergunta": "Escova ou penteia o cabelo autonomamente.",
-                                "descricao": "Quando o adulto pede à criança paa pentear/escovar o cabelo, a criança pega no utensílio e passa-o ao longo do cabelo. Pode haver exceções apropriadas mediante a idade para as dificuldades com cabelos longos ou encaracolados."
-                            },
-                            {
-                                "id": 5,
-                                "pergunta": "Dá assistência ativa no baho, seca-se sozinha depois do banho.",
-                                "descricao": "Esfrega o corpo com a esponja, aplica sabao no corpo, e esfrega o próprio couro cabeludo quando o shampoo é aplicado. Secase razoavelmente bem; pode precisar de 'estímulo'."
-                            },
-                            {
-                                "id": 6,
-                                "pergunta": "Realiza todas as etapas da escovagem dos dentes de forma autônoma, embora o adulto também possa escovar-lhe os dentes para uma maior perfeição.",
-                                "descricao": "A partir do momento em que a criança entra na casa de banho até que a escova de dentes e a pasta são colocados no local próprio, a criança consegue realizar todas as etapas de forma autônoma."
-                            },
-                            {
-                                "id": 7,
-                                "pergunta": "Aperta a própria roupa-botões, molas e fechos.",
-                                "descricao": "Aperta os próprios botões, fechos e molas quando estes estão presentes na sua roupa."
-                            },
-                            {
-                                "id": 8,
-                                "pergunta": "Assoa o nariz quando se chama à atenção, usa lenço quando espirra, tapa a boca quando tosse ou o nariz quando espirra.",
-                                "descricao": "Quando o adulto diz, 'Assoa o nariz', a criança pega num lenço e assoa o nariz com o lenço. Quando a criança espirra, cobre a boca com a mão ou com o braço."
-                            },
-                            {
-                                "id": 9,
-                                "pergunta": "Para na rua; atravessa depois de olhar para os dois lados quando acompanhada.",
-                                "descricao": "Ao aproximar-se de um passeio ou rua com um parceiro, a criança para automaticamente, espera, olha e aguarda que o parceiro indique que pode atravessar."
-                            },
-                            {
-                                "id": 10,
-                                "pergunta": "Anda em segurança ao lado de um adulto autonomamente em parques de estacionamento, lojas, etc.",
-                                "descricao": "A criança anda sem dar as mãos e fica perto do adulto, monitorizando a localização do adulto e mantendo uma proximidade por iniciativa própria."
-                            }, 
-                            {
-                                "id": 11,
-                                "pergunta": "Ajuda a pôr a mesa.",
-                                "descricao": "A criança consegue colocar pratos, copos, guardanapos e talheres nos lugares corretos de forma autônoma e relativamente ordenada. O adulto pode precisar de marcar o local a colocar e pode disponibilizar à criança os materiais em cima da mesa."
-                            },
-                            {
-                                "id": 12,
-                                "pergunta": "Usa a faca para barrar.",
-                                "descricao": "A criança pode barrar substâncias tipo geleia na superfície de um pedaço de pão sem partir o pão."
-                            },
-                            {
-                                "id": 13,
-                                "pergunta": "Limpa quando entorna.",
-                                "descricao": "A criança limpa a sujidade de cima da mesa por iniciativa própria e faz o trabalho completo."
-                            },
-                            {
-                                "id": 14,
-                                "pergunta": "Serve-se de água de um recipiente pequeno.",
-                                "descricao": "A criança pode despejar um jarro de 2-4 copos num copo pequeno, ordenadamente e de forma independente."
-                            },
-                            {
-                                "id": 15,
-                                "pergunta": "Põe os pratos na lava-louça, balcão, ou na pia.",
-                                "descricao": "Após as refeições, a criança limpa rotineiramente o seu lugar e põe os utensílios para comer no local correto de forma autônoma."
-                            },
-                            {
-                                "id": 16,
-                                "pergunta": "Faz um lanche em duas etapas.",
-                                "descricao": "Tira dois itens diferentes, passa-os do recipiente para o prato e coloca-os na mesa. Exemplo: Prepara vegetais cortados e molho, queijo e biscoitos, barra o creme de queijo em bolachas, faz cereais com leite."
-                            },
-                            {
-                                "id": 17,
-                                "pergunta": "Ajuda nas tarefas de culinária: mexe, despeja, etc.",
-                                "descricao": "A criança participa em vários passos de atividades de culinária com várias etapas como fazer biscoitos, panquecas, ovos mexidos."
-                            }
-                    ]
-                }
+                        "id": 17,
+                        "pergunta": "Ajuda nas tarefas de culinária: mexe, despeja, etc.",
+                        "descricao": "A criança participa em vários passos de atividades de culinária com várias etapas como fazer biscoitos, panquecas, ovos mexidos."
+                    }
                 ]
             }
         ]
