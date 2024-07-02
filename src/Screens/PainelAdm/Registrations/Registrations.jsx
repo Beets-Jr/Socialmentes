@@ -72,10 +72,19 @@ function Registrations() {
                                         xs={[3, 2, 1.5, 1.5, 4]}
                                         head={['Nome', 'CPF', 'Telefone', 'Email']}
                                         columns={[
-                                            (row) => row.fullName,
-                                            (row) => `${row.cpf.slice(0, 3)}.${row.cpf.slice(3, 6)}.${row.cpf.slice(6, 9)}-${row.cpf.slice(9)}`,
-                                            (row) => `(${row.phone.slice(0, 2)}) ${row.phone.slice(2, 7)}-${row.phone.slice(7)}`,
-                                            (row) => row.email
+                                            {
+                                                func: (row) => row.fullName,
+                                                style: { fontWeight: 600 }
+                                            },
+                                            {
+                                                func: (row) => `${row.cpf.slice(0, 3)}.${row.cpf.slice(3, 6)}.${row.cpf.slice(6, 9)}-${row.cpf.slice(9)}`,
+                                            },
+                                            {
+                                                func: (row) => `(${row.phone.slice(0, 2)}) ${row.phone.slice(2, 7)}-${row.phone.slice(7)}`,
+                                            },
+                                            {
+                                                func: (row) => row.email
+                                            }
                                         ]}
                                         body={filteredRegistrations}
                                         onAdd={() => setOpenDialog(true)}
