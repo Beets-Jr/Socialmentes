@@ -10,8 +10,8 @@ import { useAuth } from "../Contexts/AuthContext";
 import styles from "./PainelAdm.module.css";
 import PermissionDeniedMessage from "../Components/ElementsInterface/PermissionDeniedMessage";
 import Patients from "../Screens/PainelAdm/Patients/Patients";
-import PacientesPage from "../Screens/Psicologo/PacientesPage/PacientesCadastrados";
 import CriarTeste from "../Screens/Psicologo/PacientesPage/CriarTeste";
+import PacientesInfo from "../Screens/Psicologo/PacientesPage/PacientesInfo";
 
 function PainelAdm() {
     const { open } = useContext(AppContext);
@@ -30,8 +30,8 @@ function PainelAdm() {
                     <Routes>
                         <Route path="/" element={<DialogConfirmation />} />
                         <Route path="pacientes" element={<Patients />} />
-                        <Route path="psicologo/pacientes" element={<PacientesPage />} />
-                        <Route path="psicologo/pacientes/criar-teste" element={<CriarTeste />} />
+                        <Route path="pacientes/informacoes" element={<PacientesInfo />} />
+                        <Route path="pacientes/criar-teste" element={<CriarTeste />} />
                         <Route path="cargos" element={<Positions />} />
                         <Route path="cadastros" element={<Registrations />} />
                         <Route path="opcoes" element={<DialogConfirmation />} />

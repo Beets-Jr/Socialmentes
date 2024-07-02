@@ -6,7 +6,6 @@ export default function CriarTeste() {
   return (
     <>
       <GridCriarTeste />
-      
     </>
   );
 }

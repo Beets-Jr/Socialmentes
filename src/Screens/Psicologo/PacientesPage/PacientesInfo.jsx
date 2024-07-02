@@ -4,9 +4,9 @@ import GridTestes from "../../../Components/Psicologo/PacientesPage/GridTestes";
 import styles from "./Psicologo.module.css"
 import BlueLine from "../../../Assets/Icons/BlueLine";
 import Botao from "../../../Components/Psicologo/PacientesPage/Botao";
-import iconAddToList from "../../../Assets/Icons/add-list-icon.jpg"
+import iconAddToList from "../../../Assets/Icons/add-list-icon.png"
 
-export default function PacientesPage() {
+export default function PacientesInfo() {
   return (
     <Box sx={{ marginLeft: "3.75em", marginTop: "3em", position: "sticky", }}>
         <Box className={styles.infoPacientes}>

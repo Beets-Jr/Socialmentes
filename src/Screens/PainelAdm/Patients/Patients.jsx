@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { Box, CircularProgress } from "@mui/material";
 
@@ -10,9 +11,10 @@ import { VisibilityIcon } from "../../../Assets/Icons/VisibilityIcon";
 
 import styles from './Patients.module.css';
 import { AppContext } from "../../../Contexts/AppContext";
+import { DocIcon } from "../../../Assets/Icons/DocIcon";
 
 function Patients() {
-
+    const navigate = useNavigate();
     const {setValue} = useContext(AppContext);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -59,12 +61,16 @@ function Patients() {
                             onAdd={ () => console.log('click!') }
                             actions={[
                                 {
-                                    func: (id) => console.log(`eye ${id}`),
+                                    func: (id) => navigate(`informacoes`),
                                     icon: <VisibilityIcon/>
                                 },
                                 {
                                     func: (id) => console.log(`edit ${id}`),
                                     icon: <EditIcon/>
+                                },
+                                {
+                                    func: (id) => console.log(`docs ${id}`),
+                                    icon: <DocIcon/>
                                 },
                             ]}
                             emptyText='Nenhum paciente cadastrado'

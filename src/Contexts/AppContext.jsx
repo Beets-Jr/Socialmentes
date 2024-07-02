@@ -26,11 +26,13 @@ export const AppStorage = ({ children }) => {
             setTitle(value ? 'Pacientes' : 'Pacientes cadastrados');
             setSubtitle(value ? `${value} pacientes cadastrados` : '')
             break;
-          case '/painel-adm/pacientes':
+          case '/painel-adm/pacientes/informacoes':
+            setSubtitle('')
             setTitle('Pacientes Cadastrados');
             break;
           default:
             setTitle('Insira seu Titulo Aqui');
+            setSubtitle('');
         }
       }, [location, value]);
 

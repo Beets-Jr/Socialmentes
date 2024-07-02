@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 import { Box, Grid, IconButton, Typography } from "@mui/material";
 import { AddBoxOutlined, AddBoxRounded } from "@mui/icons-material";
@@ -16,7 +17,7 @@ import styles from './styles/DataTable.module.css';
  * @param {string} emptyText - texto que aparece caso body seja uma lista vazia
  */
 function DataTable({ xl, lg, md, sm, xs, head, columns, body, onAdd, actions, emptyText }) {
-    
+    const navigate = useNavigate();
     const [focusedButton, setFocusedButton] = useState(false);
 
     const columns_width = (index) => { return {
