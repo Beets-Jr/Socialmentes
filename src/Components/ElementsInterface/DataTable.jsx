@@ -9,10 +9,10 @@ import styles from './styles/DataTable.module.css';
  * @description Define a estrutura de uma lista em forma de tabela, com botões de ação e botão de adicionar novo.
  * @param {array<number>} xs - contém a largura de todas as colunas da tabela, totalizando uma largura de 12. O mesmo se aplica aos argumentos: `sm`, `md`, `lg` e `xl`.
  * @param {array<string>} head - contém o label que deve ser exibido nas respectivas colunas.
- * @param {array<string>} columns - contém as funções executadas para recuperar o valor que deve ser exibido nas respectivas colunas, elas recebem como argumento o dado representado pela linha atualmente executada.
+ * @param {array<Object>} columns - contém as funções executadas para recuperar o valor que deve ser exibido nas respectivas colunas (elas recebem como argumento o dado representado pela linha atualmente executada), e opções que podem ser passados ao estilo do texto. Cada column é uma tupla `{ func: function, style: Object }`.
  * @param {array<Object>} body - são os dados que serão listados, os elementos da lista devem ser objetos contendo obrigatoriamente um id.
  * @param {function} onAdd - função executada ao clicar no botão de mais, caso null o botão não é exibido.
- * @param {array<Object>} actions - informa as ações que aparecerão na última coluna da tabela, cada ação é uma tupla `{ icon: SvgIcon, func: function }`
+ * @param {array<Object>} actions - informa as ações que aparecerão na última coluna da tabela, cada ação é uma tupla `{ icon: SvgIcon, func: function }`.
  * @param {string} emptyText - texto que aparece caso body seja uma lista vazia
  */
 function DataTable({ xl, lg, md, sm, xs, head, columns, body, onAdd, actions, emptyText }) {
@@ -102,7 +102,7 @@ function DataTable({ xl, lg, md, sm, xs, head, columns, body, onAdd, actions, em
                                 {/* Valores */}
                                 { columns.map( (column, index) => (
                                     <Grid item
-                                        key={column}
+                                        key={index}
                                         textAlign='left'
                                         {...columns_width(index)}
                                         sx={{
@@ -110,8 +110,8 @@ function DataTable({ xl, lg, md, sm, xs, head, columns, body, onAdd, actions, em
                                             pr: 3
                                         }}
                                     >
-                                        <Typography>
-                                            { column(row) || '' }
+                                        <Typography {...column.style}>
+                                            { column.func(row) || '' }
                                         </Typography>
                                     </Grid>
                                 ))}
