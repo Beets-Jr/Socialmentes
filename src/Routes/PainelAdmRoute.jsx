@@ -9,8 +9,6 @@ import { AppContext } from "../Contexts/AppContext";
 import { useAuth } from "../Contexts/AuthContext";
 import styles from "./PainelAdm.module.css";
 import PermissionDeniedMessage from "../Components/ElementsInterface/PermissionDeniedMessage";
-import Tests from "../Screens/PainelPsicologo/Relatorios/Tests"
-import Checklist from "../Screens/PainelPsicologo/Relatorios/Checklist";
 
 function PainelAdm() {
     const { open } = useContext(AppContext);
@@ -35,8 +33,7 @@ function PainelAdm() {
                     </Routes>
                 ) : (
                     <Routes>
-                        <Route path="/" element={<Checklist />} />
-                        
+                        <Route path="/*" element={<PermissionDeniedMessage />} />
                     </Routes>
                 )}
             </div>
