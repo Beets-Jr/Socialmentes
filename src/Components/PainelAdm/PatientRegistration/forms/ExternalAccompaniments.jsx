@@ -1,13 +1,11 @@
 import React from 'react';
-import { Grid } from '@mui/material';
 import STextField from '../STextField';
 import SSelectBox from '../SSelectBox';
 import AddButton from '../AddButton';
 import SDividerAc from '../SDividerAc';
-import SInputLabel from '../SInputLabel';
 
 
-const teamAccompanimentOptions = ['Fonoaudiologia', 'Psicologia', 'Psicopedagogia', 'Terapia Ocupacional', 'Fisioterapia', 'Nutrição'];
+const teamAccompanimentOptions = ['Fono', 'Neurologista', 'Pediatra', 'Psicologo', 'Psiquiatra', 'Outros'];
 
 
 const ExternalAccompaniments = ({ values, setValues, handleArrayChange, error }) => {

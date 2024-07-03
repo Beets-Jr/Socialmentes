@@ -10,7 +10,6 @@ import { useAuth } from "../Contexts/AuthContext";
 import styles from "./PainelAdm.module.css";
 import PermissionDeniedMessage from "../Components/ElementsInterface/PermissionDeniedMessage";
 import PatientRegistration from "../Screens/PainelAdm/PatientRegistration/PatientRegistration";
-import { jsonToPatient } from "../Services/patientService";
 
 function PainelAdm() {
     const { open } = useContext(AppContext);
