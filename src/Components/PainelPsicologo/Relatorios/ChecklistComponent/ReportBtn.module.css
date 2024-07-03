@@ -1,0 +1,11 @@
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Ubuntu' !important;
+    font-size: 14px;
+    text-transform: none !important;
+    color: #fff;
+    border-color: 2px solid var(--color-blue-3) !important;
+    background: linear-gradient(to left, var(--color-blue-3), var(--color-blue-2)) !important;
+}

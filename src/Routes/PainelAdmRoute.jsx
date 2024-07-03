@@ -9,6 +9,8 @@ import { AppContext } from "../Contexts/AppContext";
 import { useAuth } from "../Contexts/AuthContext";
 import styles from "./PainelAdm.module.css";
 import PermissionDeniedMessage from "../Components/ElementsInterface/PermissionDeniedMessage";
+import Tests from "../Screens/PainelPsicologo/Relatorios/Tests"
+import Checklist from "../Screens/PainelPsicologo/Relatorios/Checklist";
 import Patients from "../Screens/PainelAdm/Patients/Patients";
 import CriarTeste from "../Screens/Psicologo/PacientesPage/CriarTeste";
 import PacientesInfo from "../Screens/Psicologo/PacientesPage/PacientesInfo";
@@ -38,7 +40,8 @@ function PainelAdm() {
                     </Routes>
                 ) : (
                     <Routes>
-                        <Route path="/*" element={<PermissionDeniedMessage />} />
+                        <Route path="/" element={<Checklist />} />
+                        
                     </Routes>
                 )}
             </div>
