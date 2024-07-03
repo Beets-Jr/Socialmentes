@@ -20,7 +20,7 @@ export const AppStorage = ({ children }) => {
             break;
           case '/painel-adm/cadastros':
             setTitle('Gerenciar Cadastros');
-            setSubtitle('');
+            setSubtitle(`${value} pacientes cadastrados`);
             break;
           case '/painel-adm/pacientes':
             setTitle(value ? 'Pacientes' : 'Pacientes cadastrados');
