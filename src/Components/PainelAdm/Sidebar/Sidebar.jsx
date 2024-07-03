@@ -2,34 +2,53 @@ import { Link, useLocation } from 'react-router-dom'
 import { useContext} from 'react'
 
 // eslint-disable-next-line no-unused-vars
-import { AppBar, List, ListItemButton, ListItemIcon, ListItemText, Box, IconButton, Drawer, useMediaQuery } from '@mui/material'
+import { AppBar, List, ListItemButton, ListItemIcon, ListItemText, Box, IconButton } from '@mui/material'
 
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined'
-import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined'
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined'
 import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import EditNoteRoundedIcon from '@mui/icons-material/EditNoteRounded'
 import { BsPersonFillAdd } from "react-icons/bs"
+import { MdOutlineManageAccounts } from "react-icons/md";
 import { AppContext } from '../../../Contexts/AppContext'
+import { useAuth } from '../../../Contexts/AuthContext'
+import { HomeIcon } from '../../../Assets/Icons/HomeIcon'
+import { GraphIcon } from '../../../Assets/Icons/GraphIcon'
+
 import styles from './Styles/Sidebar.module.css'
 
-// Armazena as opções que serão exibidas ao usuário na sidebar
-const sidebarOptions = [
-  { icon: <ArticleOutlinedIcon style={{color:'#FFFFFF'}}/>, text:'Pacientes' , to:'/painel-adm/pacientes' },
-  { icon: <ManageAccountsOutlinedIcon style={{color:'#FFFFFF'}}/>, text:'Cargos' , to:'/painel-adm/cargos' },
-  { icon: <BsPersonFillAdd style={{color:'#FFFFFF'}}/>, text:'Cadastros' , to:'/painel-adm/cadastros' },
-  { icon: <SettingsOutlinedIcon style={{color:'#FFFFFF'}}/>, text:'Opções' , to:'/painel-adm/opcoes' }
+// Seta as opções da sidebar para cada cargo possível
+const sidebarAllOptions = {
+  sidebarOptionsAdm: [
+    { icon: <ArticleOutlinedIcon style={{color:'#FFFFFF'}}/>, text:'Pacientes' , to:'/painel-adm/pacientes' },
+    { icon: <MdOutlineManageAccounts fontSize={22} style={{marginLeft: 2, color:'#FFFFFF'}}/>, text:'Cargos' , to:'/painel-adm/cargos' },
+    { icon: <BsPersonFillAdd fontSize={22} style={{color:'#FFFFFF'}}/>, text:'Cadastros' , to:'/painel-adm/cadastros' },
+    { icon: <SettingsOutlinedIcon style={{color:'#FFFFFF'}}/>, text:'Opções' , to:'/painel-adm/opcoes' }
+  ],
+  sidebarOptionsPsy: [
+    { icon: <HomeIcon />, text:'Home' , to:'/painel-adm/home' },
+    { icon: <EditNoteRoundedIcon style={{color:'#FFFFFF'}}/>, text:'Pacientes' , to:'/painel-adm/pacientes' },
+    { icon: <GraphIcon />, text:'Relatórios' , to:'/painel-adm/relatorios' },
+    { icon: <SettingsOutlinedIcon style={{marginLeft: -2, color:'#FFFFFF'}}/>, text:'Opções' , to:'/painel-adm/opcoes' }
 ]
+};
 
 function Sidebar() {
 
   const {open, setOpen} = useContext(AppContext);
-  const location = useLocation()
+  const { user } = useAuth();
+  const location = useLocation();
 
   // Função para mostrar/ocultar a sidebar
   const toggleSidebar = () => {
     setOpen(!open)
   }
+
+  // define quais opções serão exibidas na sidebar com base no cargo
+  const sidebarOptions = user?.position === 'Administrador' ?
+    sidebarAllOptions.sidebarOptionsAdm : user.position === 'Psicólogo' ?
+    sidebarAllOptions.sidebarOptionsPsy : null;
 
   return (
     <AppBar
@@ -37,6 +56,7 @@ function Sidebar() {
       className={styles.sbBackground}
       sx={{
         width: open ? '20vw' : '5vw',
+        minWidth: open ? '160px' : '50px',
         transition: 'width 0.5s ease',
         '@media (max-width: 600px)': {
           boxShadow: open ? '2px 0 5px rgba(0, 0, 0, 0.75)' : '2px 0 5px rgba(0, 0, 0, 0.4)',
