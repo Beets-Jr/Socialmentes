@@ -1,0 +1,37 @@
+.container_reports {
+    flex: 1;
+    padding: 36px 94px 100px 51px;
+}
+
+.container_empty {
+    width: 100%;
+    height: 85vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user_text, .legend {
+    font-family: var(--font-sub);
+    font-size: 400;
+    color: var(--color-blue-3);
+}
+
+.user_text span {
+    font-weight: 500;
+}
+
+.legend {
+    padding-top: 25px;
+}
+
+.table_container th, .table_container td {
+    font-family: var(--font-text);
+    color: var(--color-gray-4);
+    text-align: center;
+}
+
+.table_container th {
+    font-weight: 600;
+    font-size: 18px;
+}
