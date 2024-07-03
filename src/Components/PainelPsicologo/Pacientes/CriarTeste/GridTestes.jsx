@@ -1,7 +1,7 @@
 import { Box, Grid } from "@mui/material";
-import styles from "../Pacientes/GridTestes.module.css";
+import styles from "./GridTestes.module.css";
 import React from "react";
-import BlueLine from "../../../Assets/Icons/BlueLine";
+import BlueLine from "../../../../Assets/Icons/BlueLine";
 
 export default function GridTestes() {
   return (

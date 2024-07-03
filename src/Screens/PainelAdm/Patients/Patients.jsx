@@ -11,7 +11,6 @@ import { VisibilityIcon } from "../../../Assets/Icons/VisibilityIcon";
 
 import styles from './Patients.module.css';
 import { AppContext } from "../../../Contexts/AppContext";
-import { DocIcon } from "../../../Assets/Icons/DocIcon";
 
 function Patients() {
     const navigate = useNavigate();
@@ -67,10 +66,6 @@ function Patients() {
                                 {
                                     func: (id) => console.log(`edit ${id}`),
                                     icon: <EditIcon/>
-                                },
-                                {
-                                    func: (id) => console.log(`docs ${id}`),
-                                    icon: <DocIcon/>
                                 },
                             ]}
                             emptyText='Nenhum paciente cadastrado'

@@ -1,10 +1,11 @@
 import React from "react";
 import { Box } from "@mui/material";
-import GridTestes from "../../../Components/Psicologo/Pacientes/GridTestes";
-import styles from "./Psicologo.module.css"
+import styles from "./PacientesInfo.module.css"
 import BlueLine from "../../../Assets/Icons/BlueLine";
-import Botao from "../../../Components/Psicologo/Pacientes/Botao";
-import iconAddToList from "../../../Assets/Icons/add-list-icon.png"
+import iconAddToList from "../../../Assets/Icons/add-list-icon.png";
+
+import Botao from "../../../Components/PainelPsicologo/Pacientes/CriarTeste/Botao";
+import GridTestes from "../../../Components/PainelPsicologo/Pacientes/CriarTeste/GridTestes";
 
 export default function PacientesInfo() {
   return (

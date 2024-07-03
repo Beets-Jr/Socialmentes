@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Pacientes() {
+export default function PacientesCadastrados() {
     return (
         <div>
             

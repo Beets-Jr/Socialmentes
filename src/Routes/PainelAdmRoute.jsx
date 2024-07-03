@@ -12,8 +12,8 @@ import PermissionDeniedMessage from "../Components/ElementsInterface/PermissionD
 import Tests from "../Screens/PainelPsicologo/Relatorios/Tests"
 import Checklist from "../Screens/PainelPsicologo/Relatorios/Checklist";
 import Patients from "../Screens/PainelAdm/Patients/Patients";
-import CriarTeste from "../Screens/Psicologo/PacientesPage/CriarTeste";
-import PacientesInfo from "../Screens/Psicologo/PacientesPage/PacientesInfo";
+import PacientesInfo from "../Screens/PainelPsicologo/Pacientes/PacientesInfo";
+import CriarTeste from "../Screens/PainelPsicologo/Pacientes/CriarTeste";
 
 function PainelAdm() {
     const { open } = useContext(AppContext);
