@@ -1,5 +1,5 @@
 import React from "react";
-import GridCriarTeste from "../../../Components/Psicologo/PacientesPage/GridCriarTeste";
+import GridCriarTeste from "../../../Components/Psicologo/Pacientes/GridCriarTeste";
 
 export default function CriarTeste() {
 

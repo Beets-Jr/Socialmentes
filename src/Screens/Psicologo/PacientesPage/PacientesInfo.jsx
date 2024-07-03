@@ -1,9 +1,9 @@
 import React from "react";
 import { Box } from "@mui/material";
-import GridTestes from "../../../Components/Psicologo/PacientesPage/GridTestes";
+import GridTestes from "../../../Components/Psicologo/Pacientes/GridTestes";
 import styles from "./Psicologo.module.css"
 import BlueLine from "../../../Assets/Icons/BlueLine";
-import Botao from "../../../Components/Psicologo/PacientesPage/Botao";
+import Botao from "../../../Components/Psicologo/Pacientes/Botao";
 import iconAddToList from "../../../Assets/Icons/add-list-icon.png"
 
 export default function PacientesInfo() {

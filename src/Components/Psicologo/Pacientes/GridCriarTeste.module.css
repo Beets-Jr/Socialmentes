@@ -19,21 +19,24 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1em;
+    padding: calc(1em - 2px); /* Ajuste o padding para compensar a borda */
     box-shadow: 2px 2px 2.8px 0px rgba(0, 0, 0, 0.10);
     border-radius: 15px;
-    border: 4px solid var( --color-gray-3);
-    background-color: white;
     box-sizing: border-box;
-    color: var( --color-gray-3);
+    border: 2px solid var(--color-gray-3);
+    background-color: white;
+    color: var(--color-gray-3);
     font-size: 32px;
     cursor: pointer;
+    transition: border-width 0.1s, padding 0.1s, border-color 0.1s; /* Transições mais rápidas */
 }
 
 .nivel button:hover,
 .nivel button.active {
     color: var(--color-blue-4);
-    border: 4px solid var(--color-blue-4);
+    border-width: 4px;
+    padding: calc(1em - 4px); /* Ajuste o padding para compensar a borda maior */
+    border-color: var(--color-blue-4); /* Certifique-se de que a cor da borda é azul */
 }
 
 .titulo {
