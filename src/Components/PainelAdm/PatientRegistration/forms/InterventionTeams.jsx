@@ -5,7 +5,7 @@ import SDividerInt from '../SDividerInt';
 import { UserService } from '../../../../Services/userService';
 import { CircularProgress } from '@mui/material';
 
-const InterventionTeams = ({ values, setValues, handleArrayChange, error }) => {
+const InterventionTeams = ({ values, setValues, handleChange, error }) => {
   const [userProfiles, setUserProfiles] = useState([]);
   const [options, setOptions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -26,26 +26,21 @@ const InterventionTeams = ({ values, setValues, handleArrayChange, error }) => {
   }, [isLoading, userProfiles]);
 
   const handleAddInterventionTeam = () => {
-    setValues({
-      ...values,
-      interventionTeams: [
-        ...values.interventionTeams,
-        { id: '' },
-      ],
-    });
+    setValues({ ...values, interventionTeams: [...values.interventionTeams, ''] });
   };
 
   const renderSelectBox = (team, index) => {
+    const fieldName = `interventionTeams[${index}]`; // Nome do campo formatado corretamente
     return (
       <SSelectBox
         xs={11.4}
-        name={`interventionTeams[${index}].id`}
+        name={fieldName} // Passando o nome do campo formatado
         label="Equipe intervenção"
-        handleChange={(e) => handleArrayChange(index, 'interventionTeams', 'id', e.target.value)}
-        value={team.id}
+        handleChange={(e) => handleChange(index, e.target.value)}
+        value={team}
         options={options}
         useCustomOptions
-        error={error?.interventionTeams?.[index]?.id}
+        error={error?.[fieldName]} // Passando o erro correspondente
       />
     );
   };
@@ -56,7 +51,7 @@ const InterventionTeams = ({ values, setValues, handleArrayChange, error }) => {
         <CircularProgress />
       ) : (
         values.interventionTeams.map((team, index) => (
-          <React.Fragment key={'team' + index}>
+          <React.Fragment key={`team${index}`}>
             {renderSelectBox(team, index)}
             <AddButton handleClick={handleAddInterventionTeam} />
           </React.Fragment>

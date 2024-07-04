@@ -19,7 +19,7 @@ const initialValues = {
   kinship1: '', name1: '', cpf1: '', rg1: '', cell1: '', email1: '', birth1: '', kinship2: '', name2: '', cpf2: '', rg2: '', cell2: '', email2: '', birth2: '',
   school: '', seriesSchool: '', phoneSchool: '', mailSchool: '', responsibleSchool: '',
   externalAccompaniments: [{ professional: '', name: '', phone: '', email: '' }],
-  interventionTeams: [{ id: '' }],
+  interventionTeams: [],
 };
 
 const PatientRegistration = ({ patientId }) => {
@@ -46,6 +46,21 @@ const PatientRegistration = ({ patientId }) => {
       const fieldError = await validateField(name, value);
       setError({ ...error, [name]: fieldError });
     }
+  };
+
+  const handleInterventionTeamsChange = async (index, value) => {
+    const updatedTeams = [...values.interventionTeams];
+    updatedTeams[index] = value;
+    setValues({ ...values, interventionTeams: updatedTeams });
+
+    if (isSubmitted) {
+      const fieldError = await validateField('interventionTeams', updatedTeams);
+      setError((prevErrors) => ({
+        ...prevErrors,
+        interventionTeams: fieldError || undefined,
+      }));
+    }
+
   };
 
 
@@ -81,7 +96,7 @@ const PatientRegistration = ({ patientId }) => {
 
     } catch (err) {
       const errors = err.inner.reduce((acc, error) => {
-        if (error.path.includes('externalAccompaniments') || error.path.includes('interventionTeams')) { // Lógica para tratar os erros dos campos de arrays
+        if (error.path.includes('externalAccompaniments')) { // Lógica para tratar os erros dos campos de arrays
           const [arrayField, index, field] = error.path.split(/[\[\].]/).filter(Boolean);
           acc[arrayField] = acc[arrayField] || [];
           acc[arrayField][index] = acc[arrayField][index] || {};
@@ -115,7 +130,7 @@ const PatientRegistration = ({ patientId }) => {
 
         <ExternalAccompaniments values={values} setValues={setValues} handleArrayChange={handleArrayChange} error={error} />
 
-        <InterventionTeams values={values} setValues={setValues} handleArrayChange={handleArrayChange} error={error} />
+        <InterventionTeams values={values} setValues={setValues} handleChange={handleInterventionTeamsChange} error={error} />
 
         <Grid item xs={12}>
           <Box className={styles.buttons}>
