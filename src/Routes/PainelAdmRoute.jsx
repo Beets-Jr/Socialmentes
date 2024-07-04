@@ -9,7 +9,7 @@ import { AppContext } from "../Contexts/AppContext";
 import { useAuth } from "../Contexts/AuthContext";
 import styles from "./PainelAdm.module.css";
 import PermissionDeniedMessage from "../Components/ElementsInterface/PermissionDeniedMessage";
-import Reports from "../Screens/PainelPsy/Reports/Reports";
+import Tabela from "../Screens/PainelPsicologo/Relatorios/Tabela";
 
 function PainelAdm() {
     const { open } = useContext(AppContext);
@@ -30,7 +30,7 @@ function PainelAdm() {
                         <Route path="pacientes" element={<DialogConfirmation />} />
                         <Route path="cargos" element={<Positions />} />
                         <Route path="cadastros" element={<Registrations />} />
-                        <Route path="opcoes" element={<Reports />} />
+                        <Route path="opcoes/:testId" element={<Tabela />} />
                     </Routes>
                 ) : (
                     <Routes>

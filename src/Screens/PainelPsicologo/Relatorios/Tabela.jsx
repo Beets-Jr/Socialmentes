@@ -1,15 +1,39 @@
-import { useState } from "react";
-import { Box, CircularProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-import styles from './Reports.module.css';
+import { Box, CircularProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { Check, Close } from "@mui/icons-material";
+
+import { PatientService } from "../../../Services/patientService";
+import { TestService } from "../../../Services/testService";
+
+import styles from './Tabela.module.css';
 
 const user = {
     nome: "Matheus Seiji Noda",
     age: "20 ano(s) e 8 mes(ês)"
 }
 
-function Reports() {
+function Tabela() {
+
+    const { testId } = useParams();
+    const [patient, setPatient] = useState();
+    const [test, setTest] = useState();
+
+    useEffect(() => {
+        TestService.getTestById(testId)
+            .then( test => {
+                if (test instanceof Error) return;
+                setTest(test);
+                console.log(test);
+                return PatientService.getPatientById(test.patientId)
+            })
+            .then( data => {
+                if (!data || data instanceof Error) return;
+                setPatient(data);
+                console.log(data);
+            });
+    }, []);
 
     const [isLoading, setIsLoading] = useState(false);//(true);
 
@@ -73,4 +97,4 @@ function Reports() {
 
 }
 
-export default Reports;
+export default Tabela;
