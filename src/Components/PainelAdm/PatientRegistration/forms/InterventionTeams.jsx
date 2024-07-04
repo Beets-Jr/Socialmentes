@@ -20,7 +20,7 @@ const InterventionTeams = ({ values, setValues, handleArrayChange, error }) => {
 
   useEffect(() => {
     if (!isLoading) {
-      const updatedOptions = userProfiles.map(user => `${user.fullName} (${user.specialization})`);
+      const updatedOptions = userProfiles.map(user => [`${user.fullName} (${user.specialization})`, user.uid]);
       setOptions(updatedOptions);
     }
   }, [isLoading, userProfiles]);
@@ -30,22 +30,22 @@ const InterventionTeams = ({ values, setValues, handleArrayChange, error }) => {
       ...values,
       interventionTeams: [
         ...values.interventionTeams,
-        { name: '' },
+        { id: '' },
       ],
     });
   };
 
   const renderSelectBox = (team, index) => {
-    const isValidValue = options.includes(team.name);
     return (
       <SSelectBox
         xs={11.4}
-        name={`interventionTeams[${index}].name`}
+        name={`interventionTeams[${index}].id`}
         label="Equipe intervenção"
-        handleChange={(e) => handleArrayChange(index, 'interventionTeams', 'name', e.target.value)}
-        value={isValidValue ? team.name : ''}
+        handleChange={(e) => handleArrayChange(index, 'interventionTeams', 'id', e.target.value)}
+        value={team.id}
         options={options}
-        error={error?.interventionTeams?.[index]?.name}
+        useCustomOptions
+        error={error?.interventionTeams?.[index]?.id}
       />
     );
   };

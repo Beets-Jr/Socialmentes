@@ -27,7 +27,7 @@ function PainelAdm() {
                 {isAdmin ? (
                     <Routes>
                         <Route path="/" element={<DialogConfirmation />} />
-                        <Route path="pacientes" element={<PatientRegistration patientId={'uAqIi5ktKy4IqElN5TrE'} />} />
+                        <Route path="pacientes" element={<PatientRegistration patientId={'0x8uNPqIl69NLNmis58t'} />} />
                         <Route path="cargos" element={<Positions />} />
                         <Route path="cadastros" element={<Registrations />} />
                         <Route path="opcoes" element={<DialogConfirmation />} />

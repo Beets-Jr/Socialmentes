@@ -46,7 +46,7 @@ export const validationSchema = Yup.object().shape({
 
   interventionTeams: Yup.array().of(
     Yup.object().shape({
-      name: Yup.string().required(msg_errors.REQUIRED),
+      id: Yup.string().required(msg_errors.REQUIRED),
     })
   ),
 

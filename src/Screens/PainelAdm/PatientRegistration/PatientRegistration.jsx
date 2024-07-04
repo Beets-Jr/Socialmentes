@@ -119,8 +119,8 @@ const PatientRegistration = ({ patientId }) => {
 
         <Grid item xs={12}>
           <Box className={styles.buttons}>
-            <ReturnButton />
-            <SaveButton />
+            <ReturnButton className={styles.btn} />
+            <SaveButton className={styles.btn} />
           </Box>
         </Grid>
       </Grid>

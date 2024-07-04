@@ -59,7 +59,9 @@ const StyledMenuItem = styled(MenuItem)({
   },
 });
 
-const SSelectBox = ({ xs, name, label, error = null, handleChange, value, options, ...props }) => {
+const SSelectBox = ({ xs, name, label, error = null, handleChange, value, options, useCustomOptions = false, ...props }) => {
+  const validValues = useCustomOptions ? options.map(option => option[1]) : options;
+  const isValidValue = validValues.includes(value);
 
   return (
     <Grid item xs={xs}>
@@ -70,7 +72,7 @@ const SSelectBox = ({ xs, name, label, error = null, handleChange, value, option
         name={name}
         MenuProps={MenuProps}
         labelId={name}
-        value={value}
+        value={isValidValue ? value : ''}
         onChange={handleChange}
         {...props}
         IconComponent={KeyboardArrowDownOutlinedIcon}
@@ -98,17 +100,15 @@ const SSelectBox = ({ xs, name, label, error = null, handleChange, value, option
         <StyledMenuItem value="" disabled>---</StyledMenuItem>
         {options.map((option) => (
           <StyledMenuItem
-            key={option}
-            value={option}>
-            {option}
+            key={useCustomOptions ? option[1] : option}
+            value={useCustomOptions ? option[1] : option}>
+            {useCustomOptions ? option[0] : option}
           </StyledMenuItem>
         ))}
       </StyledSelect>
       {error && <Typography sx={{ color: 'red', fontSize: '12px' }}>{error}</Typography>}
     </Grid>
   );
-
-
 };
 
 export default SSelectBox;
