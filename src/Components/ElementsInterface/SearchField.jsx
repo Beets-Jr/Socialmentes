@@ -8,7 +8,7 @@ import { SearchIcon } from "../../Assets/Icons/SearchIcon";
  * @description É usado para criar um campo de filtro.
  * @param {string} placeholder - texto exibido no placeholder do input.
  * @param {array<Object>} data - a lista contendo a lista completa dos itens que serão filtrados.
- * @param {string} field - o nome do campo que será usado para realizar a filtragem.
+ * @param {function} getValue - função usada para recuperar o valor usado para filtrar uma linha.
  * @param {function} setFilteredData - função usada para setar os dados filtrados.
  */
 function SearchField({ placeholder, data, getValue, setFilteredData }) {
