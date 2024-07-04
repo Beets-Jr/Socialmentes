@@ -2,14 +2,14 @@ import { useContext, useEffect, useState } from "react";
 
 import { Box, CircularProgress } from "@mui/material";
 
+import { AppContext } from "../../../Contexts/AppContext";
 import SearchField from '../../../Components/ElementsInterface/SearchField';
 import DataTable from '../../../Components/ElementsInterface/DataTable';
-import { UserService } from '../../../Services/userService';
+import { PatientService } from "../../../Services/patientService";
 import { EditIcon } from "../../../Assets/Icons/EditIcon";
 import { VisibilityIcon } from "../../../Assets/Icons/VisibilityIcon";
 
 import styles from './Patients.module.css';
-import { AppContext } from "../../../Contexts/AppContext";
 
 function Patients() {
 
@@ -20,7 +20,7 @@ function Patients() {
     const [filteredPatients, setFilteredPatients] = useState([]);
 
     useEffect(() => {
-        UserService.getByPosition('Paciente') // deve ser atualizado
+        PatientService.getAllPatients()
             .then((patients) => {
                 setIsLoading(false);
                 setPatients(patients);
@@ -41,7 +41,7 @@ function Patients() {
                     <SearchField
                         placeholder="Pesquisar paciente"
                         data={patients}
-                        field='fullName'
+                        getValue={(row) => row.children.name}
                         setFilteredData={setFilteredPatients}
                     />
                     <Box mt={4}>
@@ -52,13 +52,34 @@ function Patients() {
                             head={[ 'Nome', 'Idade', 'Responsável' ]}
                             columns={[
                                 {
-                                    func: (row) => row.fullName
+                                    func: (row) => row.children.name
                                 },
                                 {
-                                    func: (row) => row.phone // trocar para idade
+                                    func: (row) => {
+                                        const now = new Date();
+                                        const dataString = row.children.dateBirth;
+                                        const dateBirth = new Date(
+                                            dataString.slice(0, 4),
+                                            Number(dataString.slice(5, 7)) - 1,
+                                            dataString.slice(8, 10)
+                                        );
+                                        const years = now.getFullYear() - dateBirth.getFullYear();
+                                        const months = now.getMonth() - dateBirth.getMonth();
+                                        const days = now.getDate() - dateBirth.getDate();
+
+                                        if (months < 0) {
+                                            return `${years - 1} anos e ${12 + months} mes(es)`;
+                                        } else if (months > 0) {
+                                            return `${years} anos e ${months} mes(es)`;
+                                        } else if (days < 0) {
+                                            return `${years - 1} anos e ${months > 0 ? months - 1 : 11} mes(es)`;
+                                        } else {
+                                            return `${years} anos`;
+                                        }
+                                    }
                                 },
                                 {
-                                    func: (row) => row.email // trocar para responsável
+                                    func: (row) => row.caregivers.caregiver1.name
                                 }
                             ]}
                             body={filteredPatients}

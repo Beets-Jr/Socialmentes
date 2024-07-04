@@ -25,27 +25,6 @@ const getAllUsers = () => {
 
 };
 
-const getByPosition = (position) => {
-
-    const q = query(
-        userProfiles,
-        where('position', '==', position)
-    );
-
-    return getDocs(q)
-        .then( (snapshot) => {
-            let registrations = [];
-            snapshot.forEach( (doc) => {
-                registrations.push({
-                    id: doc.id,
-                    ...doc.data()
-                });
-            });
-            return registrations;
-        });
-
-};
-
 const createPhoto = (uid, photo) => {
 
     const type = photo.type.substring(photo.type.lastIndexOf('/') + 1);
@@ -106,6 +85,5 @@ const createUser = async ({ email, photo, ...registerData }) => {
 
 export const UserService = {
     getAllUsers,
-    getByPosition,
     createUser
 };

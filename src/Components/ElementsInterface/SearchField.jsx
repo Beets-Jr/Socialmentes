@@ -11,14 +11,14 @@ import { SearchIcon } from "../../Assets/Icons/SearchIcon";
  * @param {string} field - o nome do campo que será usado para realizar a filtragem.
  * @param {function} setFilteredData - função usada para setar os dados filtrados.
  */
-function SearchField({ placeholder, data, field, setFilteredData }) {
+function SearchField({ placeholder, data, getValue, setFilteredData }) {
 
     const [filter, setFilter] = useState('');
 
     useEffect( () => {
         const regex = new RegExp(`^.*${filter.toLowerCase()}.*$`);
         const filteredData = data.filter( (value) => {
-            return value[field].toLowerCase().match(regex);
+            return getValue(value).toLowerCase().match(regex);
         });
         setFilteredData(filteredData);
     }, [filter]);
