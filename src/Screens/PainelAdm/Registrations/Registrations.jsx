@@ -62,7 +62,7 @@ function Registrations() {
                                 <SearchField
                                     placeholder="Pesquisar paciente"
                                     data={registrations}
-                                    field='fullName'
+                                    getValue={(row) => row.fullName}
                                     setFilteredData={setFilteredRegistrations}
                                 />
                                 <Box mt={4}>
