@@ -9,11 +9,6 @@ import { TestService } from "../../../Services/testService";
 
 import styles from './Tabela.module.css';
 
-const user = {
-    nome: "Matheus Seiji Noda",
-    age: "20 ano(s) e 8 mes(ês)"
-}
-
 function Tabela() {
 
     const { testId } = useParams();
@@ -65,6 +60,19 @@ function Tabela() {
         }
     }
 
+    const getDenver = () => {
+        return fetch('/src/Database/denver.json')
+            .then( resp => {
+                console.log(resp);
+                resp.json()
+            } )
+            .then( denver => {
+                console.log(denver);
+                return denver
+            } )
+            .catch( e => console.log(e) );
+    };
+
     const [isLoading, setIsLoading] = useState(false);//(true);
 
     return (
@@ -99,13 +107,32 @@ function Tabela() {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    { Object.keys(test.questions).map( level => {
-                                        <TableRow key={level}>
-                                            <TableCell>{level}</TableCell>
-                                            <TableCell><Check fontSize="small"/></TableCell>
-                                            <TableCell><Close fontSize="small" /></TableCell>
-                                        </TableRow>
-                                    })}
+                                    {/* Acessa todos os levels em questions */}
+                                    { test && Object.keys(test.questions).map( level => {
+                                        {/* Acessa todas as categorias do level */}
+                                        Object.keys(test.questions[level]).map( category => {
+                                            // const numLevel = Number(level.split('_')[1]);
+                                            // const nameCategory = getDenver().then( denver => {
+                                            //     return denver[numLevel]["categorias"]["nome"];
+                                            // });
+                                            return (
+                                                <TableRow key={level}>
+                                                    <TableCell>{nameCategory || ''}</TableCell>
+                                                    { [1, 2, 3, 4].map( ind => (
+                                                        <TableCell key={ind}>
+                                                            {
+                                                                numLevel == ind ? (
+                                                                    <Check fontSize="small"/>
+                                                                ) : (
+                                                                    <Close fontSize="small" />
+                                                                )
+                                                            }
+                                                        </TableCell>
+                                                    ))}
+                                                </TableRow>
+                                            );
+                                        })}
+                                    )}
                                 </TableBody>
                             </Table>
                         </TableContainer>
