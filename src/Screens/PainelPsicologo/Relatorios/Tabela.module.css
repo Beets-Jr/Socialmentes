@@ -25,6 +25,12 @@
     padding-top: 25px;
 }
 
+.table_border {
+    border: 2px solid var(--color-gray-2);
+    border-radius: 20px;
+    margin-top: 25px;
+}
+
 .table_container th, .table_container td {
     font-family: var(--font-text);
     color: var(--color-gray-4);
@@ -34,4 +40,15 @@
 .table_container th {
     font-weight: 600;
     font-size: 18px;
+}
+
+.table_container td {
+    border-top: 2px solid var(--color-gray-2);
+    border-left: 2px solid var(--color-gray-2);
+    border-bottom: none;
+    font-size: 15px;
+}
+
+.table_container td:first-child {
+    border-left: none;
 }
