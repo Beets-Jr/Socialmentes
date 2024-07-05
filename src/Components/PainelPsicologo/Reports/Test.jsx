@@ -22,6 +22,7 @@ function Test({ index, createdAt, type, status, patient}) {
                 variant="outlined"
                 className={styles.test}
                 onClick={handleClick} // Evento para abrir a página de checklist do teste
+                sx={{margin: '5px auto', width:'100%'}}
             >
                 {`${index} | Criado: ${date} às ${time} | Tipo: ${type} |  ${status} | ${patient}`}
             </Button>

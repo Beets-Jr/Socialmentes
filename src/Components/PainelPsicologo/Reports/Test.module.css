@@ -1,7 +1,6 @@
 .test {
     display: flex !important;
     justify-content: space-between !important;
-    width: 95%;
     text-transform: none !important;
     border-radius: 17px !important;
     border: 2px solid #e0e0e0 !important;
