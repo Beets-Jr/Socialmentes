@@ -2,9 +2,27 @@ import { Box, FormControl, FormControlLabel, Radio, RadioGroup, Typography } fro
 import { getPerguntasPorNivelECategoria, getDescricoesPorNivelECategoria } from "../../../../Database/Utils/functions";
 import React, { useEffect, useState } from "react";
 
-export default function Questao({ categorias, nivel, categoriaSelecionada }) {
+export default function Questao({ nivel, categoriaSelecionada }) {
     const [perguntas, setPerguntas] = useState([]);
     const [descricoes, setDescricoes] = useState([]);
+    const [expandir, setExpandir] = useState(false);
+    const [selectedValues, setSelectedValues] = useState({});
+
+    const handleClick = () => {
+        setExpandir(!expandir);
+    }
+
+    const handleChange = (index, e) => {
+        const newSelectedValues = {
+            ...selectedValues,
+            [index]: e.target.value,
+        };
+        setSelectedValues(newSelectedValues);
+    }
+
+    useEffect(() => {
+        console.log(selectedValues);
+    }, [selectedValues]);
 
     useEffect(() => {
         if (nivel > 0 && categoriaSelecionada) {
@@ -18,9 +36,10 @@ export default function Questao({ categorias, nivel, categoriaSelecionada }) {
     return (
         <>
             <Typography>
-                {`${categoriaSelecionada} - Nível ${nivel}`}
+                { categoriaSelecionada && `${categoriaSelecionada} - Nível ${nivel}`}
+                <button onClick={handleClick}>Expandir</button>
             </Typography>
-            {perguntas.map((pergunta, index) => (
+            { expandir && perguntas.map((pergunta, index) => (
                     <Box key={index} sx={{ width: "70vw", border: "2px solid blue", marginBottom: "1rem" }}>
                         <Typography>
                             {`${index + 1}. ${pergunta}`}
@@ -30,16 +49,18 @@ export default function Questao({ categorias, nivel, categoriaSelecionada }) {
                             {descricoes[index] && `${descricoes[index]}`}
                         </Typography>
 
-                        <FormControl>
+                        <FormControl >
                             <RadioGroup
                                 row
                                 aria-labelledby="demo-row-radio-buttons-group-label"
-                                name="row-radio-buttons-group"
+                                name={`row-radio-buttons-group-${index}`}
+                                value={selectedValues[index] || ""}
+                                onChange={(e) => handleChange(index, e)}
                             >
-                                <FormControlLabel value="Adquirido" control={<Radio />} label="Adquirido" />
-                                <FormControlLabel value="Parcialmente" control={<Radio />} label="Parcialmente" />
-                                <FormControlLabel value="Não Adquirido" control={<Radio />} label="Não Adquirido" />
-                                <FormControlLabel value="Sem oportunidade" control={<Radio />} label="Sem oportunidade" />
+                                <FormControlLabel value={0} control={<Radio />} label="Não Adquirido" />
+                                <FormControlLabel value={1} control={<Radio />} label="Sem oportunidade" />
+                                <FormControlLabel value={2} control={<Radio />} label="Parcialmente" />
+                                <FormControlLabel value={3} control={<Radio />} label="Adquirido" />
                             </RadioGroup>
                         </FormControl>
                     </Box>

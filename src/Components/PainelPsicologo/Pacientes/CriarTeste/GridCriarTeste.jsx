@@ -5,7 +5,7 @@ import styles from "./GridCriarTeste.module.css";
 import iconAddToList from "../../../../Assets/Icons/add-list-icon.png";
 import iconEncerrar from "../../../../Assets/Icons/check-icon.png";
 import BlueLine from "../../../../Assets/Icons/BlueLine";
-import { getCategoriaNomesPorNivel, getPerguntasPorNivelECategoria } from "../../../../Database/Utils/functions";
+import { getCategoriaNomesPorNivel } from "../../../../Database/Utils/functions";
 import Questao from "./Questao";
 
 export default function GridCriarTeste() {
@@ -13,6 +13,8 @@ export default function GridCriarTeste() {
     const [selectedOption, setSelectedOption] = useState("");
     const [nivel, setNivel] = useState(0);
     const [categorias, setCategorias] = useState([]);
+    const [categoriasSelecionadas, setCategoriasSelecionadas] = useState({}); // Alteração para um objeto
+    const [mostrarQuestoes, setMostrarQuestoes] = useState(false);
 
     useEffect(() => {
         if (nivel > 0) {
@@ -23,11 +25,29 @@ export default function GridCriarTeste() {
     const handleButtonClick = (index) => {
         setActiveButtonIndex(index);
         setNivel(index + 1);
+        setSelectedOption(""); // Limpa a opção selecionada ao mudar de nível
     };
 
     const handleChange = (event) => {
         setSelectedOption(event.target.value);
     };
+
+    const handleAdicionarQuestao = () => {
+        if (selectedOption) {
+            // Adiciona a categoria selecionada ao objeto de categorias selecionadas por nível
+            const updatedCategoriasSelecionadas = {
+                ...categoriasSelecionadas,
+                [nivel]: [...(categoriasSelecionadas[nivel] || []), selectedOption]
+            };
+            setCategoriasSelecionadas(updatedCategoriasSelecionadas);
+            setMostrarQuestoes(true);
+            setSelectedOption(""); // Limpa a opção selecionada após adicionar
+        }
+    };
+
+    useEffect(() => {
+        console.log(categoriasSelecionadas);
+    }, [categoriasSelecionadas]);
 
     return (
         <Box className={styles.container} sx={{ position: "sticky" }}>
@@ -51,7 +71,19 @@ export default function GridCriarTeste() {
                     {/* Parte das Questões */}
                     <p className={styles.titulo}>Questões</p>
                     <BlueLine />
-                    <Questao categorias={categorias} nivel={nivel} categoriaSelecionada={selectedOption} />
+                    
+                    {mostrarQuestoes && (
+                        Object.keys(categoriasSelecionadas).map((key) => (
+                            key == nivel && // renderiza apenas se for o nível atual
+                            <div key={key}>
+                                {categoriasSelecionadas[key].map((categoria, index) => (
+                                    <div key={index}>
+                                        <Questao categorias={[categoria]} nivel={parseInt(key)} categoriaSelecionada={categoria} />
+                                    </div>
+                                ))}
+                            </div>
+                        ))
+                    )}
                 </Box>
 
                 {/* Parte das Competências */}
@@ -79,19 +111,12 @@ export default function GridCriarTeste() {
             {/* Botoes fixos na parte inferior */}
             <Box
                 sx={{
-                    position: "fixed",
-                    bottom: 0,
-                    zIndex: 10,
-                    display: "flex",
-                    backgroundColor: "white",
-                    padding: "0.5em",
-                    alignItems: "center",
-                    minWidth: "75%",
-                    maxWidth: "90%",
+                    position: "fixed", bottom: 0, zIndex: 10, display: "flex", backgroundColor: "white", padding: "0.5em",
+                    alignItems: "center", minWidth: "75%", maxWidth: "90%",
                 }}
             >
                 <Box>
-                    <Botao icon={iconAddToList} text="Adicionar Questão" />
+                    <Botao icon={iconAddToList} text="Adicionar Questão" onClick={handleAdicionarQuestao} />
                 </Box>
                 <Box sx={{ width: "52.5%" }}></Box>
                 <Box sx={{ right: "1em" }}>
