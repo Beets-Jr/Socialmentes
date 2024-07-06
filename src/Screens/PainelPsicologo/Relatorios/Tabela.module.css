@@ -39,6 +39,7 @@
 
 .table_container th {
     font-weight: 600;
+    border-left: 2px solid var(--color-gray-2);
     font-size: 18px;
 }
 
@@ -49,6 +50,6 @@
     font-size: 15px;
 }
 
-.table_container td:first-child {
+.table_container td:first-child, .table_container th:first-child {
     border-left: none;
 }
