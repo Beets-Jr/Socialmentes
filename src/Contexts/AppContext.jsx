@@ -18,6 +18,9 @@ export const AppStorage = ({ children }) => {
           case '/painel-adm/cadastros':
             setTitle('Gerenciar Cadastros');
             break;
+          case '/painel-adm/instrumentos':
+            setTitle('Denver');
+            break;
           default:
             setTitle('Insira seu Titulo Aqui');
         }

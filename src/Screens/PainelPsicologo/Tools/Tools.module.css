@@ -1,0 +1,10 @@
+.tools_registrations {
+    flex: 1;
+    padding: 34px 94px 100px 44px;
+}
+
+.title {
+    font-family: var(--font-sub);
+    font-size: 30px;
+    color: var(--color-blue-4);
+}

@@ -31,8 +31,8 @@ const sidebarAllOptions = {
     { icon: <HomeIcon />, text:'Home' , to:'/painel-adm/home' },
     { icon: <EditNoteRoundedIcon style={{color:'#FFFFFF'}}/>, text:'Pacientes' , to:'/painel-adm/pacientes' },
     { icon: <GraphIcon />, text:'Relatórios' , to:'/painel-adm/relatorios' },
-    { icon: <ScheduleIcon />, text:'Agenda', to:'/painel-psy/agenda' },
-    { icon: <SettingsOutlinedIcon style={{marginLeft: -2, color:'#FFFFFF'}}/>, text:'Opções' , to:'/painel-adm/opcoes' }
+    { icon: <ScheduleIcon />, text:'Agenda', to:'/painel-adm/agenda' },
+    { icon: <SettingsOutlinedIcon style={{marginLeft: -2, color:'#FFFFFF'}}/>, text:'Instrumentos' , to:'/painel-adm/instrumentos' }
 ]
 };
 

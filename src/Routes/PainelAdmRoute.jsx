@@ -9,6 +9,7 @@ import { AppContext } from "../Contexts/AppContext";
 import { useAuth } from "../Contexts/AuthContext";
 import styles from "./PainelAdm.module.css";
 import PermissionDeniedMessage from "../Components/ElementsInterface/PermissionDeniedMessage";
+import Tools from "../Screens/PainelPsicologo/Tools/Tools";
 
 function PainelAdm() {
     const { open } = useContext(AppContext);
@@ -34,6 +35,7 @@ function PainelAdm() {
                 ) : (
                     <Routes>
                         <Route path="/*" element={<PermissionDeniedMessage />} />
+                        <Route path="/instrumentos" element={<Tools />} />
                     </Routes>
                 )}
             </div>
