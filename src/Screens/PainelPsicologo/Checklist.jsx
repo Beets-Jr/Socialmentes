@@ -1,13 +1,52 @@
-import { Typography, Box, Stack } from "@mui/material";
+import { Typography, Box, Stack, CircularProgress } from "@mui/material";
 import ChecklistItem from "../../Components/PainelPsicologo/Reports/ChecklistComponents/ChecklistItem";
 import ReportBtn from "../../Components/PainelPsicologo/Reports/ChecklistComponents/ReportBtn";
-import PacientData from "../../Components/PainelPsicologo/Reports/ChecklistComponents/PatientData"
+import PatientData from "../../Components/PainelPsicologo/Reports/ChecklistComponents/PatientData"
 import styles from "./Checklist.module.css";
 import denver from "../../Database/denver.json";
 import BottomBtn from "../../Components/PainelPsicologo/Reports/ChecklistComponents/BottomBtn";
+import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { db } from "../../Database/FirebaseConfig.mjs";
+import { collection, getDocs } from "firebase/firestore"
 
-function Checklist({name, birthday}) {
+function Checklist() {
+    const location = useLocation();
+    const [patient, setPatient] = useState(null);
+    const [loading, setLoading] = useState(null);
+
+    const { test } = location.state;
+      
+    useEffect(() => {
+        const fetchPatient = async() => {
+            try {
+                const querySnapshot = await getDocs(collection(db, 'patients'));
+                const patientData = querySnapshot.docs
+                    .map(doc => ({ id: doc.id, ...doc.data() }))
+                    .find(doc => doc.id === test.patientId);
+
+                if (patientData) {
+                    setPatient(patientData);
+                } else {
+                    console.error('Paciente não encontrado');
+                }
+            } catch (err) {
+                console.error("Error fetching data ", err);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        fetchPatient();
+    }, [test.patientId]);
+
+
     return(
+        loading ? (
+        <Box sx={{ display:'flex', justifyContent:'center', alignItems:'center', height: '85vh'}}>
+            <CircularProgress />
+          </Box>
+        ) : ( 
         <div className={styles.checklistContainer} style={{position:'relative'}}>
             <Typography variant="h4" className={styles.checklistTitle}>
                 Checklist Currículo Modelo de Intervenção Precoce Finalizado
@@ -15,7 +54,9 @@ function Checklist({name, birthday}) {
             </Typography>
             
             <Box className={styles.menuContainer}>
-                <PacientData name={name} birthday={birthday}/>
+                {patient && (
+                    <PatientData name={patient.children.name} birthday={patient.children.dateBirth} />
+                )}
                 <Stack direction="row" spacing={2}>
                     <ReportBtn name="Gráfico" path="/grafico"/> {/*Colocar o path certo*/}
                     <ReportBtn name="Tabela" path="/tabela" />
@@ -52,6 +93,7 @@ function Checklist({name, birthday}) {
             </Box>
             <BottomBtn/>
         </div>
+        )
     );
 }
 

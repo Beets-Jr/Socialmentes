@@ -5,15 +5,18 @@ import styles from "./Test.module.css";
 
 import { useNavigate } from "react-router-dom"; 
 
-function Test({ index, createdAt, type, status, patient}) {
+function Test({ test }) {
     const navigate = useNavigate();
 
-    const date = new Date(createdAt).toLocaleDateString('pt-BR'); // Formatar a data 
-    const time = new Date(createdAt).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }); // Formatar o horário
+    const date = new Date(test.timestamp).toLocaleDateString('pt-BR'); // Formatar a data 
+    const time = new Date(test.timestamp).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }); // Formatar o horário
 
     const handleClick = () => {
-        navigate('/checklist');
+        console.log('Navigating to /checklist'); // Adicione um log para depuração
+        navigate('/painel-adm/checklist', {state: {test: test}});
     }
+
+    const status = test.situation === 0 ? "Finalizado" : "Não Terminado";
 
     return (
         <>
@@ -24,7 +27,7 @@ function Test({ index, createdAt, type, status, patient}) {
                 onClick={handleClick} // Evento para abrir a página de checklist do teste
                 sx={{margin: '5px auto', width:'100%'}}
             >
-                {`${index} | Criado: ${date} às ${time} | Tipo: ${type} |  ${status} | ${patient}`}
+                {`${test.id} | Criado: ${date} às ${time} | Tipo: ${test.testType} |  ${status} | ${test.patientName}`}
             </Button>
         </>
     )

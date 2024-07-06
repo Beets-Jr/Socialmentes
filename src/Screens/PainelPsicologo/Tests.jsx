@@ -39,11 +39,8 @@ function Tests() {
 
           {tests.map((test) => (
             <Test 
-              index={test.id} 
-              createdAt={test.timestamp} 
-              type={test.testType}
-              status={test.situation === 0 ? "Finalizado" : "Não Terminado"}
-              patient= {test.patientName}
+              key={test.id}
+              test = {test}
             />
           ))}
         </Box>

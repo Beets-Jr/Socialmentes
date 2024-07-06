@@ -32,6 +32,7 @@ function PainelAdm() {
                         <Route path="cargos" element={<Positions />} />
                         <Route path="cadastros" element={<Registrations />} />
                         <Route path="opcoes" element={<Tests />} />
+                        <Route path="checklist" element={<Checklist />} />
                     </Routes>
                 ) : (
                     <Routes>
