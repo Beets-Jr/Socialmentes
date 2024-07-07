@@ -3,8 +3,16 @@
     padding: 34px 94px 100px 44px;
 }
 
-.title {
-    font-family: var(--font-sub);
-    font-size: 30px;
-    color: var(--color-blue-4);
+.title_close {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.container_empty {
+    margin-top: 30vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
