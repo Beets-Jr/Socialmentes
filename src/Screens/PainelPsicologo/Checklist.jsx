@@ -3,12 +3,14 @@ import ChecklistItem from "../../Components/PainelPsicologo/Reports/ChecklistCom
 import ReportBtn from "../../Components/PainelPsicologo/Reports/ChecklistComponents/ReportBtn";
 import PatientData from "../../Components/PainelPsicologo/Reports/ChecklistComponents/PatientData"
 import styles from "./Checklist.module.css";
-import denver from "../../Database/denver.json";
+import { denver } from "../../Database/denver.mjs";
 import BottomBtn from "../../Components/PainelPsicologo/Reports/ChecklistComponents/BottomBtn";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { db } from "../../Database/FirebaseConfig.mjs";
 import { collection, getDocs } from "firebase/firestore"
+import ChecklistAnswer from "../../Components/PainelPsicologo/Reports/ChecklistComponents/ChecklistAnswer";
+import { BiTestTube } from "react-icons/bi";
 
 function Checklist() {
     const location = useLocation();
@@ -63,6 +65,7 @@ function Checklist() {
                     <ReportBtn name="Relatório" path="/relatorio" />
                 </Stack>
             </Box>
+            {/*
             <Box>
                 {
                     denver.map((nivel) => (
@@ -91,6 +94,8 @@ function Checklist() {
                     ))
                 }
             </Box>
+             */}
+            <ChecklistAnswer test = { test }/>
             <BottomBtn/>
         </div>
         )

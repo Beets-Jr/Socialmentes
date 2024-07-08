@@ -24,9 +24,9 @@ function ChecklistItem({ index, hability, description, level}) {
                         className={styles.selectedLevel}
                     >
                         <FormControlLabel value="Adquirido" control={<Radio sx={{'&:hover': {backgroundColor: 'transparent',}, '&.Mui-checked': {color: 'var(--color-blue-3)',}, '&.MuiSvgIcon-root': { borderColor: 'var(--color-gray-3)', },'& .MuiSvgIcon-root': {'& circle': { fill: 'var(--color-gray-3)', },},}}/>} label="Adquirido" className={styles.level}/>
-                        <FormControlLabel value="Parcialmente" control={<Radio />} label="Parcialmente" className={styles.level}/>
-                        <FormControlLabel value="Não Adquirido" control={<Radio />} label="Não Adquirido" className={styles.level}/>
-                        <FormControlLabel value="Sem oportunidade" control={<Radio />} label="Sem oportunidade" className={styles.level}/>
+                        <FormControlLabel value="Parcialmente" control={<Radio sx={{'&:hover': {backgroundColor: 'transparent',}, '&.Mui-checked': {color: 'var(--color-blue-3)',}, '&.MuiSvgIcon-root': { borderColor: 'var(--color-gray-3)', },'& .MuiSvgIcon-root': {'& circle': { fill: 'var(--color-gray-3)', },},}}/>} label="Parcialmente" className={styles.level}/>
+                        <FormControlLabel value="Não adquirido" control={<Radio sx={{'&:hover': {backgroundColor: 'transparent',}, '&.Mui-checked': {color: 'var(--color-blue-3)',}, '&.MuiSvgIcon-root': { borderColor: 'var(--color-gray-3)', },'& .MuiSvgIcon-root': {'& circle': { fill: 'var(--color-gray-3)', },},}}/>} label="Não adquirido" className={styles.level}/>
+                        <FormControlLabel value="Sem oportunidade" control={<Radio sx={{'&:hover': {backgroundColor: 'transparent',}, '&.Mui-checked': {color: 'var(--color-blue-3)',}, '&.MuiSvgIcon-root': { borderColor: 'var(--color-gray-3)', },'& .MuiSvgIcon-root': {'& circle': { fill: 'var(--color-gray-3)', },},}}/>} label="Sem oportunidade" className={styles.level}/>
                     </RadioGroup>
                 </FormControl>
             </Box>

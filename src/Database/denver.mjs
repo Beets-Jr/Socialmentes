@@ -1,4 +1,4 @@
-[
+export const denver = [
     {
         "nivel": 1, 
         "categorias": [
@@ -14,7 +14,7 @@
                     {
                         "id": 1,
                         "pergunta": "Direciona cabeça e olhar para sons vocais lúdicos como vibração da língua, ruídos e barulhos, assobios.",
-                        "descricao": "Identifica origem sonora, virando cabeça cabeça e olhos para o local. Demonstra-se interessado, vira os olhos e a cabeça, sorri, mantém contato visual com parceiro social."
+                        "descricao": "Demonstra-se interessado, vira os olhos e a cabeça, sorri, mantém contato visual com parceiro social."
                     },
                     {
                         "id": 2,
