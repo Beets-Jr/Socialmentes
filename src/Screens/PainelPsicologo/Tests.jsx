@@ -6,12 +6,11 @@ import { fetchTests } from "../../Services/testService";
 function Tests() {
 
   const [tests, setTests] = useState([]);
-  const [loading, setLoading] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoading(true);
         const data = await fetchTests();
         setTests(data);
       } catch (err) {

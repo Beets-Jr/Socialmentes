@@ -17,7 +17,7 @@ function BottomBtn() {
             bottom: 0, left: 0, right: 0, 
             display:'flex', 
             justifyContent:'flex-end', 
-            backgroundColor: 'transparent'
+            //backgroundColor: 'transparent'
             }} elevation={3}>
         <Button 
             variant="contained" 
