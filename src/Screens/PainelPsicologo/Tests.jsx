@@ -1,8 +1,7 @@
 import Test from "../../Components/PainelPsicologo/Reports/Test";
-import { db } from "../../Database/FirebaseConfig.mjs";
 import { Typography, Box, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
-import { collection, getDocs } from 'firebase/firestore';
+import { fetchTests } from "../../Services/testService";
 
 function Tests() {
 
@@ -13,8 +12,7 @@ function Tests() {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const querySnapshot = await getDocs(collection(db, 'tests')); 
-        const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const data = await fetchTests();
         setTests(data);
       } catch (err) {
         console.error("Error fetching data ", err);

@@ -1,16 +1,12 @@
 import { Typography, Box, Stack, CircularProgress } from "@mui/material";
-import ChecklistItem from "../../Components/PainelPsicologo/Reports/ChecklistComponents/ChecklistItem";
 import ReportBtn from "../../Components/PainelPsicologo/Reports/ChecklistComponents/ReportBtn";
 import PatientData from "../../Components/PainelPsicologo/Reports/ChecklistComponents/PatientData"
 import styles from "./Checklist.module.css";
-import { denver } from "../../Database/denver.mjs";
 import BottomBtn from "../../Components/PainelPsicologo/Reports/ChecklistComponents/BottomBtn";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { db } from "../../Database/FirebaseConfig.mjs";
-import { collection, getDocs } from "firebase/firestore"
 import ChecklistAnswer from "../../Components/PainelPsicologo/Reports/ChecklistComponents/ChecklistAnswer";
-import { BiTestTube } from "react-icons/bi";
+import { fetchPatientById } from "../../Services/testService";
 
 function Checklist() {
     const location = useLocation();
@@ -22,11 +18,8 @@ function Checklist() {
     useEffect(() => {
         const fetchPatient = async() => {
             try {
-                const querySnapshot = await getDocs(collection(db, 'patients'));
-                const patientData = querySnapshot.docs
-                    .map(doc => ({ id: doc.id, ...doc.data() }))
-                    .find(doc => doc.id === test.patientId);
-
+                setLoading(true);
+                const patientData = await fetchPatientById(test.patientId);
                 if (patientData) {
                     setPatient(patientData);
                 } else {
@@ -65,36 +58,6 @@ function Checklist() {
                     <ReportBtn name="Relatório" path="/relatorio" />
                 </Stack>
             </Box>
-            {/*
-            <Box>
-                {
-                    denver.map((nivel) => (
-                        <Box key={nivel.nivel}>
-                            {
-                                nivel.categorias.map((categoria) => (
-                                    <Box key={categoria.id}>
-                                        <Typography variant="h5" className={styles.checklistTitle}>
-                                            {categoria.nome} - Nível {nivel.nivel}
-                                            {
-                                                categoria.perguntas.map((p) => (
-                                                    <ChecklistItem
-                                                        key={p.id}
-                                                        index={p.id + 1}
-                                                        hability= {p.pergunta}
-                                                        description={p.descricao}
-                                                        level="Adquirido" // puxar do BD
-                                                    />
-                                                ))
-                                            }
-                                        </Typography>
-                                    </Box>
-                                ))
-                            }
-                        </Box>
-                    ))
-                }
-            </Box>
-             */}
             <ChecklistAnswer test = { test }/>
             <BottomBtn/>
         </div>
