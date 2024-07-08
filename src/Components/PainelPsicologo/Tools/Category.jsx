@@ -1,12 +1,19 @@
 import { Box, List, ListItem, ListItemText } from "@mui/material";
 
 import styles from './styles/Category.module.css';
+import { useEffect, useState } from "react";
 
 export const Category = ({ category }) => {
 
+    const [cat, setCat] = useState();
+
+    useEffect(() => {
+        setTimeout(() => setCat(category), 10);
+    }, []);
+
     return (
         <List>
-            { category && category.perguntas.map( pergunta => (
+            { cat && cat.perguntas.map( pergunta => (
                 <Box key={pergunta.id}>
                     <ListItem className={styles.question} >
                         <ListItemText
