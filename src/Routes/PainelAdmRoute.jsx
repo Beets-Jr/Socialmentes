@@ -42,6 +42,7 @@ function PainelAdm() {
                         <Route path="/" element={<Checklist />} />
                         <Route path="pacientes" element={<PacientesCadastrados />} />
                         <Route path="pacientes/informacoes" element={<PacientesInfo />} />
+                        <Route path="pacientes/informacoes/:id" element={<PacientesInfo />} />
                         <Route path="pacientes/criar-teste" element={<CriarTeste />} />
                     </Routes>
                 )}

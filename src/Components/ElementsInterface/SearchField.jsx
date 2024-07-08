@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-
 import { InputAdornment, TextField } from "@mui/material";
-
-import { SearchIcon } from "../../Assets/Icons/SearchIcon";
+import { SearchIcon } from "../../Assets/Icons/SearchIcon"; // Certifique-se de que o ícone está sendo importado corretamente
 
 /**
  * @description É usado para criar um campo de filtro.
@@ -12,16 +10,16 @@ import { SearchIcon } from "../../Assets/Icons/SearchIcon";
  * @param {function} setFilteredData - função usada para setar os dados filtrados.
  */
 function SearchField({ placeholder, data, field, setFilteredData }) {
-
     const [filter, setFilter] = useState('');
 
-    useEffect( () => {
-        const regex = new RegExp(`^.*${filter.toLowerCase()}.*$`);
-        const filteredData = data.filter( (value) => {
-            return value[field].toLowerCase().match(regex);
+    useEffect(() => {
+        const regex = new RegExp(`^.*${filter.toLowerCase()}.*$`, 'i');
+        const filteredData = data.filter((value) => {
+            // Verificar se a propriedade field existe e é uma string
+            return value[field] && typeof value[field] === 'string' && value[field].toLowerCase().match(regex);
         });
         setFilteredData(filteredData);
-    }, [filter]);
+    }, [filter, data, field, setFilteredData]);
 
     return (
         <TextField
@@ -62,11 +60,10 @@ function SearchField({ placeholder, data, field, setFilteredData }) {
                     }
                 }
             }}
-            onChange={ e => setFilter(e.target.value) }
+            onChange={e => setFilter(e.target.value)}
             value={filter}
         />
     );
-
 }
 
 export default SearchField;

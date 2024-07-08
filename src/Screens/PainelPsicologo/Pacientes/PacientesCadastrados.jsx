@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import styles from "./PacientesCadastrados.module.css";
-import { UserService } from "../../../Services";
 import { Box, CircularProgress } from "@mui/material";
 import SearchField from "../../../Components/ElementsInterface/SearchField";
 import DataTable from "../../../Components/ElementsInterface/DataTable";
@@ -10,29 +8,44 @@ import { DocIcon } from "../../../Assets/Icons/DocIcon";
 import { AppContext } from "../../../Contexts/AppContext";
 import { VisibilityIcon } from "../../../Assets/Icons/VisibilityIcon";
 import { EditIcon } from "../../../Assets/Icons/EditIcon";
-
+import { getAllPatients } from "../../../Database/Utils/patientsFunctions";
 
 export default function PacientesCadastrados() {
     const navigate = useNavigate();
-    const {setValue} = useContext(AppContext);
+    const { setValue } = useContext(AppContext);
     const [isLoading, setIsLoading] = useState(true);
     const [patients, setPatients] = useState([]);
     const [filteredPatients, setFilteredPatients] = useState([]);
 
     useEffect(() => {
-        UserService.getByPosition('Paciente')
-            .then((patients) => {
+        const fetchPatients = async () => {
+            try {
+                const patientsData = await getAllPatients();
                 setIsLoading(false);
-                setPatients(patients);
-                setFilteredPatients(patients);
-                setValue(patients.length);
-            });
+                setPatients(patientsData);
+                setFilteredPatients(patientsData);
+                setValue(patientsData.length);
+                console.log('Patients data:', patientsData); // Verificação dos dados
+            } catch (error) {
+                console.error("Error fetching patients:", error);
+            }
+        };
+
+        fetchPatients();
     }, []);
 
-    return (
-        <Box className={styles.container_patients} sx={{ position: "sticky"}}>
+    const getAge = (dateBirth) => {
+        if (!dateBirth) return "N/A"; // Retorna "N/A" se dateBirth for undefined
 
-            { isLoading ? (
+        const birthDate = new Date(dateBirth.split('/').reverse().join('-'));
+        const ageDiff = Date.now() - birthDate.getTime();
+        const ageDate = new Date(ageDiff);
+        return Math.abs(ageDate.getUTCFullYear() - 1970);
+    };
+
+    return (
+        <Box className={styles.container_patients} sx={{ position: "sticky" }}>
+            {isLoading ? (
                 <Box className={styles.container_empty}>
                     <CircularProgress />
                 </Box>
@@ -41,41 +54,40 @@ export default function PacientesCadastrados() {
                     <SearchField
                         placeholder="Pesquisar paciente"
                         data={patients}
-                        field='fullName'
+                        field="childName"
                         setFilteredData={setFilteredPatients}
                     />
                     <Box mt={4}>
                         <DataTable
-                            md={[ 4.5, 2, 3.5, 2 ]}
-                            sm={[ 4, 2, 3, 3 ]}
-                            xs={[ 3, 2, 3, 4 ]}
-                            head={[ 'Nome', 'Idade', 'Responsável' ]}
+                            md={[4.5, 2, 3.5, 2]}
+                            sm={[4, 2, 3, 3]}
+                            xs={[3, 2, 3, 4]}
+                            head={["Nome", "Idade", "Responsável"]}
                             columns={[
-                                (row) => row.fullName,
-                                (row) => row.phone, // Idade
-                                (row) => row.email // Responsável
+                                (row) => row.childName,
+                                (row) => getAge(row.dateBirth), // Idade
+                                (row) => row.psychologistName || "N/A" // Responsável
                             ]}
                             body={filteredPatients}
                             actions={[
                                 {
                                     func: (id) => console.log(`view ${id}`),
-                                    icon: <VisibilityIcon/>
+                                    icon: <VisibilityIcon />
                                 },
                                 {
                                     func: (id) => console.log(`edit ${id}`),
-                                    icon: <EditIcon/>
+                                    icon: <EditIcon />
                                 },
                                 {
-                                    func: (id) => navigate(`informacoes`),
+                                    func: (id) => navigate(`informacoes/${id}`, { state: { patient: patients.find(p => p.id === id) } }),
                                     icon: <DocIcon />
                                 },
                             ]}
-                            emptyText='Nenhum paciente cadastrado'
+                            emptyText="Nenhum paciente cadastrado"
                         />
                     </Box>
                 </>
             )}
-
         </Box>
     );
 }

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import styles from "./Styles.module.css";
-import { getCategoriaNomesPorNivel } from "../../../../Database/Utils/functions";
 import NivelSelector from "./NivelSelector";
 import QuestoesList from "./QuestoesList";
 import CompetenciaSelector from "./CompetenciaSelector";
 import FixedButtons from "./FixedButtons";
+import { getCategoriaNomesPorNivel } from "../../../../Database/Utils/testsFunctions";
 
 export default function GridCriarTeste() {
     const [activeButtonIndex, setActiveButtonIndex] = useState(null);
