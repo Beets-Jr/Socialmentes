@@ -36,69 +36,6 @@ export default function GridTestes() {
               </p>
             </div>
           </Grid>
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            md={4}
-            lg={3.75}
-            sx={{ display: "flex" }}
-            className={styles.gridItem}
-          >
-            <div className={styles.cardHalf}>
-              <span>0026</span>
-            </div>
-
-            <div className={styles.cardHalf}>
-              <p>05/09/2024</p>
-              <p>Denver</p>
-              <p noWrap className={styles.statusTeste}>
-                Não finalizado
-              </p>
-            </div>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            md={4}
-            lg={3.75}
-            sx={{ display: "flex" }}
-            className={styles.gridItem}
-          >
-            <div className={styles.cardHalf}>
-              <span>0010</span>
-            </div>
-
-            <div className={styles.cardHalf}>
-              <p>05/09/2024</p>
-              <p>Denver</p>
-              <p noWrap className={styles.statusTeste}>
-                Não finalizado
-              </p>
-            </div>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            md={4}
-            lg={3.75}
-            sx={{ display: "flex" }}
-            className={styles.gridItem}
-          >
-            <div className={styles.cardHalf}>
-              <span>0002</span>
-            </div>
-
-            <div className={styles.cardHalf}>
-              <p>05/09/2024</p>
-              <p>Denver</p>
-              <p noWrap className={styles.statusTeste}>
-                Não finalizado
-              </p>
-            </div>
-          </Grid>
         </Grid>
       </Box>
     </div>

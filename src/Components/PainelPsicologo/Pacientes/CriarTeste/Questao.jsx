@@ -1,28 +1,21 @@
-import { Box, FormControl, FormControlLabel, Radio, RadioGroup, Typography } from "@mui/material";
-import { getPerguntasPorNivelECategoria, getDescricoesPorNivelECategoria } from "../../../../Database/Utils/functions";
 import React, { useEffect, useState } from "react";
+import { Box, FormControl, FormControlLabel, Radio, RadioGroup } from "@mui/material";
+import { getPerguntasPorNivelECategoria, getDescricoesPorNivelECategoria } from "../../../../Database/Utils/testsFunctions";
+import Expandir from "../../../../Assets/Icons/Expandir.png";
+import styles from "./Styles.module.css";
 
-export default function Questao({ nivel, categoriaSelecionada }) {
+export default function Questao({ nivel, categoriaSelecionada, selectedValues, onSelectedValuesChange }) {
     const [perguntas, setPerguntas] = useState([]);
     const [descricoes, setDescricoes] = useState([]);
     const [expandir, setExpandir] = useState(false);
-    const [selectedValues, setSelectedValues] = useState({});
 
     const handleClick = () => {
         setExpandir(!expandir);
     }
 
     const handleChange = (index, e) => {
-        const newSelectedValues = {
-            ...selectedValues,
-            [index]: e.target.value,
-        };
-        setSelectedValues(newSelectedValues);
+        onSelectedValuesChange(index, e.target.value);
     }
-
-    useEffect(() => {
-        console.log(selectedValues);
-    }, [selectedValues]);
 
     useEffect(() => {
         if (nivel > 0 && categoriaSelecionada) {
@@ -35,19 +28,22 @@ export default function Questao({ nivel, categoriaSelecionada }) {
 
     return (
         <>
-            <Typography>
-                { categoriaSelecionada && `${categoriaSelecionada} - Nível ${nivel}`}
-                <button onClick={handleClick}>Expandir</button>
-            </Typography>
+            <div className={styles.titulo2} style={{ width: "50vw" }}>
+                <div>
+                    <img src={Expandir} style={{ marginRight: "10px", cursor: "pointer" }} onClick={handleClick} />
+                    { categoriaSelecionada && `${categoriaSelecionada} - Nível ${nivel}`}
+                </div>
+                
+            </div>
             { expandir && perguntas.map((pergunta, index) => (
-                    <Box key={index} sx={{ width: "70vw", border: "2px solid blue", marginBottom: "1rem" }}>
-                        <Typography>
+                    <Box key={index} sx={{ width: "70vw", marginBottom: "1rem" }}>
+                        <div className={styles.titulo3}>
                             {`${index + 1}. ${pergunta}`}
-                        </Typography>
+                        </div>
 
-                        <Typography>
+                        <div className={styles.texto}>
                             {descricoes[index] && `${descricoes[index]}`}
-                        </Typography>
+                        </div>
 
                         <FormControl >
                             <RadioGroup
@@ -57,10 +53,10 @@ export default function Questao({ nivel, categoriaSelecionada }) {
                                 value={selectedValues[index] || ""}
                                 onChange={(e) => handleChange(index, e)}
                             >
-                                <FormControlLabel value={0} control={<Radio />} label="Não Adquirido" />
-                                <FormControlLabel value={1} control={<Radio />} label="Sem oportunidade" />
-                                <FormControlLabel value={2} control={<Radio />} label="Parcialmente" />
-                                <FormControlLabel value={3} control={<Radio />} label="Adquirido" />
+                                <FormControlLabel  value={0} control={<Radio  sx={{ color: "var(--color-gray-3)" }}/>} label="Não Adquirido" className={styles.radioOptions}/>
+                                <FormControlLabel  value={1} control={<Radio  sx={{ color: "var(--color-gray-3)" }}/>} label="Sem oportunidade" className={styles.radioOptions} />
+                                <FormControlLabel  value={2} control={<Radio  sx={{ color: "var(--color-gray-3)" }}/>} label="Parcialmente" className={styles.radioOptions} />
+                                <FormControlLabel  value={3} control={<Radio  sx={{ color: "var(--color-gray-3)" }}/>} label="Adquirido" className={styles.radioOptions} />
                             </RadioGroup>
                         </FormControl>
                     </Box>

@@ -1,31 +1,31 @@
 import React, { useState, useEffect } from "react";
-import { Box, FormControl, MenuItem, Select } from "@mui/material";
-import Botao from "./Botao";
-import styles from "./GridCriarTeste.module.css";
-import iconAddToList from "../../../../Assets/Icons/add-list-icon.png";
-import iconEncerrar from "../../../../Assets/Icons/check-icon.png";
-import BlueLine from "../../../../Assets/Icons/BlueLine";
+import { Box } from "@mui/material";
+import styles from "./Styles.module.css";
 import { getCategoriaNomesPorNivel } from "../../../../Database/Utils/functions";
-import Questao from "./Questao";
+import NivelSelector from "./NivelSelector";
+import QuestoesList from "./QuestoesList";
+import CompetenciaSelector from "./CompetenciaSelector";
+import FixedButtons from "./FixedButtons";
 
 export default function GridCriarTeste() {
     const [activeButtonIndex, setActiveButtonIndex] = useState(null);
     const [selectedOption, setSelectedOption] = useState("");
     const [nivel, setNivel] = useState(0);
     const [categorias, setCategorias] = useState([]);
-    const [categoriasSelecionadas, setCategoriasSelecionadas] = useState({}); // Alteração para um objeto
+    const [categoriasSelecionadas, setCategoriasSelecionadas] = useState({});
     const [mostrarQuestoes, setMostrarQuestoes] = useState(false);
 
     useEffect(() => {
         if (nivel > 0) {
-            setCategorias(getCategoriaNomesPorNivel(nivel));
+            const categorias = getCategoriaNomesPorNivel(nivel);
+            setCategorias(categorias);
         }
     }, [nivel]);
 
     const handleButtonClick = (index) => {
         setActiveButtonIndex(index);
         setNivel(index + 1);
-        setSelectedOption(""); // Limpa a opção selecionada ao mudar de nível
+        setSelectedOption("");
     };
 
     const handleChange = (event) => {
@@ -34,95 +34,49 @@ export default function GridCriarTeste() {
 
     const handleAdicionarQuestao = () => {
         if (selectedOption) {
-            // Adiciona a categoria selecionada ao objeto de categorias selecionadas por nível
+
+            if (categoriasSelecionadas[nivel]?.includes(selectedOption)) {
+                {/** substituir pelo alerta devido */}
+                alert("Essa categoria já foi selecionada para este nível.");
+                return;
+            }
+    
             const updatedCategoriasSelecionadas = {
                 ...categoriasSelecionadas,
                 [nivel]: [...(categoriasSelecionadas[nivel] || []), selectedOption]
             };
             setCategoriasSelecionadas(updatedCategoriasSelecionadas);
             setMostrarQuestoes(true);
-            setSelectedOption(""); // Limpa a opção selecionada após adicionar
         }
     };
-
-    useEffect(() => {
-        console.log(categoriasSelecionadas);
-    }, [categoriasSelecionadas]);
+    
 
     return (
         <Box className={styles.container} sx={{ position: "sticky" }}>
-            <Box sx={{ display: "flex", paddingBottom: "10vh" }}>
-                {/* Parte dos Níveis */}
-                <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: "3vh", width: "25%" }}>
-                    <p className={styles.titulo}>Nível</p>
-                    <BlueLine />
-                    <div className={styles.nivel}>
-                        {[1, 2, 3, 4].map((level, index) => (
-                            <button
-                                key={index}
-                                className={`${styles.button} ${activeButtonIndex === index ? styles.active : ""}`}
-                                onClick={() => handleButtonClick(index)}
-                            >
-                                {level}
-                            </button>
-                        ))}
-                    </div>
-
-                    {/* Parte das Questões */}
-                    <p className={styles.titulo}>Questões</p>
-                    <BlueLine />
-                    
-                    {mostrarQuestoes && (
-                        Object.keys(categoriasSelecionadas).map((key) => (
-                            key == nivel && // renderiza apenas se for o nível atual
-                            <div key={key}>
-                                {categoriasSelecionadas[key].map((categoria, index) => (
-                                    <div key={index}>
-                                        <Questao categorias={[categoria]} nivel={parseInt(key)} categoriaSelecionada={categoria} />
-                                    </div>
-                                ))}
-                            </div>
-                        ))
-                    )}
+            <Box>
+                <Box sx={{ display: "flex", gap: "20vw" }} >
+                    <NivelSelector
+                    activeButtonIndex={activeButtonIndex}
+                    handleButtonClick={handleButtonClick}
+                    />
+                    <CompetenciaSelector
+                        activeButtonIndex={activeButtonIndex}
+                        categorias={categorias}
+                        selectedOption={selectedOption}
+                        handleChange={handleChange}
+                    />
                 </Box>
-
-                {/* Parte das Competências */}
-                <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: "3vh", height: "20vh", marginLeft: "20vw" }}>
-                    <p className={styles.titulo}>Competência</p>
-                    <BlueLine />
-                    <FormControl variant="outlined">
-                        <Select
-                            id="competencia-select"
-                            value={selectedOption}
-                            onChange={handleChange}
-                            sx={{ width: "81%" }}
-                        >
-                            {activeButtonIndex !== null &&
-                                categorias.map((option, index) => (
-                                    <MenuItem key={index} value={option}>
-                                        {option}
-                                    </MenuItem>
-                                ))}
-                        </Select>
-                    </FormControl>
+                
+                <Box sx={{ marginTop: "5vh" }} >
+                    <QuestoesList
+                    nivel={nivel}
+                    categoriasSelecionadas={categoriasSelecionadas}
+                    mostrarQuestoes={mostrarQuestoes}
+                    />
                 </Box>
+                <FixedButtons handleAdicionarQuestao={handleAdicionarQuestao} />
             </Box>
-
-            {/* Botoes fixos na parte inferior */}
-            <Box
-                sx={{
-                    position: "fixed", bottom: 0, zIndex: 10, display: "flex", backgroundColor: "white", padding: "0.5em",
-                    alignItems: "center", minWidth: "75%", maxWidth: "90%",
-                }}
-            >
-                <Box>
-                    <Botao icon={iconAddToList} text="Adicionar Questão" onClick={handleAdicionarQuestao} />
-                </Box>
-                <Box sx={{ width: "52.5%" }}></Box>
-                <Box sx={{ right: "1em" }}>
-                    <Botao icon={iconEncerrar} text="Encerrar" bgcolor="bg-blue" />
-                </Box>
-            </Box>
+            
         </Box>
     );
 }
