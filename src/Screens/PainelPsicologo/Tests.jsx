@@ -1,7 +1,7 @@
 import Test from "../../Components/PainelPsicologo/Reports/Test";
 import { Typography, Box, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
-import { fetchTests } from "../../Services/testService";
+import { getFinalizedTests } from "../../Services/testService";
 
 function Tests() {
 
@@ -11,7 +11,7 @@ function Tests() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetchTests();
+        const data = await getFinalizedTests();
         setTests(data);
       } catch (err) {
         console.error("Error fetching data ", err);

@@ -12,7 +12,6 @@ function Test({ test }) {
     const time = new Date(test.timestamp).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }); // Formatar o horário
 
     const handleClick = () => {
-        console.log('Navigating to /checklist'); // Adicione um log para depuração
         navigate('/painel-adm/checklist', {state: {test: test}});
     }
 
