@@ -2,12 +2,7 @@
     background: linear-gradient(to right, var(--color-blue-2), var(--color-blue-3));
     border: 2px solid var(--color-blue-3);
     border-radius: 10px;
-    margin-top: 30px;
     color: var(--color-gray-1);
-}
-
-.level:first-child {
-    margin-top: 0px;
 }
 
 .category {

@@ -10,7 +10,11 @@ export const Levels = ({ denver, setCategory }) => {
                 <Box key={level.nivel}>
                     <ListItem
                         className={styles.level}
-                        sx={{ py: 0, px: 3 }}
+                        sx={{
+                            py: 0,
+                            px: 3,
+                            mt: level.nivel === 1 ? '5px' : '40px'
+                        }}
                     >
                         <ListItemText
                             primary={`Nível ${level.nivel}`}

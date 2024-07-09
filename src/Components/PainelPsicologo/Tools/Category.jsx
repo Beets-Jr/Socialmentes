@@ -12,7 +12,7 @@ export const Category = ({ category }) => {
     }, []);
 
     return (
-        <List>
+        <List sx={{ mt: '5px' }}>
             { cat && cat.perguntas.map( pergunta => (
                 <Box key={pergunta.id}>
                     <ListItem className={styles.question} >
