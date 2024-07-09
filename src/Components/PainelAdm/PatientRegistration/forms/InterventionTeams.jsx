@@ -33,7 +33,7 @@ const InterventionTeams = ({ values, setValues, handleChange, error }) => {
     const fieldName = `interventionTeams[${index}]`; // Nome do campo formatado corretamente
     return (
       <SSelectBox
-        lg={11.4} xs={9.2} md={11}
+        lg={11.4} xs={9} md={11}
         name={fieldName} // Passando o nome do campo formatado
         label="Equipe intervenção"
         handleChange={(e) => handleChange(index, e.target.value)}

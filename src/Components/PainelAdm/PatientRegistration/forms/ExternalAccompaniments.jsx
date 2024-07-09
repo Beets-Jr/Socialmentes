@@ -49,7 +49,7 @@ const ExternalAccompaniments = ({ values, setValues, handleArrayChange, error })
             placeholder="(00) 00000-0000"
           />
           <STextField
-            lg={3} xs={9.2} md={5}
+            lg={3} xs={9} md={5}
             name={`externalAccompaniments[${index}].email`}
             label="E-mail"
             handleChange={(e) => handleArrayChange(index, 'externalAccompaniments', 'email', e.target.value)}

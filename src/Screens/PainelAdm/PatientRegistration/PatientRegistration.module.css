@@ -13,3 +13,14 @@
   align-items: center;
   height: 10vh;
 }
+
+@media screen and (max-width: 600px) {
+  .container {
+    height: 65vh;
+    width: 90%;
+  }
+
+  .buttons {
+    width: 90%;
+  }
+}
