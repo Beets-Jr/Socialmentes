@@ -54,11 +54,8 @@ const PatientRegistration = ({ patientId }) => {
     setValues({ ...values, interventionTeams: updatedTeams });
 
     if (isSubmitted) {
-      const fieldError = await validateField('interventionTeams', updatedTeams);
-      setError((prevErrors) => ({
-        ...prevErrors,
-        interventionTeams: fieldError || undefined,
-      }));
+      const fieldName = `interventionTeams[${index}]`;
+      setError({ ...error, [fieldName]: null });
     }
 
   };
@@ -131,7 +128,7 @@ const PatientRegistration = ({ patientId }) => {
 
           <ExternalAccompaniments values={values} setValues={setValues} handleArrayChange={handleArrayChange} error={error} />
 
-          <InterventionTeams values={values} setValues={setValues} handleChange={handleInterventionTeamsChange} error={error} />
+          <InterventionTeams values={values} setValues={setValues} handleChange={handleInterventionTeamsChange} error={error} setError={setError} />
 
         </Grid>
       </Box>
