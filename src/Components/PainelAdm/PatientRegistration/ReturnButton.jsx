@@ -3,7 +3,7 @@ import React from 'react'
 import { useTheme } from '@mui/material/styles';
 
 
-const SButton = () => {
+const ReturnButton = () => {
   const theme = useTheme();
 
   return (
@@ -26,4 +26,4 @@ const SButton = () => {
   )
 }
 
-export default SButton
+export default ReturnButton

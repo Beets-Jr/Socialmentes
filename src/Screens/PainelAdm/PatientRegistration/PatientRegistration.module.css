@@ -1,17 +1,15 @@
 .container {
-  width: 90%;
+  width: 95%;
   margin: 30px auto;
-  position: relative;
+  height: 65vh;
+  overflow-y: auto;
 }
 
 .buttons {
   display: flex;
-  width: 85.5%;
+  width: 95%;
   margin: 0 auto;
-  height: 120px;
-  background-color: white;
   justify-content: space-between;
   align-items: center;
-  bottom: 0;
-  position: fixed;
+  height: 10vh;
 }

@@ -3,7 +3,7 @@ import React from 'react'
 import { useTheme } from '@mui/material/styles';
 
 
-const SButton = () => {
+const SaveButton = ({ handleSubmit }) => {
   const theme = useTheme();
 
   return (
@@ -24,8 +24,9 @@ const SButton = () => {
           width: '35%',
         },
       }}
-      variant="outlined" color="primary" type="submit">Salvar</Button>
+      variant="outlined" color="primary" onClick={handleSubmit}
+    >Salvar</Button>
   )
 }
 
-export default SButton
+export default SaveButton

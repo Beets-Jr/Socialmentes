@@ -112,34 +112,36 @@ const PatientRegistration = ({ patientId }) => {
   }
 
   return (
-    <Box className={styles.container} component="form" onSubmit={handleSubmit}>
-      <Grid container spacing={1}>
-        <PersonalInfo values={values} handleChange={handleChange} error={error} />
+    <>
+      <Box className={styles.container} component="form" onSubmit={handleSubmit}>
+        <Grid container spacing={1}>
+          <PersonalInfo values={values} handleChange={handleChange} error={error} />
 
-        <STextField lg={4.15} name="responsible" label="Responsável financeiro" handleChange={handleChange} value={values.responsible} error={error?.responsible} />
+          <STextField lg={4.15} name="responsible" label="Responsável financeiro" handleChange={handleChange} value={values.responsible} error={error?.responsible} />
 
-        <STextField lg={7.85} name="obs" label="Observações" handleChange={handleChange} value={values.obs} error={error?.obs} />
+          <STextField lg={7.85} name="obs" label="Observações" handleChange={handleChange} value={values.obs} error={error?.obs} />
 
-        <ContactInfo values={values} handleChange={handleChange} error={error} />
+          <ContactInfo values={values} handleChange={handleChange} error={error} />
 
-        <KinshipInfo values={values} handleChange={handleChange} error={error} num={1} />
+          <KinshipInfo values={values} handleChange={handleChange} error={error} num={1} />
 
-        <KinshipInfo values={values} handleChange={handleChange} error={error} num={2} />
+          <KinshipInfo values={values} handleChange={handleChange} error={error} num={2} />
 
-        <SchoolInfo values={values} handleChange={handleChange} error={error} />
+          <SchoolInfo values={values} handleChange={handleChange} error={error} />
 
-        <ExternalAccompaniments values={values} setValues={setValues} handleArrayChange={handleArrayChange} error={error} />
+          <ExternalAccompaniments values={values} setValues={setValues} handleArrayChange={handleArrayChange} error={error} />
 
-        <InterventionTeams values={values} setValues={setValues} handleChange={handleInterventionTeamsChange} error={error} />
+          <InterventionTeams values={values} setValues={setValues} handleChange={handleInterventionTeamsChange} error={error} />
 
-        <Grid item xs={12}>
-          <Box className={styles.buttons}>
-            <ReturnButton />
-            <SaveButton />
-          </Box>
         </Grid>
-      </Grid>
-    </Box>
+      </Box>
+
+      <Box className={styles.buttons}>
+        <ReturnButton />
+        <SaveButton handleSubmit={handleSubmit} />
+      </Box>
+
+    </>
 
   );
 
