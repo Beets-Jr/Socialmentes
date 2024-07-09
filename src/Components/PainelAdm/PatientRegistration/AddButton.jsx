@@ -4,7 +4,7 @@ import React from 'react'
 
 const AddButton = ({ handleClick }) => {
   return (
-    <Grid item xs={0.6}>
+    <Grid item xs={0.6} lg={0.6} md={0.6}>
       <Button
         onClick={handleClick}
         variant='contained'

@@ -1,7 +1,11 @@
 import { Button } from '@mui/material'
 import React from 'react'
+import { useTheme } from '@mui/material/styles';
+
 
 const SButton = () => {
+  const theme = useTheme();
+
   return (
     <Button
       sx={{
@@ -13,6 +17,12 @@ const SButton = () => {
         height: '45px',
         width: '15%',
         border: '2px solid #5095D5',
+        [theme.breakpoints.down('lg')]: {
+          width: '25%',
+        },
+        [theme.breakpoints.down('md')]: {
+          width: '35%',
+        },
       }}
       variant="outlined" color="primary" type="submit">Salvar</Button>
   )

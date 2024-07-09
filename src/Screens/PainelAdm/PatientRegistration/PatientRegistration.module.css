@@ -1,13 +1,17 @@
 .container {
   width: 90%;
   margin: 30px auto;
+  position: relative;
 }
 
 .buttons {
   display: flex;
+  width: 85.5%;
+  margin: 0 auto;
+  height: 120px;
+  background-color: white;
   justify-content: space-between;
-  margin-top: 50px;
-  bottom: 2rem;
-  background-color: #ffffff;
-  position: relative;
+  align-items: center;
+  bottom: 0;
+  position: fixed;
 }

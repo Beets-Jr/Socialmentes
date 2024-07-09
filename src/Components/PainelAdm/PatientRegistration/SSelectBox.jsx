@@ -59,12 +59,12 @@ const StyledMenuItem = styled(MenuItem)({
   },
 });
 
-const SSelectBox = ({ xs, name, label, error = null, handleChange, value, options, useCustomOptions = false, ...props }) => {
+const SSelectBox = ({ xs = 12, md = 6, lg, name, label, error = null, handleChange, value, options, useCustomOptions = false, ...props }) => {
   const validValues = useCustomOptions ? options.map(option => option[1]) : options;
   const isValidValue = validValues.includes(value);
 
   return (
-    <Grid item xs={xs}>
+    <Grid item xs={xs} lg={lg} md={md}>
       <SInputLabel label={label} name={name} />
 
       <StyledSelect

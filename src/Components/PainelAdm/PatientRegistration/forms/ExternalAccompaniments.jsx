@@ -23,7 +23,7 @@ const ExternalAccompaniments = ({ values, setValues, handleArrayChange, error })
       {values.externalAccompaniments.map((accompaniment, index) => (
         <React.Fragment key={'external' + index}>
           <SSelectBox
-            xs={3}
+            lg={3}
             name={`externalAccompaniments[${index}].professional`} label="Acompanhamento externo"
             handleChange={(e) =>
               handleArrayChange(index, 'externalAccompaniments', 'professional', e.target.value)}
@@ -32,7 +32,7 @@ const ExternalAccompaniments = ({ values, setValues, handleArrayChange, error })
             error={error?.externalAccompaniments?.[index]?.professional} />
 
           <STextField
-            xs={3.5}
+            lg={3.5}
             name={`externalAccompaniments[${index}].name`}
             label="Nome"
             handleChange={(e) => handleArrayChange(index, 'externalAccompaniments', 'name', e.target.value)}
@@ -40,7 +40,7 @@ const ExternalAccompaniments = ({ values, setValues, handleArrayChange, error })
             error={error?.externalAccompaniments?.[index]?.name}
           />
           <STextField
-            xs={1.9}
+            lg={1.9}
             name={`externalAccompaniments[${index}].phone`}
             label="Telefone"
             handleChange={(e) => handleArrayChange(index, 'externalAccompaniments', 'phone', e.target.value)}
@@ -49,7 +49,7 @@ const ExternalAccompaniments = ({ values, setValues, handleArrayChange, error })
             placeholder="(00) 00000-0000"
           />
           <STextField
-            xs={3}
+            lg={3} xs={9.2} md={5}
             name={`externalAccompaniments[${index}].email`}
             label="E-mail"
             handleChange={(e) => handleArrayChange(index, 'externalAccompaniments', 'email', e.target.value)}

@@ -19,7 +19,7 @@ const KinshipInfo = ({ values, handleChange, error, num }) => {
   return (
     <>
       <SSelectBox
-        xs={2.75}
+        lg={2.75}
         name={fields.kinship}
         label="Parentesco"
         handleChange={handleChange}
@@ -29,7 +29,7 @@ const KinshipInfo = ({ values, handleChange, error, num }) => {
       />
 
       <STextField
-        xs={5.25}
+        lg={5.25}
         name={fields.name}
         label={`Nome ${num}`}
         handleChange={handleChange}
@@ -38,7 +38,7 @@ const KinshipInfo = ({ values, handleChange, error, num }) => {
       />
 
       <STextField
-        xs={2.15}
+        lg={2.15}
         name={fields.cpf}
         label="CPF"
         placeholder={"000.000.000-00"}
@@ -48,7 +48,7 @@ const KinshipInfo = ({ values, handleChange, error, num }) => {
       />
 
       <STextField
-        xs={1.85}
+        lg={1.85}
         name={fields.rg}
         label="RG"
         placeholder={"00.000.000-0"}
@@ -58,7 +58,7 @@ const KinshipInfo = ({ values, handleChange, error, num }) => {
       />
 
       <STextField
-        xs={2.3}
+        lg={2.3}
         name={fields.cell}
         label="Celular"
         handleChange={handleChange}
@@ -68,7 +68,7 @@ const KinshipInfo = ({ values, handleChange, error, num }) => {
       />
 
       <STextField
-        xs={7}
+        lg={7}
         name={fields.email}
         label="E-mail"
         handleChange={handleChange}
@@ -77,7 +77,7 @@ const KinshipInfo = ({ values, handleChange, error, num }) => {
       />
 
       <STextField
-        xs={2.7}
+        lg={2.7}
         name={fields.birth}
         label="Nascimento"
         placeholder={"DD/MM/AAAA"}

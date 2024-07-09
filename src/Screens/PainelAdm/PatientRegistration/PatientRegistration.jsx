@@ -116,9 +116,9 @@ const PatientRegistration = ({ patientId }) => {
       <Grid container spacing={1}>
         <PersonalInfo values={values} handleChange={handleChange} error={error} />
 
-        <STextField xs={4.15} name="responsible" label="Responsável financeiro" handleChange={handleChange} value={values.responsible} error={error?.responsible} />
+        <STextField lg={4.15} name="responsible" label="Responsável financeiro" handleChange={handleChange} value={values.responsible} error={error?.responsible} />
 
-        <STextField xs={7.85} name="obs" label="Observações" handleChange={handleChange} value={values.obs} error={error?.obs} />
+        <STextField lg={7.85} name="obs" label="Observações" handleChange={handleChange} value={values.obs} error={error?.obs} />
 
         <ContactInfo values={values} handleChange={handleChange} error={error} />
 
@@ -134,8 +134,8 @@ const PatientRegistration = ({ patientId }) => {
 
         <Grid item xs={12}>
           <Box className={styles.buttons}>
-            <ReturnButton className={styles.btn} />
-            <SaveButton className={styles.btn} />
+            <ReturnButton />
+            <SaveButton />
           </Box>
         </Grid>
       </Grid>

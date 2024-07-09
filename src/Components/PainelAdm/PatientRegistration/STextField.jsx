@@ -19,11 +19,11 @@ const StyledTextField = styled(TextField)({
   },
 });
 
-const STextField = ({ xs, name, label, error = null, handleChange, value, ...props }) => {
+const STextField = ({ xs = 12, md = 6, lg, name, label, error = null, handleChange, value, ...props }) => {
 
 
   return (
-    <Grid item xs={xs}>
+    <Grid item xs={xs} lg={lg} md={md}>
       <SInputLabel label={label} name={name} />
 
       <StyledTextField
