@@ -11,7 +11,6 @@ export const getFinalizedTests = async () => {
   const finalizedTests = querySnapshot.docs
   .map(doc => ({ id: doc.id, ...doc.data() }))
   .filter(doc => doc.situation === 0);
-console.log(finalizedTests)
   return finalizedTests;
 };
 

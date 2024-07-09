@@ -18,7 +18,17 @@ function BottomBtn() {
             display:'flex', 
             justifyContent:'flex-end', 
             //backgroundColor: 'transparent'
+            paddingRight: '2.5vw'
             }} elevation={3}>
+        <Button 
+            variant="contained" 
+            disableElevation 
+            onClick={handleClick} 
+            className={styles.button}
+            sx={{padding: '3px 25px'}}
+        >
+            Acompanhar Intervenção
+        </Button>
         <Button 
             variant="contained" 
             disableElevation 
@@ -26,7 +36,7 @@ function BottomBtn() {
             className={styles.button}
             sx={{padding: '3px 50px'}}
         >
-            Intervenção
+            Criar Intervenção
         </Button>
     </Paper> 
     );

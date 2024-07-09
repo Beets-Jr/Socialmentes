@@ -3,9 +3,6 @@ import ChecklistItem from "./ChecklistItem";
 import { Typography, Box } from "@mui/material";
 
 function ChecklistAnswer({ test }) {
-
-  console.log("Objeto test:", test); // Log do objeto test para verificar sua estrutura
-
   const getLevelDescription = (level) => {
     switch (level) {
       case 0:
@@ -28,13 +25,11 @@ function ChecklistAnswer({ test }) {
           {nivel.categorias.map((categoria) => {
             const perguntasComResposta = categoria.perguntas.filter((p) => {
               const resposta = test.questions[`level_${nivel.nivel}`]?.[`category_${categoria.id}`]?.[`question_${p.id}`];
-              //console.log(`Nivel: ${nivel.nivel}, Categoria: ${categoria.id}, Pergunta ID: ${p.id}, Resposta: ${getLevelDescription(resposta)}`);
               return resposta !== undefined;
             });
 
             console.log(`Categoria: ${categoria.nome}, Perguntas com resposta: ${perguntasComResposta.length}`);
 
-            // Only render the category if there are answered questions
             if (perguntasComResposta.length > 0) {
               return (
                 <Box key={`categoria-${categoria.id}`}>
@@ -60,7 +55,7 @@ function ChecklistAnswer({ test }) {
               );
             }
 
-            return null; // Return null if there are no answered questions
+            return null; // Se não há questões respondidas
           })}
         </Box>
       ))}
