@@ -34,15 +34,6 @@ export default function PacientesCadastrados() {
         fetchPatients();
     }, []);
 
-    const getAge = (dateBirth) => {
-        if (!dateBirth) return "N/A"; // Retorna "N/A" se dateBirth for undefined
-
-        const birthDate = new Date(dateBirth.split('/').reverse().join('-'));
-        const ageDiff = Date.now() - birthDate.getTime();
-        const ageDate = new Date(ageDiff);
-        return Math.abs(ageDate.getUTCFullYear() - 1970);
-    };
-
     return (
         <Box className={styles.container_patients} sx={{ position: "sticky" }}>
             {isLoading ? (
@@ -65,7 +56,7 @@ export default function PacientesCadastrados() {
                             head={["Nome", "Idade", "Responsável"]}
                             columns={[
                                 (row) => row.childName,
-                                (row) => getAge(row.dateBirth), // Idade
+                                (row) => row.age, // Idade
                                 (row) => row.psychologistName || "N/A" // Responsável
                             ]}
                             body={filteredPatients}

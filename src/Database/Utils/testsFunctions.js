@@ -1,34 +1,34 @@
-import { denver } from "../denver";
+import { db } from "../FirebaseConfig.mjs";
+import { doc, getDoc } from "firebase/firestore";
 
-// recuperar o nome das categorias dado o nível
-export function getCategoriaNomesPorNivel(nivel) {
-    const nivelData = denver.find(n => n.nivel === nivel);
-    if (nivelData) {
-        return nivelData.categorias.map(categoria => categoria.nome);
-    }
-    return [];
-}
+/**
+ * Função para recuperar os dados de um teste pelo Id
+ * @param {string} testId - O Id do teste
+ */
+async function getTestById(testId) {
+    const testDoc = doc(db, "tests", testId);
 
-// recuperar as perguntas dado o nível e dada a categoria
-export function getPerguntasPorNivelECategoria(nivel, categoriaNome) {
-    const nivelData = denver.find(n => n.nivel === nivel);
-    if (nivelData) {
-        const categoria = nivelData.categorias.find(c => c.nome === categoriaNome);
-        if (categoria) {
-            return categoria.perguntas.map(pergunta => pergunta.pergunta);
+    try {
+        const docSnap = await getDoc(testDoc);
+
+        if (docSnap.exists()) {
+            const data = docSnap.data();
+                return {
+                    id: data.id,
+                    patientId: data.patientId,
+                    patientName: data.patientName,
+                    situation: data.situation,
+                    testType: data.testType,
+                    timestamp: data.timestamp
+                };
+        } else {
+            console.warn(`Documento ${testId} não encontrado.`);
+            return null;
         }
+    } catch (error) {
+        console.error("Erro ao recuperar o documento:", error);
+        return null;
     }
-    return [];
 }
 
-// recuperar as descricoes dado o nível e dada a categoria
-export function getDescricoesPorNivelECategoria(nivel, categoriaNome) {
-    const nivelData = denver.find(n => n.nivel === nivel);
-    if (nivelData) {
-        const categoria = nivelData.categorias.find(c => c.nome === categoriaNome);
-        if (categoria) {
-            return categoria.perguntas.map(pergunta => pergunta.descricao);
-        }
-    }
-    return [];
-}
+export default getTestById;

@@ -1,7 +1,5 @@
-import { getFirestore, collection, getDocs } from "firebase/firestore";
-
-// Inicialize o Firestore (supondo que o Firebase já esteja configurado e inicializado)
-const db = getFirestore();
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../FirebaseConfig.mjs";
 
 /**
  * Função para recuperar todos os dados dos pacientes
@@ -19,15 +17,23 @@ export async function getAllPatients() {
             // Verifique se todos os campos necessários existem
             if (data && data.children && data.children.name && data.children.dateBirth && data.externalMonitoring && data.externalMonitoring.length > 0 && data.externalMonitoring[0].name) {
                 const birthDate = new Date(data.children.dateBirth.split('/').reverse().join('-'));
-                const ageDiff = Date.now() - birthDate.getTime();
-                const ageDate = new Date(ageDiff);
-                const age = Math.abs(ageDate.getUTCFullYear() - 1970);
+                
+                // Calculando a idade em anos e meses
+                const now = new Date();
+                let years = now.getFullYear() - birthDate.getFullYear();
+                let months = now.getMonth() - birthDate.getMonth();
+
+                if (months < 0) {
+                    years--;
+                    months += 12;
+                }
+
                 const psychologistName = data.externalMonitoring[0].name;
 
                 patients.push({
                     id: doc.id,
                     childName: data.children.name,
-                    age,
+                    age: `${years} anos e ${months} meses`,
                     psychologistName
                 });
             } else {

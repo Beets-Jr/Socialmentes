@@ -6,19 +6,18 @@ import BlueLine from "../../../../Assets/Icons/BlueLine";
 
 export default function QuestoesList({
     nivel,
-    categoriasSelecionadas,
-    mostrarQuestoes
+    categoriasSelecionadas
 }) {
     const [selectedValues, setSelectedValues] = useState({});
 
     const handleSelectedValuesChange = (nivel, categoria, index, value) => {
         const newSelectedValues = {
             ...selectedValues,
-            [nivel]: {
-                ...(selectedValues[nivel] || {}),
+            [`level_${nivel}`]: {
+                ...(selectedValues[`level_${nivel}`] || {}),
                 [categoria]: {
-                    ...(selectedValues[nivel]?.[categoria] || {}),
-                    [index]: value,
+                    ...(selectedValues[`level_${nivel}`]?.[categoria] || {}),
+                    [`question_${index}`]: value,
                 },
             },
         };
@@ -30,15 +29,15 @@ export default function QuestoesList({
             <p className={styles.titulo1}>Questões</p>
             <BlueLine />
 
-            {mostrarQuestoes && Object.keys(categoriasSelecionadas).map((key) => (
+            {Object.keys(categoriasSelecionadas).map((key) => (
                 parseInt(key) === nivel &&
                 <div key={key}>
                     {categoriasSelecionadas[key].map((categoria, index) => (
-                        <div key={index} style={{ marginBottom: "10vh" }} >
+                        <div key={index} style={{ marginBottom: "10vh" }}>
                             <Questao
                                 nivel={parseInt(key)}
                                 categoriaSelecionada={categoria}
-                                selectedValues={selectedValues[nivel]?.[categoria] || {}}
+                                selectedValues={selectedValues[`level_${nivel}`]?.[categoria] || {}}
                                 onSelectedValuesChange={(index, value) => handleSelectedValuesChange(parseInt(key), categoria, index, value)}
                             />
                         </div>

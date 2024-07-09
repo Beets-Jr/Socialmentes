@@ -4,7 +4,7 @@ import Botao from "./Botao";
 import iconAddToList from "../../../../Assets/Icons/add-list-icon.png";
 import iconEncerrar from "../../../../Assets/Icons/check-icon.png";
 
-export default function FixedButtons({ handleAdicionarQuestao }) {
+export default function FixedButtons({ handleAdicionarQuestao, handleEncerrar }) {
     return (
         <Box
             sx={{
@@ -17,7 +17,7 @@ export default function FixedButtons({ handleAdicionarQuestao }) {
             </Box>
             <Box sx={{ width: "52.5%" }}></Box>
             <Box sx={{ right: "1em" }}>
-                <Botao icon={iconEncerrar} text="Encerrar" bgcolor="bg-blue" />
+                <Botao icon={iconEncerrar} text="Encerrar" bgcolor="bg-blue" onClick={handleEncerrar}/>
             </Box>
         </Box>
     );
