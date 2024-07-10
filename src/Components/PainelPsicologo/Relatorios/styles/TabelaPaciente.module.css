@@ -1,0 +1,13 @@
+.user_text, .legend {
+    font-family: var(--font-sub);
+    font-size: 400;
+    color: var(--color-blue-3);
+}
+
+.user_text span {
+    font-weight: 500;
+}
+
+.legend {
+    padding-top: 25px;
+}
