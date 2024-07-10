@@ -29,6 +29,36 @@ function Patients() {
             });
     }, []);
 
+    const getAge = (date) => {
+        if (!date) return;
+        const now = new Date();
+        const dataString = date;
+        const dateBirth = dataString[2] === '/' ?
+            new Date(
+                dataString.slice(6, 10),
+                Number(dataString.slice(3, 5)) - 1,
+                dataString.slice(0, 2)
+            ) :
+            new Date(
+                dataString.slice(0, 4),
+                Number(dataString.slice(5, 7)) - 1,
+                dataString.slice(8, 10)
+            );
+        const years = now.getFullYear() - dateBirth.getFullYear();
+        const months = now.getMonth() - dateBirth.getMonth();
+        const days = now.getDate() - dateBirth.getDate();
+
+        if (months < 0) {
+            return `${years - 1} anos e ${12 + months} mes(es)`;
+        } else if (months > 0) {
+            return `${years} anos e ${months} mes(es)`;
+        } else if (days < 0) {
+            return `${years - 1} anos e ${months > 0 ? months - 1 : 11} mes(es)`;
+        } else {
+            return `${years} anos`;
+        }
+    };
+
     return (
         <Box className={styles.container_patients}>
 
@@ -55,28 +85,7 @@ function Patients() {
                                     func: (row) => row.children.name
                                 },
                                 {
-                                    func: (row) => {
-                                        const now = new Date();
-                                        const dataString = row.children.dateBirth;
-                                        const dateBirth = new Date(
-                                            dataString.slice(0, 4),
-                                            Number(dataString.slice(5, 7)) - 1,
-                                            dataString.slice(8, 10)
-                                        );
-                                        const years = now.getFullYear() - dateBirth.getFullYear();
-                                        const months = now.getMonth() - dateBirth.getMonth();
-                                        const days = now.getDate() - dateBirth.getDate();
-
-                                        if (months < 0) {
-                                            return `${years - 1} anos e ${12 + months} mes(es)`;
-                                        } else if (months > 0) {
-                                            return `${years} anos e ${months} mes(es)`;
-                                        } else if (days < 0) {
-                                            return `${years - 1} anos e ${months > 0 ? months - 1 : 11} mes(es)`;
-                                        } else {
-                                            return `${years} anos`;
-                                        }
-                                    }
+                                    func: (row) => getAge(row.children.dateBirth),
                                 },
                                 {
                                     func: (row) => row.caregivers.caregiver1.name
