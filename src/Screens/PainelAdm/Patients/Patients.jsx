@@ -78,7 +78,7 @@ function Patients() {
                         <DataTable
                             md={[ 4.5, 2, 3.5, 2 ]}
                             sm={[ 4, 2, 3, 3 ]}
-                            xs={[ 3, 2, 3, 4 ]}
+                            // xs={[ 3, 2, 3, 4 ]}
                             head={[ 'Nome', 'Idade', 'Responsável' ]}
                             columns={[
                                 {
