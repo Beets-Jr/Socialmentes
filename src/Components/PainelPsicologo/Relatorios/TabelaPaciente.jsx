@@ -9,11 +9,17 @@ export const TabelaPaciente = ({ patient }) => {
         if (!date) return;
         const now = new Date();
         const dataString = date;
-        const dateBirth = new Date(
-            dataString.slice(0, 4),
-            Number(dataString.slice(5, 7)) - 1,
-            dataString.slice(8, 10)
-        );
+        const dateBirth = dataString[2] === '/' ?
+            new Date(
+                dataString.slice(6, 10),
+                Number(dataString.slice(3, 5)) - 1,
+                dataString.slice(0, 2)
+            ) :
+            new Date(
+                dataString.slice(0, 4),
+                Number(dataString.slice(5, 7)) - 1,
+                dataString.slice(8, 10)
+            );
         const years = now.getFullYear() - dateBirth.getFullYear();
         const months = now.getMonth() - dateBirth.getMonth();
         const days = now.getDate() - dateBirth.getDate();
