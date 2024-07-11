@@ -15,7 +15,6 @@
 }
 
 .row {
-    /* height: 70px; */
     padding: 15px 0px;
     display: flex;
     align-items: center;
@@ -34,7 +33,7 @@
     font-size: 22px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
     .row {
         padding: 15px 15px;
     }

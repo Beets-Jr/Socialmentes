@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 
-import { Box, CircularProgress } from "@mui/material";
+import { Box, CircularProgress, useMediaQuery } from "@mui/material";
 
 import { AppContext } from "../../../Contexts/AppContext";
-import SearchField from '../../../Components/ElementsInterface/SearchField';
-import DataTable from '../../../Components/ElementsInterface/DataTable';
 import { PatientService } from "../../../Services/patientService";
+import SearchField from '../../../Components/ElementsInterface/SearchField/SearchField';
+import DataTable from '../../../Components/ElementsInterface/DataTable/DataTable';
 import { EditIcon } from "../../../Assets/Icons/EditIcon";
 import { VisibilityIcon } from "../../../Assets/Icons/VisibilityIcon";
 
@@ -18,6 +18,8 @@ function Patients() {
 
     const [patients, setPatients] = useState([]);
     const [filteredPatients, setFilteredPatients] = useState([]);
+
+    const isMobile = useMediaQuery('(max-width:700px)');
 
     useEffect(() => {
         PatientService.getAllPatients()
@@ -73,12 +75,13 @@ function Patients() {
                         data={patients}
                         getValue={(row) => row.children.name}
                         setFilteredData={setFilteredPatients}
+                        onAdd={ () => console.log('click!') }
+                        isMobile={isMobile}
                     />
                     <Box mt={4}>
                         <DataTable
                             md={[ 4.5, 2, 3.5, 2 ]}
                             sm={[ 4, 2, 3, 3 ]}
-                            // xs={[ 3, 2, 3, 4 ]}
                             head={[ 'Nome', 'Idade', 'Responsável' ]}
                             columns={[
                                 {
@@ -104,6 +107,7 @@ function Patients() {
                                 },
                             ]}
                             emptyText='Nenhum paciente cadastrado'
+                            isMobile={isMobile}
                         />
                     </Box>
                 </>
