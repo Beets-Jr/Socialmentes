@@ -10,6 +10,7 @@ import DataTableMobile from "./DataTableMobile";
  * @param {function} onAdd - função executada ao clicar no botão de mais, caso null o botão não é exibido.
  * @param {array<Object>} actions - informa as ações que aparecerão na última coluna da tabela, cada ação é uma tupla `{ icon: SvgIcon, func: function }`.
  * @param {string} emptyText - texto que aparece caso body seja uma lista vazia
+ * @param {boolean} isMobile - booleano que indica se deve usar o estilo para mobile ou para desktop.
  */
 function DataTable({ xl, lg, md, sm, xs, head, columns, body, onAdd, actions, emptyText, isMobile }) {
 

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Box, IconButton, InputAdornment, TextField, useMediaQuery } from "@mui/material";
 import { AddBoxOutlined, AddBoxRounded } from "@mui/icons-material";
 
-import { SearchIcon } from "../../../Assets/Icons/SearchIcon";
+import { SearchIcon } from "../../Assets/Icons/SearchIcon";
 
 import styles from './SearchField.module.css';
 
@@ -13,6 +13,7 @@ import styles from './SearchField.module.css';
  * @param {array<Object>} data - a lista contendo a lista completa dos itens que serão filtrados.
  * @param {function} getValue - função usada para recuperar o valor usado para filtrar uma linha.
  * @param {function} setFilteredData - função usada para setar os dados filtrados.
+ * @param {boolean} isMobile - booleano que indica se deve usar o estilo para mobile ou para desktop.
  */
 function SearchField({ placeholder, data, getValue, setFilteredData, onAdd, isMobile }) {
 

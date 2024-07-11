@@ -4,7 +4,7 @@ import { Box, CircularProgress, useMediaQuery } from "@mui/material";
 
 import { AppContext } from "../../../Contexts/AppContext";
 import { PatientService } from "../../../Services/patientService";
-import SearchField from '../../../Components/ElementsInterface/SearchField/SearchField';
+import SearchField from '../../../Components/ElementsInterface/SearchField';
 import DataTable from '../../../Components/ElementsInterface/DataTable/DataTable';
 import { EditIcon } from "../../../Assets/Icons/EditIcon";
 import { VisibilityIcon } from "../../../Assets/Icons/VisibilityIcon";
