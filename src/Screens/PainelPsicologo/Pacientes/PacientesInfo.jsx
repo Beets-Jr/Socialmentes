@@ -21,7 +21,7 @@ export default function PacientesInfo() {
                 <div className={styles.titulo}>Informações do(a) paciente</div>
                 <BlueLine />
                 <div><span>Nome:</span> {patient.childName}</div>
-                <div><span>Idade:</span> {patient.age} anos</div>
+                <div><span>Idade:</span> {patient.age}</div>
                 <div><span>Responsável:</span> {patient.psychologistName}</div>
             </Box>
 

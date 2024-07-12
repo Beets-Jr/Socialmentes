@@ -1,121 +1,116 @@
 import React, { useEffect, useState } from "react";
 import {
-  Box,
-  FormControl,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
+    Box,
+    FormControl,
+    FormControlLabel,
+    Radio,
+    RadioGroup,
 } from "@mui/material";
 import Expandir from "../../../../Assets/Icons/Expandir.png";
 import styles from "./Styles.module.css";
 import {
-  getDescricoesPorNivelECategoria,
-  getPerguntasPorNivelECategoria,
+    getDescricoesPorNivelECategoria,
+    getPerguntasPorNivelECategoria,
 } from "../../../../Database/Utils/testsInfoFunctions";
 
 export default function Questao({
-  testId,
-  nivel,
-  categoriaSelecionada,
-  selectedValues,
-  onSelectedValuesChange,
+    nivel,
+    categoriaSelecionada,
+    selectedValues,
+    onSelectedValuesChange,
 }) {
-  const [perguntas, setPerguntas] = useState([]);
-  const [descricoes, setDescricoes] = useState([]);
-  const [expandir, setExpandir] = useState(false);
+    const [perguntas, setPerguntas] = useState([]);
+    const [descricoes, setDescricoes] = useState([]);
+    const [expandir, setExpandir] = useState(false);
 
-  const handleClick = () => {
-    setExpandir(!expandir);
-  };
+    const handleClick = () => {
+        setExpandir(!expandir);
+    };
 
-  const handleChange = async (index, e) => {
-    const newValue = e.target.value;
-    onSelectedValuesChange(index, newValue);
+    const handleChange = async (index, e) => {
+        const newValue = e.target.value;
+        onSelectedValuesChange(index, newValue);
+    };
 
-    // Atualiza o status da questão no Firestore
-    await updateQuestionStatus(
-      testId,
-      nivel,
-      categoriaSelecionada,
-      `question_${index}`,
-      newValue
-    );
-  };
+    useEffect(() => {
+        if (nivel > 0 && categoriaSelecionada) {
+            const todasPerguntas = getPerguntasPorNivelECategoria(
+                nivel,
+                categoriaSelecionada
+            );
+            const todasDescricoes = getDescricoesPorNivelECategoria(
+                nivel,
+                categoriaSelecionada
+            );
+            setPerguntas(todasPerguntas);
+            setDescricoes(todasDescricoes);
+        }
+    }, [nivel, categoriaSelecionada]);
 
-  useEffect(() => {
-    if (nivel > 0 && categoriaSelecionada) {
-      const todasPerguntas = getPerguntasPorNivelECategoria(
-        nivel,
-        categoriaSelecionada
-      );
-      const todasDescricoes = getDescricoesPorNivelECategoria(
-        nivel,
-        categoriaSelecionada
-      );
-      setPerguntas(todasPerguntas);
-      setDescricoes(todasDescricoes);
-    }
-  }, [nivel, categoriaSelecionada]);
+    useEffect(() => {
+        console.log("Exibindo de Questao, checagem dos selectedValues:")
+        console.log(selectedValues)
+    }, []);
 
-  return (
-    <>
-      <div className={styles.titulo2} style={{ width: "50vw" }}>
-        <div>
-          <img
-            src={Expandir}
-            style={{ marginRight: "10px", cursor: "pointer" }}
-            onClick={handleClick}
-            alt="Expandir"
-          />
-          {categoriaSelecionada && `${categoriaSelecionada} - Nível ${nivel}`}
-        </div>
-      </div>
-
-      {expandir &&
-        perguntas.map((pergunta, index) => (
-          <Box key={index} sx={{ width: "70vw", marginBottom: "1rem" }}>
-            <div className={styles.titulo3}>{`${index + 1}. ${pergunta}`}</div>
-
-            <div className={styles.texto}>
-              {descricoes[index] && `${descricoes[index]}`}
+    return (
+        <>
+            <div className={styles.titulo2} style={{ width: "50vw" }}>
+                <div>
+                    <img
+                        src={Expandir}
+                        style={{ marginRight: "10px", cursor: "pointer" }}
+                        onClick={handleClick}
+                        alt="Expandir"
+                    />
+                    {categoriaSelecionada && `${categoriaSelecionada} - Nível ${nivel}`}
+                </div>
             </div>
 
-            <FormControl>
-              <RadioGroup
-                row
-                aria-labelledby={`demo-row-radio-buttons-group-label-${index}`}
-                name={`row-radio-buttons-group-${index}`}
-                value={selectedValues[`question_${index}`] || ""}
-                onChange={(e) => handleChange(index, e)}
-              >
-                <FormControlLabel
-                  value={0}
-                  control={<Radio sx={{ color: "var(--color-gray-3)" }} />}
-                  label="Não Adquirido"
-                  className={styles.radioOptions}
-                />
-                <FormControlLabel
-                  value={1}
-                  control={<Radio sx={{ color: "var(--color-gray-3)" }} />}
-                  label="Sem oportunidade"
-                  className={styles.radioOptions}
-                />
-                <FormControlLabel
-                  value={2}
-                  control={<Radio sx={{ color: "var(--color-gray-3)" }} />}
-                  label="Parcialmente"
-                  className={styles.radioOptions}
-                />
-                <FormControlLabel
-                  value={3}
-                  control={<Radio sx={{ color: "var(--color-gray-3)" }} />}
-                  label="Adquirido"
-                  className={styles.radioOptions}
-                />
-              </RadioGroup>
-            </FormControl>
-          </Box>
-        ))}
-    </>
-  );
+            {expandir &&
+                perguntas.map((pergunta, index) => (
+                    <Box key={index} sx={{ width: "70vw", marginBottom: "1rem" }}>
+                        <div className={styles.titulo3}>{`${index + 1}. ${pergunta}`}</div>
+
+                        <div className={styles.texto}>
+                            {descricoes[index] && `${descricoes[index]}`}
+                        </div>
+
+                        <FormControl>
+                            <RadioGroup
+                                row
+                                aria-labelledby={`demo-row-radio-buttons-group-label-${index}`}
+                                name={`row-radio-buttons-group-${index}`}
+                                value={selectedValues[`question_${index}`] || ""}
+                                onChange={(e) => handleChange(index, e)}
+                            >
+                                <FormControlLabel
+                                    value={0}
+                                    control={<Radio sx={{ color: "var(--color-gray-3)" }} />}
+                                    label="Não Adquirido"
+                                    className={styles.radioOptions}
+                                />
+                                <FormControlLabel
+                                    value={1}
+                                    control={<Radio sx={{ color: "var(--color-gray-3)" }} />}
+                                    label="Sem oportunidade"
+                                    className={styles.radioOptions}
+                                />
+                                <FormControlLabel
+                                    value={2}
+                                    control={<Radio sx={{ color: "var(--color-gray-3)" }} />}
+                                    label="Parcialmente"
+                                    className={styles.radioOptions}
+                                />
+                                <FormControlLabel
+                                    value={3}
+                                    control={<Radio sx={{ color: "var(--color-gray-3)" }} />}
+                                    label="Adquirido"
+                                    className={styles.radioOptions}
+                                />
+                            </RadioGroup>
+                        </FormControl>
+                    </Box>
+                ))}
+        </>
+    );
 }

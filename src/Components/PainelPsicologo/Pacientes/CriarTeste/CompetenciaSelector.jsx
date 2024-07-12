@@ -13,19 +13,24 @@ export default function CompetenciaSelector({
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: "3vh", width: "25%" }}>
             <p className={styles.titulo1}>Competência</p>
             <BlueLine />
-            <FormControl variant="outlined">
+            <FormControl variant="outlined" sx={{ width: "80%" }}>
                 <Select
                     id="competencia-select"
                     value={selectedOption}
                     onChange={handleChange}
-                    sx={{ width: "80%" }}
+                    displayEmpty
+                    renderValue={(value) => (value ? `${value}` : "Selecione uma competência")}
                 >
-                    {activeButtonIndex !== null &&
-                        categorias.map((option, index) => (
-                            <MenuItem key={index} value={option}>
-                                {option}
-                            </MenuItem>
-                        ))}
+                    {selectedOption === "" && (
+                        <MenuItem disabled value="">
+                            Selecione uma categoria para este nível
+                        </MenuItem>
+                    )}
+                    {categorias.map((option, index) => (
+                        <MenuItem key={index} value={option}>
+                            {option}
+                        </MenuItem>
+                    ))}
                 </Select>
             </FormControl>
         </Box>
