@@ -36,11 +36,13 @@ function HomePsi() {
               <CircularProgress />
             </Box>
           ) : (
-            <Grid container spacing={4} columnSpacing={5}>
-              <HomeDataCard title="testes cadastrados" data={tests} type="test" />
-              <HomeDataCard title="relatórios finalizados" data={reports} type="report" />
-              <HomeDataCard title="pacientes" data={patients} type="patient" />
-            </Grid>
+            <Box sx={{ margin: '3vw 3vw'}}>
+              <Grid container spacing={4} columnSpacing={5}>
+                <HomeDataCard title="relatórios finalizados" data={reports} type="report" />
+                <HomeDataCard title="testes cadastrados" data={tests} type="test" />
+                <HomeDataCard title="pacientes" data={patients} type="patient" />
+              </Grid>
+            </Box>
           )
     );
 }
