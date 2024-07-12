@@ -82,8 +82,6 @@ const HomeDataCard = ({ title, data, type }) => {
           padding: '10px', 
           width: '100%',
           height: '420px',
-          borderRadius: '11px',
-          border: '2px solid #E0E0E0'
         }}
       >
         <Typography 
