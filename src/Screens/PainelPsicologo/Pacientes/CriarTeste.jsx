@@ -16,30 +16,34 @@ export default function CriarTeste() {
     const [testInfo, setTestInfo] = useState({});
     const [questionValues, setQuestionValues] = useState('');
 
-    /** Montar o componente com as informações do banco de dados */
+    /** Montar os componentes com as informações do banco de dados */
     useEffect(() => {
-        console.log(testInfo.questions);
+        console.log('Current Test Info:', testInfo);
 
-        /** Passo 1: iterar pelos leveis */
+        /** Passo 1: passar pelos leveis */
 
-        /** Passo 2: iterar pelas categorys */
-        /**         -  atualizar o categoriasSelecionadas */
+        /** Passo 2: passar pelas categorys */
+        /**         -  atualizar o vetor categoriasSelecionadas */
 
-        /** Passo 3: iterar sobre as questions */
-        /**         -  atualizar o questionValues */
+        /** Passo 3: passar sobre as questions */
+        /**         -  atualizar o vetor questionValues */
+
+        console.log(`Categorias do nível:`, categorias);
+        console.log(`Categorias já selecionadas:`, categoriasSelecionadas);
         
-    }, []);
-
+    }, [testInfo, categorias, categoriasSelecionadas]);
 
     /** Buscar as informações do teste a partir do banco de dados */
     async function fetchTestInfo(testId) {
-        const testInfo = await getTestById(testId);
-
-        if (testInfo) {
-            setTestInfo(testInfo);
-        } else {
-            console.log('Test information could not be retrieved.');
-            return 0;
+        try {
+            const testInfo = await getTestById(testId);
+            if (testInfo) {
+                setTestInfo(testInfo);
+            } else {
+                console.log('Test information could not be retrieved.');
+            }
+        } catch (error) {
+            console.error('Error fetching test info:', error);
         }
     }
 
@@ -53,7 +57,6 @@ export default function CriarTeste() {
         loadTestInfo();
     }, []);
 
-
     /** Atualizar as categorias com base no nível selecionado, lidar com mudança de nível e categoria selecionada */
     useEffect(() => {
         if (nivel > 0) {
@@ -62,20 +65,22 @@ export default function CriarTeste() {
         }
     }, [nivel]);
 
+    /** Ativa o nível */
     const handleButtonClick = (index) => {
         setActiveButtonIndex(index);
         setNivel(index + 1);
         setSelectedOption("");
     };
 
+    /** Ativa a categoria atual */
     const handleChange = (event) => {
         setSelectedOption(event.target.value);
     };
 
+    /** Adiciona uma questao com base na categoria selecionada e atualiza o vetor de categoriasSelecionadas */
     const handleAdicionarQuestao = () => {
         if (selectedOption) {
             if (categoriasSelecionadas[nivel]?.includes(selectedOption)) {
-                /* substituir pelo alerta devido */
                 alert("Essa categoria já foi selecionada para este nível.");
                 return;
             }

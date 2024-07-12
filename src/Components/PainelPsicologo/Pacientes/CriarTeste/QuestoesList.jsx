@@ -11,21 +11,23 @@ export default function QuestoesList({
 }) {
     const [selectedValues, setSelectedValues] = useState([]);
 
-    const handleSelectedValuesChange = (testId, nivel, indiceQuestao, indiceCategoria, value) => {
+    const handleSelectedValuesChange = (testId, nivel, indiceQuestao, value) => {
+        /** Fix: passar corretamente o índice da categoria, talvez checando o selectedOption */
         const indiceDaCategoria = 0;
 
         console.log(`Array: ${categoriasSelecionadas[nivel][0]}`);
-        console.log(`Nível: ${nivel}`); // simplesmente o nivel
-        console.log(`Índice da categoria: ${indiceDaCategoria}`); // indice da categoria
-        console.log(`Índice da questão: ${indiceQuestao}`); // indice da questao
-        console.log(`Valor do radio: ${value}`); // valor selecionado
+        console.log(`Nível: ${nivel}`);
+        console.log(`Índice da categoria: ${indiceDaCategoria}`);
+        console.log(`Índice da questão: ${indiceQuestao}`);
+        console.log(`Valor da questão: ${value}`);
 
-        const newSelectedValues = updateQuestionStatus(testId, nivel, indiceCategoria, indiceQuestao, value);
-        setSelectedValues(newSelectedValues);
+        updateQuestionStatus(testId, nivel, indiceDaCategoria, indiceQuestao, value);
+        /** Fix: configurar o selectedValues para inicialmente ter as informações do bd*/
+
     };
 
     useEffect(() => {
-        console.log(selectedValues);
+        console.log(`Valores selecionados: `, selectedValues);
     }, [selectedValues]);
 
     return (
@@ -41,8 +43,8 @@ export default function QuestoesList({
                             <Questao
                                 nivel={parseInt(key)}
                                 categoriaSelecionada={categoria}
-                                selectedValues={selectedValues[`level_${nivel}.category_${index}`] || {}}
-                                onSelectedValuesChange={(index, value) => handleSelectedValuesChange('E3ssWQUAx0iRiHr7T4ei', nivel, index, 0, value)}
+                                selectedValues={selectedValues}
+                                onSelectedValuesChange={(index, value) => handleSelectedValuesChange('E3ssWQUAx0iRiHr7T4ei', nivel, index, value)}
                             />
                         </div>
                     ))}

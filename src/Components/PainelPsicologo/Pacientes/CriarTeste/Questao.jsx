@@ -47,11 +47,6 @@ export default function Questao({
         }
     }, [nivel, categoriaSelecionada]);
 
-    useEffect(() => {
-        console.log("Exibindo de Questao, checagem dos selectedValues:")
-        console.log(selectedValues)
-    }, []);
-
     return (
         <>
             <div className={styles.titulo2} style={{ width: "50vw" }}>
@@ -80,7 +75,8 @@ export default function Questao({
                                 row
                                 aria-labelledby={`demo-row-radio-buttons-group-label-${index}`}
                                 name={`row-radio-buttons-group-${index}`}
-                                value={selectedValues[`question_${index}`] || ""}
+                                /** Fix: atualizar corretamente a prop value */
+                                value={selectedValues}
                                 onChange={(e) => handleChange(index, e)}
                             >
                                 <FormControlLabel

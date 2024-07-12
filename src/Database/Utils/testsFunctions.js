@@ -71,7 +71,7 @@ export async function updateQuestionStatus(testId, nivel, indiceCategoria, indic
             [questionPath]: newValue
         });
         console.log(`Questão ${indiceQuestao} atualizada com sucesso!`);
-        return `questions.level_${nivel}.category_${indiceCategoria}.question_${indiceQuestao}`;
+        return ;
     } catch (error) {
         console.error("Erro ao atualizar a questão:", error);
     }
