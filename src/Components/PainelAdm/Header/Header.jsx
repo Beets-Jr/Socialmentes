@@ -74,7 +74,6 @@ function treatName(name) {
   for (let i = 1; i < nameParts.length; i++) {
     fullName = fullName.concat( /[a-z]/gm.test(nameParts[i][0]) ? '' : ` ${nameParts[i][0]}.`);
   }
-  console.log(fullName);
   return fullName;
 }
 
