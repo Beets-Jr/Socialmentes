@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
-import { Box, IconButton, InputAdornment, TextField, useMediaQuery } from "@mui/material";
+import { Box, IconButton, InputAdornment, TextField } from "@mui/material";
 import { AddBoxOutlined, AddBoxRounded } from "@mui/icons-material";
 
-import { SearchIcon } from "../../Assets/Icons/SearchIcon";
+import { SearchIcon } from "../../../Assets/Icons/SearchIcon";
 
 import styles from './SearchField.module.css';
 

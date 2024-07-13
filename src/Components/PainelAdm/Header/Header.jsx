@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Link } from 'react-router-dom'
 
-import { AppBar, Toolbar, Typography, Box, IconButton, Avatar } from '@mui/material'
+import { AppBar, Toolbar, Typography, Box, IconButton, Avatar, useMediaQuery } from '@mui/material'
 import { PiUserCircleFill } from 'react-icons/pi'
 import LogoutIcon from './Icons/LogoutIcon'
 import { AppContext } from "../../../Contexts/AppContext"
@@ -31,7 +31,7 @@ const fontSizeStyles = {
       font-size: 2.5rem;
     }
     @media ${breakpoints.lg} {
-      font-size: 3rem;
+      font-size: 3remma;
     }
   `,
   text: css`
@@ -68,7 +68,20 @@ function stringAvatar(name){
 
 }
 
+function treatName(name) {
+  const nameParts = name.split(' ');
+  let fullName = nameParts[0];
+  for (let i = 1; i < nameParts.length; i++) {
+    fullName = fullName.concat( /[a-z]/gm.test(nameParts[i][0]) ? '' : ` ${nameParts[i][0]}.`);
+  }
+  console.log(fullName);
+  return fullName;
+}
+
 function Header() {
+
+  const isMobile = useMediaQuery('(max-width: 600px)');
+  const showName = useMediaQuery('(min-width: 430px)');
   
   const {title, subtitle} = useContext(AppContext);
 
@@ -107,12 +120,13 @@ function Header() {
             {/* Caixa de texto para quando o usuário está logado */}
             <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
 
-              <Text
+              { showName && <Text
+                className={styles.nameContainer}
                 variant='subtitle2'
                 component='div'
                 sx={{fontFamily: 'var(--font-title)', color: 'var(--color-blue-2)'}}>
-              {user.fullName}
-              </Text>           
+              { isMobile ? treatName(user.fullName) : user.fullName }
+              </Text> }
 
               <Text
                 variant='subtitle2'
