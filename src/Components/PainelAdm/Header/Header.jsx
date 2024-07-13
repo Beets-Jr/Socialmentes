@@ -31,7 +31,7 @@ const fontSizeStyles = {
       font-size: 2.5rem;
     }
     @media ${breakpoints.lg} {
-      font-size: 3remma;
+      font-size: 3rem;
     }
   `,
   text: css`
