@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import Questao from "./Questao";
 import styles from "./Styles.module.css";
 import BlueLine from "../../../../Assets/Icons/BlueLine";
-import { updateQuestionStatus } from "../../../../Database/Utils/testsFunctions";
+import { updateQuestionStatus } from "../../../../Database/Utils/testsFunctions.mjs";
 
 export default function QuestoesList({
     nivel,

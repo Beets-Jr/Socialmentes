@@ -5,7 +5,8 @@ import NivelSelector from "../../../Components/PainelPsicologo/Pacientes/CriarTe
 import CompetenciaSelector from "../../../Components/PainelPsicologo/Pacientes/CriarTeste/CompetenciaSelector";
 import QuestoesList from "../../../Components/PainelPsicologo/Pacientes/CriarTeste/QuestoesList";
 import FixedButtons from "../../../Components/PainelPsicologo/Pacientes/CriarTeste/FixedButtons";
-import { getTestById } from "../../../Database/Utils/testsFunctions";
+import { useLocation, useParams } from "react-router-dom";
+import { getCategoriesByLevel } from "../../../Services/Tests/Category/GetCategorys.mjs";
 
 export default function CriarTeste() {
     const [nivel, setNivel] = useState(1);
@@ -16,48 +17,30 @@ export default function CriarTeste() {
     const [testInfo, setTestInfo] = useState({});
     const [questionValues, setQuestionValues] = useState('');
 
-    /** Montar os componentes com as informações do banco de dados */
-    useEffect(() => {
-        console.log('Current Test Info:', testInfo);
+    const location = useLocation();
+    const { testDetails } = location.state || {};
 
-        /** Passo 1: passar pelos leveis */
-
-        /** Passo 2: passar pelas categorys */
-        /**         -  atualizar o vetor categoriasSelecionadas */
-
-        /** Passo 3: passar sobre as questions */
-        /**         -  atualizar o vetor questionValues */
-
-        console.log(`Categorias do nível:`, categorias);
-        console.log(`Categorias já selecionadas:`, categoriasSelecionadas);
-        
-    }, [testInfo, categorias, categoriasSelecionadas]);
-
-    /** Buscar as informações do teste a partir do banco de dados */
-    async function fetchTestInfo(testId) {
-        try {
-            const testInfo = await getTestById(testId);
-            if (testInfo) {
-                setTestInfo(testInfo);
-            } else {
-                console.log('Test information could not be retrieved.');
-            }
-        } catch (error) {
-            console.error('Error fetching test info:', error);
-        }
+    function getCategoriasByIndices(categorias, indices) {
+        return indices.map(index => categorias[index]);
     }
 
     useEffect(() => {
-        const testId = 'E3ssWQUAx0iRiHr7T4ei';
+        console.log('Teste: ', testDetails);
+    
+        const indicesCategorias = getCategoriesByLevel(testDetails, nivel);
+        const categoriasJaSelecionadas = getCategoriasByIndices(categorias, indicesCategorias);
+        console.log('Categorias selecionadas: ', categoriasJaSelecionadas );
         
-        async function loadTestInfo() {
-            await fetchTestInfo(testId);
+        if (categoriasJaSelecionadas) {
+            const updatedCategoriasSelecionadas = {
+                ...categoriasSelecionadas,
+                [nivel]: [...(categoriasSelecionadas[nivel] || []), ...categoriasJaSelecionadas],
+            };
+            setCategoriasSelecionadas(updatedCategoriasSelecionadas);
         }
-
-        loadTestInfo();
-    }, []);
-
-    /** Atualizar as categorias com base no nível selecionado, lidar com mudança de nível e categoria selecionada */
+    }, [categorias, nivel]);
+    
+    
     useEffect(() => {
         if (nivel > 0) {
             const categorias = getCategoriaNomesPorNivel(nivel);
@@ -65,19 +48,20 @@ export default function CriarTeste() {
         }
     }, [nivel]);
 
-    /** Ativa o nível */
+    useEffect(() => {
+        console.log('Categorias já selecionadas: ', categoriasSelecionadas);
+    }, [categoriasSelecionadas]);
+
     const handleButtonClick = (index) => {
         setActiveButtonIndex(index);
         setNivel(index + 1);
         setSelectedOption("");
     };
 
-    /** Ativa a categoria atual */
     const handleChange = (event) => {
         setSelectedOption(event.target.value);
     };
 
-    /** Adiciona uma questao com base na categoria selecionada e atualiza o vetor de categoriasSelecionadas */
     const handleAdicionarQuestao = () => {
         if (selectedOption) {
             if (categoriasSelecionadas[nivel]?.includes(selectedOption)) {
@@ -124,7 +108,6 @@ export default function CriarTeste() {
                     handleEncerrar={handleEncerrar}
                 />
             </Box>
-
         </Box>
     );
 }

@@ -14,7 +14,7 @@ import { getTestsFromPatient } from './GetTestsFromPatient.mjs';
   // }
 
   // Pegar um teste pelo ID do campo
-  const testId = 11; // Substitua pelo ID real do teste
+  const testId = 2; // Substitua pelo ID real do teste
   let test = {};
   try {
     test = await getByTestSerialId(testId);
@@ -30,6 +30,10 @@ import { getTestsFromPatient } from './GetTestsFromPatient.mjs';
   try {
     const patientTests = await getTestsFromPatient(patientId);
     console.log('Testes do paciente:', patientTests);
+
+    patientTests.forEach((test, key) => {
+      console.log(key, ":",test.situation);
+    });
   } catch (error) {
     console.error('Erro ao obter testes do paciente:', error);
   }
@@ -45,7 +49,14 @@ import { getTestsFromPatient } from './GetTestsFromPatient.mjs';
   try {
     const categories = getCategoriesByLevel(test, levelNumber);
     const questions = getQuestionsByLevel(test, categories[0], levelNumber);
-    console.log('Questões da categoria', categories[0], ':', questions);
+
+    const values = Object.values(questions);
+
+    console.log('categories: ', categories);
+    console.log('questions: ', questions);
+
+    console.log('Resultado das questões da categoria', categories[0], ':', questions);
+    console.log('Vetor com os resultados', values);
   } catch (error) {
     console.error('Erro ao obter categorias pelo nível:', error);
   }

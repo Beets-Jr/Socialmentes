@@ -1,11 +1,6 @@
 import { db } from "../FirebaseConfig.mjs";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 
-/** Busca informações de um teste da coleção tests no firestore
- * 
- * @param {*} testId - Id do teste
- */
-
 // Função recursiva para percorrer a estrutura de questions
 function extractValues(obj, extractedValues, currentPath = '') {
     Object.keys(obj).forEach(key => {
@@ -20,7 +15,11 @@ function extractValues(obj, extractedValues, currentPath = '') {
     });
 }
 
-export async function getTestById(testId) {
+/** Busca informações de um teste da coleção tests no firestore
+ * 
+ * @param {*} testId - Id do teste
+ */
+async function getTestById(testId) {
     const testDoc = doc(db, "tests", testId);
 
     try {
@@ -65,7 +64,7 @@ export async function getTestById(testId) {
  * @param {string} questionKey - Chave da questão
  * @param {string} newValue - Novo valor para a questão.
  */
-export async function updateQuestionStatus(testId, nivel, indiceCategoria, indiceQuestao, newValue) {
+async function updateQuestionStatus(testId, nivel, indiceCategoria, indiceQuestao, newValue) {
     const testDoc = doc(db, "tests", testId);
     const questionPath = `questions.level_${nivel}.category_${indiceCategoria}.question_${indiceQuestao}`;
 
@@ -79,3 +78,5 @@ export async function updateQuestionStatus(testId, nivel, indiceCategoria, indic
         console.error("Erro ao atualizar a questão:", error);
     }
 }
+
+export { getTestById, updateQuestionStatus }
