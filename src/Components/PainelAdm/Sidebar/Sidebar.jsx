@@ -15,6 +15,7 @@ import { AppContext } from '../../../Contexts/AppContext'
 import { useAuth } from '../../../Contexts/AuthContext'
 import { HomeIcon } from '../../../Assets/Icons/HomeIcon'
 import { GraphIcon } from '../../../Assets/Icons/GraphIcon'
+import { ScheduleIcon } from '../../../Assets/Icons/ScheduleIcon'
 
 import styles from './Styles/Sidebar.module.css'
 
@@ -27,10 +28,11 @@ const sidebarAllOptions = {
     { icon: <SettingsOutlinedIcon style={{color:'#FFFFFF'}}/>, text:'Opções' , to:'/painel-adm/opcoes' }
   ],
   sidebarOptionsPsy: [
-    { icon: <HomeIcon />, text:'Home' , to:'/painel-adm/home' },
-    { icon: <EditNoteRoundedIcon style={{color:'#FFFFFF'}}/>, text:'Pacientes' , to:'/painel-adm/pacientes' },
-    { icon: <GraphIcon />, text:'Relatórios' , to:'/painel-adm/relatorios' },
-    { icon: <SettingsOutlinedIcon style={{marginLeft: -2, color:'#FFFFFF'}}/>, text:'Opções' , to:'/painel-adm/opcoes' }
+    { icon: <HomeIcon />, text:'Home' , to:'/painel-psi/home' },
+    { icon: <EditNoteRoundedIcon style={{color:'#FFFFFF'}}/>, text:'Pacientes' , to:'/painel-psi/pacientes' },
+    { icon: <GraphIcon />, text:'Relatórios' , to:'/painel-psi/relatorios' },
+    { icon: <ScheduleIcon />, text:'Agenda', to:'/painel-psi/agenda' },
+    { icon: <SettingsOutlinedIcon style={{marginLeft: -2, color:'#FFFFFF'}}/>, text:'Instrumentos' , to:'/painel-psi/instrumentos' }
 ]
 };
 
