@@ -7,6 +7,8 @@ import PermissionDeniedMessage from "../Components/ElementsInterface/PermissionD
 import Sidebar from "../Components/PainelAdm/Sidebar/Sidebar";
 import Header from "../Components/PainelAdm/Header/Header";
 import styles from "./PainelAdm.module.css";
+import Checklist from "../Screens/PainelPsicologo/Checklist";
+import Tests from "../Screens/PainelPsicologo/Tests";
 
 function PainelPsi() {
     const { open } = useContext(AppContext);
@@ -26,9 +28,10 @@ function PainelPsi() {
                         <Route path="/" element={<Navigate to="/painel-psi/home" />} />
                         <Route path="home" element={<DialogConfirmation />} />
                         <Route path="pacientes" element={<DialogConfirmation />} />
-                        <Route path="relatorios" element={<DialogConfirmation />} />
+                        <Route path="relatorios" element={<Tests />} />
                         <Route path="agenda" element={<DialogConfirmation />} />
                         <Route path="instrumentos" element={<DialogConfirmation />} />
+                        <Route path="checklist" element={<Checklist />}/>
                     </Routes>
                 ) : (
                     <Routes>

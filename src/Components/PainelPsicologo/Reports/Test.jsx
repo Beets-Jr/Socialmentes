@@ -12,7 +12,7 @@ function Test({ test }) {
     const time = new Date(test.timestamp).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }); // Formatar o horário
 
     const handleClick = () => {
-        navigate('/painel-adm/checklist', {state: {test: test}});
+        navigate('/painel-psi/checklist', {state: {test: test}});
     }
 
     const status = test.situation === 0 ? "Finalizado" : "Não Terminado";
