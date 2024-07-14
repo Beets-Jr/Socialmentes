@@ -15,7 +15,7 @@ export default function QuestoesList({
         /** Fix: passar corretamente o índice da categoria, talvez checando o selectedOption */
         const indiceDaCategoria = 0;
 
-        console.log(`Array: ${categoriasSelecionadas[nivel][0]}`);
+        console.log(`Array: ${categoriasSelecionadas}`);
         console.log(`Nível: ${nivel}`);
         console.log(`Índice da categoria: ${indiceDaCategoria}`);
         console.log(`Índice da questão: ${indiceQuestao}`);
