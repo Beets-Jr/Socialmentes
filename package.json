@@ -9,7 +9,8 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "seed": "node --experimental-modules src/Database/DevelopmentSeeds/userProfiles.mjs",
-    "openmobile": "node ./node_modules/openmobile/ip.js"
+    "openmobile": "node ./node_modules/openmobile/ip.js",
+    "test_service": "node --experimental-modules src/Services/Tests/exemplo_uso.mjs"
   },
   "dependencies": {
     "@emotion/cache": "^11.11.0",

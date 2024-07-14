@@ -5,6 +5,21 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
  * 
  * @param {*} testId - Id do teste
  */
+
+// Função recursiva para percorrer a estrutura de questions
+function extractValues(obj, extractedValues, currentPath = '') {
+    Object.keys(obj).forEach(key => {
+        const value = obj[key];
+        const newPath = currentPath ? `${currentPath}.${key}` : key;
+
+        if (typeof value === 'object' && value !== null) {
+            extractValues(value, newPath);
+        } else {
+            extractedValues[newPath] = value;
+        }
+    });
+}
+
 export async function getTestById(testId) {
     const testDoc = doc(db, "tests", testId);
 
@@ -16,19 +31,7 @@ export async function getTestById(testId) {
             const questionsData = data.questions;
             const extractedValues = {};
 
-            // Função recursiva para percorrer a estrutura de questions
-            function extractValues(obj, currentPath = '') {
-                Object.keys(obj).forEach(key => {
-                    const value = obj[key];
-                    const newPath = currentPath ? `${currentPath}.${key}` : key;
-
-                    if (typeof value === 'object' && value !== null) {
-                        extractValues(value, newPath);
-                    } else {
-                        extractedValues[newPath] = value;
-                    }
-                });
-            }
+            
 
             // Percorrer a estrutura de questions
             extractValues(questionsData);
