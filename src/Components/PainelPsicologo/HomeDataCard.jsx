@@ -43,10 +43,13 @@ const HomeDataCard = ({ title, data, type }) => {
           sx={{
             fontFamily: 'var(--font-text)', 
             color: 'var(--color-gray-4)',
-            textAlign: 'center'
+            textAlign: 'center', /* Perguntat se deixa com flex-start ou center */
+            overflow: 'hidden', // esconder o texto
+            whiteSpace: 'nowrap', // não quebrar a linha
+            textOverflow: 'ellipsis',// três pontinhos
           }}
         >
-          {item.children.name} | {calcularIdade(item.children.dateBirth)} | Não tem timestamp 
+          {item.children.name} | {calcularIdade(item.children.dateBirth)} | Não tem timestamp  
         </Typography>
       );
     } else {
@@ -55,10 +58,13 @@ const HomeDataCard = ({ title, data, type }) => {
           sx={{
             fontFamily: 'var(--font-text)', 
             color: 'var(--color-gray-4)',
-            textAlign: 'center'
+            textAlign: 'center', /* Perguntat se deixa com flex-start ou center */
+            overflow: 'hidden', // esconder o texto
+            whiteSpace: 'nowrap', // não quebrar a linha
+            textOverflow: 'ellipsis',// três pontinhos
           }}
         >
-          {item.id} | {item.testType} | {item.patientName} | {formatTimestamp(item.timestamp)} 
+          {item.id} | {item.testType.charAt(0).toUpperCase() + item.testType.slice(1)} | {item.patientName} | {formatTimestamp(item.timestamp)} 
         </Typography>
       );
     }
@@ -75,13 +81,14 @@ const HomeDataCard = ({ title, data, type }) => {
         sx={{
           border: '2px solid #e0e0e0', 
           borderRadius: '10px', 
-          height: '30vh', 
+          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
           display: 'flex', 
           flexDirection: 'column', 
           justifyContent: 'space-between',
           padding: '10px', 
           width: '100%',
-          height: '420px',
+          height:'100%',
+          minHeight: '350px',
         }}
       >
         <Typography 
@@ -91,20 +98,20 @@ const HomeDataCard = ({ title, data, type }) => {
             color: 'var(--color-gray-5)',
             display: 'flex',
             justifyContent: 'center', 
-            marginTop: '5px', 
-            fontSize: { xs: '20px', sm: '24px', md: '28px' },
+            marginTop: '15px', 
+            fontSize: { xs: '18px', sm: '22px', md: '26px' },
             fontWeight: '400',
             textAlign: 'center'
           }} 
         >
           Últimos {title}
         </Typography>
-        <Divider variant="middle" sx={{ backgroundColor: 'var(--color-gray-5)', height: '2px' }} />
+        <Divider sx={{ backgroundColor: 'var(--color-gray-5)', height: '2px' }} />
         <Box >
           {data.map((item, index) => (
-            <Box key={index} sx={{ width: '100%', textAlign: 'center', my: '30px' }}>
+            <Box key={index} sx={{ width: '100%', my: '30px' }}>
               {renderItem(item)}
-              <Divider variant="middle" sx={{ backgroundColor: 'var(--color-gray-4)', height: '1px', marginY: 1 }} />
+              <Divider sx={{ backgroundColor: 'var(--color-gray-4)', height: '1px', marginY: 1 }} />
             </Box>
           ))}
         </Box>
