@@ -19,7 +19,7 @@ const initialValues = {
   kinship1: '', name1: '', cpf1: '', rg1: '', cell1: '', email1: '', birth1: '', kinship2: '', name2: '', cpf2: '', rg2: '', cell2: '', email2: '', birth2: '',
   school: '', seriesSchool: '', phoneSchool: '', mailSchool: '', responsibleSchool: '',
   externalAccompaniments: [{ professional: '', name: '', phone: '', email: '' }],
-  interventionTeams: [],
+  interventionTeams: [''],
 };
 
 const PatientRegistration = ({ patientId }) => {
@@ -128,7 +128,7 @@ const PatientRegistration = ({ patientId }) => {
 
           <ExternalAccompaniments values={values} setValues={setValues} handleArrayChange={handleArrayChange} error={error} />
 
-          <InterventionTeams values={values} setValues={setValues} handleChange={handleInterventionTeamsChange} error={error} setError={setError} />
+          <InterventionTeams values={values} setValues={setValues} handleChange={handleInterventionTeamsChange} error={error} />
 
         </Grid>
       </Box>
