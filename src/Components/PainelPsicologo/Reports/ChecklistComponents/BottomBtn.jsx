@@ -18,8 +18,13 @@ function BottomBtn() {
             display:'flex', 
             justifyContent:'flex-end', 
             //backgroundColor: 'transparent'
-            paddingRight: '2.5vw'
-            }} elevation={3}>
+            paddingRight: '2.5vw',
+            //alignItems: { xs: 'center', sm: 'flex-end' },
+            flexDirection: { xs: 'column', sm: 'row' },
+            paddingLeft:'15%'
+            }} 
+        elevation={3}
+        >
         <Button 
             variant="contained" 
             disableElevation 
