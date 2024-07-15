@@ -28,12 +28,10 @@ function ChecklistAnswer({ test }) {
               return resposta !== undefined;
             });
 
-            console.log(`Categoria: ${categoria.nome}, Perguntas com resposta: ${perguntasComResposta.length}`);
-
             if (perguntasComResposta.length > 0) {
               return (
                 <Box key={`categoria-${categoria.id}`}>
-                  <Typography variant="h5" sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-4)' }}>
+                  <Typography variant="h5" sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-4)', marginTop:'1.5vh', marginBottom:'1.5vh' }}>
                     {`${categoria.nome} - Nível ${nivel.nivel}`}
                   </Typography>
                   <Box>

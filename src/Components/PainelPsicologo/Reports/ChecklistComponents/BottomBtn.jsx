@@ -6,7 +6,7 @@ function BottomBtn() {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate("/");
+        navigate("/"); {/* Colocar o path correto para navegação */}
     };
 
 

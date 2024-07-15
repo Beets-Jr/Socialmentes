@@ -48,7 +48,7 @@ function Checklist() {
             </Box>
         ) : (
             <div className={styles.checklistContainer} style={{ position: 'relative' }}>
-                <Typography variant="h4" className={styles.checklistTitle}>
+                <Typography variant="h4" sx={{fontFamily:'var(--font-sub)', color:'var(--color-blue-4)'}}>
                     Checklist Currículo Modelo de Intervenção Precoce Finalizado
                     (Somente Leitura)
                 </Typography>

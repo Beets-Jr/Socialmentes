@@ -1,5 +1,8 @@
 .checklistContainer {
     margin: 3vw 3vw;
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
 }
 
 .menuContainer {
@@ -7,15 +10,12 @@
     justify-content: space-between;
     flex-direction: row;
     align-items: center;
+    margin-top: 1vh;
+
 }
 
 .stackContainer {
     display: flex;
-}
-
-.checklistTitle {
-    font-family: var(--font-sub) !important;
-    color: var(--color-blue-4) !important;
 }
 
 @media (max-width: 600px) {
