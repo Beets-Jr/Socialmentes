@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Link } from 'react-router-dom'
 
-import { AppBar, Toolbar, Typography, Box, IconButton, Avatar, useMediaQuery } from '@mui/material'
+import { AppBar, Toolbar, Typography, Box, IconButton, Avatar, useMediaQuery, styled } from '@mui/material'
 import { PiUserCircleFill } from 'react-icons/pi'
 import LogoutIcon from './Icons/LogoutIcon'
 import { AppContext } from "../../../Contexts/AppContext"
@@ -9,49 +9,31 @@ import { useContext } from "react"
 import { useAuth } from '../../../Contexts/AuthContext'
 
 import styles from './Styles/Header.module.css'
-import styled, {css} from 'styled-components'
-
-// Variáveis para criação de um título e um texto que sejam responsivos de acordo com o tamanho da tela
-const breakpoints = {
-  xs: '(max-width: 600px)',
-  sm: '(min-width: 600px) and (max-width: 960px)',
-  md: '(min-width: 960px) and (max-width: 1280px)',
-  lg: '(min-width: 1280px)'
-}
-
-const fontSizeStyles = {
-  title: css`
-    @media ${breakpoints.xs} {
-      font-size: 1.5rem;
-    }
-    @media ${breakpoints.sm} {
-      font-size: 2rem;
-    }
-    @media ${breakpoints.md} {
-      font-size: 2.5rem;
-    }
-    @media ${breakpoints.lg} {
-      font-size: 3rem;
-    }
-  `,
-  text: css`
-    @media ${breakpoints.xs} {
-    font-size: 0.75rem;
-    }
-    @media ${breakpoints.sm} {
-      font-size: 1rem;
-    }
-  `
-}
 
 // Componente que torna o texto responsivo de acordo com o tamanho da tela
-const Title = styled(Typography)`
-  ${fontSizeStyles.title}
-`
+const Title = styled(Typography)((props) => ({
+  [props.theme.breakpoints.up('xs')]: {
+    fontSize: '1.5rem'
+  },
+  [props.theme.breakpoints.up('sm')]: {
+    fontSize: '2rem'
+  },
+  [props.theme.breakpoints.up('md')]: {
+    fontSize: '2.5rem'
+  },
+  [props.theme.breakpoints.up('lg')]: {
+    fontSize: '3rem'
+  }
+}));
 
-const Text = styled(Typography)`
-  ${fontSizeStyles.text}
-`
+const Text = styled(Typography)((props) => ({
+  [props.theme.breakpoints.up('xs')]: {
+    fontSize: '0.75rem'
+  },
+  [props.theme.breakpoints.up('sm')]: {
+    fontSize: '1rem'
+  }
+}))
 
 // Função que pega as iniciais do nome do usuário para gerar o avatar com as suas letras
 function stringAvatar(name){
@@ -80,8 +62,7 @@ function treatName(name) {
 function Header() {
 
   const isMobile = useMediaQuery('(max-width: 600px)');
-  const showName = useMediaQuery('(min-width: 430px)');
-  
+
   const {title, subtitle} = useContext(AppContext);
 
   // Recupera o usuário que está logado
@@ -119,13 +100,13 @@ function Header() {
             {/* Caixa de texto para quando o usuário está logado */}
             <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
 
-              { showName && <Text
+              <Text
                 className={styles.nameContainer}
                 variant='subtitle2'
                 component='div'
                 sx={{fontFamily: 'var(--font-title)', color: 'var(--color-blue-2)'}}>
               { isMobile ? treatName(user.fullName) : user.fullName }
-              </Text> }
+              </Text>
 
               <Text
                 variant='subtitle2'

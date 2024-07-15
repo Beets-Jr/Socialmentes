@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { Box, CircularProgress, useMediaQuery } from "@mui/material";
 
@@ -14,6 +15,7 @@ import styles from './Patients.module.css';
 function Patients() {
 
     const {setValue} = useContext(AppContext);
+    const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(true);
 
     const [patients, setPatients] = useState([]);
@@ -61,6 +63,10 @@ function Patients() {
         }
     };
 
+    const onAdd = () => {
+        navigate('novo-paciente');
+    };
+
     return (
         <Box className={styles.container_patients}>
 
@@ -75,7 +81,7 @@ function Patients() {
                         data={patients}
                         getValue={(row) => row.children.name}
                         setFilteredData={setFilteredPatients}
-                        onAdd={ () => console.log('click!') }
+                        onAdd={ () => onAdd() }
                         isMobile={isMobile}
                     />
                     <Box mt={4}>
@@ -95,7 +101,7 @@ function Patients() {
                                 }
                             ]}
                             body={filteredPatients}
-                            onAdd={ () => console.log('click!') }
+                            onAdd={ () => onAdd() }
                             actions={[
                                 {
                                     func: (id) => console.log(`eye ${id}`),
