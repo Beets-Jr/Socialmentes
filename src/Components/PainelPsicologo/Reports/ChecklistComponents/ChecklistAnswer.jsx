@@ -34,21 +34,19 @@ function ChecklistAnswer({ test }) {
                   <Typography variant="h5" sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-4)', marginTop:'1.5vh', marginBottom:'1.5vh' }}>
                     {`${categoria.nome} - Nível ${nivel.nivel}`}
                   </Typography>
-                  <Box>
-                    {perguntasComResposta.map((p) => {
-                      const resposta = test.questions[`level_${nivel.nivel}`]?.[`category_${categoria.id}`]?.[`question_${p.id}`];
-                      const levelDescription = getLevelDescription(resposta);
-                      return (
-                        <ChecklistItem
-                          key={`pergunta-${p.id}`}
-                          index={p.id + 1}
-                          hability={p.pergunta}
-                          description={p.descricao}
-                          level={levelDescription}
-                        />
-                      );
-                    })}
-                  </Box>
+                  {perguntasComResposta.map((p) => {
+                    const resposta = test.questions[`level_${nivel.nivel}`]?.[`category_${categoria.id}`]?.[`question_${p.id}`];
+                    const levelDescription = getLevelDescription(resposta);
+                    return (
+                      <ChecklistItem
+                        key={`pergunta-${p.id}`}
+                        index={p.id + 1}
+                        hability={p.pergunta}
+                        description={p.descricao}
+                        level={levelDescription}
+                      />
+                    );
+                  })}
                 </Box>
               );
             }

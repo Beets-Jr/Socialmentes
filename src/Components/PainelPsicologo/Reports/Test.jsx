@@ -26,7 +26,7 @@ function Test({ test }) {
                 onClick={handleClick} // Evento para abrir a página de checklist do teste
                 sx={{margin: '5px auto', width:'100%'}}
             >
-                {`${test.id} | Criado: ${date} às ${time} | Tipo: ${test.testType} |  ${status} | ${test.patientName}`}
+                {`${test.id} | Criado: ${date} às ${time} | Tipo: ${test.testType.charAt(0).toUpperCase() + test.testType.slice(1)} |  ${status} | ${test.patientName}`}
             </Button>
         </>
     )
