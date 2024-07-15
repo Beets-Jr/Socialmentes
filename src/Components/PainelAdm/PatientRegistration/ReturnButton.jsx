@@ -1,10 +1,12 @@
 import { Button } from '@mui/material'
 import React from 'react'
 import { useTheme } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 
 
 const ReturnButton = () => {
   const theme = useTheme();
+  const navigate = useNavigate();
 
   return (
     <Button
@@ -22,7 +24,7 @@ const ReturnButton = () => {
           width: '35%',
         },
       }}
-      variant="outlined" color="primary" type="button">Voltar</Button>
+      variant="outlined" color="primary" type="button" onClick={() => navigate('../pacientes')}>Voltar</Button>
   )
 }
 
