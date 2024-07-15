@@ -1,0 +1,26 @@
+.container {
+  width: 95%;
+  margin: 30px auto;
+  height: 65vh;
+  overflow-y: auto;
+}
+
+.buttons {
+  display: flex;
+  width: 95%;
+  margin: 0 auto;
+  justify-content: space-between;
+  align-items: center;
+  height: 10vh;
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    height: 65vh;
+    width: 90%;
+  }
+
+  .buttons {
+    width: 90%;
+  }
+}
