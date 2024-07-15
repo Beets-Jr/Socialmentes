@@ -1,4 +1,4 @@
-.container_patients {
+.container_registrations {
     flex: 1;
     padding: 36px 94px 100px 51px;
 }
@@ -9,4 +9,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+@media (max-width: 800px) {
+    .container_registrations {
+        flex: 1;
+        padding: 36px 10px 100px 10px;
+    }
 }

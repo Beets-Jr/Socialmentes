@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 
-import { Box, CircularProgress, StyledEngineProvider, ThemeProvider } from "@mui/material";
+import { Box, CircularProgress, StyledEngineProvider, ThemeProvider, useMediaQuery } from "@mui/material";
 import { CacheProvider } from "@emotion/react";
 import createCache from '@emotion/cache';
 
@@ -10,8 +10,8 @@ import { theme } from "../../../Components/PainelAdm/Registrations/theme";
 import { VisibilityIcon } from "../../../Assets/Icons/VisibilityIcon";
 import { EditIcon } from "../../../Assets/Icons/EditIcon";
 import AddRegister from "../../../Components/PainelAdm/Registrations/AddRegister";
-import SearchField from "../../../Components/ElementsInterface/SearchField";
-import DataTable from "../../../Components/ElementsInterface/DataTable";
+import SearchField from "../../../Components/ElementsInterface/SearchField/SearchField";
+import DataTable from "../../../Components/ElementsInterface/DataTable/DataTable";
 
 import styles from './Registrations.module.css';
 
@@ -28,6 +28,8 @@ function Registrations() {
     const [registrations, setRegistrations] = useState([]); // a própria lista de registros
     const [filteredRegistrations, setFilteredRegistrations] = useState([]); // a lista de registros filtrada
     const [openDialog, setOpenDialog] = useState(false); // controla a exibição do Dialog
+
+    const isMobile = useMediaQuery('(max-width:700px)');
 
     // atualiza a lista de registros
     useEffect(() => {
@@ -51,7 +53,7 @@ function Registrations() {
             <CacheProvider value={cache}>
                 <StyledEngineProvider injectFirst >
 
-                    <Box className={styles.container_patients}>
+                    <Box className={styles.container_registrations}>
 
                         {isLoading ? (
                             <Box className={styles.container_empty}>
@@ -64,12 +66,13 @@ function Registrations() {
                                     data={registrations}
                                     getValue={(row) => row.fullName}
                                     setFilteredData={setFilteredRegistrations}
+                                    onAdd={() => setOpenDialog(true)}
+                                    isMobile={isMobile}
                                 />
                                 <Box mt={4}>
                                     <DataTable
                                         md={[4, 2, 2, 2, 2]}
                                         sm={[3, 2, 2, 2, 3]}
-                                        xs={[3, 2, 1.5, 1.5, 4]}
                                         head={['Nome', 'CPF', 'Telefone', 'Email']}
                                         columns={[
                                             {
@@ -99,6 +102,7 @@ function Registrations() {
                                             },
                                         ]}
                                         emptyText='Nenhum paciente cadastrado'
+                                        isMobile={isMobile}
                                     />
                                 </Box>
                             </>
