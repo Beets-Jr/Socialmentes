@@ -73,7 +73,7 @@ async function updateQuestionStatus(testId, nivel, indiceCategoria, indiceQuesta
             [questionPath]: newValue
         });
         console.log(`Questão ${indiceQuestao} atualizada com sucesso!`);
-        return ;
+        return newValue;
     } catch (error) {
         console.error("Erro ao atualizar a questão:", error);
     }

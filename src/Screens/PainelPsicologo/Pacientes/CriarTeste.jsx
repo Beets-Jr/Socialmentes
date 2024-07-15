@@ -5,46 +5,51 @@ import NivelSelector from "../../../Components/PainelPsicologo/Pacientes/CriarTe
 import CompetenciaSelector from "../../../Components/PainelPsicologo/Pacientes/CriarTeste/CompetenciaSelector";
 import QuestoesList from "../../../Components/PainelPsicologo/Pacientes/CriarTeste/QuestoesList";
 import FixedButtons from "../../../Components/PainelPsicologo/Pacientes/CriarTeste/FixedButtons";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { getCategoriesByLevel } from "../../../Services/Tests/Category/GetCategorys.mjs";
 
 export default function CriarTeste() {
+    const [testId, setTestId] = useState('');
     const [nivel, setNivel] = useState(1);
     const [activeButtonIndex, setActiveButtonIndex] = useState(0);
     const [selectedOption, setSelectedOption] = useState("");
     const [categorias, setCategorias] = useState([]);
     const [categoriasSelecionadas, setCategoriasSelecionadas] = useState({});
-    const [testInfo, setTestInfo] = useState({});
     const [questionValues, setQuestionValues] = useState('');
 
     const location = useLocation();
     const { testDetails } = location.state || {};
 
+    useEffect(() => {
+        setTestId(testDetails.id);
+    }, []);
+
     function getCategoriasByIndices(categorias, indices) {
         return indices.map(index => categorias[index]);
     }
 
-    useEffect(() => {
-        console.log('Teste: ', testDetails);
-    
-        const indicesCategorias = getCategoriesByLevel(testDetails, nivel);
-        const categoriasJaSelecionadas = getCategoriasByIndices(categorias, indicesCategorias);
-        console.log('Categorias selecionadas: ', categoriasJaSelecionadas );
-        
-        if (categoriasJaSelecionadas) {
-            const updatedCategoriasSelecionadas = {
-                ...categoriasSelecionadas,
-                [nivel]: [...(categoriasSelecionadas[nivel] || []), ...categoriasJaSelecionadas],
-            };
-            setCategoriasSelecionadas(updatedCategoriasSelecionadas);
+    function updateCategoriasSelecionadas(nivel, categoriasJaSelecionadas) {
+        if (categoriasJaSelecionadas && categoriasJaSelecionadas.length > 0) {
+            setCategoriasSelecionadas(prevState => ({
+                ...prevState,
+                [nivel]: categoriasJaSelecionadas
+            }));
         }
-    }, [categorias, nivel]);
-    
-    
+    }
+
+    useEffect(() => {
+        if (testDetails) {
+            const indicesCategorias = getCategoriesByLevel(testDetails, nivel);
+            const categoriasJaSelecionadas = getCategoriasByIndices(categorias, indicesCategorias);
+            updateCategoriasSelecionadas(nivel, categoriasJaSelecionadas);
+            console.log(testDetails);
+        }
+    }, [testDetails, categorias, nivel]);
+
     useEffect(() => {
         if (nivel > 0) {
-            const categorias = getCategoriaNomesPorNivel(nivel);
-            setCategorias(categorias);
+            const fetchedCategorias = getCategoriaNomesPorNivel(nivel);
+            setCategorias(fetchedCategorias);
         }
     }, [nivel]);
 
@@ -69,11 +74,7 @@ export default function CriarTeste() {
                 return;
             }
 
-            const updatedCategoriasSelecionadas = {
-                ...categoriasSelecionadas,
-                [nivel]: [...(categoriasSelecionadas[nivel] || []), selectedOption],
-            };
-            setCategoriasSelecionadas(updatedCategoriasSelecionadas);
+            updateCategoriasSelecionadas(nivel, [selectedOption]);
         }
     };
 
@@ -101,6 +102,7 @@ export default function CriarTeste() {
                     <QuestoesList
                         nivel={nivel}
                         categoriasSelecionadas={categoriasSelecionadas}
+                        testId={testId}
                     />
                 </Box>
                 <FixedButtons

@@ -7,7 +7,8 @@ import { updateQuestionStatus } from "../../../../Database/Utils/testsFunctions.
 
 export default function QuestoesList({
     nivel,
-    categoriasSelecionadas
+    categoriasSelecionadas,
+    testId
 }) {
     const [selectedValues, setSelectedValues] = useState([]);
 
@@ -21,10 +22,14 @@ export default function QuestoesList({
         console.log(`Índice da questão: ${indiceQuestao}`);
         console.log(`Valor da questão: ${value}`);
 
-        updateQuestionStatus(testId, nivel, indiceDaCategoria, indiceQuestao, value);
+        const newValue = updateQuestionStatus(testId, nivel, indiceDaCategoria, indiceQuestao, value);
         /** Fix: configurar o selectedValues para inicialmente ter as informações do bd*/
 
     };
+
+    useEffect(() => {
+        /** setar os selected values de acordo com o bd */
+    }, []);
 
     useEffect(() => {
         console.log(`Valores selecionados: `, selectedValues);
@@ -44,7 +49,7 @@ export default function QuestoesList({
                                 nivel={parseInt(key)}
                                 categoriaSelecionada={categoria}
                                 selectedValues={selectedValues}
-                                onSelectedValuesChange={(index, value) => handleSelectedValuesChange('E3ssWQUAx0iRiHr7T4ei', nivel, index, value)}
+                                onSelectedValuesChange={(index, value) => handleSelectedValuesChange(testId, nivel, 0, index, value)}
                             />
                         </div>
                     ))}

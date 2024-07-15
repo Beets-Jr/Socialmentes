@@ -61,3 +61,37 @@ import { getTestsFromPatient } from './GetTestsFromPatient.mjs';
     console.error('Erro ao obter categorias pelo nível:', error);
   }
 })();
+
+// const vetor = {
+//   question_4: 3,
+//   question_5: 1,
+//   question_2: 1,
+//   question_1: 3,
+//   question_9: 2,
+//   question_8: 0,
+//   question_6: 0,
+//   question_3: 3,
+//   question_7: 2,
+//   question_0: 2
+// };
+
+// const length = 15; // Especifique o comprimento desejado
+
+// function preencherEOrdenarQuestoes(vetor, length) {
+//   const sortedResults = [];
+
+//   for (let i = 0; i < length; i++) {
+//       const questionKey = `question_${i}`;
+//       if (resultados.hasOwnProperty(questionKey)) {
+//           sortedResults.push(resultados[questionKey]);
+//       } else {
+//           sortedResults.push(null);
+//       }
+//   }
+
+//   return sortedResults;
+// }
+
+// const questoesOrdenadasEPreenchidas = preencherEOrdenarQuestoes(vetor, length);
+
+// console.log(questoesOrdenadasEPreenchidas);

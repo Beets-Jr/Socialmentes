@@ -18,6 +18,7 @@ export default function GridTestes({ testsInfo }) {
     };
 
     const goToTest = (testId, testDetails) => {
+        localStorage.setItem('testId', testId);
         navigate(`/painel-adm/pacientes/teste/${testId}`, { state: { testDetails } });
     };
 
