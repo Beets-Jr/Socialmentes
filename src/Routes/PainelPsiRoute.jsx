@@ -6,30 +6,29 @@ import DialogConfirmation from "../Components/ElementsInterface/DialogConfirmati
 import PermissionDeniedMessage from "../Components/ElementsInterface/PermissionDeniedMessage";
 import Sidebar from "../Components/PainelAdm/Sidebar/Sidebar";
 import Header from "../Components/PainelAdm/Header/Header";
-import Registrations from "../Screens/PainelAdm/Registrations/Registrations";
-import Positions from "../Screens/PainelAdm/Positions/Positions";
 import styles from "./PainelAdm.module.css";
 
-function PainelAdm() {
+function PainelPsi() {
     const { open } = useContext(AppContext);
     const width = open ? "80vw" : "95vw";
     const { user } = useAuth();
 
     // Verifica se user existe e se a propriedade position existe antes de acessá-la
-    const isAdmin = user && user.position && user.position === "Administrador";
+    const isPsi = user && user.position && user.position === "Psicólogo";
 
     return (
         <div style={{ display: "flex" }}>
             <Sidebar />
             <div className={styles.background} style={{ display: "block", width: width }}>
                 <Header className={styles.noBackground}/>
-                {isAdmin ? (
+                { isPsi ? (
                     <Routes>
-                        <Route path="/" element={<Navigate to="/painel-adm/pacientes" />} />
+                        <Route path="/" element={<Navigate to="/painel-psi/home" />} />
+                        <Route path="home" element={<DialogConfirmation />} />
                         <Route path="pacientes" element={<DialogConfirmation />} />
-                        <Route path="cargos" element={<Positions />} />
-                        <Route path="cadastros" element={<Registrations />} />
-                        <Route path="opcoes" element={<DialogConfirmation />} />
+                        <Route path="relatorios" element={<DialogConfirmation />} />
+                        <Route path="agenda" element={<DialogConfirmation />} />
+                        <Route path="instrumentos" element={<DialogConfirmation />} />
                     </Routes>
                 ) : (
                     <Routes>
@@ -42,4 +41,4 @@ function PainelAdm() {
 }
 
 
-export default PainelAdm;
+export default PainelPsi;

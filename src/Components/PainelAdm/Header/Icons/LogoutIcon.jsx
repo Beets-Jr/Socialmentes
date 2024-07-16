@@ -7,12 +7,12 @@ function LogoutIcon(){
         <path d="M4.40118 14H16.9912C17.2564 14 17.5107 13.8946 17.6983 13.7071C17.8858 13.5196 17.9912 13.2652 17.9912 13C17.9912 12.7348 17.8858 12.4804 17.6983 12.2929C17.5107 12.1054 17.2564 12 16.9912 12H4.40118L5.70118 10.71C5.88948 10.5217 5.99527 10.2663 5.99527 10C5.99527 9.7337 5.88948 9.47831 5.70118 9.29C5.51287 9.1017 5.25748 8.99591 4.99118 8.99591C4.72487 8.99591 4.46948 9.1017 4.28118 9.29L1.28118 12.29C1.10055 12.4823 1 12.7362 1 13C1 13.2638 1.10055 13.5177 1.28118 13.71L4.28118 16.71C4.47266 16.8922 4.72686 16.9938 4.99118 16.9938C5.25549 16.9938 5.50969 16.8922 5.70118 16.71C5.88853 16.5212 5.99366 16.266 5.99366 16C5.99366 15.734 5.88853 15.4788 5.70118 15.29L4.40118 14Z" stroke="#7DB9F0"/>
         <defs>
         <linearGradient id="paint0_linear_510_1956" x1="12.9956" y1="1" x2="12.9956" y2="25" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#7DB9F0"/>
-        <stop offset="1" stop-color="#CEE7FF"/>
+        <stop stopColor="#7DB9F0"/>
+        <stop offset="1" stopColor="#CEE7FF"/>
         </linearGradient>
         <linearGradient id="paint1_linear_510_1956" x1="12.9956" y1="1" x2="12.9956" y2="25" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#7DB9F0"/>
-        <stop offset="1" stop-color="#CEE7FF"/>
+        <stop stopColor="#7DB9F0"/>
+        <stop offset="1" stopColor="#CEE7FF"/>
         </linearGradient>
         </defs>
         </svg>
