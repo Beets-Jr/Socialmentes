@@ -49,7 +49,7 @@ export default function QuestoesList({
                                 nivel={parseInt(key)}
                                 categoriaSelecionada={categoria}
                                 selectedValues={selectedValues}
-                                onSelectedValuesChange={(index, value) => handleSelectedValuesChange(testId, nivel, 0, index, value)}
+                                onSelectedValuesChange={(index, value) => handleSelectedValuesChange(testId, nivel, index, value)}
                             />
                         </div>
                     ))}

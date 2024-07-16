@@ -1,5 +1,5 @@
 import { db } from "../FirebaseConfig.mjs";
-import { doc, getDoc, updateDoc, runTransaction, getDocs, collection, query, where } from "firebase/firestore";
+import { doc, getDoc, updateDoc, runTransaction, getDocs, collection, query, where, setDoc } from "firebase/firestore";
 
 // Função recursiva para percorrer a estrutura de questions
 function extractValues(obj, extractedValues, currentPath = '') {
@@ -62,21 +62,56 @@ async function getTestById(testId) {
  * @param {string} questionKey - Chave da questão
  * @param {string} newValue - Novo valor para a questão.
  */
-async function updateQuestionStatus(testId, nivel, indiceCategoria, indiceQuestao, newValue) {
-    const testDoc = doc(db, "tests", testId);
+async function updateQuestionStatus(serialId, nivel, indiceCategoria, indiceQuestao, newValue) {
     const questionPath = `questions.level_${nivel}.category_${indiceCategoria}.question_${indiceQuestao}`;
+    const testsRef = collection(db, 'tests');
+    const testQuery = query(testsRef, where('id', '==', parseInt(serialId)));
 
     try {
-        await updateDoc(testDoc, {
-            [questionPath]: newValue
+        const querySnapshot = await getDocs(testQuery);
+
+        if (querySnapshot.empty) {
+            console.warn(`Documento com serialId ${serialId} não encontrado.`);
+            return null;
+        }
+
+        const testId = querySnapshot.docs[0].id;
+        const testRef = doc(db, 'tests', testId);
+
+        await runTransaction(db, async (transaction) => {
+            const testDoc = await transaction.get(testRef);
+
+            if (!testDoc.exists()) {
+                console.warn(`Documento ${testId} não encontrado.`);
+                return;
+            }
+
+            // Constrói o caminho completo para a questão
+            const questionFullPath = `questions.level_${nivel}.category_${indiceCategoria}.question_${indiceQuestao}`;
+
+            // Atualiza o valor da questão no documento existente
+            transaction.update(testRef, {
+                [questionFullPath]: newValue
+            });
         });
+
         console.log(`Questão ${indiceQuestao} atualizada com sucesso!`);
         return newValue;
     } catch (error) {
         console.error("Erro ao atualizar a questão:", error);
+        throw error; // Propaga o erro para que seja tratado no chamador da função
     }
 }
 
+
+
+/**
+ * 
+ * @param {string} serialId - ID serial do teste
+ * @param {number} level - Nível 
+ * @param {number} categoryIndex - Índice da categoria
+ * @returns 
+ */
 async function addCategoryToLevel(serialId, level, categoryIndex) {
     const testsRef = collection(db, 'tests');
     const testQuery = query(testsRef, where('id', '==', parseInt(serialId)));
