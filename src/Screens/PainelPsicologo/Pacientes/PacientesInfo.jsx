@@ -20,7 +20,7 @@ export default function PacientesInfo() {
     async function getTests() {
         const patientTests = await getTestsFromPatient(patient.id);
         setPatientTests(patientTests);
-        console.log(patientTests);
+        console.log("Patient Tests: ", patientTests);
     }
 
     useEffect(() => {
@@ -41,9 +41,6 @@ export default function PacientesInfo() {
             <div style={{ marginTop: "5vh", marginBottom: "5vh" }}>
                 <Botao icon={iconAddToList} text="Criar Teste" route="/painel-adm/pacientes/criar-teste" />
             </div>
-            {
-                console.log(patient)
-            }
         </Box>
     );
 }

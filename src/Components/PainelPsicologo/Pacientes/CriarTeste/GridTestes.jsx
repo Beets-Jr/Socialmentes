@@ -19,7 +19,7 @@ export default function GridTestes({ testsInfo }) {
     };
 
     const goToTest = (testSerialId, testDetails) => {
-        localStorage.setItem('testSerialId', testSerialId);
+        localStorage.setItem('testId', testSerialId);
         navigate(`/painel-adm/pacientes/teste/${testSerialId}`, { state: { testDetails: testDetails, testDocId: testDocId } });
     };
 
@@ -37,7 +37,8 @@ export default function GridTestes({ testsInfo }) {
 
         testsInfo.forEach((test) => {
             fetchTestInfo(test.id);
-            setTestDocId(test.docId);
+            console.log("Test: ", test.id);
+            setTestDocId(test.id);
         });
     }, [testsInfo]);
 
@@ -60,7 +61,7 @@ export default function GridTestes({ testsInfo }) {
                             md={4}
                             lg={3.75}
                             sx={{ display: "flex" }}
-                            onClick={() => goToTest(test.serialId, test)}
+                            onClick={() => goToTest(test.id, test)}
                             className={styles.gridItem}
                             key={index}
                         >

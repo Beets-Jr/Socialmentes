@@ -1,0 +1,51 @@
+questions: {
+    level_1: {
+        category_0: {
+
+        },
+    },
+    level_2: {
+        category_0: {
+
+        },
+    }
+}
+
+eu quero que, ao inserir a category_1 no level 1, e a category_2 no level 3, fique assim:
+
+questions: {
+    level_1: {
+        category_0: {
+
+        },
+        category_1: {
+
+        },
+    },
+    level_2: {
+        category_0: {
+
+        },
+    },
+    level_3: {
+        category_2: {
+
+        }
+    }
+}
+
+com a função que me forneceu, tenho isto ao tentar inserir a category_1:
+
+questions: {
+    level_1: {
+        category_0: {
+
+        },
+    },
+    level_2: {
+        category_0: {
+
+        },
+    }
+},
+questions.level_1.category_1

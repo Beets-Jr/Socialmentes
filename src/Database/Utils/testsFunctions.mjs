@@ -1,5 +1,5 @@
 import { db } from "../FirebaseConfig.mjs";
-import { doc, getDoc, updateDoc, runTransaction } from "firebase/firestore";
+import { doc, getDoc, updateDoc, runTransaction, getDocs, collection, query, where } from "firebase/firestore";
 
 // Função recursiva para percorrer a estrutura de questions
 function extractValues(obj, extractedValues, currentPath = '') {
@@ -77,11 +77,21 @@ async function updateQuestionStatus(testId, nivel, indiceCategoria, indiceQuesta
     }
 }
 
-async function addCategoryToLevel(testId, level, categoryIndex) {
-    const levelField = `questions.level_${level}.category_${categoryIndex}`;
-    const testRef = doc(db, 'tests', testId);
+async function addCategoryToLevel(serialId, level, categoryIndex) {
+    const testsRef = collection(db, 'tests');
+    const testQuery = query(testsRef, where('id', '==', parseInt(serialId)));
 
     try {
+        const querySnapshot = await getDocs(testQuery);
+
+        if (querySnapshot.empty) {
+            console.warn(`Documento com serialId ${serialId} não encontrado.`);
+            return;
+        }
+
+        const testId = querySnapshot.docs[0].id;
+        const testRef = doc(db, 'tests', testId);
+
         await runTransaction(db, async (transaction) => {
             const testDoc = await transaction.get(testRef);
 
@@ -90,26 +100,51 @@ async function addCategoryToLevel(testId, level, categoryIndex) {
                 const newDocData = {
                     questions: {
                         [`level_${level}`]: {
-                            [levelField]: {}
+                            [`category_${categoryIndex}`]: {}
                         }
                     }
                 };
                 transaction.set(testRef, newDocData);
             } else {
-                // Se o documento existir, atualiza o nível e a categoria
+                // Se o documento existir, verifica e atualiza o nível e a categoria
                 const testData = testDoc.data();
 
-                if (!testData.questions[`level_${level}`]) {
-                    // Se o nível não existir, cria o nível com a nova categoria
-                    transaction.update(testRef, {
-                        [`questions.level_${level}.${levelField}`]: {}
-                    });
+                let updatedData = {};
+                const levelField = `level_${level}.category_${categoryIndex}`;
+
+                if (!testData.questions) {
+                    // Se não houver nenhum nível definido, cria o primeiro nível com a categoria
+                    updatedData = {
+                        questions: {
+                            [`level_${level}`]: {
+                                [`category_${categoryIndex}`]: {}
+                            }
+                        }
+                    };
+                } else if (!testData.questions[`level_${level}`]) {
+                    // Se o nível específico não existir, cria o nível com a categoria
+                    updatedData = {
+                        questions: {
+                            ...testData.questions,
+                            [`level_${level}`]: {
+                                [`category_${categoryIndex}`]: {}
+                            }
+                        }
+                    };
                 } else {
                     // Se o nível existir, apenas adiciona a nova categoria
-                    transaction.update(testRef, {
-                        [`questions.level_${level}.${levelField}`]: {}
-                    });
+                    updatedData = {
+                        questions: {
+                            ...testData.questions,
+                            [`level_${level}`]: {
+                                ...testData.questions[`level_${level}`],
+                                [`category_${categoryIndex}`]: {}
+                            }
+                        }
+                    };
                 }
+
+                transaction.update(testRef, updatedData);
             }
         });
 
