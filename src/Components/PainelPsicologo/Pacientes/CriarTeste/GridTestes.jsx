@@ -8,6 +8,7 @@ import { getByTestSerialId } from "../../../../Services/Tests/GetByTestSerialId.
 export default function GridTestes({ testsInfo }) {
     const navigate = useNavigate();
     const [testInfo, setTestInfo] = useState([]);
+    const [testDocId, setTestDocId] = useState("");
 
     const formatDate = (isoString) => {
         const date = new Date(isoString.trim());
@@ -17,28 +18,26 @@ export default function GridTestes({ testsInfo }) {
         return `${day}/${month}/${year}`;
     };
 
-    const goToTest = (testId, testDetails) => {
-        localStorage.setItem('testId', testId);
-        navigate(`/painel-adm/pacientes/teste/${testId}`, { state: { testDetails } });
+    const goToTest = (testSerialId, testDetails) => {
+        localStorage.setItem('testSerialId', testSerialId);
+        navigate(`/painel-adm/pacientes/teste/${testSerialId}`, { state: { testDetails: testDetails, testDocId: testDocId } });
     };
 
     useEffect(() => {
-        const fetchTestInfo = async (testId) => {
+        const fetchTestInfo = async (testSerialId) => {
             try {
-                const test = await getByTestSerialId(testId);
+                const test = await getByTestSerialId(testSerialId);
                 if (test) {
-                    console.log('Dados do teste:', test);
                     setTestInfo(testInfo => [...testInfo, test]);
-                } else {
-                    console.error('O teste não foi encontrado com o ID fornecido:', testId);
                 }
             } catch (error) {
-                console.error('Erro ao obter teste pelo ID:', error);
+                console.error('Erro ao obter teste pelo ID: ', testSerialId, error);
             }
         };
 
         testsInfo.forEach((test) => {
             fetchTestInfo(test.id);
+            setTestDocId(test.docId);
         });
     }, [testsInfo]);
 
@@ -61,7 +60,7 @@ export default function GridTestes({ testsInfo }) {
                             md={4}
                             lg={3.75}
                             sx={{ display: "flex" }}
-                            onClick={() => goToTest(test.id, test)}
+                            onClick={() => goToTest(test.serialId, test)}
                             className={styles.gridItem}
                             key={index}
                         >

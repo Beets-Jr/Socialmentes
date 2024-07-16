@@ -1,5 +1,5 @@
 import { db } from "../FirebaseConfig.mjs";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc, runTransaction } from "firebase/firestore";
 
 // Função recursiva para percorrer a estrutura de questions
 function extractValues(obj, extractedValues, currentPath = '') {
@@ -29,8 +29,6 @@ async function getTestById(testId) {
             const data = docSnap.data();
             const questionsData = data.questions;
             const extractedValues = {};
-
-            
 
             // Percorrer a estrutura de questions
             extractValues(questionsData);
@@ -79,4 +77,47 @@ async function updateQuestionStatus(testId, nivel, indiceCategoria, indiceQuesta
     }
 }
 
-export { getTestById, updateQuestionStatus }
+async function addCategoryToLevel(testId, level, categoryIndex) {
+    const levelField = `questions.level_${level}.category_${categoryIndex}`;
+    const testRef = doc(db, 'tests', testId);
+
+    try {
+        await runTransaction(db, async (transaction) => {
+            const testDoc = await transaction.get(testRef);
+
+            if (!testDoc.exists()) {
+                // Se o documento não existir, cria um novo com o nível e a categoria
+                const newDocData = {
+                    questions: {
+                        [`level_${level}`]: {
+                            [levelField]: {}
+                        }
+                    }
+                };
+                transaction.set(testRef, newDocData);
+            } else {
+                // Se o documento existir, atualiza o nível e a categoria
+                const testData = testDoc.data();
+
+                if (!testData.questions[`level_${level}`]) {
+                    // Se o nível não existir, cria o nível com a nova categoria
+                    transaction.update(testRef, {
+                        [`questions.level_${level}.${levelField}`]: {}
+                    });
+                } else {
+                    // Se o nível existir, apenas adiciona a nova categoria
+                    transaction.update(testRef, {
+                        [`questions.level_${level}.${levelField}`]: {}
+                    });
+                }
+            }
+        });
+
+        console.log('Categoria adicionada com sucesso!');
+    } catch (error) {
+        console.error('Erro ao adicionar categoria:', error);
+    }
+}
+
+
+export { getTestById, updateQuestionStatus, addCategoryToLevel }

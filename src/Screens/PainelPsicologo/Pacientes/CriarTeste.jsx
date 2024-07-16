@@ -7,6 +7,7 @@ import QuestoesList from "../../../Components/PainelPsicologo/Pacientes/CriarTes
 import FixedButtons from "../../../Components/PainelPsicologo/Pacientes/CriarTeste/FixedButtons";
 import { useLocation } from "react-router-dom";
 import { getCategoriesByLevel } from "../../../Services/Tests/Category/GetCategorys.mjs";
+import { addCategoryToLevel } from "../../../Database/Utils/testsFunctions.mjs";
 
 export default function CriarTeste() {
     const [testId, setTestId] = useState('');
@@ -15,55 +16,97 @@ export default function CriarTeste() {
     const [selectedOption, setSelectedOption] = useState("");
     const [categorias, setCategorias] = useState([]);
     const [categoriasSelecionadas, setCategoriasSelecionadas] = useState({});
-    const [questionValues, setQuestionValues] = useState('');
 
     const location = useLocation();
-    const { testDetails } = location.state || {};
+    const { testDetails, testDocId } = location.state || {};
 
     useEffect(() => {
-        setTestId(testDetails.id);
+        console.log("Loading initial data from local storage");
+        loadInitialDataFromLocalStorage();
     }, []);
-
-    function getCategoriasByIndices(categorias, indices) {
-        return indices.map(index => categorias[index]);
-    }
-
-    function updateCategoriasSelecionadas(nivel, categoriasJaSelecionadas) {
-        if (categoriasJaSelecionadas && categoriasJaSelecionadas.length > 0) {
-            setCategoriasSelecionadas(prevState => ({
-                ...prevState,
-                [nivel]: categoriasJaSelecionadas
-            }));
-        }
-    }
-
-    useEffect(() => {
-        if (testDetails) {
-            const indicesCategorias = getCategoriesByLevel(testDetails, nivel);
-            const categoriasJaSelecionadas = getCategoriasByIndices(categorias, indicesCategorias);
-            updateCategoriasSelecionadas(nivel, categoriasJaSelecionadas);
-            console.log(testDetails);
-        }
-    }, [testDetails, categorias, nivel]);
 
     useEffect(() => {
         if (nivel > 0) {
-            const fetchedCategorias = getCategoriaNomesPorNivel(nivel);
-            setCategorias(fetchedCategorias);
+            console.log("Fetching categories for level:", nivel);
+            fetchCategoriasPorNivel();
         }
     }, [nivel]);
 
     useEffect(() => {
-        console.log('Categorias já selecionadas: ', categoriasSelecionadas);
+        if (categorias.length > 0) {
+            console.log("Updating selected categories from test details");
+            updateCategoriasSelecionadasFromTestDetails();
+        }
+    }, [categorias]);
+
+    useEffect(() => {
+        console.log("Selected categories changed:", categoriasSelecionadas);
+        localStorage.setItem('categoriasSelecionadas', JSON.stringify(categoriasSelecionadas));
+        if (testId && nivel > 0 && selectedOption) {
+            console.log("Updating database with selected category:", selectedOption);
+            updateDatabase();
+        }
     }, [categoriasSelecionadas]);
 
+    const loadInitialDataFromLocalStorage = () => {
+        const storedTestId = localStorage.getItem('testId');
+        const storedCategoriasSelecionadas = localStorage.getItem('categoriasSelecionadas');
+
+        if (storedTestId) {
+            console.log("Loaded test ID from local storage:", storedTestId);
+            setTestId(storedTestId);
+        }
+
+        if (storedCategoriasSelecionadas) {
+            console.log("Loaded selected categories from local storage");
+            setCategoriasSelecionadas(JSON.parse(storedCategoriasSelecionadas));
+        }
+    };
+
+    const fetchCategoriasPorNivel = async () => {
+        try {
+            const fetchedCategorias = await getCategoriaNomesPorNivel(nivel);
+            console.log("Fetched categories:", fetchedCategorias);
+            setCategorias(fetchedCategorias);
+        } catch (error) {
+            console.error("Error fetching categories by level:", error);
+        }
+    };
+
+    const updateCategoriasSelecionadasFromTestDetails = () => {
+        if (testDetails) {
+            const indicesCategorias = getCategoriesByLevel(testDetails, nivel);
+            const categoriasJaSelecionadas = getCategoriasByIndices(categorias, indicesCategorias);
+            updateCategoriasSelecionadas(nivel, categoriasJaSelecionadas);
+        }
+    };
+
+    const getCategoriasByIndices = (categorias, indices) => {
+        return indices.map(index => categorias[index]);
+    };
+
+    const updateCategoriasSelecionadas = (nivel, novasCategorias) => {
+        setCategoriasSelecionadas(prevState => {
+            const categoriasAtuais = prevState[nivel] || [];
+            const categoriasAtualizadas = [...new Set([...categoriasAtuais, ...novasCategorias])];
+            console.log("Updated selected categories for level:", nivel, categoriasAtualizadas);
+            return {
+                ...prevState,
+                [nivel]: categoriasAtualizadas
+            };
+        });
+    };
+
     const handleButtonClick = (index) => {
+        console.log("Button clicked, changing to level:", index + 1);
         setActiveButtonIndex(index);
         setNivel(index + 1);
         setSelectedOption("");
+        setCategorias([]);
     };
 
     const handleChange = (event) => {
+        console.log("Selected option changed:", event.target.value);
         setSelectedOption(event.target.value);
     };
 
@@ -73,13 +116,23 @@ export default function CriarTeste() {
                 alert("Essa categoria já foi selecionada para este nível.");
                 return;
             }
-
+            console.log("Adding question to selected categories:", selectedOption);
             updateCategoriasSelecionadas(nivel, [selectedOption]);
         }
     };
 
     const handleEncerrar = () => {
-        console.log("click");
+        console.log("Encerrar Teste");
+    };
+
+    const updateDatabase = async () => {
+        try {
+            const categoryIndex = categorias.indexOf(selectedOption);
+            await addCategoryToLevel(testId, nivel, categoryIndex);
+            console.log("Database updated successfully");
+        } catch (error) {
+            console.error("Error updating database:", error);
+        }
     };
 
     return (
@@ -97,7 +150,6 @@ export default function CriarTeste() {
                         handleChange={handleChange}
                     />
                 </Box>
-
                 <Box sx={{ marginTop: "5vh" }}>
                     <QuestoesList
                         nivel={nivel}

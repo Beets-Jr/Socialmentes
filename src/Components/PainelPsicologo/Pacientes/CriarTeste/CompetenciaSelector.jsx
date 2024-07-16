@@ -17,7 +17,7 @@ export default function CompetenciaSelector({
                 <Select
                     id="competencia-select"
                     value={selectedOption}
-                    onChange={handleChange}
+                    onChange={(event) => { handleChange(event) }}
                     displayEmpty
                     renderValue={(value) => (value ? `${value}` : "Selecione uma competência")}
                 >
