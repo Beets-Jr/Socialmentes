@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Button, useMediaQuery, useTheme } from '@mui/material';
 import ReportBtnIcons from './ReportBtnIcons';
 import { useNavigate } from 'react-router-dom';
 import styles from './ReportBtn.module.css';
@@ -10,6 +10,8 @@ function getReportBtnIcon(name) {
 function ReportBtn({ name, path }) {
 
     const navigate = useNavigate();
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     const handleClick = () => {
         navigate(path);
@@ -21,7 +23,7 @@ function ReportBtn({ name, path }) {
             disableElevation 
             onClick={handleClick} 
             className={styles.button}
-            startIcon={getReportBtnIcon(name)}
+            startIcon={isSmallScreen ? null : getReportBtnIcon(name)}
         >
             {name}
         </Button>

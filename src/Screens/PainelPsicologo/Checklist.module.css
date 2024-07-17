@@ -23,7 +23,5 @@
     align-items: flex-start;
   }
 
-  .stackContainer {
-    flex-direction: column !important;
-  }
+  
 }
