@@ -27,9 +27,9 @@ export default function Questao({
         setExpandir(!expandir);
     };
 
-    const handleChange = async (index, e) => {
+    const handleChange = async (indiceQuestao, e) => {
         const newValue = e.target.value;
-        onSelectedValuesChange(index, newValue);
+        onSelectedValuesChange(indiceQuestao, newValue);
     };
 
     useEffect(() => {

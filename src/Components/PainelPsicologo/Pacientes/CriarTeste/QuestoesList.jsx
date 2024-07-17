@@ -12,24 +12,11 @@ export default function QuestoesList({
 }) {
     const [selectedValues, setSelectedValues] = useState([]);
 
-    const handleSelectedValuesChange = (testId, nivel, indiceQuestao, value) => {
-        /** Fix: passar corretamente o índice da categoria, talvez checando o selectedOption */
-        const indiceDaCategoria = 0;
-
-        console.log(`Array: ${categoriasSelecionadas}`);
-        console.log(`Nível: ${nivel}`);
-        console.log(`Índice da categoria: ${indiceDaCategoria}`);
-        console.log(`Índice da questão: ${indiceQuestao}`);
-        console.log(`Valor da questão: ${value}`);
+    const handleSelectedValuesChange = (testId, nivel, indiceDaCategoria, indiceQuestao, value) => {
 
         const newValue = updateQuestionStatus(testId, nivel, indiceDaCategoria, indiceQuestao, value);
-        /** Fix: configurar o selectedValues para inicialmente ter as informações do bd*/
 
     };
-
-    useEffect(() => {
-        /** setar os selected values de acordo com o bd */
-    }, []);
 
     useEffect(() => {
         console.log(`Valores selecionados: `, selectedValues);
@@ -49,7 +36,7 @@ export default function QuestoesList({
                                 nivel={parseInt(key)}
                                 categoriaSelecionada={categoria}
                                 selectedValues={selectedValues}
-                                onSelectedValuesChange={(index, value) => handleSelectedValuesChange(testId, nivel, index, value)}
+                                onSelectedValuesChange={(indiceQuestao, value) => handleSelectedValuesChange(testId, nivel, index, indiceQuestao, value)}
                             />
                         </div>
                     ))}

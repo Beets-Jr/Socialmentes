@@ -53,7 +53,6 @@ import { getTestsFromPatient } from './GetTestsFromPatient.mjs';
     const values = Object.values(questions);
 
     console.log('categories: ', categories);
-    console.log('questions: ', questions);
 
     console.log('Resultado das questões da categoria', categories[0], ':', questions);
     console.log('Vetor com os resultados', values);
