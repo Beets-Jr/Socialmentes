@@ -38,7 +38,6 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
     // função executada nas etapas intermediárias e antes de salvar os dados no banco
     const handleProceed = () => {
         setDisabledForm(true);
-        console.log(formRef.current.getData());
         if (step === 0) {
             RegistrationsMiddleware.firstStepValidationSchema.validate( formRef.current.getData(), { abortEarly: false } )
                 .then( () => {
@@ -165,11 +164,13 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
                             setDisabledButton={setDisabledButton}
                             emails={emails}
                             setEmails={setEmails}
+                            isMobile={isMobile}
                         />
                     ) : step === 2 ? (
                         <SecondForm
                             disabledForm={disabledForm}
                             setDisabledButton={setDisabledButton}
+                            isMobile={isMobile}
                         />
                     ) : (
                         <Success status={createResult} />
@@ -201,7 +202,7 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
             </DialogActions>
 
             {/** Mensagem de erro e sucesso */}
-            <VMessageError message={message} setMessage={setMessage} />
+            <VMessageError message={message} setMessage={setMessage} isMobile={isMobile} />
 
         </Dialog>
     );
