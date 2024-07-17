@@ -20,7 +20,7 @@ export default function GridTestes({ testsInfo }) {
 
     const goToTest = (testSerialId, testDetails) => {
         localStorage.setItem('testId', testSerialId);
-        navigate(`/painel-adm/pacientes/teste/${testSerialId}`, { state: { testDocId: testDocId, testDetails: testDetails } });
+        navigate(`/painel-adm/pacientes/teste/${testSerialId}`, { state: { testDocId: testSerialId, testDetails: testDetails } });
     };
 
     useEffect(() => {

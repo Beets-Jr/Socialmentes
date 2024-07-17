@@ -15,7 +15,6 @@ export default function QuestoesList({
 
     const handleSelectedValuesChange = (testId, nivel, indiceDaCategoria, indiceQuestao, value) => {
         updateQuestionStatus(testId, nivel, indiceDaCategoria, indiceQuestao, value);
-
         setQuestionValues((prevValues) => {
             const updatedValues = { ...prevValues };
 
@@ -34,7 +33,7 @@ export default function QuestoesList({
     };
 
     useEffect(() => {
-        console.log(`Valores selecionados: `, questionValues);
+        console.log("Valores selecionados:", questionValues);
     }, [questionValues]);
 
     return (

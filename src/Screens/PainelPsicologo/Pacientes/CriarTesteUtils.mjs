@@ -3,17 +3,21 @@ import { getCategoriaNomesPorNivel } from "../../../Database/Utils/testsInfoFunc
 import { getCategoriesByLevel } from "../../../Services/Tests/Category/GetCategorys.mjs";
 
 export const loadInitialDataFromLocalStorage = (setTestSerialId, setCategoriasSelecionadas) => {
-    const storedTestSerialId = localStorage.getItem('testSerialId');
-    const storedCategoriasSelecionadas = localStorage.getItem('categoriasSelecionadas');
+    try {
+        const storedTestSerialId = localStorage.getItem('testId');
+        const storedCategoriasSelecionadas = localStorage.getItem('categoriasSelecionadas');
 
-    if (storedTestSerialId) {
-        console.log("Loaded test ID from local storage:", storedTestSerialId);
-        setTestSerialId(storedTestSerialId);
-    }
+        if (storedTestSerialId) {
+            console.log("Loaded test ID from local storage:", storedTestSerialId);
+            setTestSerialId(storedTestSerialId);
+        }
 
-    if (storedCategoriasSelecionadas) {
-        console.log("Loaded selected categories from local storage");
-        setCategoriasSelecionadas(JSON.parse(storedCategoriasSelecionadas));
+        if (storedCategoriasSelecionadas) {
+            console.log("Loaded selected categories from local storage");
+            setCategoriasSelecionadas(JSON.parse(storedCategoriasSelecionadas));
+        }
+    } catch (error) {
+        console.error("Error loading initial data from local storage:", error);
     }
 };
 
@@ -28,34 +32,62 @@ export const fetchCategoriasPorNivel = async (nivel, setCategorias) => {
 };
 
 export const updateCategoriasSelecionadasFromTestDetails = (testDetails, nivel, categorias, setCategoriasSelecionadas) => {
-    if (testDetails) {
-        const indicesCategorias = getCategoriesByLevel(testDetails, nivel);
-        const categoriasJaSelecionadas = getCategoriasByIndices(categorias, indicesCategorias);
-        updateCategoriasSelecionadas(nivel, categoriasJaSelecionadas, setCategoriasSelecionadas);
+    try {
+        if (testDetails) {
+            const indicesCategorias = getCategoriesByLevel(testDetails, nivel);
+            const categoriasJaSelecionadas = getCategoriasByIndices(categorias, indicesCategorias);
+            updateCategoriasSelecionadas(nivel, categoriasJaSelecionadas, setCategoriasSelecionadas);
+        }
+    } catch (error) {
+        console.error("Error updating selected categories from test details:", error);
     }
 };
 
 export const getCategoriasByIndices = (categorias, indices) => {
-    return indices.map(index => categorias[index]);
+    try {
+        // Filtra os índices para remover undefined e ordena
+        return indices
+            .filter(index => index !== undefined)
+            .sort((a, b) => a - b)
+            .map(index => categorias[index]);
+    } catch (error) {
+        console.error("Error getting categories by indices:", error);
+        return [];
+    }
 };
 
 export const updateCategoriasSelecionadas = (nivel, novasCategorias, setCategoriasSelecionadas) => {
-    setCategoriasSelecionadas(prevState => {
-        const categoriasAtuais = prevState[nivel] || [];
-        const categoriasAtualizadas = [...new Set([...categoriasAtuais, ...novasCategorias])];
-        console.log("Updated selected categories for level:", nivel, categoriasAtualizadas);
-        return {
-            ...prevState,
-            [nivel]: categoriasAtualizadas
-        };
-    });
+    try {
+        setCategoriasSelecionadas(prevState => {
+            const categoriasAtuais = prevState[nivel] || [];
+            const categoriasAtualizadas = [...categoriasAtuais];
+
+            novasCategorias.forEach(novaCategoria => {
+                if (novaCategoria && !categoriasAtualizadas.includes(novaCategoria)) {
+                    categoriasAtualizadas.push(novaCategoria);
+                }
+            });
+
+            console.log("Updated selected categories for level:", nivel, categoriasAtualizadas);
+
+            return {
+                ...prevState,
+                [nivel]: categoriasAtualizadas
+            };
+        });
+    } catch (error) {
+        console.error("Error updating selected categories:", error);
+    }
 };
 
 export const updateDatabase = async (testId, nivel, selectedOption, categorias) => {
     try {
         const categoryIndex = categorias.indexOf(selectedOption);
-        await addCategoryToLevel(testId, nivel, categoryIndex);
-        console.log("Database updated successfully");
+        console.log("Category index:", categoryIndex);
+        if (categoryIndex !== -1) {
+            await addCategoryToLevel(testId, nivel, categoryIndex);
+            console.log("Database updated successfully");
+        }
     } catch (error) {
         console.error("Error updating database:", error);
     }

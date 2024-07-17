@@ -27,6 +27,18 @@ export default function CriarTeste() {
     const { testDetails, testDocId } = location.state || {};
 
     useEffect(() => {
+        if (testDocId) {
+            localStorage.setItem('testId', testDocId);
+            setTestId(testDocId);
+        } else {
+            const storedTestId = localStorage.getItem('testId');
+            if (storedTestId) {
+                setTestId(storedTestId);
+            }
+        }
+    }, [testDocId]);
+
+    useEffect(() => {
         console.log("Loading initial data from local storage");
         loadInitialDataFromLocalStorage(setTestId, setCategoriasSelecionadas);
     }, []);
@@ -36,30 +48,32 @@ export default function CriarTeste() {
             console.log("Fetching categories for level:", nivel);
             fetchCategoriasPorNivel(nivel, setCategorias);
         }
-        const indicesCategorias = getCategoriesByLevel(testDetails, nivel);
-        const newQuestionValues = getQuestionsValues(testDetails, indicesCategorias, nivel);
-        setQuestionValues(newQuestionValues);
     }, [nivel]);
+
+    useEffect(() => {
+        if (testDetails && nivel > 0) {
+            console.log("Updating question values and selected categories for level:", nivel);
+            const indicesCategorias = getCategoriesByLevel(testDetails, nivel);
+            const newQuestionValues = getQuestionsValues(testDetails, indicesCategorias, nivel);
+            setQuestionValues(newQuestionValues);
+            updateCategoriasSelecionadasFromTestDetails(testDetails, nivel, categorias, setCategoriasSelecionadas);
+        }
+    }, [nivel, testDetails, categorias]);
 
     useEffect(() => {
         console.log("Question Values:", questionValues);
     }, [questionValues]);
 
     useEffect(() => {
-        if (categorias.length > 0) {
-            console.log("Updating selected categories from test details", testDetails);
-            updateCategoriasSelecionadasFromTestDetails(testDetails, nivel, categorias, setCategoriasSelecionadas);
-        }
-    }, [categorias]);
-
-    useEffect(() => {
         console.log("Selected categories changed:", categoriasSelecionadas);
         localStorage.setItem('categoriasSelecionadas', JSON.stringify(categoriasSelecionadas));
-        if (testId && nivel > 0 && selectedOption) {
-            console.log("Updating database with selected category:", selectedOption);
-            updateDatabase(testId, nivel, selectedOption, categorias);
+    }, [categoriasSelecionadas, testId, nivel, selectedOption]);
+
+    useEffect(() => {
+        if (selectedOption && categorias.length > 0) {
+            const index = categorias.indexOf(selectedOption);
         }
-    }, [categoriasSelecionadas]);
+    }, [selectedOption, categorias]);
 
     const handleButtonClick = (index) => {
         console.log("Button clicked, changing to level:", index + 1);
@@ -83,6 +97,11 @@ export default function CriarTeste() {
                 }
                 console.log("Adding question to selected categories:", selectedOption);
                 await updateCategoriasSelecionadas(nivel, [selectedOption], setCategoriasSelecionadas);
+                if (testId && nivel > 0 && selectedOption) {
+                    console.log("Updating database with selected category:", selectedOption);
+                    const newIndex = categorias.indexOf(selectedOption);
+                    await updateDatabase(testId, nivel, selectedOption, categorias);
+                }
             }
         } catch (error) {
             console.error("Error adding question:", error);

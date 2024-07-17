@@ -50,7 +50,7 @@ export default function Questao({
 
     return (
         <>
-            <div className={styles.titulo2} style={{ width: "50vw", }}>
+            <div className={styles.titulo2} style={{ width: "50vw" }}>
                 <div>
                     <img
                         src={Expandir}
@@ -74,9 +74,7 @@ export default function Questao({
                         <FormControl>
                             <RadioGroup
                                 row
-                                aria-labelledby={`demo-row-radio-buttons-group-label-${index}`}
-                                name={`row-radio-buttons-group-${index}`}
-                                value={selectedValues[`level_${nivel}`]?.[`category_${indiceDaCategoria}`]?.[`question_${index}`] || ''}
+                                value={selectedValues?.[`level_${nivel}`]?.[`category_${indiceDaCategoria}`]?.[`question_${index}`] || ""}
                                 onChange={(e) => handleChange(index, e)}
                             >
                                 <FormControlLabel
