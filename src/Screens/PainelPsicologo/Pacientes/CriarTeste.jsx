@@ -22,6 +22,7 @@ export default function CriarTeste() {
     const [categorias, setCategorias] = useState([]);
     const [categoriasSelecionadas, setCategoriasSelecionadas] = useState({});
     const [questionValues, setQuestionValues] = useState({});
+    const [categoryIndex, setCategoryIndex] = useState(null);
 
     const location = useLocation();
     const { testDetails, testDocId } = location.state || {};
@@ -99,8 +100,9 @@ export default function CriarTeste() {
                 await updateCategoriasSelecionadas(nivel, [selectedOption], setCategoriasSelecionadas);
                 if (testId && nivel > 0 && selectedOption) {
                     console.log("Updating database with selected category:", selectedOption);
-                    const newIndex = categorias.indexOf(selectedOption);
-                    await updateDatabase(testId, nivel, selectedOption, categorias);
+                    const newIndex = await updateDatabase(testId, nivel, selectedOption, categorias);
+                    console.log("Received category index from updateDatabase:", newIndex);
+                    setCategoryIndex(newIndex);  // Atualiza o estado com o índice da categoria
                 }
             }
         } catch (error) {
@@ -134,6 +136,7 @@ export default function CriarTeste() {
                         testId={testId}
                         setQuestionValues={setQuestionValues}
                         questionValues={questionValues}
+                        categoryIndex={categoryIndex}  // Passa o categoryIndex como prop
                     />
                 </Box>
                 <FixedButtons

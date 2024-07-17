@@ -10,11 +10,12 @@ export default function QuestoesList({
     categoriasSelecionadas,
     testId,
     setQuestionValues,
-    questionValues
+    questionValues,
+    categoryIndex
 }) {
 
     const handleSelectedValuesChange = (testId, nivel, indiceDaCategoria, indiceQuestao, value) => {
-        updateQuestionStatus(testId, nivel, indiceDaCategoria, indiceQuestao, value);
+        updateQuestionStatus(testId, nivel, categoryIndex, indiceQuestao, value);
         setQuestionValues((prevValues) => {
             const updatedValues = { ...prevValues };
 

@@ -87,8 +87,12 @@ export const updateDatabase = async (testId, nivel, selectedOption, categorias) 
         if (categoryIndex !== -1) {
             await addCategoryToLevel(testId, nivel, categoryIndex);
             console.log("Database updated successfully");
+            return categoryIndex;  // Retorna o índice da categoria
         }
     } catch (error) {
         console.error("Error updating database:", error);
+        throw error;  // Re-throw o erro para ser capturado na chamada
     }
+    return null;
 };
+

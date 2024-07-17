@@ -58,8 +58,8 @@ async function getTestById(testId) {
  *
  * @param {string} testId - ID do teste.
  * @param {number} nivel - Nível da questão.
- * @param {string} indiceCategoria - Índice da categoria da questão.
- * @param {string} questionKey - Chave da questão
+ * @param {number} indiceCategoria - Índice da categoria da questão.
+ * @param {string} indiceQuestao - Índice da questão
  * @param {string} newValue - Novo valor para a questão.
  */
 async function updateQuestionStatus(serialId, nivel, indiceCategoria, indiceQuestao, newValue) {
