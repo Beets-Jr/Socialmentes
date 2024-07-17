@@ -1,5 +1,5 @@
 import { db } from "../Database/FirebaseConfig.mjs";
-import { collection, getDocs,  query, where } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 
 export const fetchTests = async () => {
   const querySnapshot = await getDocs(collection(db, 'tests'));
