@@ -12,6 +12,7 @@ import {
     updateDatabase,
     updateCategoriasSelecionadas,
 } from "./CriarTesteUtils";
+import { getCategoriesByLevel, getQuestionsValues } from "../../../Services/Tests/Category/GetCategorys.mjs";
 
 export default function CriarTeste() {
     const [testId, setTestId] = useState('');
@@ -35,11 +36,18 @@ export default function CriarTeste() {
             console.log("Fetching categories for level:", nivel);
             fetchCategoriasPorNivel(nivel, setCategorias);
         }
+        const indicesCategorias = getCategoriesByLevel(testDetails, nivel);
+        const newQuestionValues = getQuestionsValues(testDetails, indicesCategorias, nivel);
+        setQuestionValues(newQuestionValues);
     }, [nivel]);
 
     useEffect(() => {
+        console.log("Question Values:", questionValues);
+    }, [questionValues]);
+
+    useEffect(() => {
         if (categorias.length > 0) {
-            console.log("Updating selected categories from test details");
+            console.log("Updating selected categories from test details", testDetails);
             updateCategoriasSelecionadasFromTestDetails(testDetails, nivel, categorias, setCategoriasSelecionadas);
         }
     }, [categorias]);
@@ -66,7 +74,7 @@ export default function CriarTeste() {
         setSelectedOption(event.target.value);
     };
 
-    const handleAdicionarQuestao = async (event) => {
+    const handleAdicionarQuestao = async () => {
         try {
             if (selectedOption) {
                 if (categoriasSelecionadas[nivel]?.includes(selectedOption)) {
@@ -105,6 +113,8 @@ export default function CriarTeste() {
                         nivel={nivel}
                         categoriasSelecionadas={categoriasSelecionadas}
                         testId={testId}
+                        setQuestionValues={setQuestionValues}
+                        questionValues={questionValues}
                     />
                 </Box>
                 <FixedButtons

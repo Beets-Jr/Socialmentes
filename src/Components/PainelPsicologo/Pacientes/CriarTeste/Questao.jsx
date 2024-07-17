@@ -16,6 +16,7 @@ import {
 export default function Questao({
     nivel,
     categoriaSelecionada,
+    indiceDaCategoria,
     selectedValues,
     onSelectedValuesChange,
 }) {
@@ -49,7 +50,7 @@ export default function Questao({
 
     return (
         <>
-            <div className={styles.titulo2} style={{ width: "50vw" }}>
+            <div className={styles.titulo2} style={{ width: "50vw", }}>
                 <div>
                     <img
                         src={Expandir}
@@ -75,8 +76,7 @@ export default function Questao({
                                 row
                                 aria-labelledby={`demo-row-radio-buttons-group-label-${index}`}
                                 name={`row-radio-buttons-group-${index}`}
-                                /** Fix: atualizar corretamente a prop value */
-                                value={selectedValues}
+                                value={selectedValues[`level_${nivel}`]?.[`category_${indiceDaCategoria}`]?.[`question_${index}`] || ''}
                                 onChange={(e) => handleChange(index, e)}
                             >
                                 <FormControlLabel

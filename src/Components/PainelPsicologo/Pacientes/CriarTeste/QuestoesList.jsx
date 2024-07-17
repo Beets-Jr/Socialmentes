@@ -8,19 +8,34 @@ import { updateQuestionStatus } from "../../../../Database/Utils/testsFunctions.
 export default function QuestoesList({
     nivel,
     categoriasSelecionadas,
-    testId
+    testId,
+    setQuestionValues,
+    questionValues
 }) {
-    const [selectedValues, setSelectedValues] = useState([]);
 
     const handleSelectedValuesChange = (testId, nivel, indiceDaCategoria, indiceQuestao, value) => {
+        updateQuestionStatus(testId, nivel, indiceDaCategoria, indiceQuestao, value);
 
-        const newValue = updateQuestionStatus(testId, nivel, indiceDaCategoria, indiceQuestao, value);
+        setQuestionValues((prevValues) => {
+            const updatedValues = { ...prevValues };
 
+            if (!updatedValues[`level_${nivel}`]) {
+                updatedValues[`level_${nivel}`] = {};
+            }
+
+            if (!updatedValues[`level_${nivel}`][`category_${indiceDaCategoria}`]) {
+                updatedValues[`level_${nivel}`][`category_${indiceDaCategoria}`] = {};
+            }
+
+            updatedValues[`level_${nivel}`][`category_${indiceDaCategoria}`][`question_${indiceQuestao}`] = value;
+
+            return updatedValues;
+        });
     };
 
     useEffect(() => {
-        console.log(`Valores selecionados: `, selectedValues);
-    }, [selectedValues]);
+        console.log(`Valores selecionados: `, questionValues);
+    }, [questionValues]);
 
     return (
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: "3vh", width: "25%" }}>
@@ -35,7 +50,8 @@ export default function QuestoesList({
                             <Questao
                                 nivel={parseInt(key)}
                                 categoriaSelecionada={categoria}
-                                selectedValues={selectedValues}
+                                indiceDaCategoria={index}
+                                selectedValues={questionValues}
                                 onSelectedValuesChange={(indiceQuestao, value) => handleSelectedValuesChange(testId, nivel, index, indiceQuestao, value)}
                             />
                         </div>

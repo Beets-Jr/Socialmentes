@@ -12,23 +12,29 @@ export function getCategoriesByLevel(test, levelNumber) {
 
 /**
  * 
- * @param {*} test - Documento
- * @param {*} categoryIndex - Índice da categoria
+ * @param {*} test - Documento do teste
+ * @param {*} categoryIndices - Vetor com os índices das categorias
  * @param {*} levelNumber - Nível
  * @returns 
  */
-export function getQuestionsByLevel(test, categoryIndex, levelNumber) {
-    const categoryKey = `category_${categoryIndex}`;
+export function getQuestionsValues(test, categoryIndices, levelNumber) {
     const levelKey = `level_${levelNumber}`;
     const level = test.questions[levelKey];
-    const category = level[categoryKey];
+    const result = {};
 
-    if (!category) {
-        console.error(`Categoria ${categoryIndex} não encontrada.`);
-        return [];
-    }
+    categoryIndices.forEach(categoryIndex => {
+        const categoryKey = `category_${categoryIndex}`;
+        const category = level[categoryKey];
 
-    return category;
+        if (!category) {
+            console.error(`Categoria ${categoryIndex} não encontrada no ${levelKey}.`);
+        } else {
+            result[categoryKey] = category;
+        }
+    });
+
+    return { [levelKey]: result };
 }
+
 
 
