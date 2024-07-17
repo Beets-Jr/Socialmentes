@@ -16,3 +16,9 @@
     justify-content: center;
     align-items: center;
 }
+
+@media (max-width: 800px) {
+    .tools_registrations {
+        padding: 36px 10px 100px 10px;
+    }
+}
