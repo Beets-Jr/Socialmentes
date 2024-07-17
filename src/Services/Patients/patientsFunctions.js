@@ -1,5 +1,5 @@
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../FirebaseConfig.mjs";
+import { db } from "../../Database/FirebaseConfig.mjs";
 
 /**
  * Função para recuperar todos os dados dos pacientes

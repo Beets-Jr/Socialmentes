@@ -8,7 +8,7 @@ import { DocIcon } from "../../../Assets/Icons/DocIcon";
 import { AppContext } from "../../../Contexts/AppContext";
 import { VisibilityIcon } from "../../../Assets/Icons/VisibilityIcon";
 import { EditIcon } from "../../../Assets/Icons/EditIcon";
-import { getAllPatients } from "../../../Database/Utils/patientsFunctions";
+import { getAllPatients } from "../../../Services/Patients/patientsFunctions";
 
 export default function PacientesCadastrados() {
     const navigate = useNavigate();
