@@ -8,7 +8,6 @@
   text-align: center;
   gap: 10px;
   padding: 5px 10px;
-  cursor: pointer;
   border-radius: 15px;
   border: 2px solid var(--color-gray-3);
   color: var(--color-gray-3);
@@ -55,8 +54,4 @@
 .button.active .icon,
 .button:hover .icon {
   filter: none;
-}
-
-.text {
-  display: inline-block;
 }

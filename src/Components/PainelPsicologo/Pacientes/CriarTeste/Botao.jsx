@@ -17,11 +17,11 @@ export default function Botao({ icon, text, route, bgcolor, onClick }) {
   };
 
   return (
-    <Link to={route} className={styles.link} onClick={handleClick}>
-      <button className={buttonClass}>
+    <Link to={route ? route : ''} className={styles.link} onClick={handleClick}>
+      <div className={buttonClass}>
         {icon && <img src={icon} className={styles.icon} alt={text} />}
         <span className={styles.text}>{text}</span>
-      </button>
+      </div>
     </Link>
   );
 }

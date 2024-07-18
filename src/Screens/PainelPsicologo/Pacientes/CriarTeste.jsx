@@ -161,7 +161,6 @@ export default function CriarTeste() {
           <QuestoesList
             nivel={nivel}
             categoriasSelecionadas={categoriasSelecionadas}
-            testId={testId}
             setQuestionValues={setQuestionValues}
             questionValues={questionValues}
             categorias={categorias}

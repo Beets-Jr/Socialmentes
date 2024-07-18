@@ -9,13 +9,11 @@ import BlueLine from "../../../../Assets/Icons/BlueLine";
 export default function QuestoesList({
   nivel,
   categoriasSelecionadas,
-  testId,
   setQuestionValues,
   questionValues,
   categorias,
 }) {
   const handleSelectedValuesChange = (
-    testId,
     nivel,
     indiceDaCategoria,
     indiceQuestao,
@@ -84,7 +82,6 @@ export default function QuestoesList({
                       selectedValues={questionValues}
                       onSelectedValuesChange={(indiceQuestao, value) =>
                         handleSelectedValuesChange(
-                          testId,
                           nivel,
                           index,
                           indiceQuestao,
