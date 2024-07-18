@@ -9,15 +9,16 @@ export default function FixedButtons({ handleAdicionarQuestao, handleEncerrar })
         <Box
             sx={{
                 position: "fixed", bottom: 0, zIndex: 10, display: "flex", backgroundColor: "white", padding: "0.5em",
-                alignItems: "center", minWidth: "75%", maxWidth: "90%",
+                alignItems: "center", minWidth: "85%", maxWidth: "90%",
             }}
         >
             <Box>
                 <Botao icon={iconAddToList} text="Adicionar Questão" onClick={handleAdicionarQuestao} />
             </Box>
             <Box sx={{ width: "52.5%" }}></Box>
-            <Box sx={{ right: "1em" }}>
+            <Box sx={{ display: "flex", gap: "10%", right: "1em" }}>
                 <Botao icon={iconEncerrar} text="Encerrar" bgcolor="bg-blue" onClick={handleEncerrar}/>
+                <Botao icon={iconEncerrar} text="Salvar e sair" bgcolor="bg-blue" onClick={handleEncerrar}/>
             </Box>
         </Box>
     );

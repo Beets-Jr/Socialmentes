@@ -63,61 +63,60 @@ async function getTestById(testId) {
   }
 }
 
-/**
- * Atualiza o status de uma questão específica no Firestore.
- *
- * @param {string} testId - ID do teste.
- * @param {number} nivel - Nível da questão.
- * @param {number} indiceCategoria - Índice da categoria da questão.
- * @param {string} indiceQuestao - Índice da questão
- * @param {string} newValue - Novo valor para a questão.
- */
-async function updateQuestionStatus(
-  serialId,
-  nivel,
-  indiceCategoria,
-  indiceQuestao,
-  newValue
-) {
-  const questionPath = `questions.level_${nivel}.category_${indiceCategoria}.question_${indiceQuestao}`;
+async function updateQuestionValues(testId, questionValues) {
   const testsRef = collection(db, "tests");
-  const testQuery = query(testsRef, where("id", "==", parseInt(serialId)));
+  const testQuery = query(testsRef, where("id", "==", parseInt(testId)));
 
   try {
     const querySnapshot = await getDocs(testQuery);
 
     if (querySnapshot.empty) {
-      console.warn(`Documento com serialId ${serialId} não encontrado.`);
+      console.warn(`Documento com testId ${testId} não encontrado.`);
       return null;
     }
 
-    const testId = querySnapshot.docs[0].id;
-    const testRef = doc(db, "tests", testId);
+    const testDocId = querySnapshot.docs[0].id;
+    const testRef = doc(db, "tests", testDocId);
 
     await runTransaction(db, async (transaction) => {
       const testDoc = await transaction.get(testRef);
 
       if (!testDoc.exists()) {
-        console.warn(`Documento ${testId} não encontrado.`);
+        console.warn(`Documento ${testDocId} não encontrado.`);
         return;
       }
 
-      // Constrói o caminho completo para a questão
-      const questionFullPath = `questions.level_${nivel}.category_${indiceCategoria}.question_${indiceQuestao}`;
+      let updatedQuestions = { ...testDoc.data().questions };
 
-      // Atualiza o valor da questão no documento existente
+      // Mescla os novos valores com os existentes
+      Object.keys(questionValues).forEach(level => {
+        if (!updatedQuestions[level]) {
+          updatedQuestions[level] = {};
+        }
+        Object.keys(questionValues[level]).forEach(category => {
+          if (!updatedQuestions[level][category]) {
+            updatedQuestions[level][category] = {};
+          }
+          Object.keys(questionValues[level][category]).forEach(question => {
+            updatedQuestions[level][category][question] = questionValues[level][category][question];
+          });
+        });
+      });
+
+      // Atualiza o campo questions no documento existente
       transaction.update(testRef, {
-        [questionFullPath]: newValue,
+        questions: updatedQuestions,
       });
     });
 
-    console.log(`Questão ${indiceQuestao} atualizada com sucesso!`);
-    return newValue;
+    console.log(`Question values updated successfully for testId ${testId}!`);
+    return questionValues;
   } catch (error) {
-    console.error("Erro ao atualizar a questão:", error);
+    console.error("Erro ao atualizar question values:", error);
     throw error; // Propaga o erro para que seja tratado no chamador da função
   }
 }
+
 
 /**
  *
@@ -203,4 +202,4 @@ async function addCategoryToLevel(serialId, level, categoryIndex) {
   }
 }
 
-export { getTestById, updateQuestionStatus, addCategoryToLevel };
+export { getTestById, updateQuestionValues, addCategoryToLevel };

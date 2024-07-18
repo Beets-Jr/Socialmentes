@@ -3,7 +3,6 @@ import { Box } from "@mui/material";
 import Questao from "./Questao";
 import styles from "./Styles.module.css";
 import BlueLine from "../../../../Assets/Icons/BlueLine";
-import { updateQuestionStatus } from "../../../../Services/Tests/testsFunctions.mjs";
 
 export default function QuestoesList({
   nivel,
@@ -11,7 +10,6 @@ export default function QuestoesList({
   testId,
   setQuestionValues,
   questionValues,
-  categoryIndex,
 }) {
   const handleSelectedValuesChange = (
     testId,
@@ -20,7 +18,6 @@ export default function QuestoesList({
     indiceQuestao,
     value
   ) => {
-    updateQuestionStatus(testId, nivel, categoryIndex, indiceQuestao, value);
     setQuestionValues((prevValues) => {
       const updatedValues = { ...prevValues };
 
@@ -41,7 +38,7 @@ export default function QuestoesList({
   };
 
   useEffect(() => {
-    console.log("Valores selecionados:", questionValues);
+    console.log("Objetao com tudo:", questionValues);
   }, [questionValues]);
 
   return (

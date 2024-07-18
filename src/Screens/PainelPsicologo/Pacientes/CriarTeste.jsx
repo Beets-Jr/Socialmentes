@@ -1,38 +1,39 @@
 import React, { useEffect, useState } from "react";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import NivelSelector from "../../../Components/PainelPsicologo/Pacientes/CriarTeste/NivelSelector";
 import CompetenciaSelector from "../../../Components/PainelPsicologo/Pacientes/CriarTeste/CompetenciaSelector";
 import QuestoesList from "../../../Components/PainelPsicologo/Pacientes/CriarTeste/QuestoesList";
 import FixedButtons from "../../../Components/PainelPsicologo/Pacientes/CriarTeste/FixedButtons";
-import { useLocation } from "react-router-dom";
 import {
     loadInitialDataFromLocalStorage,
     fetchCategoriasPorNivel,
     updateCategoriasSelecionadasFromTestDetails,
-    updateDatabase,
     updateCategoriasSelecionadas,
 } from "./CriarTesteUtils";
 import { getCategoriesByLevel, getQuestionsValues } from "../../../Services/Tests/Category/GetCategorys.mjs";
+import { updateQuestionValues } from "../../../Services/Tests/testsFunctions.mjs";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function CriarTeste() {
-    const [testId, setTestId] = useState('');
+    const [testId, setTestId] = useState("");
     const [nivel, setNivel] = useState(1);
     const [activeButtonIndex, setActiveButtonIndex] = useState(0);
     const [selectedOption, setSelectedOption] = useState("");
     const [categorias, setCategorias] = useState([]);
     const [categoriasSelecionadas, setCategoriasSelecionadas] = useState({});
     const [questionValues, setQuestionValues] = useState({});
-    const [categoryIndex, setCategoryIndex] = useState(null);
+    const [unsavedChanges, setUnsavedChanges] = useState(false); // Estado para controlar mudanças não salvas
 
+    const navigate = useNavigate();
     const location = useLocation();
     const { testDetails, testDocId } = location.state || {};
 
     useEffect(() => {
         if (testDocId) {
-            localStorage.setItem('testId', testDocId);
+            localStorage.setItem("testId", testDocId);
             setTestId(testDocId);
         } else {
-            const storedTestId = localStorage.getItem('testId');
+            const storedTestId = localStorage.getItem("testId");
             if (storedTestId) {
                 setTestId(storedTestId);
             }
@@ -40,20 +41,17 @@ export default function CriarTeste() {
     }, [testDocId]);
 
     useEffect(() => {
-        console.log("Loading initial data from local storage");
         loadInitialDataFromLocalStorage(setTestId, setCategoriasSelecionadas);
     }, []);
 
     useEffect(() => {
         if (nivel > 0) {
-            console.log("Fetching categories for level:", nivel);
             fetchCategoriasPorNivel(nivel, setCategorias);
         }
     }, [nivel]);
 
     useEffect(() => {
         if (testDetails && nivel > 0) {
-            console.log("Updating question values and selected categories for level:", nivel);
             const indicesCategorias = getCategoriesByLevel(testDetails, nivel);
             const newQuestionValues = getQuestionsValues(testDetails, indicesCategorias, nivel);
             setQuestionValues(newQuestionValues);
@@ -62,22 +60,33 @@ export default function CriarTeste() {
     }, [nivel, testDetails, categorias]);
 
     useEffect(() => {
-        console.log("Question Values:", questionValues);
-    }, [questionValues]);
+        localStorage.setItem("categoriasSelecionadas", JSON.stringify(categoriasSelecionadas));
+    }, [categoriasSelecionadas]);
 
+    // Efeito para capturar a navegação
     useEffect(() => {
-        console.log("Selected categories changed:", categoriasSelecionadas);
-        localStorage.setItem('categoriasSelecionadas', JSON.stringify(categoriasSelecionadas));
-    }, [categoriasSelecionadas, testId, nivel, selectedOption]);
+        const handleBeforeUnload = (event) => {
+            if (unsavedChanges) {
+                const confirmation = window.confirm("Você tem alterações não salvas. Deseja sair?");
+                if (confirmation) {
+                    // Permitir a navegação
+                    return undefined;
+                } else {
+                    // Bloquear a navegação
+                    event.preventDefault();
+                    return (event.returnValue = "Existem alterações não salvas. Deseja realmente sair?");
+                }
+            }
+        };
 
-    useEffect(() => {
-        if (selectedOption && categorias.length > 0) {
-            const index = categorias.indexOf(selectedOption);
-        }
-    }, [selectedOption, categorias]);
+        window.addEventListener("beforeunload", handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+        };
+    }, [unsavedChanges]);
 
     const handleButtonClick = (index) => {
-        console.log("Button clicked, changing to level:", index + 1);
         setActiveButtonIndex(index);
         setNivel(index + 1);
         setSelectedOption("");
@@ -85,7 +94,6 @@ export default function CriarTeste() {
     };
 
     const handleChange = (event) => {
-        console.log("Selected option changed:", event.target.value);
         setSelectedOption(event.target.value);
     };
 
@@ -96,14 +104,7 @@ export default function CriarTeste() {
                     alert("Essa categoria já foi selecionada para este nível.");
                     return;
                 }
-                console.log("Adding question to selected categories:", selectedOption);
                 await updateCategoriasSelecionadas(nivel, [selectedOption], setCategoriasSelecionadas);
-                if (testId && nivel > 0 && selectedOption) {
-                    console.log("Updating database with selected category:", selectedOption);
-                    const newIndex = await updateDatabase(testId, nivel, selectedOption, categorias);
-                    console.log("Received category index from updateDatabase:", newIndex);
-                    setCategoryIndex(newIndex);  // Atualiza o estado com o índice da categoria
-                }
             }
         } catch (error) {
             console.error("Error adding question:", error);
@@ -111,7 +112,17 @@ export default function CriarTeste() {
     };
 
     const handleEncerrar = () => {
-        console.log("Encerrar Teste");
+        setUnsavedChanges(true); // Marca que há mudanças não salvas ao tentar encerrar
+    };
+
+    const handleSaveAndExit = async () => {
+        try {
+            await updateQuestionValues(testId, questionValues);
+            setUnsavedChanges(false); // Marca as alterações como salvas
+            navigate("/painel-adm/pacientes"); // Navega para outra rota após salvar e sair
+        } catch (error) {
+            console.error("Erro ao salvar e sair:", error);
+        }
     };
 
     return (
@@ -136,7 +147,6 @@ export default function CriarTeste() {
                         testId={testId}
                         setQuestionValues={setQuestionValues}
                         questionValues={questionValues}
-                        categoryIndex={categoryIndex}  // Passa o categoryIndex como prop
                     />
                 </Box>
                 <FixedButtons
@@ -144,6 +154,30 @@ export default function CriarTeste() {
                     handleEncerrar={handleEncerrar}
                 />
             </Box>
+
+            {/* Caixa de diálogo de confirmação, substituir pela correta e tomar cuidado para passar a função */}
+            {unsavedChanges && (
+                <Box
+                    sx={{
+                        position: "fixed",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                        padding: "2em",
+                        backgroundColor: "#fff",
+                        border: "1px solid #ccc",
+                        zIndex: 9999,
+                    }}
+                >
+                    <p>Você tem alterações não salvas. O que deseja fazer?</p>
+                    <Button onClick={handleSaveAndExit} variant="contained" color="primary" sx={{ marginRight: "1em" }}>
+                        Salvar e sair
+                    </Button>
+                    <Button onClick={() => setUnsavedChanges(false)} variant="contained" color="secondary">
+                        Continuar na página
+                    </Button>
+                </Box>
+            )}
         </Box>
     );
 }
