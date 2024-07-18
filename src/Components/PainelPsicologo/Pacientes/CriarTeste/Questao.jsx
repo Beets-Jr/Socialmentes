@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   Box,
+  Button,
   FormControl,
   FormControlLabel,
   Radio,
@@ -20,6 +21,7 @@ export default function Questao({
   indiceCategoriaGeral,
   selectedValues,
   onSelectedValuesChange,
+  onRemotion
 }) {
   const [perguntas, setPerguntas] = useState([]);
   const [descricoes, setDescricoes] = useState([]);
@@ -49,6 +51,8 @@ export default function Questao({
     }
   }, [nivel, categoriaSelecionada]);
 
+
+
   return (
     <>
       <div className={styles.titulo2} style={{ width: "50vw" }}>
@@ -60,6 +64,13 @@ export default function Questao({
             alt="Expandir"
           />
           {categoriaSelecionada && `${categoriaSelecionada} - Nível ${nivel}`}
+          <Button
+            sx={{ backgroundColor: "red", color: "white", marginLeft: "100px" }}
+            onClick={() => onRemotion(nivel, indiceCategoriaGeral)}
+          >
+            Remover
+          </Button>
+
         </div>
       </div>
 

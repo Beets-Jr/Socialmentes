@@ -50,6 +50,27 @@ export default function QuestoesList({
     console.log("Objetao: ", questionValues);
   }, [questionValues]);
 
+  const handleRemotion = (nivel, indiceDaCategoria) => {
+    setQuestionValues((prevValues) => {
+      const updatedValues = { ...prevValues };
+      const levelKey = `level_${nivel}`;
+      const categoryKey = `category_${indiceDaCategoria}`;
+  
+      // Remover a categoria específica e suas questões
+      if (updatedValues[levelKey]) {
+        delete updatedValues[levelKey][categoryKey];
+        
+        // Se não houver mais categorias no nível, remover o nível
+        if (Object.keys(updatedValues[levelKey]).length === 0) {
+          delete updatedValues[levelKey];
+        }
+      }
+  
+      return updatedValues;
+    });
+  };
+  
+
   return (
     <Box
       sx={{
@@ -88,6 +109,7 @@ export default function QuestoesList({
                           value
                         )
                       }
+                      onRemotion={handleRemotion}
                     />
                   </div>
                 );
