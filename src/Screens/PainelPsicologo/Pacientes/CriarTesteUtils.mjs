@@ -2,10 +2,11 @@ import { addCategoryToLevel } from "../../../Services/Tests/testsFunctions.mjs";
 import { getCategoriaNomesPorNivel } from "../../../Services/Tests/testsInfoFunctions";
 import { getCategoriesByLevel } from "../../../Services/Tests/Category/GetCategorys.mjs";
 
-/** Configura variáveis do local storage
+/**
+ * Carrega dados iniciais do localStorage para o teste, como o ID do teste e categorias selecionadas.
  * 
- * @param {*} setTestSerialId 
- * @param {*} setCategoriasSelecionadas 
+ * @param {Function} setTestSerialId Função para definir o ID do teste no estado.
+ * @param {Function} setCategoriasSelecionadas Função para definir as categorias selecionadas no estado.
  */
 export const loadInitialDataFromLocalStorage = (
   setTestSerialId,
@@ -31,10 +32,11 @@ export const loadInitialDataFromLocalStorage = (
   }
 };
 
-/** Carrega as categorias dado um nível
+/**
+ * Carrega as categorias dado um nível específico.
  * 
- * @param {number} nivel 
- * @param {*} setCategorias 
+ * @param {number} nivel Nível das categorias a serem carregadas.
+ * @param {Function} setCategorias Função para definir as categorias no estado.
  */
 export const fetchCategoriasPorNivel = async (nivel, setCategorias) => {
   try {
@@ -46,12 +48,13 @@ export const fetchCategoriasPorNivel = async (nivel, setCategorias) => {
   }
 };
 
-/** 
+/**
+ * Atualiza as categorias selecionadas com base nos detalhes do teste e no nível fornecido.
  * 
- * @param {*} testDetails 
- * @param {number} nivel 
- * @param {vetor} categorias 
- * @param {*} setCategoriasSelecionadas 
+ * @param {*} testDetails Detalhes do teste que contêm informações sobre as categorias selecionadas.
+ * @param {number} nivel Nível das categorias a serem atualizadas.
+ * @param {Array} categorias Lista de categorias disponíveis para o nível fornecido.
+ * @param {Function} setCategoriasSelecionadas Função para definir as categorias selecionadas no estado.
  */
 export const updateCategoriasSelecionadasFromTestDetails = (
   testDetails,
@@ -80,6 +83,13 @@ export const updateCategoriasSelecionadasFromTestDetails = (
   }
 };
 
+/**
+ * Obtém categorias com base em uma lista de índices fornecidos.
+ * 
+ * @param {Array} categorias Lista de categorias.
+ * @param {Array} indices Lista de índices para as categorias desejadas.
+ * @returns {Array} Lista de categorias correspondentes aos índices fornecidos.
+ */
 export const getCategoriasByIndices = (categorias, indices) => {
   try {
     // Filtra os índices para remover undefined e ordena
@@ -93,6 +103,13 @@ export const getCategoriasByIndices = (categorias, indices) => {
   }
 };
 
+/**
+ * Atualiza as categorias selecionadas para um determinado nível com novas categorias.
+ * 
+ * @param {number} nivel Nível das categorias a serem atualizadas.
+ * @param {Array} novasCategorias Novas categorias a serem adicionadas.
+ * @param {Function} setCategoriasSelecionadas Função para definir as categorias selecionadas no estado.
+ */
 export const updateCategoriasSelecionadas = (
   nivel,
   novasCategorias,

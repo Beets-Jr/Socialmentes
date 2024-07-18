@@ -164,7 +164,7 @@ export default function CriarTeste() {
             testId={testId}
             setQuestionValues={setQuestionValues}
             questionValues={questionValues}
-            categorias={categorias} // Passando o vetor de categorias
+            categorias={categorias}
           />
         </Box>
         <FixedButtons

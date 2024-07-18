@@ -11,7 +11,13 @@ import {
   setDoc,
 } from "firebase/firestore";
 
-// Função recursiva para percorrer a estrutura de questions
+/**
+ * Função recursiva para percorrer a estrutura de perguntas e extrair os valores.
+ * 
+ * @param {Object} obj Objeto contendo a estrutura de perguntas.
+ * @param {Object} extractedValues Objeto onde os valores extraídos serão armazenados.
+ * @param {string} currentPath Caminho atual na estrutura de perguntas (opcional).
+ */
 function extractValues(obj, extractedValues, currentPath = "") {
   Object.keys(obj).forEach((key) => {
     const value = obj[key];
@@ -25,9 +31,11 @@ function extractValues(obj, extractedValues, currentPath = "") {
   });
 }
 
-/** Busca informações de um teste da coleção tests no firestore
+/**
+ * Busca informações de um teste no Firestore pelo ID do teste.
  *
- * @param {*} testId - Id do teste
+ * @param {string} testId ID do teste a ser buscado.
+ * @returns {Object|null} Objeto contendo as informações do teste ou null se não encontrado.
  */
 async function getTestById(testId) {
   const testDoc = doc(db, "tests", testId);
@@ -63,6 +71,13 @@ async function getTestById(testId) {
   }
 }
 
+/**
+ * Atualiza os valores das perguntas em um documento de teste específico no Firestore.
+ *
+ * @param {string} testId ID do teste a ser atualizado.
+ * @param {Object} questionValues Novos valores das perguntas a serem atualizados.
+ * @returns {Object|null} Retorna os novos valores das perguntas atualizados ou null em caso de erro.
+ */
 async function updateQuestionValues(testId, questionValues) {
   const testsRef = collection(db, "tests");
   const testQuery = query(testsRef, where("id", "==", parseInt(testId)));
@@ -119,11 +134,11 @@ async function updateQuestionValues(testId, questionValues) {
 
 
 /**
+ * Adiciona uma nova categoria a um nível específico em um documento de teste no Firestore.
  *
- * @param {string} serialId - ID serial do teste
- * @param {number} level - Nível
- * @param {number} categoryIndex - Índice da categoria
- * @returns
+ * @param {string} serialId ID serial do teste onde a categoria será adicionada.
+ * @param {number} level Nível onde a categoria será adicionada.
+ * @param {number} categoryIndex Índice da nova categoria a ser adicionada.
  */
 async function addCategoryToLevel(serialId, level, categoryIndex) {
   const testsRef = collection(db, "tests");

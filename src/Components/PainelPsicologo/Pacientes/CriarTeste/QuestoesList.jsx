@@ -12,7 +12,7 @@ export default function QuestoesList({
   testId,
   setQuestionValues,
   questionValues,
-  categorias, // Adicionei categorias como propriedade para acessar o vetor de categorias global
+  categorias,
 }) {
   const handleSelectedValuesChange = (
     testId,
@@ -21,7 +21,6 @@ export default function QuestoesList({
     indiceQuestao,
     value
   ) => {
-    // Encontrar o índice da categoria no vetor de categorias geral
     const categoriaSelecionada =
       categoriasSelecionadas[nivel][indiceDaCategoria];
     const indiceCategoriaGeral = categorias.findIndex(
@@ -71,7 +70,6 @@ export default function QuestoesList({
           parseInt(key) === nivel && (
             <div key={key}>
               {categoriasSelecionadas[key].map((categoria, index) => {
-                // Encontrar o índice da categoria no vetor de categorias geral
                 const indiceCategoriaGeral = categorias.findIndex(
                   (cat) => cat === categoria
                 );
@@ -81,8 +79,8 @@ export default function QuestoesList({
                     <Questao
                       nivel={parseInt(key)}
                       categoriaSelecionada={categoria}
-                      indiceDaCategoria={index} // Passando o índice da categoria local
-                      indiceCategoriaGeral={indiceCategoriaGeral} // Passando o índice da categoria global
+                      indiceDaCategoria={index}
+                      indiceCategoriaGeral={indiceCategoriaGeral}
                       selectedValues={questionValues}
                       onSelectedValuesChange={(indiceQuestao, value) =>
                         handleSelectedValuesChange(
