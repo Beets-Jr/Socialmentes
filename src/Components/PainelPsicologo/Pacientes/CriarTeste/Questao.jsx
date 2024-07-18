@@ -17,6 +17,7 @@ export default function Questao({
   nivel,
   categoriaSelecionada,
   indiceDaCategoria,
+  indiceCategoriaGeral,
   selectedValues,
   onSelectedValuesChange,
 }) {
@@ -76,31 +77,31 @@ export default function Questao({
                 row
                 value={
                   selectedValues?.[`level_${nivel}`]?.[
-                    `category_${indiceDaCategoria}`
-                  ]?.[`question_${index}`] || ""
+                    `category_${indiceCategoriaGeral}`
+                  ]?.[`question_${index}`]?.toString() || "" // Converter para string aqui
                 }
                 onChange={(e) => handleChange(index, e)}
               >
                 <FormControlLabel
-                  value={0}
+                  value="0" // Converter para string aqui
                   control={<Radio sx={{ color: "var(--color-gray-3)" }} />}
                   label="Não Adquirido"
                   className={styles.radioOptions}
                 />
                 <FormControlLabel
-                  value={1}
+                  value="1" // Converter para string aqui
                   control={<Radio sx={{ color: "var(--color-gray-3)" }} />}
                   label="Sem oportunidade"
                   className={styles.radioOptions}
                 />
                 <FormControlLabel
-                  value={2}
+                  value="2" // Converter para string aqui
                   control={<Radio sx={{ color: "var(--color-gray-3)" }} />}
                   label="Parcialmente"
                   className={styles.radioOptions}
                 />
                 <FormControlLabel
-                  value={3}
+                  value="3" // Converter para string aqui
                   control={<Radio sx={{ color: "var(--color-gray-3)" }} />}
                   label="Adquirido"
                   className={styles.radioOptions}

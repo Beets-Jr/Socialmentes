@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+// QuestoesList.js
+
+import React, { useEffect } from "react";
 import { Box } from "@mui/material";
 import Questao from "./Questao";
 import styles from "./Styles.module.css";
@@ -10,6 +12,7 @@ export default function QuestoesList({
   testId,
   setQuestionValues,
   questionValues,
+  categorias, // Adicionei categorias como propriedade para acessar o vetor de categorias global
 }) {
   const handleSelectedValuesChange = (
     testId,
@@ -18,6 +21,13 @@ export default function QuestoesList({
     indiceQuestao,
     value
   ) => {
+    // Encontrar o índice da categoria no vetor de categorias geral
+    const categoriaSelecionada =
+      categoriasSelecionadas[nivel][indiceDaCategoria];
+    const indiceCategoriaGeral = categorias.findIndex(
+      (cat) => cat === categoriaSelecionada
+    );
+
     setQuestionValues((prevValues) => {
       const updatedValues = { ...prevValues };
 
@@ -25,11 +35,13 @@ export default function QuestoesList({
         updatedValues[`level_${nivel}`] = {};
       }
 
-      if (!updatedValues[`level_${nivel}`][`category_${indiceDaCategoria}`]) {
-        updatedValues[`level_${nivel}`][`category_${indiceDaCategoria}`] = {};
+      if (
+        !updatedValues[`level_${nivel}`][`category_${indiceCategoriaGeral}`]
+      ) {
+        updatedValues[`level_${nivel}`][`category_${indiceCategoriaGeral}`] = {};
       }
 
-      updatedValues[`level_${nivel}`][`category_${indiceDaCategoria}`][
+      updatedValues[`level_${nivel}`][`category_${indiceCategoriaGeral}`][
         `question_${indiceQuestao}`
       ] = value;
 
@@ -38,7 +50,7 @@ export default function QuestoesList({
   };
 
   useEffect(() => {
-    console.log("Objetao com tudo:", questionValues);
+    console.log("Objetao: ", questionValues);
   }, [questionValues]);
 
   return (
@@ -58,25 +70,33 @@ export default function QuestoesList({
         (key) =>
           parseInt(key) === nivel && (
             <div key={key}>
-              {categoriasSelecionadas[key].map((categoria, index) => (
-                <div key={index} style={{ marginBottom: "10vh" }}>
-                  <Questao
-                    nivel={parseInt(key)}
-                    categoriaSelecionada={categoria}
-                    indiceDaCategoria={index}
-                    selectedValues={questionValues}
-                    onSelectedValuesChange={(indiceQuestao, value) =>
-                      handleSelectedValuesChange(
-                        testId,
-                        nivel,
-                        index,
-                        indiceQuestao,
-                        value
-                      )
-                    }
-                  />
-                </div>
-              ))}
+              {categoriasSelecionadas[key].map((categoria, index) => {
+                // Encontrar o índice da categoria no vetor de categorias geral
+                const indiceCategoriaGeral = categorias.findIndex(
+                  (cat) => cat === categoria
+                );
+
+                return (
+                  <div key={index} style={{ marginBottom: "10vh" }}>
+                    <Questao
+                      nivel={parseInt(key)}
+                      categoriaSelecionada={categoria}
+                      indiceDaCategoria={index} // Passando o índice da categoria local
+                      indiceCategoriaGeral={indiceCategoriaGeral} // Passando o índice da categoria global
+                      selectedValues={questionValues}
+                      onSelectedValuesChange={(indiceQuestao, value) =>
+                        handleSelectedValuesChange(
+                          testId,
+                          nivel,
+                          index,
+                          indiceQuestao,
+                          value
+                        )
+                      }
+                    />
+                  </div>
+                );
+              })}
             </div>
           )
       )}
