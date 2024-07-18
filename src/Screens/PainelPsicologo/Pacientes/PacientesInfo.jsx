@@ -15,6 +15,8 @@ export default function PacientesInfo() {
     const [patientTests, setPatientTests] = useState([]);
     const navigate = useNavigate();
 
+    localStorage.setItem('patient', patient);
+
     if (!patient) {
         return <div>Dados do paciente não disponíveis</div>;
     }
@@ -36,7 +38,10 @@ export default function PacientesInfo() {
             const createdTestId = await createTestForPatient(patient.id, patient.childName);
     
             // Navega para a rota após o sucesso da criação do teste
-            navigate(`/painel-adm/pacientes/teste/${createdTestId}`);
+            navigate(`/painel-adm/pacientes/teste/${createdTestId}`, {
+                state: { testDocId: createdTestId },
+            });
+            window.location.reload();
         } catch (error) {
             console.error("Erro ao criar teste:", error);
             // Tratar o erro adequadamente aqui
