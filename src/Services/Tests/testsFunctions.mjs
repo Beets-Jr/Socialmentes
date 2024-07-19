@@ -103,7 +103,26 @@ async function updateQuestionValues(testId, questionValues) {
 
             let updatedQuestions = { ...testDoc.data().questions };
 
-            // Mescla os novos valores com os existentes
+            // Remover categorias e questões que não estão mais presentes em questionValues
+            Object.keys(updatedQuestions).forEach(level => {
+                if (!questionValues[level]) {
+                    delete updatedQuestions[level];
+                } else {
+                    Object.keys(updatedQuestions[level]).forEach(category => {
+                        if (!questionValues[level][category]) {
+                            delete updatedQuestions[level][category];
+                        } else {
+                            Object.keys(updatedQuestions[level][category]).forEach(question => {
+                                if (!questionValues[level][category][question]) {
+                                    delete updatedQuestions[level][category][question];
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+
+            // Mesclar os novos valores com os existentes
             Object.keys(questionValues).forEach(level => {
                 if (!updatedQuestions[level]) {
                     updatedQuestions[level] = {};
@@ -131,7 +150,6 @@ async function updateQuestionValues(testId, questionValues) {
         throw error; // Propaga o erro para que seja tratado no chamador da função
     }
 }
-
 
 /**
  * Adiciona uma nova categoria a um nível específico em um documento de teste no Firestore.
