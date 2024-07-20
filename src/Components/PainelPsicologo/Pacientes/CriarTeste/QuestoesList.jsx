@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button } from "@mui/material";
 import Questao from "./Questao";
 import styles from "./Styles.module.css";
@@ -29,33 +29,39 @@ export default function QuestoesList({
         const indiceCategoriaGeral = categorias.findIndex(
             (cat) => cat === categoriaSelecionada
         );
-
+    
         setQuestionValues((prevValues) => {
-            const updatedValues = { ...prevValues };
-
+            const updatedValues = JSON.parse(JSON.stringify(prevValues));
+    
+            // Garantir que o nível exista, ou criar um novo
             if (!updatedValues[`level_${nivel}`]) {
                 updatedValues[`level_${nivel}`] = {};
             }
-
-            if (
-                !updatedValues[`level_${nivel}`][`category_${indiceCategoriaGeral}`]
-            ) {
+    
+            // Garantir que a categoria dentro do nível exista, ou criar uma nova
+            if (!updatedValues[`level_${nivel}`][`category_${indiceCategoriaGeral}`]) {
                 updatedValues[`level_${nivel}`][`category_${indiceCategoriaGeral}`] = {};
             }
-
+    
+            // Atualizar ou adicionar a questão específica
             updatedValues[`level_${nivel}`][`category_${indiceCategoriaGeral}`][
                 `question_${indiceQuestao}`
             ] = value;
-
+    
             return updatedValues;
         });
     };
-
+    
+    
     const handleRemotion = (indiceDaCategoriaNoNivel, indiceDaCategoriaGeral) => {
         setIndiceDaCategoriaNoNivel(indiceDaCategoriaNoNivel);
         setIndiceDaCategoriaGeral(indiceDaCategoriaGeral);
         setRemotion(true);
     };
+
+    useEffect(() => {
+        console.log("Objetao: ", questionValues);
+    }, [questionValues]);
 
     const handleRemotionConfirmed = async () => {
         const updatedValues = { ...questionValues };

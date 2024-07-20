@@ -17,8 +17,8 @@ export default function FixedButtons({ handleAdicionarQuestao, handleEncerrar })
             </Box>
             <Box sx={{ width: "52.5%" }}></Box>
             <Box sx={{ display: "flex", gap: "10%", right: "1em" }}>
-                <Botao icon={iconEncerrar} text="Encerrar" bgcolor="bg-blue" onClick={handleEncerrar}/>
                 <Botao icon={iconEncerrar} text="Salvar e sair" bgcolor="bg-blue" onClick={handleEncerrar}/>
+                <Botao icon={iconEncerrar} text="Encerrar" bgcolor="bg-blue" onClick={handleEncerrar}/>
             </Box>
         </Box>
     );

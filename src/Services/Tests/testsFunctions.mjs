@@ -151,6 +151,7 @@ async function updateQuestionValues(testId, questionValues) {
     }
 }
 
+
 /**
  * Adiciona uma nova categoria a um nível específico em um documento de teste no Firestore.
  *
