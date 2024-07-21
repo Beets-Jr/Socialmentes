@@ -51,19 +51,23 @@ function Tabela() {
                     .sort( (a, b) => compObjects(a, b) )
                     .map( level => {
                         Object
-                            .keys(test.questions[level])
-                            .sort((a, b) => compObjects(a, b))
+                            .entries(test.questions[level])
+                            .sort((a, b) => compObjects(a[0], b[0]))
                             .map( category => {
 
                                 const numLevel = Number(level.split('_')[1]);
-                                if (numLevel > 3) return;
-                                const numCategory = Number(category.split('_')[1]);
-                                if (numCategory > denverData[numLevel]["categorias"].length - 1) return;
-                                const nameCategory = denverData[numLevel]["categorias"][numCategory]["nome"];
+                                const numCategory = Number(category[0].split('_')[1]);
+                                if (numCategory >= denverData[numLevel - 1]["categorias"].length) return;
+                                const nameCategory = denverData[numLevel - 1]["categorias"][numCategory]["nome"];
 
-                                if (!dataTemp[nameCategory])
+                                const evaluated = Object
+                                    .values( category[1] )
+                                    .some( value => value == 2 || value == 3 );
+
+                                if (!dataTemp[nameCategory] && evaluated)
                                     dataTemp[nameCategory] = [false, false, false, false];
-                                dataTemp[nameCategory][numLevel] = true;
+                                if (evaluated)
+                                    dataTemp[nameCategory][numLevel - 1] = true;
 
                             })
                         });
