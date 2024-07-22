@@ -12,8 +12,10 @@ import { EditIcon } from "../../../Assets/Icons/EditIcon";
 import AddRegister from "../../../Components/PainelAdm/Registrations/AddRegister";
 import SearchField from "../../../Components/ElementsInterface/SearchField/SearchField";
 import DataTable from "../../../Components/ElementsInterface/DataTable/DataTable";
+import DialogConfirmation from '../../../Components/PainelAdm//Patients/DialogConfirmation';
 
 import styles from './Registrations.module.css';
+import { DeleteOutlineRounded } from "@mui/icons-material";
 
 const cache = createCache({
     key: 'css',
@@ -28,6 +30,10 @@ function Registrations() {
     const [registrations, setRegistrations] = useState([]); // a própria lista de registros
     const [filteredRegistrations, setFilteredRegistrations] = useState([]); // a lista de registros filtrada
     const [openDialog, setOpenDialog] = useState(false); // controla a exibição do Dialog
+    const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
+    const [idRegister, setIdRegister] = useState();
+    const [message, setMessage] = useState();
+    const [deleted, setDeleted] = useState(0);
 
     const isMobile = useMediaQuery('(max-width:700px)');
 
@@ -40,12 +46,32 @@ function Registrations() {
                 setFilteredRegistrations(patients);
                 setValue(patients.length);
             });
-    }, [registerCreated]);
+    }, [registerCreated || deleted]);
+
+    useEffect(() => {
+        if (!message) {
+            setConfirmDialogOpen(false);
+        }
+    }, [message]);
 
     // trata o fechamento do Dialog
     const handleClose = () => {
         setOpenDialog(false);
     }
+
+    const deleteRegister = async () => {
+        try {
+            const resp = UserService.deleteUserById(idRegister);
+            if (resp instanceof Error) {
+                setMessage("Erro ao tentar remover profissional.");
+            } else {
+                setMessage("Profissional removido com sucesso.");
+                setDeleted(value => value + 1);
+            }
+        } catch (error) {
+            console.log("Erro ao deletar profissional: ", error);
+        }
+    };
 
     return (
 
@@ -100,6 +126,13 @@ function Registrations() {
                                                 func: (id) => console.log(`edit ${id}`),
                                                 icon: <EditIcon />
                                             },
+                                            {
+                                                func: (id) => {
+                                                    setConfirmDialogOpen(true);
+                                                    setIdRegister(id);
+                                                },
+                                                icon: <DeleteOutlineRounded/>
+                                            },
                                         ]}
                                         emptyText='Nenhum paciente cadastrado'
                                         isMobile={isMobile}
@@ -113,6 +146,19 @@ function Registrations() {
                             openDialog={openDialog}
                             handleClose={handleClose}
                             setRegisterCreated={setRegisterCreated}
+                        />
+
+                        <DialogConfirmation
+                            open={confirmDialogOpen}
+                            onClose={()=> {
+                                setConfirmDialogOpen(false);
+                                setIdRegister(null);
+                            }}
+                            onConfirm={() => deleteRegister()}
+                            message={message}
+                            setMessage={setMessage}
+                            title="Remover profissional"
+                            text="Você tem certeza que deseja remover o profissional?"
                         />
 
                     </Box>

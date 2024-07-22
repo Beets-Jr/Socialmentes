@@ -1,4 +1,4 @@
-import { collection, doc, getDocs, query, serverTimestamp, setDoc, updateDoc, where } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs, query, serverTimestamp, setDoc, updateDoc, where } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
@@ -83,7 +83,21 @@ const createUser = async ({ email, photo, ...registerData }) => {
     }
 };
 
+const deleteUserById = async (id) => {
+
+    const patientRef = doc(userProfiles, id);
+
+    try {
+        await deleteDoc(patientRef);
+    } catch (e) {
+        console.error('Erro ao deletar proffional: ', e);
+        throw new Error('Erro ao deletar profissional');
+    }
+
+};
+
 export const UserService = {
     getAllUsers,
-    createUser
+    createUser,
+    deleteUserById,
 };
