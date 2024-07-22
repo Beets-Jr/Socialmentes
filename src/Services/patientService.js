@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, getDoc, setDoc, getDocs } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, setDoc, getDocs, deleteDoc } from "firebase/firestore";
 import { db } from "../Database/FirebaseConfig.mjs";
 
 const collectionRef = collection(db, 'patients');
@@ -127,6 +127,16 @@ const editPatient = async (id, patientData) => {
   }
 };
 
+const deletePatient = async (id) => {
+  const patientRef = doc(db, 'patients', id);
+  try {
+    await deleteDoc(patientRef);
+  } catch (e) {
+    console.error('Erro ao deletar paciente: ', e);
+    throw new Error('Erro ao deletar paciente');
+  }
+};
+
 export { addPatient, getPatient, editPatient, jsonToPatient };
 
 const getAllPatients = () => {
@@ -144,5 +154,6 @@ const getAllPatients = () => {
 };
 
 export const PatientService = {
-  getAllPatients
+  getAllPatients,
+  deletePatient
 };
