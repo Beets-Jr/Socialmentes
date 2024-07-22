@@ -7,7 +7,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { VMessageError } from '../Registrations/forms';
 
 
-function DialogConfirmation({open, onClose, onConfirm, message, setMessage}) {
+function DialogConfirmation({open, onClose, onConfirm, message, setMessage, title, text}) {
   return ( 
     <Dialog
       open={open}
@@ -33,7 +33,7 @@ function DialogConfirmation({open, onClose, onConfirm, message, setMessage}) {
           textAlign: "center"
         }}
       >
-        {"Remover paciente"}
+        {title}{/* "Remover paciente" */}
       </DialogTitle>
       <DialogContent>
         <DialogContentText 
@@ -44,7 +44,7 @@ function DialogConfirmation({open, onClose, onConfirm, message, setMessage}) {
             textAlign: "center"
           }}
         >
-          Você tem certeza que deseja remover o paciente?
+          {text}{/* Você tem certeza que deseja remover o paciente? */}
         </DialogContentText>
       </DialogContent>
       <DialogActions 
