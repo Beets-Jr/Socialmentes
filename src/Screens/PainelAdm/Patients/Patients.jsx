@@ -7,16 +7,22 @@ import { AppContext } from "../../../Contexts/AppContext";
 import { PatientService } from "../../../Services/patientService";
 import SearchField from '../../../Components/ElementsInterface/SearchField/SearchField';
 import DataTable from '../../../Components/ElementsInterface/DataTable/DataTable';
+import DialogConfirmation from '../../../Components/PainelAdm//Patients/DialogConfirmation';
 import { EditIcon } from "../../../Assets/Icons/EditIcon";
 import { VisibilityIcon } from "../../../Assets/Icons/VisibilityIcon";
 
 import styles from './Patients.module.css';
+import { DeleteOutlineRounded } from "@mui/icons-material";
 
 function Patients() {
 
     const {setValue} = useContext(AppContext);
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(true);
+    const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
+    const [idPatient, setIdPatient] = useState();
+    const [message, setMessage] = useState();
+    const [deleted, setDeleted] = useState(0);
 
     const [patients, setPatients] = useState([]);
     const [filteredPatients, setFilteredPatients] = useState([]);
@@ -30,8 +36,15 @@ function Patients() {
                 setPatients(patients);
                 setFilteredPatients(patients);
                 setValue(patients.length);
+                setDeleted(false);
             });
-    }, []);
+    }, [deleted]);
+
+    useEffect(() => {
+        if (!message) {
+            setConfirmDialogOpen(false);
+        }
+    }, [message]);
 
     const getAge = (date) => {
         if (!date) return;
@@ -60,6 +73,20 @@ function Patients() {
             return `${years - 1} anos e ${months > 0 ? months - 1 : 11} mes(es)`;
         } else {
             return `${years} anos`;
+        }
+    };
+
+    const removePatient = async () => {
+        try {
+            const resp = PatientService.deletePatient(idPatient);
+            if (resp instanceof Error) {
+                setMessage("Erro ao tentar remover paciente.");
+            } else {
+                setMessage("Paciente removido com sucesso.");
+                setDeleted(value => value + 1);
+            }
+        } catch (error) {
+            console.log("Erro ao deletar paciente: ", error);
         }
     };
 
@@ -111,6 +138,13 @@ function Patients() {
                                     func: (id) => console.log(`edit ${id}`),
                                     icon: <EditIcon/>
                                 },
+                                {
+                                    func: (id) => {
+                                        setConfirmDialogOpen(true);
+                                        setIdPatient(id);
+                                    },
+                                    icon: <DeleteOutlineRounded/>
+                                },
                             ]}
                             emptyText='Nenhum paciente cadastrado'
                             isMobile={isMobile}
@@ -118,6 +152,17 @@ function Patients() {
                     </Box>
                 </>
             )}
+
+            <DialogConfirmation
+                open={confirmDialogOpen}
+                onClose={()=> {
+                    setConfirmDialogOpen(false);
+                    setIdPatient(null);
+                }}
+                onConfirm={() => removePatient()}
+                message={message}
+                setMessage={setMessage}
+            />
 
         </Box>
     );
