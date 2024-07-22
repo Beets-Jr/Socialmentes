@@ -162,6 +162,8 @@ function Patients() {
                 onConfirm={() => removePatient()}
                 message={message}
                 setMessage={setMessage}
+                title="Remover paciente"
+                text="Você tem certeza que deseja remover o paciente?"
             />
 
         </Box>
