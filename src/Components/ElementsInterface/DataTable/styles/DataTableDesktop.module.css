@@ -15,7 +15,7 @@
 }
 
 .row {
-    height: 70px;
+    padding: 15px 0px;
     display: flex;
     align-items: center;
     border: 2px solid var(--color-gray-2);
@@ -31,4 +31,10 @@
 .row svg {
     color: var(--color-gray-5);
     font-size: 22px;
+}
+
+@media (max-width: 800px) {
+    .row {
+        padding: 15px 15px;
+    }
 }
