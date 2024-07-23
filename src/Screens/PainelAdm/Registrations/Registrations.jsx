@@ -61,7 +61,7 @@ function Registrations() {
 
     const deleteRegister = async () => {
         try {
-            const resp = UserService.deleteUserById(idRegister);
+            const resp = await UserService.deleteUserById(idRegister);
             if (resp instanceof Error) {
                 setMessage("Erro ao tentar remover profissional.");
             } else {

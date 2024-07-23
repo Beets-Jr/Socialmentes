@@ -85,13 +85,13 @@ const createUser = async ({ email, photo, ...registerData }) => {
 
 const deletePhotoById = async (url) => {
 
-    const photoRef = ref(userPhotos, url);
+    const photoRef = ref(storage, url);
 
     try {
         await deleteObject(photoRef);
     } catch (e) {
         console.error('Erro ao excluir imagem do profissional: ', e);
-        throw new Error('Erro ao excluir imagem do profissional');
+        return new Error('Erro ao excluir imagem do profissional');
     }
 
 }
@@ -104,13 +104,13 @@ const deleteUserById = async (id) => {
         const user = await getDoc(registerRef);
         if (!user.exists())
             return;
-        // const resp = await deletePhotoById(user.data().photoUrl);
-        // if (resp instanceof Error)
-        //     throw new Error('Ocorreu um erro ao deletar a imagem no banco de dados');
+        const resp = await deletePhotoById(user.data().photoUrl);
+        if (resp instanceof Error)
+            throw new Error('Ocorreu um erro ao deletar a imagem no banco de dados');
         await deleteDoc(registerRef);
     } catch (e) {
         console.error('Erro ao deletar profissional: ', e);
-        throw new Error('Erro ao deletar profissional');
+        return new Error('Erro ao deletar profissional');
     }
 
 };
