@@ -16,6 +16,7 @@ import {
 } from "../../../Services/Tests/Category/GetCategorys.mjs";
 import { updateQuestionValues } from "../../../Services/Tests/testsFunctions.mjs";
 import { useNavigate, useLocation } from "react-router-dom";
+import { treatQuestionValues } from "../../../Validators/Tests/treatData";
 
 export default function CriarTeste() {
   const [testId, setTestId] = useState("");
@@ -136,7 +137,8 @@ export default function CriarTeste() {
 
   const handleSaveAndExit = async () => {
     try {
-      await updateQuestionValues(testId, questionValues);
+      const treatQValues = treatQuestionValues(questionValues)
+      await updateQuestionValues(testId, treatQValues);
       setUnsavedChanges(false);
       navigate("/painel-adm/pacientes");
     } catch (error) {
