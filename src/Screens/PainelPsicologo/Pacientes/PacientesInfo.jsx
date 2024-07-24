@@ -10,6 +10,23 @@ import { getTestsFromPatient } from "../../../Services/Tests/GetTestsFromPatient
 import { createTestForPatient } from "../../../Services/Tests/testsFunctions.mjs";
 
 export default function PacientesInfo() {
+  const location = useLocation();
+    const { patient } = location.state || {};
+    const [patientTests, setPatientTests] = useState([]);
+
+    if (!patient) {
+        return <div>Dados do paciente não disponíveis</div>;
+    }
+
+    async function getTests() {
+        const patientTests = await getTestsFromPatient(patient.id);
+        setPatientTests(patientTests);
+        console.log(patientTests);
+    }
+
+    useEffect(() => {
+        getTests();
+    }, []);
   return (
     <Box sx={{ marginLeft: "3.75em", marginTop: "3em", position: "sticky", }}>
       <Box className={styles.infoPacientes}>
@@ -20,7 +37,7 @@ export default function PacientesInfo() {
         <div><span>Responsável:</span> NomeTeste1 Sobrenome Sobrenome2</div>
       </Box>
 
-      <GridTestes />
+      <GridTestes testsInfo={patientTests} />
       <div style={{ marginTop: "5vh", marginBottom: "5vh" }}>
         <Botao icon={iconAddToList} text="Criar Teste" route="/painel-adm/pacientes/criar-teste" />
       </div>
