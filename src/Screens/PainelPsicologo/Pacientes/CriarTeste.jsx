@@ -79,29 +79,6 @@ export default function CriarTeste() {
     );
   }, [categoriasSelecionadas]);
 
-  useEffect(() => {
-    const handleBeforeUnload = (event) => {
-      if (unsavedChanges) {
-        const confirmation = window.confirm(
-          "Você tem alterações não salvas. Deseja sair?"
-        );
-        if (confirmation) {
-          return undefined;
-        } else {
-          event.preventDefault();
-          return (event.returnValue =
-            "Existem alterações não salvas. Deseja realmente sair?");
-        }
-      }
-    };
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, [unsavedChanges]);
-
   const handleButtonClick = (index) => {
     setActiveButtonIndex(index);
     setNivel(index + 1);

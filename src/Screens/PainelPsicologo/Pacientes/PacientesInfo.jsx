@@ -45,7 +45,6 @@ export default function PacientesInfo() {
           window.location.reload();
       } catch (error) {
           console.error("Erro ao criar teste:", error);
-          // Tratar o erro adequadamente aqui
       }
   }    
 
@@ -55,9 +54,9 @@ export default function PacientesInfo() {
         <Box sx={{ display: "flex", flexDirection: "column", gap: "3vh" }}>
           <div className={styles.titulo} >Informações do(a) paciente</div>
           <BlueLine />
-          <div><span>Nome:</span>{patient.childName}</div>
-          <div><span>Idade:</span>{patient.age}</div>
-          <div><span>Responsável:</span>{patient.psychologistName}</div>
+          <div><span>Nome:</span> {patient.childName} </div>
+          <div><span>Idade:</span> {patient.age} </div>
+          <div><span>Responsável:</span> {patient.psychologistName} </div>
         </Box>
         
         <Box onClick={() => navigate('/painel-adm/pacientes')} sx={{ cursor: "pointer", marginLeft: "3vw" }}>
@@ -67,7 +66,7 @@ export default function PacientesInfo() {
 
       <GridTestes testsInfo={patientTests} />
       <div style={{ marginTop: "5vh", marginBottom: "5vh" }} onClick={handleCriarTeste}>
-        <Botao icon={iconAddToList} text="Criar Teste" route="/painel-adm/pacientes/criar-teste" />
+        <Botao icon={iconAddToList} text="Criar Teste" />
       </div>
 
     </Box>
