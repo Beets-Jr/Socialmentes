@@ -70,15 +70,12 @@ export default function PacientesInfo() {
       </Box>
 
       <GridTestes testsInfo={patientTests} />
-      <Box sx={{
-        marginY: {
-          xs: "1em",
-          sm: "3em",
-        },
-        marginLeft: {
-          xs: "1em",
-        }
-      }}>
+      <Box
+        sx={{
+          marginY: { xs: "1em", sm: "3em", }, marginLeft: { xs: "1em", }
+        }}
+        onClick={handleCriarTeste}
+      >
         <Botao fullText icon={iconAddToList} text="Criar Teste" route="/painel-adm/pacientes/criar-teste" />
       </Box>
 

@@ -61,11 +61,11 @@ export default function GridTestes({ testsInfo }) {
                             md={4}
                             lg={3.75}
                             sx={{ display: "flex", cursor: test.situation === 1 ? 'pointer' : 'default' }}
-                            onClick={ test.situation === 1 ? () => goToTest(test.id, test) : undefined}
+                            onClick={test.situation === 1 ? () => goToTest(test.id, test) : undefined}
                             className={styles.gridItem}
                             key={index}
                         >
-                            <div className={styles.cardHalf}>
+                            <div className={`${styles.cardHalf} ${styles.cardHalfId}`}>
                                 <span>{test.id}</span>
                             </div>
 
