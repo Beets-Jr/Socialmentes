@@ -46,6 +46,7 @@ export default function CriarTeste() {
 
   useEffect(() => {
     loadInitialDataFromLocalStorage(setTestId, setCategoriasSelecionadas);
+    console.log('Categorias selecionadas:', categoriasSelecionadas);
   }, []);
 
   useEffect(() => {
