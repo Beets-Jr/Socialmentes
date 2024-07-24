@@ -35,6 +35,26 @@ function calcularIdade(dataNascimento) {
   return `Idade: ${idadeAnos} ano(s) e ${idadeMeses} mês(es)`;
 }
 
+function formatDate(timestamp) { // Função foi criada porque o timestamp não foi criado com a função para converter a data sozinho
+  if (!timestamp || typeof timestamp.seconds === 'undefined' || typeof timestamp.nanoseconds === 'undefined') {
+      // Retorna uma string vazia ou uma data padrão se o timestamp estiver indefinido ou incompleto
+      return '';
+  }
+
+  // Converte segundos e nanosegundos para milissegundos
+  const milliseconds = timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000;
+
+  // Cria um objeto Date usando os milissegundos
+  const date = new Date(milliseconds);
+
+  // Formata a data como dd/mm/aaaa
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0'); 
+  const year = date.getFullYear();
+
+  return `${day}/${month}/${year}`;
+}
+
 const HomeDataCard = ({ title, data, type }) => {
   const renderItem = (item) => {
     if (type === 'patient') {
@@ -49,7 +69,7 @@ const HomeDataCard = ({ title, data, type }) => {
             textOverflow: 'ellipsis',// três pontinhos
           }}
         >
-          {item.children.name} | {calcularIdade(item.children.dateBirth)} | Não tem timestamp  
+          {item.children.name} | {calcularIdade(item.children.dateBirth)} | {formatDate(item.createdAt)}
         </Typography>
       );
     } else {
