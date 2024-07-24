@@ -124,9 +124,21 @@ export default function CriarTeste() {
   };
 
   return (
-    <Box sx={{ position: "sticky", marginTop: "2.5em", marginLeft: "3.75em" }}>
+    <Box sx={{
+      position: "sticky",
+      marginTop: {
+        xs: "1em",
+        sm: "2.5em"
+      },
+      marginLeft: {
+        xs: "1em",
+        sm: "3.75em"
+      }
+    }}>
       <Box>
-        <Box sx={{ display: "flex", gap: "20vw" }}>
+        <Box sx={{
+          display: { xs: "block", md: "flex" }, gap: "20vw",
+        }}>
           <NivelSelector
             activeButtonIndex={activeButtonIndex}
             handleButtonClick={handleButtonClick}
@@ -138,7 +150,9 @@ export default function CriarTeste() {
             handleChange={handleChange}
           />
         </Box>
-        <Box sx={{ marginTop: "5vh" }}>
+        <Box sx={{
+          marginTop: "5vh", marginBottom: "9vh",
+        }}>
           <QuestoesList
             testId={testId}
             nivel={nivel}

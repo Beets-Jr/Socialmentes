@@ -11,32 +11,32 @@ import ExitIcon from "../../../Assets/Icons/XexitIcon.png";
 import { createTestForPatient } from "../../../Services/Tests/testsFunctions.mjs";
 
 export default function PacientesInfo() {
-    const location = useLocation();
-    const { patient } = location.state || {};
-    const [patientTests, setPatientTests] = useState([]);
-    const navigate = useNavigate();
+  const location = useLocation();
+  const { patient } = location.state || {};
+  const [patientTests, setPatientTests] = useState([]);
+  const navigate = useNavigate();
 
-    localStorage.setItem('patient', patient);
+  localStorage.setItem('patient', patient);
 
-    if (!patient) {
-        return <div>Dados do paciente não disponíveis</div>;
-    }
+  if (!patient) {
+    return <div>Dados do paciente não disponíveis</div>;
+  }
 
-    async function getTests() {
-        const patientTests = await getTestsFromPatient(patient.id);
-        setPatientTests(patientTests);
-        console.log(patientTests);
-    }
+  async function getTests() {
+    const patientTests = await getTestsFromPatient(patient.id);
+    setPatientTests(patientTests);
+    console.log(patientTests);
+  }
 
-    useEffect(() => {
-        getTests();
-    }, []);
+  useEffect(() => {
+    getTests();
+  }, []);
 
-    const handleCriarTeste = async () => {
-      try {
-          // Lógica para criar o documento teste no banco de dados, atribuindo o ID do paciente
-          console.log("Criando teste para o paciente ", patient.childName, "cujo id é: ", patient.id);
-          const createdTestId = await createTestForPatient(patient.id, patient.childName);
+  const handleCriarTeste = async () => {
+    try {
+      // Lógica para criar o documento teste no banco de dados, atribuindo o ID do paciente
+      console.log("Criando teste para o paciente ", patient.childName, "cujo id é: ", patient.id);
+      const createdTestId = await createTestForPatient(patient.id, patient.childName);
 
           // Navega para a rota após o sucesso da criação do teste
           navigate(`/painel-adm/pacientes/teste/${createdTestId}`, {
@@ -49,7 +49,11 @@ export default function PacientesInfo() {
   }    
 
   return (
-    <Box sx={{ marginLeft: "3.75em", marginTop: "3em", position: "sticky", }}>
+    <Box sx={{
+      marginX: { xs: "1em", sm: "3.75em" },
+      marginTop: { xs: "1em", sm: "3em" },
+      position: "sticky",
+    }}>
       <Box className={styles.infoPacientes} sx={{ display: "flex", flexDirection: "row", gap: "60%" }}>
         <Box sx={{ display: "flex", flexDirection: "column", gap: "3vh" }}>
           <div className={styles.titulo} >Informações do(a) paciente</div>
@@ -58,16 +62,21 @@ export default function PacientesInfo() {
           <div><span>Idade:</span> {patient.age} </div>
           <div><span>Responsável:</span> {patient.psychologistName} </div>
         </Box>
-        
+
         <Box onClick={() => navigate('/painel-adm/pacientes')} sx={{ cursor: "pointer", marginLeft: "3vw" }}>
           <img src={ExitIcon} alt="Sair" />
         </Box>
       </Box>
 
       <GridTestes testsInfo={patientTests} />
-      <div style={{ marginTop: "5vh", marginBottom: "5vh" }} onClick={handleCriarTeste}>
-        <Botao icon={iconAddToList} text="Criar Teste" />
-      </div>
+      <Box
+        sx={{
+          marginY: { xs: "1em", sm: "3em", }, marginLeft: { xs: "1em", }
+        }}
+        onClick={handleCriarTeste}
+      >
+        <Botao fullText icon={iconAddToList} text="Criar Teste" route="/painel-adm/pacientes/criar-teste" />
+      </Box>
 
     </Box>
   );
