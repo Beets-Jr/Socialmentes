@@ -52,19 +52,3 @@
     color: #989898;
     font-size: 24px;
 }
-
-
-@media screen and (max-width: 768px) {
-    .container {
-        margin-left: 1em;
-        margin-top: 1em;
-    }
-
-    .nivel {
-        margin-bottom: 1vh;
-    }
-
-    .titulo {
-        font-size: 24px;
-    }
-}

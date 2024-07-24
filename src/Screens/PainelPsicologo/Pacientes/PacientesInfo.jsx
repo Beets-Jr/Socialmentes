@@ -1,19 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
-import styles from "./PacientesInfo.module.css"
+import styles from "./PacientesInfo.module.css";
 import BlueLine from "../../../Assets/Icons/BlueLine";
 import iconAddToList from "../../../Assets/Icons/add-list-icon.png";
-
 import Botao from "../../../Components/PainelPsicologo/Pacientes/CriarTeste/Botao";
 import GridTestes from "../../../Components/PainelPsicologo/Pacientes/CriarTeste/GridTestes";
+import { getTestsFromPatient } from "../../../Services/Tests/GetTestsFromPatient.mjs";
+import { createTestForPatient } from "../../../Services/Tests/testsFunctions.mjs";
 
 export default function PacientesInfo() {
   return (
-    <Box sx={{
-      marginX: { xs: "1em", sm: "3.75em" },
-      marginTop: { xs: "1em", sm: "3em" },
-      position: "sticky",
-    }}>
+    <Box sx={{ marginLeft: "3.75em", marginTop: "3em", position: "sticky", }}>
       <Box className={styles.infoPacientes}>
         <div className={styles.titulo} >Informações do(a) paciente</div>
         <BlueLine />
@@ -23,17 +21,9 @@ export default function PacientesInfo() {
       </Box>
 
       <GridTestes />
-      <Box sx={{
-        marginY: {
-          xs: "1em",
-          sm: "3em",
-        },
-        marginLeft: {
-          xs: "1em",
-        }
-      }}>
+      <div style={{ marginTop: "5vh", marginBottom: "5vh" }}>
         <Botao icon={iconAddToList} text="Criar Teste" route="/painel-adm/pacientes/criar-teste" />
-      </Box>
+      </div>
 
     </Box>
   );
