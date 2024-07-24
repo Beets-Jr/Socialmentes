@@ -11,24 +11,28 @@ import { createTestForPatient } from "../../../Services/Tests/testsFunctions.mjs
 
 export default function PacientesInfo() {
   const location = useLocation();
-    const { patient } = location.state || {};
-    const [patientTests, setPatientTests] = useState([]);
+  const { patient } = location.state || {};
+  const [patientTests, setPatientTests] = useState([]);
 
-    if (!patient) {
-        return <div>Dados do paciente não disponíveis</div>;
-    }
+  if (!patient) {
+    return <div>Dados do paciente não disponíveis</div>;
+  }
 
-    async function getTests() {
-        const patientTests = await getTestsFromPatient(patient.id);
-        setPatientTests(patientTests);
-        console.log(patientTests);
-    }
+  async function getTests() {
+    const patientTests = await getTestsFromPatient(patient.id);
+    setPatientTests(patientTests);
+    console.log(patientTests);
+  }
 
-    useEffect(() => {
-        getTests();
-    }, []);
+  useEffect(() => {
+    getTests();
+  }, []);
   return (
-    <Box sx={{ marginLeft: "3.75em", marginTop: "3em", position: "sticky", }}>
+    <Box sx={{
+      marginX: { xs: "1em", sm: "3.75em" },
+      marginTop: { xs: "1em", sm: "3em" },
+      position: "sticky",
+    }}>
       <Box className={styles.infoPacientes}>
         <div className={styles.titulo} >Informações do(a) paciente</div>
         <BlueLine />
@@ -38,9 +42,17 @@ export default function PacientesInfo() {
       </Box>
 
       <GridTestes testsInfo={patientTests} />
-      <div style={{ marginTop: "5vh", marginBottom: "5vh" }}>
-        <Botao icon={iconAddToList} text="Criar Teste" route="/painel-adm/pacientes/criar-teste" />
-      </div>
+      <Box sx={{
+        marginY: {
+          xs: "1em",
+          sm: "3em",
+        },
+        marginLeft: {
+          xs: "1em",
+        }
+      }}>
+        <Botao fullText icon={iconAddToList} text="Criar Teste" route="/painel-adm/pacientes/criar-teste" />
+      </Box>
 
     </Box>
   );

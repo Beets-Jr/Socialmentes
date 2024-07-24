@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, FormControl, FormControlLabel, Radio, RadioGroup } from "@mui/material";
-import Expandir from "../../../../Assets/Icons/Expandir.png";
+import { Box, FormControl, FormControlLabel, Radio, RadioGroup } from "@mui/material";
+import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
+import TrashIcon from "../../../../Assets/Icons/trash-icon.png";
+import useMediaQuery from '@mui/material/useMediaQuery';
 import styles from "./Styles.module.css";
 import { getDescricoesPorNivelECategoria, getPerguntasPorNivelECategoria } from "../../../../Services/Tests/testsInfoFunctions";
-import TrashIcon from "../../../../Assets/Icons/trash-icon.png";
 
 export default function Questao({
   nivel,
@@ -36,34 +37,39 @@ export default function Questao({
       fetchData();
     }
   }, [nivel, categoriaSelecionada]);
-
+  const isMobile = useMediaQuery('(max-width:768px)');
   return (
     <>
-      <div className={styles.titulo2} style={{ width: "75vw" }}>
-        <Box sx={{ display: "flex" }} >
-          <img
-            src={Expandir}
-            style={{ marginRight: "15px", cursor: "pointer", height: "20px", marginTop: "0.5%" }}
+      <Box className={styles.titulo2} sx={{ width: "70vw", marginBottom: "1rem" }}>
+        <Box sx={{
+          display: "flex", alignItems: "center", justifyContent: {
+            xs: "space-between",
+            sm: "flex-start"
+          }
+        }}>
+          <KeyboardArrowDownOutlinedIcon
             onClick={handleClick}
-            alt="Expandir"
+            className={expandir ? styles.iconExpand : styles.iconCollapse}
+            sx={{ cursor: "pointer", marginRight: "10px", fontSize: 50 }}
           />
+
           {categoriaSelecionada && `${categoriaSelecionada} - Nível ${nivel}`}
           <Box onClick={() => onRemotion(nivel, indiceCategoriaGeral)} sx={{ cursor: "pointer", marginLeft: "3vw" }}>
             <img src={TrashIcon} alt="Remover" />
           </Box>
         </Box>
-      </div>
+      </Box>
 
       {expandir &&
         perguntas.map((pergunta, index) => (
-          <Box key={index} sx={{ width: "70vw", marginBottom: "1rem" }}>
+          <Box key={index} sx={{ width: { xs: "75vw", sm: "70vw" }, marginBottom: "1rem" }}>
             <div className={styles.titulo3}>{`${index + 1}. ${pergunta}`}</div>
             <div className={styles.texto}>
               {descricoes[index] && `${descricoes[index]}`}
             </div>
             <FormControl>
               <RadioGroup
-                row
+                row={!isMobile}
                 value={
                   selectedValues?.[`level_${nivel}`]?.[`category_${indiceCategoriaGeral}`]?.[`question_${index}`]?.toString() || ""
                 }

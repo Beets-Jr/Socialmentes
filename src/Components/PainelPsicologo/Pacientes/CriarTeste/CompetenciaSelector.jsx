@@ -10,7 +10,9 @@ export default function CompetenciaSelector({
     handleChange
 }) {
     return (
-        <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: "3vh", width: "25%" }}>
+        <Box sx={{
+            flex: 1, display: "flex", flexDirection: "column", gap: "3vh", width: { md: "50%", xs: "100%" }
+        }}>
             <p className={styles.titulo1}>Competência</p>
             <BlueLine />
             <FormControl variant="outlined" sx={{ width: "80%" }}>

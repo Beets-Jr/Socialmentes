@@ -58,6 +58,8 @@
   filter: none;
 }
 
+
+
 @media screen and (max-width: 768px) {
   .button {
     width: 95%;
@@ -67,6 +69,15 @@
 
   .button.bg-blue {
     width: 95%;
+  }
+
+  .icon {
+    display: none;
+  }
+
+  .text {
+    width: 75px;
+    font-size: 15px;
   }
 
 }
