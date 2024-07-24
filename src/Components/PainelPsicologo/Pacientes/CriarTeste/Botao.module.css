@@ -29,11 +29,13 @@
 
 /* estilos específicos para botões com classe bg-blue */
 .button.bg-blue {
-  width: 230px; /* Reduz a largura */
+  width: 230px;
+  /* Reduz a largura */
   background: var(--Gradiente-boto, linear-gradient(90deg, #7DB9F0 0%, #5095D5 100%));
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.10);
   color: white;
-  border: none; /* Remove a borda */
+  border: none;
+  /* Remove a borda */
 }
 
 .button.bg-blue .icon {
@@ -59,4 +61,17 @@
 
 .text {
   display: inline-block;
+}
+
+@media screen and (max-width: 768px) {
+  .button {
+    width: 95%;
+    height: 50px;
+    font-size: 16px;
+  }
+
+  .button.bg-blue {
+    width: 95%;
+  }
+
 }

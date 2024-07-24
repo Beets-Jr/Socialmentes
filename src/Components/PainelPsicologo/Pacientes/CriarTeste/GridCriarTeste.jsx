@@ -19,7 +19,7 @@ const questoes = [
     "Do eiusmod tempor",
     "Incididunt ut labore",
 ];
-                
+
 const perguntasNivel1CategoriaComunicação = getPerguntasPorNivelECategoria(1, 'comunicação receptiva');
 console.log('Perguntas da categoria "comunicação receptiva" do nível 1:', perguntasNivel1CategoriaComunicação);
 
@@ -40,9 +40,49 @@ export default function GridCriarTeste() {
 
     return (
         <Box className={styles.container} sx={{ position: "sticky" }}>
-            <Box sx={{ display: "flex", gap: "25px", paddingBottom: "10vh" }}>
+            <Box sx={{
+                display: { xs: "block", md: "flex" },
+                gap: "25px", paddingBottom: "10vh"
+            }}>
+                {/* Parte das Competências */}
+                <Box sx={{
+                    flex: 1,
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "3vh",
+                    order: { xs: 1, md: 2 },
+                    marginBottom: { xs: "3vh", md: 0 }
+                }}>
+                    <p className={styles.titulo}>Competência</p>
+                    <BlueLine />
+                    <FormControl variant="outlined">
+                        <Select
+                            id="competencia-select"
+                            value={selectedOption}
+                            onChange={handleChange}
+                            sx={{ width: "80%" }}
+                        >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            {activeButtonIndex !== null &&
+                                categorias.map((option, index) => (
+                                    <MenuItem key={index} value={option}>
+                                        {option}
+                                    </MenuItem>
+                                ))}
+                        </Select>
+                    </FormControl>
+                </Box>
+
                 {/* Parte dos Níveis */}
-                <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: "3vh" }}>
+                <Box sx={{
+                    flex: 1,
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "3vh",
+                    order: { xs: 2, md: 1 }
+                }}>
                     <p className={styles.titulo}>Nível</p>
                     <BlueLine />
                     <div className={styles.nivel}>
@@ -67,30 +107,6 @@ export default function GridCriarTeste() {
                         questoes.map((questao, index) => <p key={index}>{questao}</p>)
                     )}
                 </Box>
-
-                {/* Parte das Competências */}
-                <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: "3vh" }}>
-                    <p className={styles.titulo}>Competência</p>
-                    <BlueLine />
-                    <FormControl variant="outlined">
-                        <Select
-                            id="competencia-select"
-                            value={selectedOption}
-                            onChange={handleChange}
-                            sx={{ width: "80%" }}
-                        >
-                            <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>
-                            {activeButtonIndex !== null &&
-                                categorias.map((option, index) => (
-                                    <MenuItem key={index} value={option}>
-                                        {option}
-                                    </MenuItem>
-                                ))}
-                        </Select>
-                    </FormControl>
-                </Box>
             </Box>
 
             {/* Botoes fixos na parte inferior */}
@@ -98,7 +114,7 @@ export default function GridCriarTeste() {
                 sx={{
                     position: "fixed",
                     bottom: 0,
-                    width: "100%",
+                    width: { xs: "80%", md: "100%" },
                     zIndex: 10,
                     display: "flex",
                     backgroundColor: "white",
@@ -110,7 +126,9 @@ export default function GridCriarTeste() {
                 <Box sx={{ flex: 1 }}>
                     <Botao icon={iconAddToList} text="Adicionar Questão" />
                 </Box>
-                <Box sx={{ flex: 0.8 }}>
+                <Box sx={{
+                    flex: { xs: 1, md: 0.8 }
+                }}>
                     <Botao icon={iconEncerrar} text="Encerrar" bgcolor="bg-blue" />
                 </Box>
             </Box>

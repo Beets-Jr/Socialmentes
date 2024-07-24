@@ -16,7 +16,12 @@
     color: var(--color-blue-4);
 }
 
-.botaoCriarTeste {
-    margin-top: 5vh;
-    margin-bottom: 5vh;
+@media screen and (max-width: 768px) {
+    .infoPacientes {
+        font-size: 18px;
+    }
+
+    .titulo {
+        font-size: 24px;
+    }
 }
