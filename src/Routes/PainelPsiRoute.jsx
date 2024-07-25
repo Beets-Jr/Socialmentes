@@ -14,6 +14,7 @@ import PacientesCadastrados from "../Screens/PainelPsicologo/Pacientes/Pacientes
 import Checklist from "../Screens/PainelPsicologo/Checklist";
 import Tests from "../Screens/PainelPsicologo/Tests";
 import TestsGraphs from "../Screens/PainelAdm/Graphs/TestsGraphs";
+import Tools from "../Screens/PainelPsicologo/Tools/Tools";
 
 function PainelPsi() {
     const { open } = useContext(AppContext);
@@ -41,6 +42,7 @@ function PainelPsi() {
                         <Route path="instrumentos" element={<DialogConfirmation />} />
                         <Route path="checklist" element={<Checklist />}/>
                         <Route path="checklist/grafico" element={<TestsGraphs />}/>
+                        <Route path="/instrumentos" element={<Tools />} />
                     </Routes>
                 ) : (
                     <Routes>
