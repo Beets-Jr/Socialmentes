@@ -118,7 +118,7 @@ export default function CriarTeste() {
       const treatQValues = treatQuestionValues(questionValues)
       await updateQuestionValues(testId, treatQValues);
       setUnsavedChanges(false);
-      navigate("/painel-adm/pacientes");
+      navigate("/painel-psi/pacientes");
     } catch (error) {
       console.error("Erro ao salvar e sair:", error);
     }

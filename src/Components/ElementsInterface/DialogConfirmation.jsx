@@ -66,7 +66,7 @@ function DialogConfirmation({open, onClose, onConfirm}) {
               background: 'linear-gradient(to left, var(--color-blue-3), var(--color-blue-2))', 
               borderColor: 'var(--color-blue-3)',
               color: "var(--color-blue-1)"
-            }
+          }
           }}
         >
           Sair

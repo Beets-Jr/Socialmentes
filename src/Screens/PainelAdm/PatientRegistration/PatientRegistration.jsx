@@ -12,6 +12,7 @@ import ExternalAccompaniments from '../../../Components/PainelAdm/PatientRegistr
 import InterventionTeams from '../../../Components/PainelAdm/PatientRegistration/forms/InterventionTeams';
 import SchoolInfo from '../../../Components/PainelAdm/PatientRegistration/forms/SchoolInfo';
 import { addPatient, editPatient, getPatient, jsonToPatient } from '../../../Services/patientService';
+import { useParams } from 'react-router-dom';
 
 
 const initialValues = {
@@ -22,8 +23,8 @@ const initialValues = {
   interventionTeams: [''],
 };
 
-const PatientRegistration = ({ patientId }) => {
-
+const PatientRegistration = () => {
+  const {patientId} = useParams();
   const [error, setError] = useState({});
   const [values, setValues] = useState(initialValues);
   const [isSubmitted, setIsSubmitted] = useState(false);

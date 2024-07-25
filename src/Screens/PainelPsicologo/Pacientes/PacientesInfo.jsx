@@ -48,7 +48,7 @@ export default function PacientesInfo() {
         console.log("Criando teste para o paciente", patient.childName, "cujo id é:", patient.id);
         const createdTestId = await createTestForPatient(patient.id, patient.childName);
 
-        navigate(`/painel-adm/pacientes/teste/${createdTestId}`, {
+        navigate(`/painel-psi/pacientes/teste/${createdTestId}`, {
           state: { testDocId: createdTestId },
         });
       } catch (error) {
@@ -74,7 +74,7 @@ export default function PacientesInfo() {
           <div><span>Responsável:</span> {patient.psychologistName} </div>
         </Box>
 
-        <Box onClick={() => navigate('/painel-adm/pacientes')} sx={{ cursor: "pointer", marginLeft: "3vw" }}>
+        <Box onClick={() => navigate('/painel-psi/pacientes')} sx={{ cursor: "pointer", marginLeft: "3vw" }}>
           <img src={ExitIcon} alt="Sair" />
         </Box>
       </Box>

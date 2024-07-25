@@ -90,7 +90,7 @@ function Patients() {
     };
 
     const onAdd = () => {
-        navigate('novo-paciente');
+        navigate('cadastro');
     };
 
     return (
@@ -134,7 +134,7 @@ function Patients() {
                                     icon: <VisibilityIcon/>
                                 },
                                 {
-                                    func: (id) => console.log(`edit ${id}`),
+                                    func: (id) => navigate(`cadastro/${id}`),
                                     icon: <EditIcon/>
                                 },
                                 {
