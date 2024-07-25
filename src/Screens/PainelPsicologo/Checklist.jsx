@@ -56,7 +56,7 @@ function Checklist() {
                 <Box className={styles.menuContainer}>
                     <PatientData name={patient.children.name} birthday={patient.children.dateBirth} />
                     <Stack direction="row" spacing={2} className={styles.stackContainer}>
-                        <ReportBtn name="Gráfico" path={`/painel-psi/checklist/grafico/${patient.id}`} />
+                        <ReportBtn name="Gráfico" path={`/painel-psi/checklist/grafico/${test.id}`} />
                         <ReportBtn name="Tabela" path={`/painel-psi/checklist/tabela/${test.id}`} />
                         <ReportBtn name="Relatório" path={`/painel-psi/checklist/relatorio/${patient.id}`} />
                     </Stack>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Checkbox, CircularProgress, FormControlLabel, Typography } from '@mui/material';
-import { getPatientById, getTestsByIds, getTestById } from '../../Services/testsPatientsService';
+import { getPatientById, getTestsByIds, getTestById, getTestByIdTest } from '../../Services/testsPatientsService';
 import { accumulateQuestions, transformIndividualData } from './ChartUtil';
 import styles from './ChartComponent.module.css';
 
@@ -8,6 +8,7 @@ import RadioG from './RadioG';
 import Chart from './Chart';
 import Stypography from './Stypography';
 import { useParams } from 'react-router-dom';
+import PatientData from '../PainelPsicologo/Reports/ChecklistComponents/PatientData';
 
 const ChartComponent = () => {
   const { testId } = useParams();
@@ -36,7 +37,8 @@ const ChartComponent = () => {
   useEffect(() => {
     const fetchTestAndRelatedData = async () => {
       try {
-        const testData = await getTestById(testId);
+        const testData = await getTestByIdTest(testId);
+        console.log('testData:', testData);
         setCurrentTest(testData);
         const patientId = testData.patientId;
         const patientData = await getPatientById(patientId);
@@ -73,19 +75,7 @@ const ChartComponent = () => {
     setIsLoaded(false);
   };
 
-  const calculateAge = (birthDate) => {
-    const today = new Date();
-    const birth = new Date(birthDate);
-    let age = today.getFullYear() - birth.getFullYear();
-    if (today.getMonth() < birth.getMonth()) {
-      age -= 1
-    }
-    let month = today.getMonth() - birth.getMonth();
-    if (month < 0) {
-      month += 12;
-    }
-    return `${age} ano(s) e ${month} mês(es)` || 'Idade não informada';
-  }
+
 
   if (!isLoaded) {
     return <CircularProgress />;
@@ -93,8 +83,7 @@ const ChartComponent = () => {
   return (
     <>
       <Box className={styles.infoContainer}>
-        <Stypography label="Nome: " data={patient?.children.name} />
-        <Stypography label="Idade: " data={calculateAge(patient?.children.dateBirth)} />
+        {patient && <PatientData name={patient.children.name} birthday={patient.children.dateBirth} />}
         <FormControlLabel className={styles.checkboxContainer}
           control={<Checkbox checked={showPrevious} onChange={handleCheckboxChange}
           />}
