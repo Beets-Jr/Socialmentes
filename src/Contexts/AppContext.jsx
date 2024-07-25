@@ -13,10 +13,10 @@ export const AppStorage = ({ children }) => {
 
   useEffect(() => {
     const { pathname } = location;
-    if (pathname.startsWith('/painel-adm/pacientes/informacoes/')) {
+    if (pathname.startsWith('/painel-psi/pacientes/informacoes/')) {
       setTitle('Pacientes Cadastrados');
       setSubtitle('');
-    } else if (pathname.startsWith('/painel-adm/pacientes/teste/')) {
+    } else if (pathname.startsWith('/painel-psi/pacientes/teste/')) {
       setTitle('Criar Teste');
       setSubtitle('');
     } else {
@@ -33,6 +33,10 @@ export const AppStorage = ({ children }) => {
           setTitle(value ? 'Pacientes' : 'Pacientes cadastrados');
           setSubtitle(value ? `${value} pacientes cadastrados` : '')
           break;
+        case '/painel-psi/pacientes':
+          setTitle(value ? 'Pacientes' : 'Pacientes cadastrados');
+          setSubtitle(value ? `${value} pacientes cadastrados` : '')
+        break;
         default:
           setTitle('Insira seu Titulo Aqui');
           setSubtitle('');

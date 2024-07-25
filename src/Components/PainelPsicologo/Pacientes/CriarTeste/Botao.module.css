@@ -1,6 +1,6 @@
-/* estilos base para o botão */
+/* Estilos base para o botão */
 .button {
-  width: 250px;
+  width: 10vw;
   height: 50px;
   display: flex;
   align-items: center;
@@ -10,14 +10,12 @@
   padding: 5px 10px;
   border-radius: 15px;
   border: 2px solid var(--color-gray-3);
-  color: var(--color-gray-3);
   background-color: white;
+  color: var(--color-gray-3);
   font-family: var(--font-sub);
   font-size: 20px;
-  font-style: normal;
   font-weight: 500;
-  line-height: normal;
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
 .button.active,
@@ -26,31 +24,29 @@
   color: var(--color-blue-4);
 }
 
-/* estilos específicos para botões com classe bg-blue */
+/* Estilos específicos para botões com classe bg-blue */
 .button.bg-blue {
-  width: 230px;
-  /* Reduz a largura */
-  background: var(--Gradiente-boto, linear-gradient(90deg, #7DB9F0 0%, #5095D5 100%));
-  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.10);
+  background: linear-gradient(90deg, #7DB9F0 0%, #5095D5 100%);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.10);
   color: white;
   border: none;
-  /* Remove a borda */
+}
+
+.button.bg-blue:hover {
+  background: linear-gradient(90deg, #5095D5 0%, #7DB9F0 100%);
 }
 
 .button.bg-blue .icon {
   filter: none;
 }
 
-.link {
-  text-decoration: none;
-}
-
+/* Estilos para o ícone */
 .icon {
   margin-right: 0.5em;
   width: 1.3em;
   height: 1.3em;
-  transition: filter 0.3s;
   filter: grayscale(10%) brightness(0%) invert(70%);
+  transition: filter 0.3s, width 0.3s, height 0.3s;
 }
 
 .button.active .icon,
@@ -58,8 +54,12 @@
   filter: none;
 }
 
+/* Estilos para o link */
+.link {
+  text-decoration: none;
+}
 
-
+/* Estilos responsivos */
 @media screen and (max-width: 768px) {
   .button {
     width: 95%;
@@ -79,5 +79,4 @@
     width: 75px;
     font-size: 15px;
   }
-
 }

@@ -103,7 +103,7 @@
 
 .message {
     color: #989898;
-    font-family: Ubuntu;
+    font-family: var(--font-sub);
     font-size: 24px;
     font-style: normal;
     font-weight: 400;

@@ -26,7 +26,7 @@ export default function CriarTeste() {
   const [categorias, setCategorias] = useState([]);
   const [categoriasSelecionadas, setCategoriasSelecionadas] = useState({});
   const [questionValues, setQuestionValues] = useState({});
-  const [unsavedChanges, setUnsavedChanges] = useState(false);
+  const [encerrar, setEncerrar] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -110,14 +110,14 @@ export default function CriarTeste() {
   };
 
   const handleEncerrar = () => {
-    setUnsavedChanges(true);
+    setEncerrar(true);
   };
 
   const handleSaveAndExit = async () => {
     try {
       const treatQValues = treatQuestionValues(questionValues)
       await updateQuestionValues(testId, treatQValues);
-      setUnsavedChanges(false);
+      setEncerrar(false);
       navigate("/painel-psi/pacientes");
     } catch (error) {
       console.error("Erro ao salvar e sair:", error);
@@ -138,7 +138,7 @@ export default function CriarTeste() {
     }}>
       <Box>
         <Box sx={{
-          display: { xs: "block", md: "flex" }, gap: "20vw",
+          display: { xs: "block", md: "flex" }, gap: "10vw",
         }}>
           <NivelSelector
             activeButtonIndex={activeButtonIndex}
@@ -170,7 +170,7 @@ export default function CriarTeste() {
         />
       </Box>
 
-      {unsavedChanges && (
+      {encerrar && (
         <Box
           sx={{
             position: "fixed",
@@ -193,7 +193,7 @@ export default function CriarTeste() {
             Salvar e sair
           </Button>
           <Button
-            onClick={() => setUnsavedChanges(false)}
+            onClick={() => setEncerrar(false)}
             variant="contained"
             color="secondary"
           >

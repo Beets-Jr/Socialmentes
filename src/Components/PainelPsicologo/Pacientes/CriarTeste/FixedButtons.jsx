@@ -1,29 +1,39 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Box, useMediaQuery } from "@mui/material";
 import Botao from "./Botao";
 import iconAddToList from "../../../../Assets/Icons/add-list-icon.png";
 import iconEncerrar from "../../../../Assets/Icons/check-icon.png";
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import { AppContext } from "../../../../Contexts/AppContext";
 
 export default function FixedButtons({ handleAdicionarQuestao, handleEncerrar }) {
     const isMobile = useMediaQuery('(max-width:768px)');
+    const { open: isSidebarExpanded } = useContext(AppContext); // Get the sidebar state from context
+    const sidebarWidth = isSidebarExpanded ? '20vw' : '5vw'; // Adjust according to your sidebar width
 
     return (
         <Box
             sx={{
                 position: "fixed",
                 bottom: 0,
+                right: 0,
                 zIndex: 10,
                 display: "flex",
+                width: `calc(100% - ${sidebarWidth})`,
                 backgroundColor: "white",
                 padding: "0.5em 0",
                 alignItems: "center",
-                minWidth: "85%",
-                maxWidth: "90%",
+                justifyContent: "space-between",
                 gap: !isMobile ? "1em" : "0",
-
+                transition: 'width 0.5s ease',
             }}
         >
-            <Box>
+            <Box sx={{
+                marginLeft: {
+                    xs: "1em",
+                    sm: "3.75em"
+                }
+            }} >
                 <Botao icon={iconAddToList} text="Adicionar Questão" onClick={handleAdicionarQuestao} />
             </Box>
 
@@ -31,11 +41,11 @@ export default function FixedButtons({ handleAdicionarQuestao, handleEncerrar })
                 sx={{
                     display: "flex",
                     gap: isMobile ? "0" : "1em",
-                    flex: !isMobile ? 1 : 0,
-                    justifyContent: isMobile ? 'center' : 'flex-end'
+                    position: "absolute",
+                    right: isMobile ? "1em" : "2em",
                 }}
             >
-                <Botao icon={iconEncerrar} text="Salvar e sair" bgcolor="bg-blue" onClick={handleEncerrar} />
+                <Botao icon={<ExitToAppIcon fontSize="large" />} text="Salvar e sair" bgcolor="bg-blue" onClick={handleEncerrar} />
                 <Botao icon={iconEncerrar} text="Encerrar" bgcolor="bg-blue" onClick={handleEncerrar} />
             </Box>
         </Box>
