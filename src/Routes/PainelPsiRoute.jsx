@@ -39,7 +39,6 @@ function PainelPsi() {
                         <Route path="pacientes/teste/:testId" element={<CriarTeste />} />
                         <Route path="relatorios" element={<Tests />} />
                         <Route path="agenda" element={<DialogConfirmation />} />
-                        <Route path="instrumentos" element={<DialogConfirmation />} />
                         <Route path="checklist" element={<Checklist />}/>
                         <Route path="checklist/grafico" element={<TestsGraphs />}/>
                         <Route path="/instrumentos" element={<Tools />} />
