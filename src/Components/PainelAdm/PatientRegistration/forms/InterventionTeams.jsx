@@ -26,6 +26,9 @@ const InterventionTeams = ({ values, setValues, handleChange, error }) => {
   }, [isLoading, userProfiles]);
 
   const handleAddInterventionTeam = () => {
+    if (values.interventionTeams.length === options.length) {
+      return;
+    }
     setValues({ ...values, interventionTeams: [...values.interventionTeams, ''] });
   };
 

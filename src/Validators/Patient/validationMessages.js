@@ -32,6 +32,8 @@ const SCHOOL_NAME = 'O nome da escola informado é muito curto para continuar';
 
 const SERIES = 'A série deve possuir apenas números';
 
+const DUPLICATE = 'Valores duplicados não são permitidos';
+
 export const msg_errors = {
     REQUIRED,
     NAME,
@@ -50,4 +52,5 @@ export const msg_errors = {
     ADDRESSDETAILS,
     SCHOOL_NAME,
     SERIES,
+    DUPLICATE,
 };

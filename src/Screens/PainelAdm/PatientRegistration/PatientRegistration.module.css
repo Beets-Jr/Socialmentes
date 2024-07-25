@@ -3,6 +3,7 @@
   margin: 30px auto;
   height: 65vh;
   overflow-y: auto;
+  padding-right: 1.5rem;
 }
 
 .buttons {

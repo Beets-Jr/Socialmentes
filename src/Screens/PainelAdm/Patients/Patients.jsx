@@ -16,7 +16,7 @@ import styles from './Patients.module.css';
 
 function Patients() {
     const navigate = useNavigate();
-    const {setValue} = useContext(AppContext);
+    const { setValue } = useContext(AppContext);
     const [isLoading, setIsLoading] = useState(true);
     const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
     const [idPatient, setIdPatient] = useState();
@@ -94,9 +94,9 @@ function Patients() {
     };
 
     return (
-        <Box className={styles.container_patients} sx={{ position: "sticky"}}>
+        <Box className={styles.container_patients} sx={{ position: "sticky" }}>
 
-            { isLoading ? (
+            {isLoading ? (
                 <Box className={styles.container_empty}>
                     <CircularProgress />
                 </Box>
@@ -107,14 +107,14 @@ function Patients() {
                         data={patients}
                         getValue={(row) => row.children.name}
                         setFilteredData={setFilteredPatients}
-                        onAdd={ () => onAdd() }
+                        onAdd={() => onAdd()}
                         isMobile={isMobile}
                     />
                     <Box mt={4}>
                         <DataTable
-                            md={[ 4.5, 2, 3.5, 2 ]}
-                            sm={[ 4, 2, 3, 3 ]}
-                            head={[ 'Nome', 'Idade', 'Responsável' ]}
+                            md={[4.5, 2, 3.5, 2]}
+                            sm={[4, 2, 3, 3]}
+                            head={['Nome', 'Idade', 'Responsável']}
                             columns={[
                                 {
                                     func: (row) => row.children.name
@@ -127,22 +127,22 @@ function Patients() {
                                 }
                             ]}
                             body={filteredPatients}
-                            onAdd={ () => onAdd() }
+                            onAdd={() => onAdd()}
                             actions={[
                                 {
                                     func: (id) => navigate(`informacoes`),
-                                    icon: <VisibilityIcon/>
+                                    icon: <VisibilityIcon />
                                 },
                                 {
-                                    func: (id) => navigate(`cadastro/${id}`),
-                                    icon: <EditIcon/>
+                                    func: (id) => navigate(`editar-paciente/${id}`),
+                                    icon: <EditIcon />
                                 },
                                 {
                                     func: (id) => {
                                         setConfirmDialogOpen(true);
                                         setIdPatient(id);
                                     },
-                                    icon: <DeleteOutlineRounded/>
+                                    icon: <DeleteOutlineRounded />
                                 },
                             ]}
                             emptyText='Nenhum paciente cadastrado'
@@ -154,7 +154,7 @@ function Patients() {
 
             <DialogConfirmation
                 open={confirmDialogOpen}
-                onClose={()=> {
+                onClose={() => {
                     setConfirmDialogOpen(false);
                     setIdPatient(null);
                 }}

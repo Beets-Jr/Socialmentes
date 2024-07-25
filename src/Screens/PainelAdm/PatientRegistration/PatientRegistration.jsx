@@ -12,7 +12,7 @@ import ExternalAccompaniments from '../../../Components/PainelAdm/PatientRegistr
 import InterventionTeams from '../../../Components/PainelAdm/PatientRegistration/forms/InterventionTeams';
 import SchoolInfo from '../../../Components/PainelAdm/PatientRegistration/forms/SchoolInfo';
 import { addPatient, editPatient, getPatient, jsonToPatient } from '../../../Services/patientService';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 
 const initialValues = {
@@ -24,20 +24,20 @@ const initialValues = {
 };
 
 const PatientRegistration = () => {
-  const {patientId} = useParams();
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [error, setError] = useState({});
   const [values, setValues] = useState(initialValues);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
 
   React.useEffect(() => { // Lógica para preencher os campos com os dados do paciente
-    if (patientId) {
-      getPatient(patientId).then((patient) => {
+    if (id) {
+      getPatient(id).then((patient) => {
         setValues(jsonToPatient(patient));
       });
     }
-  }, [patientId]);
-
+  }, [id]);
 
   const handleChange = async (event) => { // Lógica para atualizar os valores dos campos
     const { name, value } = event.target;
@@ -84,12 +84,14 @@ const PatientRegistration = () => {
     console.log(values);
     try {
       await validationSchema.validate(values, { abortEarly: false }); // Validação dos campos
-      if (patientId) {
-        await editPatient(patientId, values); // Edita o paciente
+      if (id) {
+        await editPatient(id, values); // Edita o paciente
         console.log('editou');
+        navigate('../pacientes');
       } else {
         await addPatient(values); // Adiciona o paciente
         console.log('adicionou');
+        navigate('../pacientes');
       }
 
     } catch (err) {
