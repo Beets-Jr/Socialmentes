@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Box, CircularProgress, useMediaQuery } from "@mui/material";
+import { DeleteOutlineRounded } from "@mui/icons-material";
 
 import { AppContext } from "../../../Contexts/AppContext";
 import { PatientService } from "../../../Services/patientService";
@@ -12,12 +13,10 @@ import { EditIcon } from "../../../Assets/Icons/EditIcon";
 import { VisibilityIcon } from "../../../Assets/Icons/VisibilityIcon";
 
 import styles from './Patients.module.css';
-import { DeleteOutlineRounded } from "@mui/icons-material";
 
 function Patients() {
-
-    const {setValue} = useContext(AppContext);
     const navigate = useNavigate();
+    const {setValue} = useContext(AppContext);
     const [isLoading, setIsLoading] = useState(true);
     const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
     const [idPatient, setIdPatient] = useState();
@@ -95,7 +94,7 @@ function Patients() {
     };
 
     return (
-        <Box className={styles.container_patients}>
+        <Box className={styles.container_patients} sx={{ position: "sticky"}}>
 
             { isLoading ? (
                 <Box className={styles.container_empty}>
@@ -131,7 +130,7 @@ function Patients() {
                             onAdd={ () => onAdd() }
                             actions={[
                                 {
-                                    func: (id) => console.log(`eye ${id}`),
+                                    func: (id) => navigate(`informacoes`),
                                     icon: <VisibilityIcon/>
                                 },
                                 {

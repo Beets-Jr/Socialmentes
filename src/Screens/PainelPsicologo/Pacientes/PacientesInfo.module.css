@@ -1,0 +1,27 @@
+.titulo {
+    font-size: 30px;
+    color: var(--color-blue-4);
+}
+
+.infoPacientes {
+    display: flex;
+    flex-direction: column;
+    gap: 3vh;
+    color: var(--color-gray-4);
+    font-family: var(--font-sub);
+    font-size: 24px;
+}
+
+.infoPacientes span {
+    color: var(--color-blue-4);
+}
+
+@media screen and (max-width: 768px) {
+    .infoPacientes {
+        font-size: 18px;
+    }
+
+    .titulo {
+        font-size: 24px;
+    }
+}

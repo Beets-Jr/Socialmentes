@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px solid #e0e0e0 ;
+    border-radius: 17px;
+    width: 90%;
+    padding: 12px;
+}
+
+.title {
+    font-family: var(--font-text) !important;
+    font-weight: 600 !important;
+    color: var(--color-gray-4);
+}
+
+.subtitle {
+    font-family: var(--font-text) !important;
+    color: var(--color-gray-4);
+}
+
+.selectedLevel {
+    display: flex;
+    justify-content: space-between;
+}
+
+.level {
+    font-family: var(--font-text);
+    color: var(--color-gray-4);
+}
+

@@ -1,0 +1,10 @@
+.menuContainer {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.checklistTitle {
+    font-family: var(--font-sub) !important;
+    color: var(--color-blue-4) !important;
+}

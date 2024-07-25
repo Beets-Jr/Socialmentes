@@ -9,8 +9,12 @@ import Header from "../Components/PainelAdm/Header/Header";
 import Registrations from "../Screens/PainelAdm/Registrations/Registrations";
 import Positions from "../Screens/PainelAdm/Positions/Positions";
 import styles from "./PainelAdm.module.css";
+import Tests from "../Screens/PainelPsicologo/Relatorios/Tests"
+import Checklist from "../Screens/PainelPsicologo/Relatorios/Checklist";
 import Patients from "../Screens/PainelAdm/Patients/Patients";
-import PatientRegistration from "../Screens/PainelAdm/PatientRegistration/PatientRegistration";
+import PacientesInfo from "../Screens/PainelPsicologo/Pacientes/PacientesInfo";
+import CriarTeste from "../Screens/PainelPsicologo/Pacientes/CriarTeste";
+import PacientesCadastrados from "../Screens/PainelPsicologo/Pacientes/PacientesCadastrados";
 
 function PainelAdm() {
     const { open } = useContext(AppContext);
@@ -24,21 +28,24 @@ function PainelAdm() {
         <div style={{ display: "flex" }}>
             <Sidebar />
             <div className={styles.background} style={{ display: "block", width: width }}>
-                <Header className={styles.noBackground} />
+                <Header className={styles.noBackground}/>
                 {isAdmin ? (
                     <Routes>
                         <Route path="/" element={<Navigate to="/painel-adm/pacientes" />} />
                         <Route path="pacientes" element={<DialogConfirmation />} />
                         <Route path="/" element={<DialogConfirmation />} />
                         <Route path="pacientes" element={<Patients />} />
-                        <Route path="pacientes/novo-paciente" element={<PatientRegistration />} />
                         <Route path="cargos" element={<Positions />} />
                         <Route path="cadastros" element={<Registrations />} />
                         <Route path="opcoes" element={<DialogConfirmation />} />
                     </Routes>
                 ) : (
                     <Routes>
-                        <Route path="/*" element={<PermissionDeniedMessage />} />
+                        <Route path="/" element={<Checklist />} />
+                        <Route path="pacientes" element={<PacientesCadastrados />} />
+                        <Route path="pacientes/informacoes" element={<PacientesInfo />} />
+                        <Route path="pacientes/informacoes/:id" element={<PacientesInfo />} />
+                        <Route path="pacientes/teste/:testId" element={<CriarTeste />} />
                     </Routes>
                 )}
             </div>
