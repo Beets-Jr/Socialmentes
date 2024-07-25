@@ -1,15 +1,21 @@
-import { useEffect, useState } from "react";
-import { Box, CircularProgress, Fab, Grid, StyledEngineProvider, ThemeProvider, Typography } from "@mui/material";
-import { AddRounded } from "@mui/icons-material";
+import { useContext, useEffect, useState } from "react";
+
+import { Box, CircularProgress, StyledEngineProvider, ThemeProvider, useMediaQuery } from "@mui/material";
 import { CacheProvider } from "@emotion/react";
 import createCache from '@emotion/cache';
 
-import { theme } from "../../../Components/PainelAdm/Registrations/theme";
+import { AppContext } from "../../../Contexts/AppContext";
 import { UserService } from '../../../Services';
-import Register from '../../../Components/PainelAdm/Registrations/Register';
+import { theme } from "../../../Components/PainelAdm/Registrations/theme";
+import { VisibilityIcon } from "../../../Assets/Icons/VisibilityIcon";
+import { EditIcon } from "../../../Assets/Icons/EditIcon";
 import AddRegister from "../../../Components/PainelAdm/Registrations/AddRegister";
+import SearchField from "../../../Components/ElementsInterface/SearchField/SearchField";
+import DataTable from "../../../Components/ElementsInterface/DataTable/DataTable";
+import DialogConfirmation from '../../../Components/PainelAdm//Patients/DialogConfirmation';
 
-import './Registrations.css';
+import styles from './Registrations.module.css';
+import { DeleteOutlineRounded } from "@mui/icons-material";
 
 const cache = createCache({
     key: 'css',
@@ -18,72 +24,122 @@ const cache = createCache({
 
 function Registrations() {
 
-    const [isLoading, setIsLoading] = useState(true); // informa se os registros estão sendo carregados
+    const {setValue} = useContext(AppContext);
+    const [isLoading, setIsLoading] = useState(true);
     const [registerCreated, setRegisterCreated] = useState(false); // informa se um registro foi criado com sucesso, para atualizar a lista de registros
     const [registrations, setRegistrations] = useState([]); // a própria lista de registros
+    const [filteredRegistrations, setFilteredRegistrations] = useState([]); // a lista de registros filtrada
     const [openDialog, setOpenDialog] = useState(false); // controla a exibição do Dialog
+    const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
+    const [idRegister, setIdRegister] = useState();
+    const [message, setMessage] = useState();
+    const [deleted, setDeleted] = useState(0);
+
+    const isMobile = useMediaQuery('(max-width:700px)');
 
     // atualiza a lista de registros
     useEffect(() => {
         UserService.getAllUsers()
-            .then((registrations) => {
+            .then((patients) => {
                 setIsLoading(false);
-                setRegistrations(registrations);
+                setRegistrations(patients);
+                setFilteredRegistrations(patients);
+                setValue(patients.length);
             });
-    }, [registerCreated]);
+    }, [registerCreated || deleted]);
+
+    useEffect(() => {
+        if (!message) {
+            setConfirmDialogOpen(false);
+        }
+    }, [message]);
 
     // trata o fechamento do Dialog
     const handleClose = () => {
         setOpenDialog(false);
     }
 
+    const deleteRegister = async () => {
+        try {
+            const resp = await UserService.deleteUserById(idRegister);
+            if (resp instanceof Error) {
+                setMessage("Erro ao tentar remover profissional.");
+            } else {
+                setMessage("Profissional removido com sucesso.");
+                setDeleted(value => value + 1);
+            }
+        } catch (error) {
+            console.log("Erro ao deletar profissional: ", error);
+        }
+    };
+
     return (
 
         <ThemeProvider theme={theme}>
             <CacheProvider value={cache}>
                 <StyledEngineProvider injectFirst >
-                    <Box className='containerRegistrations'>
 
-                        {/** Carregamento da lista de registros ou mensagem de lista vazia */}
-                        {registrations.length === 0 ? (
-                            <Box className='containerNoRegistrations'>
-                                {isLoading ? (
-                                    <CircularProgress />
-                                ) : (
-                                    <Typography className='noRegistrations' >
-                                        Sem cadastros
-                                    </Typography>
-                                )}
+                    <Box className={styles.container_registrations}>
+
+                        {isLoading ? (
+                            <Box className={styles.container_empty}>
+                                <CircularProgress />
                             </Box>
                         ) : (
-                            <Box className='containerGrid'>
-                                <Grid container
-                                    rowSpacing={4}
-                                    columnSpacing={5}
-                                >
-                                    {registrations.map((register) => (
-                                        <Grid item
-                                            key={register.id}
-                                            xs={12}
-                                            sm={6}
-                                            md={4}
-                                        >
-                                            <Register register={register} />
-                                        </Grid>
-                                    ))}
-                                </Grid>
-                            </Box>
+                            <>
+                                <SearchField
+                                    placeholder="Pesquisar paciente"
+                                    data={registrations}
+                                    getValue={(row) => row.fullName}
+                                    setFilteredData={setFilteredRegistrations}
+                                    onAdd={() => setOpenDialog(true)}
+                                    isMobile={isMobile}
+                                />
+                                <Box mt={4}>
+                                    <DataTable
+                                        md={[4, 2, 2, 2, 2]}
+                                        sm={[3, 2, 2, 2, 3]}
+                                        head={['Nome', 'CPF', 'Telefone', 'Email']}
+                                        columns={[
+                                            {
+                                                func: (row) => row.fullName,
+                                                style: { fontWeight: 600 }
+                                            },
+                                            {
+                                                func: (row) => `${row.cpf.slice(0, 3)}.${row.cpf.slice(3, 6)}.${row.cpf.slice(6, 9)}-${row.cpf.slice(9)}`,
+                                            },
+                                            {
+                                                func: (row) => `(${row.phone.slice(0, 2)}) ${row.phone.slice(2, 7)}-${row.phone.slice(7)}`,
+                                            },
+                                            {
+                                                func: (row) => row.email
+                                            }
+                                        ]}
+                                        body={filteredRegistrations}
+                                        onAdd={() => setOpenDialog(true)}
+                                        actions={[
+                                            {
+                                                func: (id) => console.log(`eye ${id}`),
+                                                icon: <VisibilityIcon />
+                                            },
+                                            {
+                                                func: (id) => console.log(`edit ${id}`),
+                                                icon: <EditIcon />
+                                            },
+                                            {
+                                                func: (id) => {
+                                                    setConfirmDialogOpen(true);
+                                                    setIdRegister(id);
+                                                },
+                                                icon: <DeleteOutlineRounded/>
+                                            },
+                                        ]}
+                                        emptyText='Nenhum paciente cadastrado'
+                                        isMobile={isMobile}
+                                    />
+                                </Box>
+                            </>
                         )}
-
-                        {/** Botão flutuante */}
-                        <Fab
-                            className="fab"
-                            color='primary'
-                            aria-label='add'
-                            onClick={() => setOpenDialog(true)}
-                        >
-                            <AddRounded />
-                        </Fab>
 
                         {/** Dialog */}
                         <AddRegister
@@ -92,7 +148,20 @@ function Registrations() {
                             setRegisterCreated={setRegisterCreated}
                         />
 
-                    </Box >
+                        <DialogConfirmation
+                            open={confirmDialogOpen}
+                            onClose={()=> {
+                                setConfirmDialogOpen(false);
+                                setIdRegister(null);
+                            }}
+                            onConfirm={() => deleteRegister()}
+                            message={message}
+                            setMessage={setMessage}
+                            title="Remover profissional"
+                            text="Você tem certeza que deseja remover o profissional?"
+                        />
+
+                    </Box>
                 </StyledEngineProvider>
             </CacheProvider>
         </ThemeProvider>

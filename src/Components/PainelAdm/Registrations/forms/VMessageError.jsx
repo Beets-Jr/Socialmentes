@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 
-export const VMessageError = ({ message, setMessage }) => {
+export const VMessageError = ({ message, setMessage, isMobile }) => {
 
     const [showMessage, setShowMessage] = useState(false);
 
@@ -22,10 +22,10 @@ export const VMessageError = ({ message, setMessage }) => {
         <>
             {showMessage && (
                 <Box
-                    width='510px'
+                    width={isMobile ? '70%' : '510px'}
                     marginX={2}
                     position='fixed'
-                    bottom={50}
+                    bottom={48}
                     padding={1.7}
                     bgcolor='white'
                     borderRadius={20}

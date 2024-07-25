@@ -9,6 +9,8 @@ import Header from "../Components/PainelAdm/Header/Header";
 import Registrations from "../Screens/PainelAdm/Registrations/Registrations";
 import Positions from "../Screens/PainelAdm/Positions/Positions";
 import styles from "./PainelAdm.module.css";
+import Patients from "../Screens/PainelAdm/Patients/Patients";
+import PatientRegistration from "../Screens/PainelAdm/PatientRegistration/PatientRegistration";
 
 function PainelAdm() {
     const { open } = useContext(AppContext);
@@ -22,11 +24,14 @@ function PainelAdm() {
         <div style={{ display: "flex" }}>
             <Sidebar />
             <div className={styles.background} style={{ display: "block", width: width }}>
-                <Header className={styles.noBackground}/>
+                <Header className={styles.noBackground} />
                 {isAdmin ? (
                     <Routes>
                         <Route path="/" element={<Navigate to="/painel-adm/pacientes" />} />
                         <Route path="pacientes" element={<DialogConfirmation />} />
+                        <Route path="/" element={<DialogConfirmation />} />
+                        <Route path="pacientes" element={<Patients />} />
+                        <Route path="pacientes/novo-paciente" element={<PatientRegistration />} />
                         <Route path="cargos" element={<Positions />} />
                         <Route path="cadastros" element={<Registrations />} />
                         <Route path="opcoes" element={<DialogConfirmation />} />

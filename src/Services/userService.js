@@ -1,5 +1,5 @@
-import { collection, doc, getDocs, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { collection, deleteDoc, doc, getDoc, getDocs, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
+import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 import { db, storage, auth } from "../Database/FirebaseConfig.mjs";
@@ -83,7 +83,40 @@ const createUser = async ({ email, photo, ...registerData }) => {
     }
 };
 
+const deletePhotoById = async (url) => {
+
+    const photoRef = ref(storage, url);
+
+    try {
+        await deleteObject(photoRef);
+    } catch (e) {
+        console.error('Erro ao excluir imagem do profissional: ', e);
+        return new Error('Erro ao excluir imagem do profissional');
+    }
+
+}
+
+const deleteUserById = async (id) => {
+
+    const registerRef = doc(userProfiles, id);
+
+    try {
+        const user = await getDoc(registerRef);
+        if (!user.exists())
+            return;
+        const resp = await deletePhotoById(user.data().photoUrl);
+        if (resp instanceof Error)
+            throw new Error('Ocorreu um erro ao deletar a imagem no banco de dados');
+        await deleteDoc(registerRef);
+    } catch (e) {
+        console.error('Erro ao deletar profissional: ', e);
+        return new Error('Erro ao deletar profissional');
+    }
+
+};
+
 export const UserService = {
     getAllUsers,
-    createUser
+    createUser,
+    deleteUserById,
 };

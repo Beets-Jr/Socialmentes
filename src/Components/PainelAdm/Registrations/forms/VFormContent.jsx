@@ -5,7 +5,7 @@ import { Grid } from "@mui/material";
 import { useVFormContext } from "./VForm";
 import { useDebounce } from "../../../../Hooks";
 
-export const VFormContent = ({ children, onChange }) => {
+export const VFormContent = ({ children, onChange, isMobile = false }) => {
 
     const { getData, focusedField, focusedFieldData } = useVFormContext();
 
@@ -20,8 +20,8 @@ export const VFormContent = ({ children, onChange }) => {
         <Grid container
             flex-direction='column'
             gap={2.5}
-            pl={8}
-            pr={8}
+            pl={isMobile ? 1 : 8}
+            pr={isMobile ? 1 : 8}
         >
             {children}
         </Grid>

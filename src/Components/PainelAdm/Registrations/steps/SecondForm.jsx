@@ -6,7 +6,7 @@ import { banks } from "../../../../Database/Middleware";
 import { IconAttention, IconBank, IconIdentity } from "../assets/icons";
 import { VFormContent, VRow, VSelect, VTextField, VUploadPhoto, useVFormContext } from "../forms";
 
-export const SecondForm = ({ disabledForm, setDisabledButton }) => {
+export const SecondForm = ({ disabledForm, setDisabledButton, isMobile }) => {
 
     const { getFieldValue, focusedField } = useVFormContext();
 
@@ -41,7 +41,7 @@ export const SecondForm = ({ disabledForm, setDisabledButton }) => {
     }
 
     return (
-        <VFormContent onChange={handleChange}>
+        <VFormContent onChange={handleChange} isMobile={isMobile}>
             <VRow unique>
                 <VUploadPhoto
                     name='photo'
@@ -67,9 +67,9 @@ export const SecondForm = ({ disabledForm, setDisabledButton }) => {
                     disabled={disabledForm}
                 />
             </VRow>
-            <VRow>
+            <VRow isMobile={isMobile}>
                 <VTextField
-                    xs={4.5}
+                    xs={isMobile ? 12 : 4.5}
                     name='number'
                     label_icon={<Typography variant="inherit" color={getFieldValue('number') || focusedField === 'number' ? 'var(--color-blue-3)' : 'var(--color-gray-4'} fontWeight={700}>123</Typography>}
                     label='Número'
@@ -77,7 +77,7 @@ export const SecondForm = ({ disabledForm, setDisabledButton }) => {
                     disabled={disabledForm}
                 />
                 <VTextField
-                    xs={7}
+                    xs={isMobile ? 12 : 7}
                     name='addressDetails'
                     label_icon={<IconIdentity {...icon_props('addressDetails')} />}
                     label='Complemento'
@@ -85,9 +85,9 @@ export const SecondForm = ({ disabledForm, setDisabledButton }) => {
                     disabled={disabledForm}
                 />
             </VRow>
-            <VRow>
+            <VRow isMobile={isMobile}>
                 <VSelect
-                    xs={6.5}
+                    xs={isMobile ? 12 : 6.5}
                     name='bank'
                     label_icon={<IconBank {...icon_props('bank')} />}
                     label='Banco'
@@ -96,7 +96,7 @@ export const SecondForm = ({ disabledForm, setDisabledButton }) => {
                     disabled={disabledForm}
                 />
                 <VTextField
-                    xs={5}
+                    xs={isMobile ? 12 : 5}
                     name='branch'
                     label_icon={<IconAttention {...icon_props('branch')} />}
                     label='Agência'
@@ -104,9 +104,9 @@ export const SecondForm = ({ disabledForm, setDisabledButton }) => {
                     disabled={disabledForm}
                 />
             </VRow>
-            <VRow>
+            <VRow isMobile={isMobile}>
                 <VTextField
-                    xs={5.9}
+                    xs={isMobile ? 12 : 5.9}
                     name='account'
                     label_icon={<IconAttention {...icon_props('account')} />}
                     label='Conta'
@@ -114,7 +114,7 @@ export const SecondForm = ({ disabledForm, setDisabledButton }) => {
                     disabled={disabledForm}
                 />
                 <VTextField
-                    xs={5.6}
+                    xs={isMobile ? 12 : 5.6}
                     name='pix'
                     label_icon={<IconAttention {...icon_props('pix')} />}
                     label='Chave-pix'

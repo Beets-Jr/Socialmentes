@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 
 import { useEffect, useRef, useState } from "react";
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from "@mui/material";
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, useMediaQuery } from "@mui/material";
 
 import { RegistrationsMiddleware, msg_errors } from '../../../Database/Middleware';
 import { UserService } from '../../../Services';
@@ -21,6 +21,8 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
     const [disabledButton, setDisabledButton] = useState(true); // informa se o usuário pode clicar em prosseguir
     const [message, setMessage] = useState(''); // mensagem de erro exibida no Form
     const [createResult, setCreateResult] = useState(); // o usuário foi criado com sucesso?
+
+    const isMobile = useMediaQuery('(max-width:700px)');
 
     // ao abrir e fechar o Dialog
     useEffect(() => {
@@ -134,8 +136,8 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
         >
 
             {/** Título e botão de fechar o Dialog */}
-            <Box  className='containerTitle' >
-                <DialogTitle variant="h2" className="title">
+            <Box className='containerTitle' >
+                <DialogTitle variant="h2" fontSize={isMobile ? 24 : 32}>
                     Adicionar cadastro
                 </DialogTitle>
 
@@ -154,6 +156,7 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
                         <FirstForm
                             disabledForm={disabledForm}
                             setDisabledButton={setDisabledButton}
+                            isMobile={isMobile}
                         />
                     ) : step === 1 ? (
                         <AddEmail
@@ -161,11 +164,13 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
                             setDisabledButton={setDisabledButton}
                             emails={emails}
                             setEmails={setEmails}
+                            isMobile={isMobile}
                         />
                     ) : step === 2 ? (
                         <SecondForm
                             disabledForm={disabledForm}
                             setDisabledButton={setDisabledButton}
+                            isMobile={isMobile}
                         />
                     ) : (
                         <Success status={createResult} />
@@ -190,13 +195,14 @@ function AddRegister({ openDialog, handleClose, setRegisterCreated }) {
                     <IconListAdd
                         color={disabledButton ? 'var(--color-gray-2)' : 'white'}
                         sx={{ mr: 2 }}
+                        fontSize={ isMobile ? 'small' : undefined }
                     />
                     {step === 2 ? 'Cadastrar' : 'Prosseguir'}
                 </Button>
             </DialogActions>
 
             {/** Mensagem de erro e sucesso */}
-            <VMessageError message={message} setMessage={setMessage} />
+            <VMessageError message={message} setMessage={setMessage} isMobile={isMobile} />
 
         </Dialog>
     );
