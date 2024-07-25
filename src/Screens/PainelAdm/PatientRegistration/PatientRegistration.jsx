@@ -12,7 +12,7 @@ import ExternalAccompaniments from '../../../Components/PainelAdm/PatientRegistr
 import InterventionTeams from '../../../Components/PainelAdm/PatientRegistration/forms/InterventionTeams';
 import SchoolInfo from '../../../Components/PainelAdm/PatientRegistration/forms/SchoolInfo';
 import { addPatient, editPatient, getPatient, jsonToPatient } from '../../../Services/patientService';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 
 const initialValues = {
@@ -25,6 +25,7 @@ const initialValues = {
 
 const PatientRegistration = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [error, setError] = useState({});
   const [values, setValues] = useState(initialValues);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -86,9 +87,11 @@ const PatientRegistration = () => {
       if (id) {
         await editPatient(id, values); // Edita o paciente
         console.log('editou');
+        navigate('../pacientes');
       } else {
         await addPatient(values); // Adiciona o paciente
         console.log('adicionou');
+        navigate('../pacientes');
       }
 
     } catch (err) {
