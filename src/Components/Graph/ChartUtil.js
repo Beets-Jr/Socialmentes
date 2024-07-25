@@ -1,4 +1,4 @@
-import denver from '../../Database/denver.json';
+import { denver } from "../../Database/denver.mjs";
 
 const nameFromDenver = (denver) => {
   const mapName = {};
