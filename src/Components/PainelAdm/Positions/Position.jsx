@@ -27,6 +27,10 @@ function Position({setConfirmedChange, photoUrl, fullName, position, id}) {
         setOpen(false);
     };
 
+    const isAuthorizedPosition = (position) => {
+        return ["Responsável", "Psicólogo", "Administrador"].includes(position);
+    };
+
     return( 
         <>
             <ButtonBase className={styles.cardButton} onClick={handleClickOpen} >
@@ -42,12 +46,14 @@ function Position({setConfirmedChange, photoUrl, fullName, position, id}) {
                             {fullName}
                         </Typography>
 
-                        <Box className={styles.positionContainer}>
-                            {getPositionIcon(position)}
-                            <Typography>
-                                {position}
-                            </Typography>
-                        </Box>
+                        { isAuthorizedPosition(position) && (
+                            <Box className={styles.positionContainer}>
+                                {getPositionIcon(position)}
+                                <Typography>
+                                    {position}
+                                </Typography>
+                            </Box>
+                        )}
                     </CardContent>
                 </Card>
             </ButtonBase>

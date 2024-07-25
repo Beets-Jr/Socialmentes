@@ -8,6 +8,7 @@ import NameAvatar from "./Avatar/NameAvatar";
 import PositionIcons from "./Icons/PositionIcons";
 import styles from "./styles/Form.module.css";
 import { updateUserPosition } from '../../../Services/userProfileService';
+import Logo from '../../../Assets/LogoSocialMentes1.png';
 
 function getPositionIcon(position) {
   return PositionIcons[position];
@@ -116,8 +117,28 @@ function Form({ open, handleClose, photo, name, initialPosition, userID, setConf
           </Box>
         </Box>
       </Dialog>
-
-      <DialogConfirmation open={confirmDialogOpen} onClose={handleConfirmDialogClose} onConfirm={handleDiscardChanges} />
+      <DialogConfirmation
+        open={confirmDialogOpen}
+        onClose={handleConfirmDialogClose}
+        onConfirm={handleDiscardChanges}
+        messageTitle="Você tem certeza que deseja sair?"
+        message="As mudanças que você deseja fazer ainda não foram salvas!"
+        confirmButtonText="Sair"
+        cancelButtonText="Cancelar"
+        confirmButtonColor="var(--color-gray-4)"
+        cancelButtonColor="var(--color-gray-4)"
+        confirmButtonBorderColor="var(--color-gray-3)"
+        cancelButtonBorderColor="var(--color-gray-3)"
+        confirmButtonHoverColor="white"
+        cancelButtonHoverColor="white"
+        confirmButtonHoverBackground="linear-gradient(to left, var(--color-blue-3), var(--color-blue-2))"
+        cancelButtonHoverBackground="linear-gradient(to left, var(--color-blue-3), var(--color-blue-2))"
+        confirmButtonHoverBorderColor="var(--color-blue-3)"
+        cancelButtonHoverBorderColor="var(--color-blue-3)"
+        logoSrc={Logo}
+        logoAlt="socialmentes-logo"
+      />
+      
     </>
   )
 }

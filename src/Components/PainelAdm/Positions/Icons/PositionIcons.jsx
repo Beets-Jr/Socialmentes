@@ -12,7 +12,7 @@ const positionIconStyle ={
 
 
 const PositionIcons = {
-    "Paciente": <PersonOutlineIcon sx={positionIconStyle} />,
+    //"Paciente": <PersonOutlineIcon sx={positionIconStyle} />,
     "Responsável": <GroupIcon sx={positionIconStyle} />,
     "Administrador": <AdminPanelSettingsIcon sx={positionIconStyle} />,
     "Psicólogo": <WorkIcon sx={positionIconStyle} />
