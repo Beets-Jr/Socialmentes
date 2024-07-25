@@ -4,10 +4,10 @@ import { useParams } from "react-router-dom";
 import { Box, CircularProgress, useMediaQuery } from "@mui/material";
 
 import { PatientService } from "../../../Services/patientService";
-import { TestService } from "../../../Services/testService";
-import { TabelaPaciente } from "../../../Components/PainelPsicologo/Relatorios/TabelaPaciente";
-import { TabelaDesktop } from "../../../Components/PainelPsicologo/Relatorios/TabelaDesktop";
-import { TabelaMobile } from "../../../Components/PainelPsicologo/Relatorios/TabelaMobile";
+import { getTestById } from "../../../Services/testsPatientsService"
+import { TabelaPaciente } from "../../../Components/PainelPsicologo/Reports/TabelaPaciente";
+import { TabelaDesktop } from "../../../Components/PainelPsicologo/Reports/TabelaDesktop";
+import { TabelaMobile } from "../../../Components/PainelPsicologo/Reports/TabelaMobile";
 
 import styles from './Tabela.module.css';
 
@@ -25,7 +25,7 @@ function Tabela() {
             try {
 
                 // recupera o teste
-                const test = await TestService.getTestById(testId);
+                const test = await getTestById(testId);
                 if (test instanceof Error) {
                     console.log(test.message);
                     return;

@@ -41,9 +41,9 @@ function PainelPsi() {
                         <Route path="relatorios" element={<Tests />} />
                         <Route path="agenda" element={<DialogConfirmation />} />
                         <Route path="checklist" element={<Checklist />}/>
-                        <Route path="checklist/:id/grafico" element={<TestsGraphs />}/>
-                        <Route path="checklist/:id/tabela" element={<Tabela />}/>
-                        <Route path="checklist/:id/relatorio" element={<PermissionDeniedMessage />}/>
+                        <Route path="checklist/grafico/:testId" element={<TestsGraphs />}/>
+                        <Route path="checklist/tabela/:testId" element={<Tabela />}/>
+                        <Route path="checklist/relatorio/:testId" element={<PermissionDeniedMessage />}/>
                         <Route path="/instrumentos" element={<Tools />} />
                     </Routes>
                 ) : (

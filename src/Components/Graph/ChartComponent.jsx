@@ -7,8 +7,10 @@ import styles from './ChartComponent.module.css';
 import RadioG from './RadioG';
 import Chart from './Chart';
 import Stypography from './Stypography';
+import { useParams } from 'react-router-dom';
 
-const ChartComponent = ({ initialTestId = 'M05zAL4b0jKUN0hIJpZP' }) => {
+const ChartComponent = () => {
+  const { testId } = useParams();
   const [showPrevious, setShowPrevious] = useState(false);
   const [radio, setRadio] = useState('nao-mostrar');
   const [firstTest, setFirstTest] = useState(null);
@@ -34,7 +36,7 @@ const ChartComponent = ({ initialTestId = 'M05zAL4b0jKUN0hIJpZP' }) => {
   useEffect(() => {
     const fetchTestAndRelatedData = async () => {
       try {
-        const testData = await getTestById(initialTestId);
+        const testData = await getTestById(testId);
         setCurrentTest(testData);
         const patientId = testData.patientId;
         const patientData = await getPatientById(patientId);
@@ -56,7 +58,7 @@ const ChartComponent = ({ initialTestId = 'M05zAL4b0jKUN0hIJpZP' }) => {
     };
 
     fetchTestAndRelatedData();
-  }, [initialTestId]);
+  }, [testId]);
 
   useEffect(() => {
     if (currentTest) {
