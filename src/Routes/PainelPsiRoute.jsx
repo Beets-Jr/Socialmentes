@@ -6,6 +6,7 @@ import DialogConfirmation from "../Components/ElementsInterface/DialogConfirmati
 import PermissionDeniedMessage from "../Components/ElementsInterface/PermissionDeniedMessage";
 import Sidebar from "../Components/PainelAdm/Sidebar/Sidebar";
 import Header from "../Components/PainelAdm/Header/Header";
+import HomePsi from "../Screens/PainelPsicologo/HomePsi";
 import styles from "./PainelAdm.module.css";
 
 function PainelPsi() {
@@ -24,7 +25,7 @@ function PainelPsi() {
                 { isPsi ? (
                     <Routes>
                         <Route path="/" element={<Navigate to="/painel-psi/home" />} />
-                        <Route path="home" element={<DialogConfirmation />} />
+                        <Route path="home" element={<HomePsi />} />
                         <Route path="pacientes" element={<DialogConfirmation />} />
                         <Route path="relatorios" element={<DialogConfirmation />} />
                         <Route path="agenda" element={<DialogConfirmation />} />
