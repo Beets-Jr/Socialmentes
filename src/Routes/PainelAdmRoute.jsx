@@ -10,6 +10,7 @@ import Registrations from "../Screens/PainelAdm/Registrations/Registrations";
 import Positions from "../Screens/PainelAdm/Positions/Positions";
 import styles from "./PainelAdm.module.css";
 import Patients from "../Screens/PainelAdm/Patients/Patients";
+import PatientRegistration from "../Screens/PainelAdm/PatientRegistration/PatientRegistration";
 
 function PainelAdm() {
     const { open } = useContext(AppContext);
@@ -28,9 +29,11 @@ function PainelAdm() {
                     <Routes>
                         <Route path="/" element={<Navigate to="/painel-adm/pacientes" />} />
                         <Route path="pacientes" element={<Patients />} />
+                        <Route path="pacientes/novo-paciente" element={<PatientRegistration />} />
+                        <Route path="pacientes/editar-paciente/:id" element={<PatientRegistration />} />
                         <Route path="cargos" element={<Positions />} />
                         <Route path="cadastros" element={<Registrations />} />
-                        <Route path="opcoes" element={<DialogConfirmation/>} />
+                        <Route path="opcoes" element={<DialogConfirmation />} />
                     </Routes>
                 ) : (
                     <Routes>
