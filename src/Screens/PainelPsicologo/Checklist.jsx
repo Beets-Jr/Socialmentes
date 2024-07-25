@@ -11,7 +11,7 @@ import { fetchPatientById } from "../../Services/testService";
 function Checklist() {
     const location = useLocation();
     const [patient, setPatient] = useState(null);
-    const [loading, setLoading] = useState(true); 
+    const [loading, setLoading] = useState(true);
     const bottomBtnRef = useRef(null);
 
     const { test } = location.state;
@@ -19,7 +19,7 @@ function Checklist() {
     useEffect(() => {
         const fetchPatient = async () => {
             try {
-                const patientData = await fetchPatientById(test.patientId);
+                const patientData = await fetchPatientById(test.patientId); //não é melhor usar o param id?
                 if (patientData) {
                     setPatient(patientData);
                 } else {
@@ -48,17 +48,17 @@ function Checklist() {
             </Box>
         ) : (
             <div className={styles.checklistContainer} style={{ position: 'relative' }}>
-                <Typography variant="h4" sx={{fontFamily:'var(--font-sub)', color:'var(--color-blue-4)'}}>
+                <Typography variant="h4" sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-4)' }}>
                     Checklist Currículo Modelo de Intervenção Precoce Finalizado
                     (Somente Leitura)
                 </Typography>
-                
+
                 <Box className={styles.menuContainer}>
                     <PatientData name={patient.children.name} birthday={patient.children.dateBirth} />
                     <Stack direction="row" spacing={2} className={styles.stackContainer}>
-                        <ReportBtn name="Gráfico" path="/painel-psi/checklist/grafico" /> {/* Colocar o path certo */}
-                        <ReportBtn name="Tabela" path="/painel-psi/checklist/tabela" />
-                        <ReportBtn name="Relatório" path="/painel-psi/checklist/relatorio" />
+                        <ReportBtn name="Gráfico" path={`/painel-psi/checklist/${patient.id}/grafico`} />
+                        <ReportBtn name="Tabela" path={`/painel-psi/checklist/${patient.id}/tabela`} />
+                        <ReportBtn name="Relatório" path={`/painel-psi/checklist/${patient.id}/relatorio`} />
                     </Stack>
                 </Box>
                 <ChecklistAnswer test={test} />
