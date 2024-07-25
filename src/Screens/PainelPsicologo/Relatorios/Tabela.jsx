@@ -3,8 +3,9 @@ import { useParams } from "react-router-dom";
 
 import { Box, CircularProgress, useMediaQuery } from "@mui/material";
 
-import { PatientService } from "../../../Services/patientService";
-import { getTestById } from "../../../Services/testsPatientsService"
+import { denver } from "../../../Database/denver";
+import { getPatient } from "../../../Services/patientService";
+import { getTestByIdTest } from "../../../Services/testsPatientsService"
 import { TabelaPaciente } from "../../../Components/PainelPsicologo/Reports/TabelaPaciente";
 import { TabelaDesktop } from "../../../Components/PainelPsicologo/Reports/TabelaDesktop";
 import { TabelaMobile } from "../../../Components/PainelPsicologo/Reports/TabelaMobile";
@@ -25,14 +26,14 @@ function Tabela() {
             try {
 
                 // recupera o teste
-                const test = await getTestById(testId);
+                const test = await getTestByIdTest(testId);
                 if (test instanceof Error) {
                     console.log(test.message);
                     return;
                 }
 
                 // seta o paciente relacionado ao teste
-                const respPatient = await PatientService.getPatientById(test.patientId)
+                const respPatient = await getPatient(test.patientId)
                 if (respPatient instanceof Error) {
                     console.log(respPatient.message);
                     return;
@@ -40,9 +41,8 @@ function Tabela() {
                     setPatient(respPatient);
                 }
 
-                // busca as informações do arquivo denver.json
-                const denverJson = await fetch('/src/Database/denver.json');
-                const denverData = await denverJson.json();
+                // busca as informações do arquivo denver.js
+                const denverData = denver;
 
                 // cria um objeto para ser iterado na exibição da tabela
                 let dataTemp = {};

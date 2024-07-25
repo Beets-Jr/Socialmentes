@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { Box, CircularProgress, IconButton, Typography } from "@mui/material";
 
+import { denver } from "../../../Database/denver";
 import { Category } from "../../../Components/PainelPsicologo/Tools/Category";
 import { Levels } from "../../../Components/PainelPsicologo/Tools/Levels";
 import { CloseIcon } from "../../../Assets/Icons/CloseIcon";
@@ -10,15 +11,7 @@ import styles from './Tools.module.css';
 
 function Tools() {
 
-    const [denver, setDenver] = useState();
     const [category, setCategory] = useState();
-
-    useEffect(() => {
-        fetch('/src/Database/denver.json')
-            .then( resp => resp.json() )
-            .then( denver => setDenver(denver) )
-            .catch( e => console.log(e) );
-    }, []);
 
     return (
         <Box className={styles.tools_registrations}>

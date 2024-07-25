@@ -27,8 +27,6 @@ function PainelAdm() {
                 {isAdmin ? (
                     <Routes>
                         <Route path="/" element={<Navigate to="/painel-adm/pacientes" />} />
-                        <Route path="pacientes" element={<DialogConfirmation />} />
-                        <Route path="/" element={<DialogConfirmation />} />
                         <Route path="pacientes" element={<Patients />} />
                         <Route path="cargos" element={<Positions />} />
                         <Route path="cadastros" element={<Registrations />} />

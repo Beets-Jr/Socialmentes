@@ -45,4 +45,23 @@ const getTestById = async (testId) => {
   }
 }
 
-export { getPatientById, getTestsByIds, getTestById };
+const getTestByIdTest = async (testId) => {
+  const q = query(
+    collection(db, 'tests'),
+    where('id', '==', Number(testId) )
+  );
+  try {
+    const querySnapshot = await getDocs(q);
+    const docData = querySnapshot.docs[0].data();
+    if (!docData) {
+      console.log('Teste não encontrado!');
+      return null;
+    }
+    return docData;
+  } catch (error) {
+    console.error('Erro ao puxar dados do teste:', error);
+    throw error;
+  }
+}
+
+export { getPatientById, getTestsByIds, getTestById, getTestByIdTest };
