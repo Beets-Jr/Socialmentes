@@ -29,7 +29,7 @@ function PainelAdm() {
                     <Routes>
                         <Route path="/" element={<Navigate to="/painel-adm/pacientes" />} />
                         <Route path="pacientes" element={<Patients />} />
-                        <Route path="pacientes/novo-paciente" element={<PatientRegistration />} />
+                        <Route path="pacientes/cadastro" element={<PatientRegistration />} />
                         <Route path="pacientes/editar-paciente/:id" element={<PatientRegistration />} />
                         <Route path="cargos" element={<Positions />} />
                         <Route path="cadastros" element={<Registrations />} />
