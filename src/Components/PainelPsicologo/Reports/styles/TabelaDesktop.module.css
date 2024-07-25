@@ -1,0 +1,22 @@
+.table_container th, .table_container td {
+    font-family: var(--font-text);
+    color: var(--color-gray-4);
+    text-align: center;
+}
+
+.table_container th {
+    font-weight: 600;
+    border-left: 2px solid var(--color-gray-2);
+    font-size: 18px;
+}
+
+.table_container td {
+    border-top: 2px solid var(--color-gray-2);
+    border-left: 2px solid var(--color-gray-2);
+    border-bottom: none;
+    font-size: 15px;
+}
+
+.table_container td:first-child, .table_container th:first-child {
+    border-left: none;
+}
