@@ -17,6 +17,8 @@ import {
 import { updateQuestionValues } from "../../../Services/Tests/testsFunctions.mjs";
 import { useNavigate, useLocation } from "react-router-dom";
 import { treatQuestionValues } from "../../../Validators/Tests/treatData";
+import DialogConfirmation from "../../../Components/ElementsInterface/DialogConfirmation";
+import Logo from '../../../Assets/LogoSocialMentes1.png'
 
 export default function CriarTeste() {
   const [testId, setTestId] = useState("");
@@ -171,35 +173,27 @@ export default function CriarTeste() {
       </Box>
 
       {unsavedChanges && (
-        <Box
-          sx={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            padding: "2em",
-            backgroundColor: "#fff",
-            border: "1px solid #ccc",
-            zIndex: 9999,
-          }}
-        >
-          <p>Você tem alterações não salvas. O que deseja fazer?</p>
-          <Button
-            onClick={handleSaveAndExit}
-            variant="contained"
-            color="primary"
-            sx={{ marginRight: "1em" }}
-          >
-            Salvar e sair
-          </Button>
-          <Button
-            onClick={() => setUnsavedChanges(false)}
-            variant="contained"
-            color="secondary"
-          >
-            Continuar na página
-          </Button>
-        </Box>
+        <DialogConfirmation 
+          open={unsavedChanges}
+          onClose={() => setUnsavedChanges(false)} 
+          onConfirm={handleSaveAndExit}
+          messageTitle="Você deseja finalizar o seu teste?"
+          message="Caso finalizado, você não poderá alterá-lo depois!"
+          confirmButtonText="Finalizar"
+          cancelButtonText="Salvar"
+          confirmButtonColor="var(--color-pink)"
+          cancelButtonColor="var(--color-blue-2)"
+          confirmButtonHoverColor='white'
+          cancelButtonHoverColor='white'
+          confirmButtonBorderColor="var(--color-pink)"
+          cancelButtonBorderColor="var(--color-blue-2)"
+          confirmButtonHoverBackground='' // cor ao fundo do botão à esquerda passando mouse
+          cancelButtonHoverBackground='' // cor do fundo do botão à direita passando mouse
+          confirmButtonHoverBorderColor='' // cor da borda do botão à esquerda passando mouse
+          cancelButtonHoverBorderColor='' // cor da borda do botão à direita passando mouse
+          logoSrc={Logo}
+          logoAlt="socialmentes-logo"
+          />
       )}
     </Box>
   );
