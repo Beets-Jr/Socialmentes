@@ -1,0 +1,10 @@
+.patientContainer {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.patientData {
+    font-family: var(--font-sub) !important;
+    color: var(--color-blue-3) !important;
+}

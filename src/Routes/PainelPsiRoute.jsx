@@ -11,7 +11,8 @@ import styles from "./PainelAdm.module.css";
 import PacientesInfo from "../Screens/PainelPsicologo/Pacientes/PacientesInfo";
 import CriarTeste from "../Screens/PainelPsicologo/Pacientes/CriarTeste";
 import PacientesCadastrados from "../Screens/PainelPsicologo/Pacientes/PacientesCadastrados";
-
+import Checklist from "../Screens/PainelPsicologo/Checklist";
+import Tests from "../Screens/PainelPsicologo/Tests";
 
 function PainelPsi() {
     const { open } = useContext(AppContext);
@@ -34,9 +35,10 @@ function PainelPsi() {
                         <Route path="pacientes/informacoes" element={<PacientesInfo />} />
                         <Route path="pacientes/informacoes/:id" element={<PacientesInfo />} />
                         <Route path="pacientes/teste/:testId" element={<CriarTeste />} />
-                        <Route path="relatorios" element={<DialogConfirmation />} />
+                        <Route path="relatorios" element={<Tests />} />
                         <Route path="agenda" element={<DialogConfirmation />} />
                         <Route path="instrumentos" element={<DialogConfirmation />} />
+                        <Route path="checklist" element={<Checklist />}/>
                     </Routes>
                 ) : (
                     <Routes>
