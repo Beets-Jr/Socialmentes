@@ -1,0 +1,26 @@
+.legendContainer {
+  position: absolute;
+  right: 0;
+  top: 80px;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.legendColor {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  margin-right: 8px;
+}
+
+.legendText {
+  font-size: 15px;
+  font-weight: 400;
+  font-family: var(--font-text);
+  color: var(--color-gray-4);
+  width: 100px;
+}

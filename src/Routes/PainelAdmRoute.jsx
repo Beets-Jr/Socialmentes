@@ -9,8 +9,6 @@ import Header from "../Components/PainelAdm/Header/Header";
 import Registrations from "../Screens/PainelAdm/Registrations/Registrations";
 import Positions from "../Screens/PainelAdm/Positions/Positions";
 import styles from "./PainelAdm.module.css";
-import Tests from "../Screens/PainelPsicologo/Relatorios/Tests"
-import Checklist from "../Screens/PainelPsicologo/Relatorios/Checklist";
 import Patients from "../Screens/PainelAdm/Patients/Patients";
 
 function PainelAdm() {
@@ -25,7 +23,7 @@ function PainelAdm() {
         <div style={{ display: "flex" }}>
             <Sidebar />
             <div className={styles.background} style={{ display: "block", width: width }}>
-                <Header className={styles.noBackground}/>
+                <Header className={styles.noBackground} />
                 {isAdmin ? (
                     <Routes>
                         <Route path="/" element={<Navigate to="/painel-adm/pacientes" />} />
@@ -34,12 +32,11 @@ function PainelAdm() {
                         <Route path="pacientes" element={<Patients />} />
                         <Route path="cargos" element={<Positions />} />
                         <Route path="cadastros" element={<Registrations />} />
-                        <Route path="opcoes" element={<DialogConfirmation />} />
+                        <Route path="opcoes" element={<DialogConfirmation/>} />
                     </Routes>
                 ) : (
                     <Routes>
-                        <Route path="/" element={<Checklist />} />
-                        
+                        <Route path="/*" element={<PermissionDeniedMessage />} />
                     </Routes>
                 )}
             </div>

@@ -1,0 +1,29 @@
+.chartWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.chartContainer {
+  width: 85%;
+  padding: 16px;
+  border-radius: 16px;
+  margin: 40px auto;
+  border: 3px solid #d7d7d7;
+  position: relative;
+}
+
+@media screen and (max-width: 1000px) {
+  .chartContainer {
+    width: 95%;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .chartWrapper {
+    min-width: auto;
+    overflow-x: auto;
+    margin: 0 auto;
+
+  }
+
+}
