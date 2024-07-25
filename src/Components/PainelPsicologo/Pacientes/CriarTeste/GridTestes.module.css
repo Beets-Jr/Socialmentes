@@ -1,0 +1,65 @@
+.containerTestes {
+    font-family: var(--font-sub);
+    color: var(--color-gray-4);
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.containerTestes .titulo {
+    font-size: 30px;
+    color: var(--color-blue-4);
+    margin-top: 10vh;
+}
+
+.gridContainer {
+    margin-top: 3vh !important;
+    /* !important para sobrescrever o estilo default do MUI */
+}
+
+.gridItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    border: 2px solid #e0e0e0;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 3px 3px 4px 0px rgba(0, 0, 0, 0.05);
+}
+
+.cardHalf {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+    padding: 1em;
+}
+
+.cardHalf span {
+    font-size: 32px;
+}
+
+.cardHalf p {
+    font-size: 20px;
+}
+
+.cardHalf .statusTeste {
+    color: rgba(114, 114, 114, 0.60);
+    font-size: 16px;
+}
+
+@media screen and (max-width: 768px) {
+    .containerTestes .titulo {
+        margin-top: 4vh;
+        font-size: 24px;
+    }
+
+    .cardHalf {
+        flex: 1.3;
+    }
+
+    .cardHalfId {
+        flex: 0.7;
+    }
+}

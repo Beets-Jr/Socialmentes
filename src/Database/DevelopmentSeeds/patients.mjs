@@ -1,4 +1,4 @@
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, Timestamp  } from 'firebase/firestore';
 import { db } from '../FirebaseConfig.mjs';
 
 // Function to generate a random integer between min and max (inclusive)
@@ -80,7 +80,8 @@ function generateRandomPatient() {
                 rg: `${getRandomInt(10, 99)}.${getRandomInt(100, 999)}.${getRandomInt(100, 999)}-${getRandomInt(0, 9)}`
             }
         },
-        interventionTeams: getRandomIds(interventionTeamIds, getRandomInt(1, 5)) // 1 to 5 random IDs
+        interventionTeams: getRandomIds(interventionTeamIds, getRandomInt(1, 5)), // 1 to 5 random IDs
+        createdAt: Timestamp.now().toDate().toISOString(),
     };
 }
 

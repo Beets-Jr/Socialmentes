@@ -1,0 +1,16 @@
+.infoContainer {
+  width: 85%;
+  margin: 2rem auto 0;
+}
+
+.checkboxContainer {
+  margin: 1rem 0;
+}
+
+@media screen and (max-width: 1000px) {
+  .infoContainer {
+    width: 95%;
+    margin-left: 20px;
+    margin-right: 10px;
+  }
+}

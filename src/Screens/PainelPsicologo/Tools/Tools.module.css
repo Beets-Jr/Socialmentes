@@ -1,0 +1,24 @@
+.tools_registrations {
+    flex: 1;
+    padding: 34px 94px 100px 44px;
+}
+
+.title_close {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.container_empty {
+    margin-top: 30vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 800px) {
+    .tools_registrations {
+        padding: 36px 10px 100px 10px;
+    }
+}

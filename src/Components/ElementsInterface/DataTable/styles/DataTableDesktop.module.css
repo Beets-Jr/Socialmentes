@@ -1,0 +1,40 @@
+.container_table {
+    text-align: center;
+}
+
+.container_table p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.column_name {
+    color: var(--color-blue-4);
+    font-family: var(--font-sub);
+    font-weight: 400;
+}
+
+.row {
+    padding: 15px 0px;
+    display: flex;
+    align-items: center;
+    border: 2px solid var(--color-gray-2);
+    border-radius: 20px;
+}
+
+.row p {
+    font-family: var(--font-text);
+    font-size: 18px;
+    color: var(--color-gray-4);
+}
+
+.row svg {
+    color: var(--color-gray-5);
+    font-size: 22px;
+}
+
+@media (max-width: 800px) {
+    .row {
+        padding: 15px 15px;
+    }
+}

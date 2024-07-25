@@ -7,7 +7,7 @@ import { AddCircleOutlineRounded, RemoveCircleOutlineRounded } from "@mui/icons-
 import { IconEmail } from "../assets/icons";
 import { StylizedTextField, VFormContent, VRow, VUploadPhoto } from "../forms";
 
-export const AddEmail = ({ disabledForm, setDisabledButton, emails, setEmails }) => {
+export const AddEmail = ({ disabledForm, setDisabledButton, emails, setEmails, isMobile }) => {
 
     const [focusedIndex, setFocusedIndex] = useState();
 
@@ -80,7 +80,7 @@ export const AddEmail = ({ disabledForm, setDisabledButton, emails, setEmails })
     }
 
     return (
-        <VFormContent>
+        <VFormContent isMobile={isMobile}>
             <VRow unique>
                 <VUploadPhoto
                     name='photo'

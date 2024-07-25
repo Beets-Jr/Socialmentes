@@ -1,0 +1,83 @@
+/* estilos base para o botão */
+.button {
+  width: 250px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+  padding: 5px 10px;
+  border-radius: 15px;
+  border: 2px solid var(--color-gray-3);
+  color: var(--color-gray-3);
+  background-color: white;
+  font-family: var(--font-sub);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.button.active,
+.button:hover {
+  border-color: var(--color-blue-4);
+  color: var(--color-blue-4);
+}
+
+/* estilos específicos para botões com classe bg-blue */
+.button.bg-blue {
+  width: 230px;
+  /* Reduz a largura */
+  background: var(--Gradiente-boto, linear-gradient(90deg, #7DB9F0 0%, #5095D5 100%));
+  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.10);
+  color: white;
+  border: none;
+  /* Remove a borda */
+}
+
+.button.bg-blue .icon {
+  filter: none;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.icon {
+  margin-right: 0.5em;
+  width: 1.3em;
+  height: 1.3em;
+  transition: filter 0.3s;
+  filter: grayscale(10%) brightness(0%) invert(70%);
+}
+
+.button.active .icon,
+.button:hover .icon {
+  filter: none;
+}
+
+
+
+@media screen and (max-width: 768px) {
+  .button {
+    width: 95%;
+    height: 50px;
+    font-size: 16px;
+  }
+
+  .button.bg-blue {
+    width: 95%;
+  }
+
+  .icon {
+    display: none;
+  }
+
+  .text {
+    width: 75px;
+    font-size: 15px;
+  }
+
+}

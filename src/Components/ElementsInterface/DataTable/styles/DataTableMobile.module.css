@@ -1,0 +1,40 @@
+.container_table {
+    text-align: center;
+}
+
+.row {
+    margin-bottom: 15px;
+    padding: 15px 30px 15px 15px;
+    border: 2px solid var(--color-gray-2);
+    border-radius: 20px;
+}
+
+.row_data {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    overflow: hidden;
+}
+
+.row p {
+    text-align: left;
+    font-family: var(--font-text);
+    font-size: 18px;
+    color: var(--color-gray-4);
+}
+
+.row span {
+    font-weight: 400;
+    color: var(--color-blue-4);
+}
+
+.row_actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.row_actions svg {
+    color: var(--color-gray-5);
+    font-size: 22px;
+}

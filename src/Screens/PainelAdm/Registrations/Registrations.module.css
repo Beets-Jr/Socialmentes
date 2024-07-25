@@ -1,0 +1,19 @@
+.container_registrations {
+    flex: 1;
+    padding: 36px 94px 100px 51px;
+}
+
+.container_empty {
+    width: 100%;
+    height: 85vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 800px) {
+    .container_registrations {
+        flex: 1;
+        padding: 36px 10px 100px 10px;
+    }
+}

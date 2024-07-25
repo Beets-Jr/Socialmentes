@@ -3,7 +3,7 @@
 import { IconAttention, IconCity, IconIdentity, IconLocation, IconPerson, IconPhone, IconPositionForm } from "../assets/icons";
 import { VFormContent, VRow, VSelect, VTextField, VUploadPhoto, useVFormContext } from "../forms";
 
-export const FirstForm = ({ disabledForm, setDisabledButton }) => {
+export const FirstForm = ({ disabledForm, setDisabledButton, isMobile }) => {
 
     const { getFieldValue, focusedField } = useVFormContext();
 
@@ -39,7 +39,7 @@ export const FirstForm = ({ disabledForm, setDisabledButton }) => {
     }
 
     return (
-        <VFormContent onChange={handleChange}>
+        <VFormContent onChange={handleChange} isMobile={isMobile}>
             <VRow unique>
                 <VUploadPhoto
                     name='photo'
@@ -55,9 +55,9 @@ export const FirstForm = ({ disabledForm, setDisabledButton }) => {
                     disabled={disabledForm}
                 />
             </VRow>
-            <VRow>
+            <VRow isMobile={isMobile}>
                 <VTextField
-                    xs={5}
+                    xs={isMobile ? 12 : 5}
                     name='cep'
                     label_icon={<IconLocation {...icon_props('cep')} />}
                     label='CEP'
@@ -65,7 +65,7 @@ export const FirstForm = ({ disabledForm, setDisabledButton }) => {
                     disabled={disabledForm}
                 />
                 <VTextField
-                    xs={6.7}
+                    xs={isMobile ? 12 : 6.7}
                     name='cpf'
                     label_icon={<IconIdentity {...icon_props('cpf')} />}
                     label='CPF'
@@ -73,9 +73,9 @@ export const FirstForm = ({ disabledForm, setDisabledButton }) => {
                     disabled={disabledForm}
                 />
             </VRow>
-            <VRow>
+            <VRow isMobile={isMobile}>
                 <VSelect
-                    xs={6.7}
+                    xs={isMobile ? 12 : 6.7}
                     name='specialization'
                     label_icon={<IconPositionForm {...icon_props('specialization', .3)} />}
                     label='Cargo'
@@ -89,7 +89,7 @@ export const FirstForm = ({ disabledForm, setDisabledButton }) => {
                     disabled={disabledForm}
                 />
                 <VTextField
-                    xs={5}
+                    xs={isMobile ? 12 : 5}
                     name='phone'
                     label_icon={<IconPhone {...icon_props('phone')} />}
                     label='Celular'
@@ -97,9 +97,9 @@ export const FirstForm = ({ disabledForm, setDisabledButton }) => {
                     disabled={disabledForm}
                 />
             </VRow>
-            <VRow>
+            <VRow isMobile={isMobile}>
                 <VTextField
-                    xs={3}
+                    xs={isMobile ? 12 : 3}
                     name='state'
                     label_icon={<IconAttention {...icon_props('state')} />}
                     label='UF'
@@ -107,7 +107,7 @@ export const FirstForm = ({ disabledForm, setDisabledButton }) => {
                     disabled={disabledForm}
                 />
                 <VTextField
-                    xs={8.7}
+                    xs={isMobile ? 12 : 8.7}
                     name='city'
                     label_icon={<IconCity {...icon_props('city')} />}
                     label='Cidade'
