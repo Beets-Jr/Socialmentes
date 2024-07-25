@@ -8,6 +8,10 @@ import Sidebar from "../Components/PainelAdm/Sidebar/Sidebar";
 import Header from "../Components/PainelAdm/Header/Header";
 import HomePsi from "../Screens/PainelPsicologo/HomePsi";
 import styles from "./PainelAdm.module.css";
+import PacientesInfo from "../Screens/PainelPsicologo/Pacientes/PacientesInfo";
+import CriarTeste from "../Screens/PainelPsicologo/Pacientes/CriarTeste";
+import PacientesCadastrados from "../Screens/PainelPsicologo/Pacientes/PacientesCadastrados";
+
 
 function PainelPsi() {
     const { open } = useContext(AppContext);
@@ -26,7 +30,10 @@ function PainelPsi() {
                     <Routes>
                         <Route path="/" element={<Navigate to="/painel-psi/home" />} />
                         <Route path="home" element={<HomePsi />} />
-                        <Route path="pacientes" element={<DialogConfirmation />} />
+                        <Route path="pacientes" element={<PacientesCadastrados />} />
+                        <Route path="pacientes/informacoes" element={<PacientesInfo />} />
+                        <Route path="pacientes/informacoes/:id" element={<PacientesInfo />} />
+                        <Route path="pacientes/teste/:testId" element={<CriarTeste />} />
                         <Route path="relatorios" element={<DialogConfirmation />} />
                         <Route path="agenda" element={<DialogConfirmation />} />
                         <Route path="instrumentos" element={<DialogConfirmation />} />
