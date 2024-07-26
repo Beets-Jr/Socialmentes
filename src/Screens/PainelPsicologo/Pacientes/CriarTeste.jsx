@@ -29,6 +29,7 @@ export default function CriarTeste() {
   const [categoriasSelecionadas, setCategoriasSelecionadas] = useState({});
   const [questionValues, setQuestionValues] = useState({});
   const [encerrar, setEncerrar] = useState(false);
+  const [saveAndExit, setSaveAndExit] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -111,18 +112,26 @@ export default function CriarTeste() {
     }
   };
 
-  const handleEncerrar = () => {
-    setEncerrar(true);
-  };
-
   const handleSaveAndExit = async () => {
     try {
       const treatQValues = treatQuestionValues(questionValues)
       await updateQuestionValues(testId, treatQValues);
-      setEncerrar(false);
+      setSaveAndExit(false);
       navigate("/painel-psi/pacientes");
     } catch (error) {
       console.error("Erro ao salvar e sair:", error);
+    }
+  };
+
+  const handleEncerrar = async () => {
+    try {
+      const treatQValues = treatQuestionValues(questionValues)
+      await updateQuestionValues(testId, treatQValues);
+      /** Implementar a função que seta a situation do teste para 0 */
+      setEncerrar(false);
+      navigate("/painel-psi/pacientes");
+    } catch (error) {
+      console.error("Erro ao encerrar:", error);
     }
   };
 
@@ -168,49 +177,19 @@ export default function CriarTeste() {
         </Box>
         <FixedButtons
           handleAdicionarQuestao={handleAdicionarQuestao}
-          handleEncerrar={handleEncerrar}
+          handleEncerrar={() => setEncerrar(true)}
+          handleSaveAndExit={() => setSaveAndExit(true)}
         />
       </Box>
-
-      {encerrar && (
-        <Box
-          sx={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            padding: "2em",
-            backgroundColor: "#fff",
-            border: "1px solid #ccc",
-            zIndex: 9999,
-          }}
-        >
-          <p>Você tem alterações não salvas. O que deseja fazer?</p>
-          <Button
-            onClick={handleSaveAndExit}
-            variant="contained"
-            color="primary"
-            sx={{ marginRight: "1em" }}
-          >
-            Salvar e sair
-          </Button>
-          <Button
-            onClick={() => setEncerrar(false)}
-            variant="contained"
-            color="secondary"
-          >
-            Continuar na página
-          </Button>
-        </Box>
-      {unsavedChanges && (
+      {saveAndExit && (
         <DialogConfirmation 
-          open={unsavedChanges}
-          onClose={() => setUnsavedChanges(false)} 
+          open={saveAndExit}
+          onClose={() => setSaveAndExit(false)} 
           onConfirm={handleSaveAndExit}
-          messageTitle="Você deseja finalizar o seu teste?"
-          message="Caso finalizado, você não poderá alterá-lo depois!"
-          confirmButtonText="Finalizar"
-          cancelButtonText="Salvar"
+          messageTitle="Você deseja salvar o teste e sair?"
+          message="Você poderá alterá-lo depois."
+          confirmButtonText="Salvar"
+          cancelButtonText="Cancelar"
           confirmButtonColor="var(--color-pink)"
           cancelButtonColor="var(--color-blue-2)"
           confirmButtonHoverColor='white'
@@ -223,8 +202,33 @@ export default function CriarTeste() {
           cancelButtonHoverBorderColor='' // cor da borda do botão à direita passando mouse
           logoSrc={Logo}
           logoAlt="socialmentes-logo"
-          />
+        />
       )}
+
+      {encerrar && (
+        <DialogConfirmation 
+          open={encerrar}
+          onClose={() => setEncerrar(false)} 
+          onConfirm={handleEncerrar}
+          messageTitle="Você deseja finalizar o seu teste?"
+          message="Caso finalizado, você não poderá alterá-lo depois!"
+          confirmButtonText="Finalizar"
+          cancelButtonText="Cancelar"
+          confirmButtonColor="var(--color-pink)"
+          cancelButtonColor="var(--color-blue-2)"
+          confirmButtonHoverColor='white'
+          cancelButtonHoverColor='white'
+          confirmButtonBorderColor="var(--color-pink)"
+          cancelButtonBorderColor="var(--color-blue-2)"
+          confirmButtonHoverBackground='' // cor ao fundo do botão à esquerda passando mouse
+          cancelButtonHoverBackground='' // cor do fundo do botão à direita passando mouse
+          confirmButtonHoverBorderColor='' // cor da borda do botão à esquerda passando mouse
+          cancelButtonHoverBorderColor='' // cor da borda do botão à direita passando mouse
+          logoSrc={Logo}
+          logoAlt="socialmentes-logo"
+        />
+      )}
+      
     </Box>
   );
 }

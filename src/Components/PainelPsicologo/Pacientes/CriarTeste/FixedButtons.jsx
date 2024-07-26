@@ -6,7 +6,7 @@ import iconEncerrar from "../../../../Assets/Icons/check-icon.png";
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { AppContext } from "../../../../Contexts/AppContext";
 
-export default function FixedButtons({ handleAdicionarQuestao, handleEncerrar }) {
+export default function FixedButtons({ handleAdicionarQuestao, handleEncerrar, handleSaveAndExit }) {
     const isMobile = useMediaQuery('(max-width:768px)');
     const { open: isSidebarExpanded } = useContext(AppContext); // Get the sidebar state from context
     const sidebarWidth = isSidebarExpanded ? '20vw' : '5vw'; // Adjust according to your sidebar width
@@ -45,7 +45,7 @@ export default function FixedButtons({ handleAdicionarQuestao, handleEncerrar })
                     right: isMobile ? "1em" : "2em",
                 }}
             >
-                <Botao icon={<ExitToAppIcon fontSize="large" />} text="Salvar e sair" bgcolor="bg-blue" onClick={handleEncerrar} />
+                <Botao icon={<ExitToAppIcon fontSize="large" />} text="Salvar e sair" bgcolor="bg-blue" onClick={handleSaveAndExit} />
                 <Botao icon={iconEncerrar} text="Encerrar" bgcolor="bg-blue" onClick={handleEncerrar} />
             </Box>
         </Box>
