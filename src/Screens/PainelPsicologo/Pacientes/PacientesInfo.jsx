@@ -34,7 +34,6 @@ export default function PacientesInfo() {
     try {
       const patientTests = await getTestsFromPatient(patient.id);
       setPatientTests(patientTests);
-      console.log("Testes do paciente:", patientTests);
     } catch (error) {
       console.error("Erro ao buscar testes:", error);
     }
@@ -65,7 +64,7 @@ export default function PacientesInfo() {
       marginTop: { xs: "1em", sm: "3em" },
       position: "sticky",
     }}>
-      <Box className={styles.infoPacientes} sx={{ display: "flex", flexDirection: "row", gap: "60%" }}>
+      <Box className={styles.infoPacientes} sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start" }}>
         <Box sx={{ display: "flex", flexDirection: "column", gap: "3vh" }}>
           <div className={styles.titulo}>Informações do(a) paciente</div>
           <BlueLine />
@@ -74,8 +73,14 @@ export default function PacientesInfo() {
           <div><span>Responsável:</span> {patient.psychologistName} </div>
         </Box>
 
-        <Box onClick={() => navigate('/painel-psi/pacientes')} sx={{ cursor: "pointer", marginLeft: "3vw" }}>
-          <img src={ExitIcon} alt="Sair" />
+        <Box
+          onClick={() => navigate('/painel-psi/pacientes')}
+          sx={{
+            cursor: "pointer",
+            marginTop: "0.5em",
+          }}
+        >
+          <img src={ExitIcon} alt="Sair" style={{ width: "24px", height: "24px" }} />
         </Box>
       </Box>
 
@@ -90,11 +95,13 @@ export default function PacientesInfo() {
         <Botao fullText icon={iconAddToList} text="Criar Teste" />
       </Box>
 
-      {/** Exibir o componente correto */}
       {testeNaoFinalizado && (
         <Paper
           sx={{
             position: "fixed",
+            display: "flex",
+            flexDirection: "column",
+            gap: '1em',
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
@@ -104,7 +111,7 @@ export default function PacientesInfo() {
             zIndex: 9999,
           }}
         >
-          <p>Você tem um teste não finalizado, finalize-o antes de criar outro.</p>
+          <p style={{ fontFamily: 'var(--font-sub', color: 'var(--color-gray-4)', fontSize: '20px' }}>Você tem um teste não finalizado, finalize-o antes de criar outro.</p>
           <Button
             onClick={() => setTesteNaoFinalizado(false)}
             variant="contained"

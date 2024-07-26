@@ -27,7 +27,6 @@ export default function PacientesCadastrados() {
                 setPatients(patientsData);
                 setFilteredPatients(patientsData);
                 setValue(patientsData.length);
-                console.log('Patients data:', patientsData); // Verificação dos dados
             } catch (error) {
                 console.error("Error fetching patients:", error);
             }

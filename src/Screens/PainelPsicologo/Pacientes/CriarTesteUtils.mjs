@@ -141,3 +141,4 @@ export const updateCategoriasSelecionadas = (
     console.error("Error updating selected categories:", error);
   }
 };
+  

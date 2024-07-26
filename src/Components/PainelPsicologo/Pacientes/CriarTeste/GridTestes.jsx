@@ -8,7 +8,6 @@ import { getByTestSerialId } from "../../../../Services/Tests/GetByTestSerialId.
 export default function GridTestes({ testsInfo }) {
     const navigate = useNavigate();
     const [testInfo, setTestInfo] = useState([]);
-    const [testDocId, setTestDocId] = useState("");
 
     const formatDate = (isoString) => {
         const date = new Date(isoString.trim());
@@ -20,7 +19,7 @@ export default function GridTestes({ testsInfo }) {
 
     const goToTest = (testSerialId, testDetails) => {
         localStorage.setItem('testId', testSerialId);
-        navigate(`/painel-psi/pacientes/teste/${testSerialId}`, { state: { testDocId: testSerialId, testDetails: testDetails } });
+        navigate(`/painel-psi/pacientes/teste/${testSerialId}`, { state: { testSerialId: testSerialId, testDetails: testDetails } });
     };
 
     useEffect(() => {
@@ -38,7 +37,6 @@ export default function GridTestes({ testsInfo }) {
         testsInfo.forEach((test) => {
             fetchTestInfo(test.id);
             console.log("Test: ", test.id);
-            setTestDocId(test.id);
         });
     }, [testsInfo]);
 

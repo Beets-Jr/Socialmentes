@@ -64,4 +64,30 @@ const getTestByIdTest = async (testId) => {
   }
 }
 
+export const updateTestSituation = async (testId) => {
+  const q = query(
+    collection(db, 'tests'),
+    where('id', '==', Number(testId))
+  );
+  try {
+    const querySnapshot = await getDocs(q);
+    
+    if (querySnapshot.empty) {
+      console.log('Nenhum documento encontrado com esse testId');
+      return;
+    }
+
+    const docRef = querySnapshot.docs[0].ref;
+
+    await updateDoc(docRef, {
+      situation: 0
+    });
+
+    console.log('Campo "situation" atualizado com sucesso para 0');
+  } catch (error) {
+    console.error('Erro ao atualizar dados do teste:', error);
+    throw error;
+  }
+}
+
 export { getPatientById, getTestsByIds, getTestById, getTestByIdTest };

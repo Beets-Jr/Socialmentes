@@ -18,7 +18,8 @@ import { updateQuestionValues } from "../../../Services/Tests/testsFunctions.mjs
 import { useNavigate, useLocation } from "react-router-dom";
 import { treatQuestionValues } from "../../../Validators/Tests/treatData";
 import DialogConfirmation from "../../../Components/ElementsInterface/DialogConfirmation";
-import Logo from '../../../Assets/LogoSocialMentes1.png'
+import Logo from '../../../Assets/LogoSocialMentes1.png';
+import { updateTestSituation } from "../../../Services/testsPatientsService";
 
 export default function CriarTeste() {
   const [testId, setTestId] = useState("");
@@ -33,23 +34,22 @@ export default function CriarTeste() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const { testDetails, testDocId } = location.state || {};
+  const { testSerialId, testDetails } = location.state || {};
 
   useEffect(() => {
-    if (testDocId) {
-      localStorage.setItem("testId", testDocId);
-      setTestId(testDocId);
+    if (testSerialId) {
+      localStorage.setItem("testId", testSerialId);
+      setTestId(testSerialId);
     } else {
       const storedTestId = localStorage.getItem("testId");
       if (storedTestId) {
         setTestId(storedTestId);
       }
     }
-  }, [testDocId]);
+  }, [testSerialId]);
 
   useEffect(() => {
     loadInitialDataFromLocalStorage(setTestId, setCategoriasSelecionadas);
-    console.log('Categorias selecionadas:', categoriasSelecionadas);
   }, []);
 
   useEffect(() => {
@@ -98,6 +98,7 @@ export default function CriarTeste() {
     try {
       if (selectedOption) {
         if (categoriasSelecionadas[nivel]?.includes(selectedOption)) {
+          /** Implementar a mensagem correta */
           alert("Essa categoria já foi selecionada para este nível.");
           return;
         }
@@ -127,7 +128,7 @@ export default function CriarTeste() {
     try {
       const treatQValues = treatQuestionValues(questionValues)
       await updateQuestionValues(testId, treatQValues);
-      /** Implementar a função que seta a situation do teste para 0 */
+      updateTestSituation(testId);
       setEncerrar(false);
       navigate("/painel-psi/pacientes");
     } catch (error) {
