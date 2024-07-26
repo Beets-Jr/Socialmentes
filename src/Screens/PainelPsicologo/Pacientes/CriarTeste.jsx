@@ -17,6 +17,8 @@ import {
 import { updateQuestionValues } from "../../../Services/Tests/testsFunctions.mjs";
 import { useNavigate, useLocation } from "react-router-dom";
 import { treatQuestionValues } from "../../../Validators/Tests/treatData";
+import DialogConfirmation from "../../../Components/ElementsInterface/DialogConfirmation";
+import Logo from '../../../Assets/LogoSocialMentes1.png'
 
 export default function CriarTeste() {
   const [testId, setTestId] = useState("");
@@ -200,6 +202,28 @@ export default function CriarTeste() {
             Continuar na página
           </Button>
         </Box>
+      {unsavedChanges && (
+        <DialogConfirmation 
+          open={unsavedChanges}
+          onClose={() => setUnsavedChanges(false)} 
+          onConfirm={handleSaveAndExit}
+          messageTitle="Você deseja finalizar o seu teste?"
+          message="Caso finalizado, você não poderá alterá-lo depois!"
+          confirmButtonText="Finalizar"
+          cancelButtonText="Salvar"
+          confirmButtonColor="var(--color-pink)"
+          cancelButtonColor="var(--color-blue-2)"
+          confirmButtonHoverColor='white'
+          cancelButtonHoverColor='white'
+          confirmButtonBorderColor="var(--color-pink)"
+          cancelButtonBorderColor="var(--color-blue-2)"
+          confirmButtonHoverBackground='' // cor ao fundo do botão à esquerda passando mouse
+          cancelButtonHoverBackground='' // cor do fundo do botão à direita passando mouse
+          confirmButtonHoverBorderColor='' // cor da borda do botão à esquerda passando mouse
+          cancelButtonHoverBorderColor='' // cor da borda do botão à direita passando mouse
+          logoSrc={Logo}
+          logoAlt="socialmentes-logo"
+          />
       )}
     </Box>
   );
