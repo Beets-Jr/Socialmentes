@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Box, Button } from "@mui/material";
 import NivelSelector from "../../../Components/PainelPsicologo/Pacientes/CriarTeste/NivelSelector";
 import CompetenciaSelector from "../../../Components/PainelPsicologo/Pacientes/CriarTeste/CompetenciaSelector";
@@ -20,8 +20,12 @@ import { treatQuestionValues } from "../../../Validators/Tests/treatData";
 import DialogConfirmation from "../../../Components/ElementsInterface/DialogConfirmation";
 import Logo from '../../../Assets/LogoSocialMentes1.png';
 import { updateTestSituation } from "../../../Services/testsPatientsService";
+import { AppContext } from "../../../Contexts/AppContext";
 
 export default function CriarTeste() {
+  const { open: isSidebarExpanded } = useContext(AppContext);
+  const sidebarWidth = isSidebarExpanded ? '20vw' : '5vw';
+
   const [testId, setTestId] = useState("");
   const [nivel, setNivel] = useState(1);
   const [activeButtonIndex, setActiveButtonIndex] = useState(0);
@@ -29,6 +33,7 @@ export default function CriarTeste() {
   const [categorias, setCategorias] = useState([]);
   const [categoriasSelecionadas, setCategoriasSelecionadas] = useState({});
   const [questionValues, setQuestionValues] = useState({});
+  const [changeCategory, setChangeCategory] = useState(false);
   const [encerrar, setEncerrar] = useState(false);
   const [saveAndExit, setSaveAndExit] = useState(false);
 
@@ -98,8 +103,12 @@ export default function CriarTeste() {
     try {
       if (selectedOption) {
         if (categoriasSelecionadas[nivel]?.includes(selectedOption)) {
-          /** Implementar a mensagem correta */
-          alert("Essa categoria já foi selecionada para este nível.");
+          setChangeCategory(true);
+
+          setTimeout(() => {
+            setChangeCategory(false);
+          }, 2000);
+
           return;
         }
         await updateCategoriasSelecionadas(
@@ -182,10 +191,11 @@ export default function CriarTeste() {
           handleSaveAndExit={() => setSaveAndExit(true)}
         />
       </Box>
+
       {saveAndExit && (
-        <DialogConfirmation 
+        <DialogConfirmation
           open={saveAndExit}
-          onClose={() => setSaveAndExit(false)} 
+          onClose={() => setSaveAndExit(false)}
           onConfirm={handleSaveAndExit}
           messageTitle="Você deseja salvar o teste e sair?"
           message="Você poderá alterá-lo depois."
@@ -207,9 +217,9 @@ export default function CriarTeste() {
       )}
 
       {encerrar && (
-        <DialogConfirmation 
+        <DialogConfirmation
           open={encerrar}
-          onClose={() => setEncerrar(false)} 
+          onClose={() => setEncerrar(false)}
           onConfirm={handleEncerrar}
           messageTitle="Você deseja finalizar o seu teste?"
           message="Caso finalizado, você não poderá alterá-lo depois!"
@@ -230,6 +240,27 @@ export default function CriarTeste() {
         />
       )}
       
+      {changeCategory && (
+        <Box sx={{
+          position: "fixed",
+          bottom: "3vh",
+          left: `calc(${sidebarWidth} + (100vw - ${sidebarWidth}) / 2)`,
+          transform: "translateX(-50%) translateY(-50%)",
+          zIndex: "1000",
+          width: "30vw",
+          height: "2.5vh",
+          padding: "1em",
+          border: "2px solid var(--color-blue-4)",
+          borderRadius: "15px",
+          backgroundColor: "white",
+          fontFamily: "var(--font-text)",
+          color: "var(--color-gray-4)",
+          fontWeight: "500",
+          textAlign: "center",
+        }} >
+          Mude a competência/nível para adicionar outra checklist
+        </Box>
+      )}
     </Box>
   );
 }

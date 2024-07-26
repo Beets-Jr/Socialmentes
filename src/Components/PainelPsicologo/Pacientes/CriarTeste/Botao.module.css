@@ -1,7 +1,7 @@
 /* Estilos base para o botão */
 .button {
   width: 15vw;
-  height: 50px;
+  height: 5vh;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -54,7 +54,7 @@ export default function Questao({
           />
 
           {categoriaSelecionada && `${categoriaSelecionada} - Nível ${nivel}`}
-          <Box onClick={() => onRemotion(nivel, indiceCategoriaGeral)} sx={{ cursor: "pointer", marginLeft: "3vw" }}>
+          <Box onClick={() => onRemotion(nivel, indiceCategoriaGeral)} sx={{ cursor: "pointer", marginLeft: "30vw"}}>
             <img src={TrashIcon} alt="Remover" />
           </Box>
         </Box>
@@ -63,7 +63,9 @@ export default function Questao({
       {expandir &&
         perguntas.map((pergunta, index) => (
           <Box key={index} sx={{ width: { xs: "75vw", sm: "70vw" }, marginBottom: "1rem" }}>
-            <div className={styles.titulo3}>{`${index + 1}. ${pergunta}`}</div>
+            <div className={styles.titulo3}>
+              {`${index + 1}. ${pergunta}`}
+            </div>
             <div className={styles.texto}>
               {descricoes[index] && `${descricoes[index]}`}
             </div>
