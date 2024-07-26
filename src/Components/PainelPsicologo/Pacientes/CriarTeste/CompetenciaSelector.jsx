@@ -32,7 +32,7 @@ export default function CompetenciaSelector({
             boxShadow: '2px 2px 2.8px 0px rgba(0, 0, 0, 0.10)',
             color: 'var(--color-gray-4)',
             fontFamily: 'var(--font-sub)',
-            fontSize: '24px',
+            fontSize: {xs: '16px', sm: '20px', md: '24px'},
             fontWeight: 400,
             lineHeight: 'normal',
             '& .MuiSelect-icon': {
@@ -42,6 +42,7 @@ export default function CompetenciaSelector({
               borderColor: 'var(--Cinza-3)',
             }
           }}
+          
         >
           {selectedOption === "" && (
             <MenuItem disabled value="">
@@ -55,7 +56,7 @@ export default function CompetenciaSelector({
               sx={{
                 color: 'var(--color-gray-4)',
                 fontFamily: 'var(--font-sub)',
-                fontSize: '24px',
+                fontSize: {xs: '16px', sm: '20px', md: '24px'},
                 fontWeight: 400,
                 lineHeight: 'normal',
               }}

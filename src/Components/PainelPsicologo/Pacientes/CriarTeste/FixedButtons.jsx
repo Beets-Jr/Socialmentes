@@ -30,7 +30,7 @@ export default function FixedButtons({ handleAdicionarQuestao, handleEncerrar, h
         >
             <Box sx={{
                 marginLeft: {
-                    xs: "1em",
+                    xs: "2.75em",
                     sm: "3.75em"
                 }
             }} >
