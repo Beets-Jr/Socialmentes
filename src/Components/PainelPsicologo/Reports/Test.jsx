@@ -15,7 +15,7 @@ function Test({ test }) {
         navigate('/painel-psi/checklist', {state: {test: test}});
     }
 
-    const status = test.situation === 0 ? "Finalizado" : "Não Terminado";
+    const status = test.situation === 1 ? "Finalizado" : "Não Terminado";
 
     return (
         <>

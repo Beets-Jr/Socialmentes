@@ -10,7 +10,7 @@ export const getFinalizedTests = async () => {
   const querySnapshot = await getDocs(collection(db, 'tests'));
   const finalizedTests = querySnapshot.docs
   .map(doc => ({ id: doc.id, ...doc.data() }))
-  .filter(doc => doc.situation === 0);
+  .filter(doc => doc.situation === 1);
   return finalizedTests;
 };
 

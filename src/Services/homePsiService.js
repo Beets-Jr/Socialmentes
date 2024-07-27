@@ -5,7 +5,7 @@ export const getLastThreeTests = async () => {
     const querySnapshot = await getDocs(collection(db, 'tests'), orderBy('createdAt', 'desc'), orderBy('id', 'desc'), limit(3));
     const onGoingTests = querySnapshot.docs
     .map(doc => ({ id: doc.id, ...doc.data() }))
-    .filter(doc => doc.situation === 1)
+    .filter(doc => doc.situation === 0)
     .slice(0, 3);
 
     return onGoingTests;
@@ -15,7 +15,7 @@ export const getLastThreeFinalizedReports = async () => {
     const querySnapshot = await getDocs(collection(db, 'tests'), orderBy('createdAt', 'desc'), orderBy('id', 'desc'), limit(3));
     const finalizedTests = querySnapshot.docs
     .map(doc => ({ id: doc.id, ...doc.data() }))
-    .filter(doc => doc.situation === 0)
+    .filter(doc => doc.situation === 1)
     .slice(0, 3);
     
     return finalizedTests;

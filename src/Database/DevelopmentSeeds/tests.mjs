@@ -91,7 +91,7 @@ async function addTest() {
             timestamp: Timestamp.now().toDate().toISOString(),
             id: id,
             testType: "denver",
-            situation: Math.floor(Math.random() * 2),  // 0 or 1
+            situation: 0,
             patientId: patient.id,
             patientName: patient.data.children.name,
         };

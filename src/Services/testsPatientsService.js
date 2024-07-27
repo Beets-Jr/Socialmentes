@@ -80,10 +80,10 @@ export const updateTestSituation = async (testId) => {
     const docRef = querySnapshot.docs[0].ref;
 
     await updateDoc(docRef, {
-      situation: 0
+      situation: 1
     });
 
-    console.log('Campo "situation" atualizado com sucesso para 0');
+    console.log('Campo "situation" atualizado com sucesso para 1');
   } catch (error) {
     console.error('Erro ao atualizar dados do teste:', error);
     throw error;
