@@ -70,7 +70,7 @@ function Sidebar() {
       {/* Box com a logo no topo da sidebar */}
       <Box className={styles.sbContainerLogo}>
         {open ?
-          <img src='../src/Components/PainelAdm/Sidebar/Icons/LogoSocialMentes1.png' alt="logo" style={{ height: '25vh', userSelect: 'none' }} />
+          <img src='\src\Components\PainelAdm\Sidebar\Icons\LogoSocialMentes1.png' alt="logo" style={{ height: '25vh', userSelect: 'none' }} />
           :
           <IconButton onClick={toggleSidebar} sx={{ color: 'var(--color-blue-3)' }}>
             <MenuIcon />

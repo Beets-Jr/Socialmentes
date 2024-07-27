@@ -92,7 +92,13 @@ const HomeDataCard = ({ title, data, type }) => {
 
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate('/'); // Colocar o caminho correto
+    switch(type){
+      case "patient":
+        navigate('/painel-psi/pacientes');
+        break;
+      default:
+        navigate('/painel-psi/relatorios');
+    }
   };
 
   return (
