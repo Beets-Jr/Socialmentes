@@ -3,6 +3,7 @@ import { Typography, Box, CircularProgress } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { getFinalizedTests } from "../../Services/testService";
 import { AppContext } from "../../Contexts/AppContext";
+import {getCurrentCounterValue} from  "../../Services/Tests/testsFunctions.mjs"
 
 function Tests() {
 
@@ -14,8 +15,9 @@ function Tests() {
     const fetchData = async () => {
       try {
         const data = await getFinalizedTests();
+        const counter = await getCurrentCounterValue();
         setTests(data);
-        setValue(data.length);
+        setValue(counter);
       } catch (err) {
         console.error("Error fetching data ", err);
       } finally {

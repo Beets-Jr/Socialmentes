@@ -237,6 +237,28 @@ async function addCategoryToLevel(serialId, level, categoryIndex) {
 }
 
 /**
+ * Obtém o valor atual do contador na coleção 'counters'
+ * @returns {number} O valor atual do contador
+ */
+export async function getCurrentCounterValue() {
+    try {
+        const counterDocRef = doc(db, 'counters/tests');
+        const counterDoc = await getDoc(counterDocRef);
+
+        if (!counterDoc.exists()) {
+            throw new Error("O documento do contador não existe!");
+        }
+
+        const currentCount = counterDoc.data().count;
+        return currentCount;
+    } catch (error) {
+        console.error("Erro ao obter o valor do contador: ", error);
+        throw error;
+    }
+}
+
+
+/**
  * Cria um documento na coleção tests para determinado paciente
  * @param {*} patientId 
  * @param {string} patientName 
