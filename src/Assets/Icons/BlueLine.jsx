@@ -4,7 +4,7 @@ export default function BlueLine() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="373"
+      width="230"
       height="2"
       viewBox="0 0 373 2"
       fill="none"

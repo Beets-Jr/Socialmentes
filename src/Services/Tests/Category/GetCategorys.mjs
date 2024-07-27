@@ -3,7 +3,6 @@ export function getCategoriesByLevel(test, levelNumber) {
     const level = test.questions[levelKey];
 
     if (!level) {
-        console.error(`Nível ${levelNumber} não encontrado.`);
         return [];
     }
 

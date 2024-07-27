@@ -143,7 +143,6 @@ async function updateQuestionValues(testId, questionValues) {
             });
         });
 
-        console.log(`Question values updated successfully for testId ${testId}!`);
         return questionValues;
     } catch (error) {
         console.error("Erro ao atualizar question values:", error);
@@ -230,7 +229,6 @@ async function addCategoryToLevel(serialId, level, categoryIndex) {
             }
         });
 
-        console.log("Categoria adicionada com sucesso!");
     } catch (error) {
         console.error("Erro ao adicionar categoria:", error);
     }
@@ -300,7 +298,6 @@ async function createTestForPatient(patientId, patientName) {
             transaction.set(testDocRef, testData);
         });
 
-        console.log("Teste criado com sucesso!");
         return serialId;
     } catch (error) {
         console.error("Erro ao criar teste: ", error);

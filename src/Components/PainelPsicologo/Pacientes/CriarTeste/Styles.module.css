@@ -20,7 +20,6 @@
     align-items: center;
     justify-content: center;
     padding: calc(1em - 2px);
-    /* Ajuste o padding para compensar a borda */
     padding: calc(1em - 2px);
     box-shadow: 2px 2px 2.8px 0px rgba(0, 0, 0, 0.10);
     border-radius: 15px;
@@ -30,8 +29,6 @@
     color: var(--color-gray-3);
     font-size: 32px;
     cursor: pointer;
-    transition: border-width 0.1s, padding 0.1s, border-color 0.1s;
-    /* Transições mais rápidas */
     transition: border-width 0.1s, padding 0.1s, border-color 0.1s;
 }
 
@@ -110,7 +107,12 @@
     line-height: normal;
     width: max-content;
 }
-
+  .iconTrash {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  
 
 @media screen and (max-width: 768px) {
     .titulo1 {

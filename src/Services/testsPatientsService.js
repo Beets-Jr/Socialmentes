@@ -83,7 +83,6 @@ export const updateTestSituation = async (testId) => {
       situation: 1
     });
 
-    console.log('Campo "situation" atualizado com sucesso para 1');
   } catch (error) {
     console.error('Erro ao atualizar dados do teste:', error);
     throw error;

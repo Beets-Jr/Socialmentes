@@ -20,7 +20,7 @@ export default function FixedButtons({ handleAdicionarQuestao, handleEncerrar, h
                 zIndex: 10,
                 display: "flex",
                 width: `calc(100% - ${sidebarWidth})`,
-                height: "10vh",
+                height: { sm: "5vh", md: "7.5vh", lg: "10vh"},
                 backgroundColor: "white",
                 padding: "0.5em 0",
                 alignItems: "center",
@@ -43,11 +43,11 @@ export default function FixedButtons({ handleAdicionarQuestao, handleEncerrar, h
                     display: "flex",
                     gap: isMobile ? "0" : "1em",
                     position: "absolute",
-                    right: isMobile ? "1em" : "2em",
+                    right: isMobile ? "1em" : "5em",
                 }}
             >
-                <Botao icon={<ExitToAppIcon fontSize="large" />} text="Salvar e sair" bgcolor="bg-blue" onClick={handleSaveAndExit} />
-                <Botao icon={iconEncerrar} text="Encerrar" bgcolor="bg-blue" onClick={handleEncerrar} />
+                <Botao icon={<ExitToAppIcon fontSize="large" />} text="Salvar e sair" onClick={handleSaveAndExit} customClass="save-exit"/>
+                <Botao icon={iconEncerrar} text="Finalizar" bgcolor="bg-blue" onClick={handleEncerrar} />
             </Box>
         </Box>
     );

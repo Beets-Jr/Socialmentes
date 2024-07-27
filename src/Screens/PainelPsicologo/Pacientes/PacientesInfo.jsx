@@ -44,7 +44,6 @@ export default function PacientesInfo() {
 
     if (unfinishedTestCount === 0) {
       try {
-        console.log("Criando teste para o paciente", patient.childName, "cujo id é:", patient.id);
         const createdTestId = await createTestForPatient(patient.id, patient.childName);
 
         navigate(`/painel-psi/pacientes/teste/${createdTestId}`, {
@@ -88,7 +87,6 @@ export default function PacientesInfo() {
       <Box
         sx={{
           marginY: { xs: "1em", sm: "3em" },
-          marginLeft: { xs: "1em" }
         }}
         onClick={handleCriarTeste}
       >

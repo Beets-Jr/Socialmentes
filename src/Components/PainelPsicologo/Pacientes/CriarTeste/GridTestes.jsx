@@ -36,7 +36,6 @@ export default function GridTestes({ testsInfo }) {
 
         testsInfo.forEach((test) => {
             fetchTestInfo(test.id);
-            console.log("Test: ", test.id);
         });
     }, [testsInfo]);
 

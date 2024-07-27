@@ -19,12 +19,10 @@ export const loadInitialDataFromLocalStorage = (
     );
 
     if (storedTestSerialId) {
-      console.log("Loaded test ID from local storage:", storedTestSerialId);
       setTestSerialId(storedTestSerialId);
     }
 
     if (storedCategoriasSelecionadas) {
-      console.log("Loaded selected categories from local storage");
       setCategoriasSelecionadas(JSON.parse(storedCategoriasSelecionadas));
     }
   } catch (error) {
@@ -41,7 +39,6 @@ export const loadInitialDataFromLocalStorage = (
 export const fetchCategoriasPorNivel = async (nivel, setCategorias) => {
   try {
     const fetchedCategorias = await getCategoriaNomesPorNivel(nivel);
-    console.log("Fetched categories:", fetchedCategorias);
     setCategorias(fetchedCategorias);
   } catch (error) {
     console.error("Error fetching categories by level:", error);
@@ -125,12 +122,6 @@ export const updateCategoriasSelecionadas = (
           categoriasAtualizadas.push(novaCategoria);
         }
       });
-
-      console.log(
-        "Updated selected categories for level:",
-        nivel,
-        categoriasAtualizadas
-      );
 
       return {
         ...prevState,

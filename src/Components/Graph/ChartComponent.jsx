@@ -38,14 +38,12 @@ const ChartComponent = () => {
     const fetchTestAndRelatedData = async () => {
       try {
         const testData = await getTestByIdTest(testId);
-        console.log('testData:', testData);
         setCurrentTest(testData);
         const patientId = testData.patientId;
         const patientData = await getPatientById(patientId);
         setPatient(patientData);
         const testIds = patientData.tests || [];
         const fetchedTests = await getTestsByIds(testIds);
-        console.log('fetchedTests:', fetchedTests);
         const accumulatedQuestions = accumulateQuestions(fetchedTests);
         setAccumulatedQuestions(accumulatedQuestions);
         const currentIndex = fetchedTests.findIndex(test => test.id === testData.id);

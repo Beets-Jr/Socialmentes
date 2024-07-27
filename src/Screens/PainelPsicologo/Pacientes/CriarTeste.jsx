@@ -159,7 +159,7 @@ export default function CriarTeste() {
     }}>
       <Box>
         <Box sx={{
-          display: { xs: "block", md: "flex" }, gap: "10vw",
+          display: { xs: "block", md: "flex" }, gap: "20vw",
         }}>
           <NivelSelector
             activeButtonIndex={activeButtonIndex}

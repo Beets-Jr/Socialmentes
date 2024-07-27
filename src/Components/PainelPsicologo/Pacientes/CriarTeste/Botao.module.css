@@ -61,15 +61,22 @@
 
 /* Estilos responsivos */
 @media screen and (max-width: 768px) {
-  .button {
-    height: 50px;
+  .button,
+  .button.bg-blue {
+    height: 40px;
     font-size: 16px;
     margin-left: 1em;
   }
 
-  .button.bg-blue .icon {
+  .button.bg-blue .icon,
+  .button.save-exit .icon {
     display: none;
   }
+
+  .icon {
+    display: none;
+  }
+
 
   .icon {
     display: none;

@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import styles from "./Botao.module.css";
 import { Link } from "react-router-dom";
 
-export default function Botao({ icon, text, route, bgcolor, onClick, fullText }) {
+export default function Botao({ icon, text, route, bgcolor, onClick, fullText, customClass }) {
   const [isActive, setIsActive] = useState(false);
 
-  const buttonClass = `${styles.button} ${bgcolor ? styles[bgcolor] : ""} ${isActive ? styles.active : ""
-    }`;
+  const buttonClass = `${styles.button} ${bgcolor ? styles[bgcolor] : ""} ${isActive ? styles.active : ""} ${customClass ? styles[customClass] : ""}`;
 
   const handleClick = () => {
     setIsActive(true);

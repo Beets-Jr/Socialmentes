@@ -60,10 +60,6 @@ export default function QuestoesList({
     setRemotion(true);
   };
 
-  useEffect(() => {
-    console.log("Objetao: ", questionValues);
-  }, [questionValues]);
-
   const handleRemotionConfirmed = async () => {
     const updatedValues = { ...questionValues };
     const levelKey = `level_${nivel}`;
