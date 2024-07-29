@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useCallback } from "react";
 import { Box, Button } from "@mui/material";
 import NivelSelector from "../../../Components/PainelPsicologo/Pacientes/CriarTeste/NivelSelector";
 import CompetenciaSelector from "../../../Components/PainelPsicologo/Pacientes/CriarTeste/CompetenciaSelector";
@@ -58,19 +58,27 @@ export default function CriarTeste() {
   }, []);
 
   useEffect(() => {
+    console.log("Initial question values:", questionValues);
+  }, [questionValues]);
+
+  useEffect(() => {
     if (nivel > 0) {
       fetchCategoriasPorNivel(nivel, setCategorias);
     }
   }, [nivel]);
 
   useEffect(() => {
-    if (testDetails && nivel > 0) {
-      const indicesCategorias = getCategoriesByLevel(testDetails, nivel);
-      const newQuestionValues = getQuestionsValues(
-        testDetails,
-        indicesCategorias,
-        nivel
-      );
+    if (testDetails) {
+      const newQuestionValues = {};
+      for (let level = 1; level <= 4; level++) {
+        const indicesCategorias = getCategoriesByLevel(testDetails, level);
+        const levelKey = `level_${level}`;
+        newQuestionValues[levelKey] = getQuestionsValues(
+          testDetails,
+          indicesCategorias,
+          level
+        )[levelKey];
+      }
       setQuestionValues(newQuestionValues);
       updateCategoriasSelecionadasFromTestDetails(
         testDetails,
@@ -79,7 +87,7 @@ export default function CriarTeste() {
         setCategoriasSelecionadas
       );
     }
-  }, [nivel, testDetails, categorias]);
+  }, [testDetails, categorias]);
 
   useEffect(() => {
     localStorage.setItem(
@@ -122,10 +130,14 @@ export default function CriarTeste() {
     }
   };
 
+  const handleUpdateComplete = useCallback(() => {
+    setQuestionValues(questionValues);
+  }, [questionValues]);
+
   const handleSaveAndExit = async () => {
     try {
-      const treatQValues = treatQuestionValues(questionValues)
-      await updateQuestionValues(testId, treatQValues);
+      console.log("questions values:", questionValues);
+      await updateQuestionValues(testId, questionValues);
       setSaveAndExit(false);
       navigate("/painel-psi/pacientes");
     } catch (error) {
@@ -183,6 +195,7 @@ export default function CriarTeste() {
             questionValues={questionValues}
             categorias={categorias}
             setCategoriasSelecionadas={setCategoriasSelecionadas}
+            onUpdateComplete={handleUpdateComplete} // Passa o callback
           />
         </Box>
         <FixedButtons

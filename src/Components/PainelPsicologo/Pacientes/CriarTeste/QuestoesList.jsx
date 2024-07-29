@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Button } from "@mui/material";
 import Questao from "./Questao";
 import styles from "./Styles.module.css";
@@ -12,7 +12,8 @@ export default function QuestoesList({
   setQuestionValues,
   questionValues,
   categorias,
-  setCategoriasSelecionadas
+  setCategoriasSelecionadas,
+  onUpdateComplete // Adiciona a prop de callback
 }) {
   const [remotion, setRemotion] = useState(false);
   const [indiceDaCategoriaGeral, setIndiceDaCategoriaGeral] = useState();
@@ -24,35 +25,41 @@ export default function QuestoesList({
     indiceQuestao,
     value
   ) => {
+    console.log("Question Values before:", questionValues);
+
     const categoriaSelecionada =
       categoriasSelecionadas[nivel] && categoriasSelecionadas[nivel][indiceDaCategoria];
     if (!categoriaSelecionada) return;
-
+  
     const indiceCategoriaGeral = categorias.findIndex(
       (cat) => cat === categoriaSelecionada
     );
-
+  
     setQuestionValues((prevValues) => {
-      const updatedValues = JSON.parse(JSON.stringify(prevValues));
+      const updatedValues = { ...prevValues };
 
-      // Garantir que o nível exista, ou criar um novo
       if (!updatedValues[`level_${nivel}`]) {
         updatedValues[`level_${nivel}`] = {};
       }
-
-      // Garantir que a categoria dentro do nível exista, ou criar uma nova
+  
       if (!updatedValues[`level_${nivel}`][`category_${indiceCategoriaGeral}`]) {
         updatedValues[`level_${nivel}`][`category_${indiceCategoriaGeral}`] = {};
       }
-
-      // Atualizar ou adicionar a questão específica
+  
       updatedValues[`level_${nivel}`][`category_${indiceCategoriaGeral}`][
         `question_${indiceQuestao}`
       ] = value;
 
+      console.log("Question Values after:", updatedValues);
       return updatedValues;
     });
-  };
+  };  
+
+  useEffect(() => {
+    if (onUpdateComplete) {
+      onUpdateComplete();
+    }
+  }, [questionValues, onUpdateComplete]);
 
   const handleRemotion = (indiceDaCategoriaNoNivel, indiceDaCategoriaGeral) => {
     setIndiceDaCategoriaNoNivel(indiceDaCategoriaNoNivel);
@@ -64,34 +71,35 @@ export default function QuestoesList({
     const updatedValues = { ...questionValues };
     const levelKey = `level_${nivel}`;
     const categoryKey = `category_${indiceDaCategoriaGeral}`;
-
+  
     // Remover a categoria específica e suas questões
     if (updatedValues[levelKey]) {
       delete updatedValues[levelKey][categoryKey];
-
+  
       // Se não houver mais categorias no nível, remover o nível
       if (Object.keys(updatedValues[levelKey]).length === 0) {
         delete updatedValues[levelKey];
       }
     }
-
+  
     // Atualizar categoriasSelecionadas após remover a categoria de questionValues
     const updatedCategoriasSelecionadas = { ...categoriasSelecionadas };
     if (updatedCategoriasSelecionadas[nivel]) {
       updatedCategoriasSelecionadas[nivel] = updatedCategoriasSelecionadas[nivel].filter(
         (_, index) => index !== indiceDaCategoriaNoNivel
       );
-
+  
       // Se não houver mais categorias no nível, remover o nível
       if (updatedCategoriasSelecionadas[nivel].length === 0) {
         delete updatedCategoriasSelecionadas[nivel];
       }
     }
-
+  
     // Atualizar o estado local e garantir a re-renderização
     setQuestionValues(updatedValues);
     setCategoriasSelecionadas(updatedCategoriasSelecionadas);
-
+    localStorage.setItem("categoriasSelecionadas", JSON.stringify(updatedCategoriasSelecionadas));
+  
     try {
       // Atualizar o banco de dados
       await updateQuestionValues(testId, updatedValues);
@@ -99,8 +107,12 @@ export default function QuestoesList({
       console.error("Erro ao remover a questão:", error);
     } finally {
       setRemotion(false);  // Garantir que o modal de confirmação seja fechado
+      if (onUpdateComplete) {
+        onUpdateComplete(); // Chama o callback após a remoção
+      }
     }
   };
+  
 
   return (
     <>

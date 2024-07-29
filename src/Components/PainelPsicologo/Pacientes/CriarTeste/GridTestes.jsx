@@ -57,8 +57,8 @@ export default function GridTestes({ testsInfo }) {
                             sm={6}
                             md={4}
                             lg={3.75}
-                            sx={{ display: "flex", cursor: test.situation === 0 ? 'pointer' : 'default' }}
-                            onClick={test.situation === 0 ? () => goToTest(test.id, test) : undefined}
+                            sx={{ display: "flex", cursor: test.situation === 1 ? 'pointer' : 'default' }}
+                            onClick={test.situation === 1 ? () => goToTest(test.id, test) : undefined}
                             className={styles.gridItem}
                             key={index}
                         >
@@ -70,7 +70,7 @@ export default function GridTestes({ testsInfo }) {
                                 <p>{formatDate(test.timestamp)}</p>
                                 <p>{test.testType}</p>
                                 <p noWrap className={styles.statusTeste}>
-                                    {test.situation === 1 ? (
+                                    {test.situation === 0 ? (
                                         <p style={{ color: 'var(--color-blue-4)' }}>Finalizado</p>
                                     ) : (
                                         <p>Não Finalizado</p>

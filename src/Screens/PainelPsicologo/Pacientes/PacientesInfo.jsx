@@ -40,7 +40,7 @@ export default function PacientesInfo() {
   }
 
   const handleCriarTeste = async () => {
-    const unfinishedTestCount = patientTests.filter(test => test.situation === 0).length;
+    const unfinishedTestCount = patientTests.filter(test => test.situation === 1).length;
 
     if (unfinishedTestCount === 0) {
       try {
@@ -94,31 +94,42 @@ export default function PacientesInfo() {
       </Box>
 
       {testeNaoFinalizado && (
-        <Paper
+        <Box
           sx={{
             position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
             display: "flex",
-            flexDirection: "column",
-            gap: '1em',
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            padding: "2em",
-            backgroundColor: "#fff",
-            border: "1px solid #ccc",
-            zIndex: 9999,
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 9998, // Ensure it is below the Paper
           }}
         >
-          <p style={{ fontFamily: 'var(--font-sub', color: 'var(--color-gray-4)', fontSize: '20px' }}>Você tem um teste não finalizado, finalize-o antes de criar outro.</p>
-          <Button
-            onClick={() => setTesteNaoFinalizado(false)}
-            variant="contained"
-            color="primary"
-            sx={{ marginRight: "1em" }}
+          <Paper
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: '1em',
+              padding: "2em",
+              backgroundColor: "#fff",
+              border: "1px solid #ccc",
+              zIndex: 9999,
+            }}
           >
-            OK
-          </Button>
-        </Paper>
+            <p style={{ fontFamily: 'var(--font-sub', color: 'var(--color-gray-4)', fontSize: '20px' }}>Você tem um teste não finalizado, finalize-o antes de criar outro.</p>
+            <Button
+              onClick={() => setTesteNaoFinalizado(false)}
+              variant="contained"
+              color="primary"
+              sx={{ marginRight: "1em" }}
+            >
+              OK
+            </Button>
+          </Paper>
+        </Box>
       )}
     </Box>
   );
