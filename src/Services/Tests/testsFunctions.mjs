@@ -289,7 +289,7 @@ async function createTestForPatient(patientId, patientName) {
                 patientId: patientId,
                 patientName: patientName,
                 questions: {}, // Inicializar como um objeto vazio ou outro valor padrão, conforme necessário
-                situation: 1,
+                situation: 0,
                 testType: "denver",
                 timestamp: new Date().toISOString() // Converte a data atual para string ISO 8601
             };

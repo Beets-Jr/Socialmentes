@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Box, FormControl, FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import TrashIcon from "../../../../Assets/Icons/trash-icon.png";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import styles from "./Styles.module.css";
 import { getDescricoesPorNivelECategoria, getPerguntasPorNivelECategoria } from "../../../../Services/Tests/testsInfoFunctions";
+import { AppContext } from "../../../../Contexts/AppContext";
 
 export default function Questao({
   nivel,
@@ -15,6 +16,16 @@ export default function Questao({
   onSelectedValuesChange,
   onRemotion
 }) {
+  const { open: isSidebarExpanded } = useContext(AppContext); // Get the sidebar state from context
+
+  // Define sidebar widths
+  const expandedSidebarWidth = '20vw';
+  const collapsedSidebarWidth = '5vw';
+
+  // Calculate sidebar width difference
+  const sidebarWidth = isSidebarExpanded ? expandedSidebarWidth : collapsedSidebarWidth;
+  const sidebarWidthDifference = isSidebarExpanded ? `-${collapsedSidebarWidth}` : expandedSidebarWidth;
+
   const [perguntas, setPerguntas] = useState([]);
   const [descricoes, setDescricoes] = useState([]);
   const [expandir, setExpandir] = useState(false);
@@ -37,15 +48,13 @@ export default function Questao({
       fetchData();
     }
   }, [nivel, categoriaSelecionada]);
+
   const isMobile = useMediaQuery('(max-width:768px)');
   return (
     <>
-      <Box className={styles.titulo2} sx={{ width: "70vw", marginBottom: "1rem" }}>
+      <Box className={styles.titulo2} sx={{ width: "70vw", marginBottom: "1rem", position: 'relative' }}>
         <Box sx={{
-          display: "flex", alignItems: "center", justifyContent: {
-            xs: "space-between",
-            sm: "flex-start"
-          }
+          display: "flex", alignItems: "center", justifyContent: "space-between"
         }}>
           <KeyboardArrowDownOutlinedIcon
             onClick={handleClick}
@@ -53,8 +62,22 @@ export default function Questao({
             sx={{ cursor: "pointer", marginRight: "10px", fontSize: 50 }}
           />
 
-          {categoriaSelecionada && `${categoriaSelecionada} - Nível ${nivel}`}
-          <Box onClick={() => onRemotion(nivel, indiceCategoriaGeral)} sx={{ cursor: "pointer", marginLeft: "30vw"}}>
+          <Box sx={{ flexGrow: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            {categoriaSelecionada && `${categoriaSelecionada} - Nível ${nivel}`}
+          </Box>
+
+          <Box
+            onClick={() => onRemotion(nivel, indiceCategoriaGeral)}
+            sx={{
+              position: 'absolute',
+              right: `calc(${sidebarWidth} - 20vw)`,
+              top: '50%',
+              transform: 'translateY(-50%)',
+              cursor: "pointer",
+              zIndex: 1000,
+              transition: 'right 0.5s ease'
+            }}
+          >
             <img src={TrashIcon} alt="Remover" />
           </Box>
         </Box>

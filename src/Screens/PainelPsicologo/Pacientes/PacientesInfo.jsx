@@ -40,7 +40,7 @@ export default function PacientesInfo() {
   }
 
   const handleCriarTeste = async () => {
-    const unfinishedTestCount = patientTests.filter(test => test.situation === 1).length;
+    const unfinishedTestCount = patientTests.filter(test => test.situation === 0).length;
 
     if (unfinishedTestCount === 0) {
       try {

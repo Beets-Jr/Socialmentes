@@ -20,7 +20,7 @@ export default function FixedButtons({ handleAdicionarQuestao, handleEncerrar, h
                 zIndex: 10,
                 display: "flex",
                 width: `calc(100% - ${sidebarWidth})`,
-                height: { sm: "5vh", md: "7.5vh", lg: "10vh"},
+                height: { sm: "8vh", md: "7.5vh", lg: "10vh"},
                 backgroundColor: "white",
                 padding: "0.5em 0",
                 alignItems: "center",
