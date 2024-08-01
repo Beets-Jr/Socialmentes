@@ -1,3 +1,10 @@
+
+/**
+ * 
+ * @param {*} test 
+ * @param {*} levelNumber 
+ * @returns 
+ */
 export function getCategoriesByLevel(test, levelNumber) {
     const levelKey = `level_${levelNumber}`;
     const level = test.questions[levelKey];

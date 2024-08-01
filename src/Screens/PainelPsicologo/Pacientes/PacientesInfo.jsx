@@ -119,7 +119,7 @@ export default function PacientesInfo() {
               zIndex: 9999,
             }}
           >
-            <p style={{ fontFamily: 'var(--font-sub', color: 'var(--color-gray-4)', fontSize: '20px' }}>Você tem um teste não finalizado, finalize-o antes de criar outro.</p>
+            <p style={{ fontFamily: 'var(--font-sub', color: 'var(--color-gray-4)', fontSize: '20px', width: '50vw' }}>Você tem um teste não finalizado, finalize-o antes de criar outro.</p>
             <Button
               onClick={() => setTesteNaoFinalizado(false)}
               variant="contained"

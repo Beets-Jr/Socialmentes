@@ -46,6 +46,26 @@ export const fetchCategoriasPorNivel = async (nivel, setCategorias) => {
 };
 
 /**
+ * Obtém categorias com base em uma lista de índices fornecidos.
+ * 
+ * @param {Array} categorias Lista de categorias.
+ * @param {Array} indices Lista de índices para as categorias desejadas.
+ * @returns {Array} Lista de categorias correspondentes aos índices fornecidos.
+ */
+export const getCategoriasByIndices = (categorias, indices) => {
+  try {
+    // Filtra os índices para remover undefined e ordena
+    return indices
+      .filter((index) => index !== undefined)
+      .sort((a, b) => a - b)
+      .map((index) => categorias[index]);
+  } catch (error) {
+    console.error("Error getting categories by indices:", error);
+    return [];
+  }
+};
+
+/**
  * Atualiza as categorias selecionadas com base nos detalhes do teste e no nível fornecido.
  * 
  * @param {*} testDetails Detalhes do teste que contêm informações sobre as categorias selecionadas.
@@ -77,26 +97,6 @@ export const updateCategoriasSelecionadasFromTestDetails = (
       "Error updating selected categories from test details:",
       error
     );
-  }
-};
-
-/**
- * Obtém categorias com base em uma lista de índices fornecidos.
- * 
- * @param {Array} categorias Lista de categorias.
- * @param {Array} indices Lista de índices para as categorias desejadas.
- * @returns {Array} Lista de categorias correspondentes aos índices fornecidos.
- */
-export const getCategoriasByIndices = (categorias, indices) => {
-  try {
-    // Filtra os índices para remover undefined e ordena
-    return indices
-      .filter((index) => index !== undefined)
-      .sort((a, b) => a - b)
-      .map((index) => categorias[index]);
-  } catch (error) {
-    console.error("Error getting categories by indices:", error);
-    return [];
   }
 };
 

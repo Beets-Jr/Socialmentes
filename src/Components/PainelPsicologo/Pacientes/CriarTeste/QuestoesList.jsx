@@ -7,13 +7,14 @@ import { updateQuestionValues } from "../../../../Services/Tests/testsFunctions.
 
 export default function QuestoesList({
   testId,
+  testDetails,
+  setTestInformations,
   nivel,
   categoriasSelecionadas,
   setQuestionValues,
   questionValues,
   categorias,
   setCategoriasSelecionadas,
-  onUpdateComplete // Adiciona a prop de callback
 }) {
   const [remotion, setRemotion] = useState(false);
   const [indiceDaCategoriaGeral, setIndiceDaCategoriaGeral] = useState();
@@ -50,16 +51,14 @@ export default function QuestoesList({
         `question_${indiceQuestao}`
       ] = value;
 
+      // Atualizar o testDetails.questions com os novos questionValues
+      const updatedTestDetails = { ...testDetails, questions: updatedValues };
+      setTestInformations(updatedTestDetails);
+
       console.log("Question Values after:", updatedValues);
       return updatedValues;
     });
   };  
-
-  useEffect(() => {
-    if (onUpdateComplete) {
-      onUpdateComplete();
-    }
-  }, [questionValues, onUpdateComplete]);
 
   const handleRemotion = (indiceDaCategoriaNoNivel, indiceDaCategoriaGeral) => {
     setIndiceDaCategoriaNoNivel(indiceDaCategoriaNoNivel);
@@ -98,7 +97,13 @@ export default function QuestoesList({
     // Atualizar o estado local e garantir a re-renderização
     setQuestionValues(updatedValues);
     setCategoriasSelecionadas(updatedCategoriasSelecionadas);
+
     localStorage.setItem("categoriasSelecionadas", JSON.stringify(updatedCategoriasSelecionadas));
+    console.log("Categorias Selecionadas:", updatedCategoriasSelecionadas);
+  
+    // Atualizar o testDetails.questions com os novos questionValues
+    const updatedTestDetails = { ...testDetails, questions: updatedValues };
+    setTestInformations(updatedTestDetails);
   
     try {
       // Atualizar o banco de dados
@@ -107,12 +112,8 @@ export default function QuestoesList({
       console.error("Erro ao remover a questão:", error);
     } finally {
       setRemotion(false);  // Garantir que o modal de confirmação seja fechado
-      if (onUpdateComplete) {
-        onUpdateComplete(); // Chama o callback após a remoção
-      }
     }
-  };
-  
+  };  
 
   return (
     <>

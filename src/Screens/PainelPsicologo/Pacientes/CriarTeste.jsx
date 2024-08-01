@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useContext, useCallback } from "react";
-import { Box, Button } from "@mui/material";
+import React, { useEffect, useState, useContext } from "react";
+import { Box } from "@mui/material";
 import NivelSelector from "../../../Components/PainelPsicologo/Pacientes/CriarTeste/NivelSelector";
 import CompetenciaSelector from "../../../Components/PainelPsicologo/Pacientes/CriarTeste/CompetenciaSelector";
 import QuestoesList from "../../../Components/PainelPsicologo/Pacientes/CriarTeste/QuestoesList";
@@ -27,6 +27,7 @@ export default function CriarTeste() {
   const sidebarWidth = isSidebarExpanded ? '20vw' : '5vw';
 
   const [testId, setTestId] = useState("");
+  const [testInformations, setTestInformations] = useState({});
   const [nivel, setNivel] = useState(1);
   const [activeButtonIndex, setActiveButtonIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState("");
@@ -54,12 +55,21 @@ export default function CriarTeste() {
   }, [testSerialId]);
 
   useEffect(() => {
+    if (testDetails) {
+      setTestInformations(testDetails);
+    }
+  }, [testDetails]);
+
+  useEffect(() => {
     loadInitialDataFromLocalStorage(setTestId, setCategoriasSelecionadas);
   }, []);
 
   useEffect(() => {
-    console.log("Initial question values:", questionValues);
-  }, [questionValues]);
+    const storedCategoriasSelecionadas = JSON.parse(localStorage.getItem("categoriasSelecionadas"));
+    if (storedCategoriasSelecionadas) {
+      setCategoriasSelecionadas(storedCategoriasSelecionadas);
+    }
+  }, []);
 
   useEffect(() => {
     if (nivel > 0) {
@@ -68,26 +78,27 @@ export default function CriarTeste() {
   }, [nivel]);
 
   useEffect(() => {
-    if (testDetails) {
+    if (Object.keys(testInformations).length > 0 && categorias.length > 0) {
       const newQuestionValues = {};
       for (let level = 1; level <= 4; level++) {
-        const indicesCategorias = getCategoriesByLevel(testDetails, level);
+        const indicesCategorias = getCategoriesByLevel(testInformations, level);
         const levelKey = `level_${level}`;
+
         newQuestionValues[levelKey] = getQuestionsValues(
-          testDetails,
+          testInformations,
           indicesCategorias,
           level
         )[levelKey];
       }
       setQuestionValues(newQuestionValues);
       updateCategoriasSelecionadasFromTestDetails(
-        testDetails,
+        testInformations,
         nivel,
         categorias,
         setCategoriasSelecionadas
       );
     }
-  }, [testDetails, categorias]);
+  }, [testInformations, categorias]);
 
   useEffect(() => {
     localStorage.setItem(
@@ -95,6 +106,13 @@ export default function CriarTeste() {
       JSON.stringify(categoriasSelecionadas)
     );
   }, [categoriasSelecionadas]);
+
+  useEffect(() => {
+    localStorage.setItem(
+      "questionValues",
+      JSON.stringify(questionValues)
+    );
+  }, [questionValues]);
 
   const handleButtonClick = (index) => {
     setActiveButtonIndex(index);
@@ -130,13 +148,8 @@ export default function CriarTeste() {
     }
   };
 
-  const handleUpdateComplete = useCallback(() => {
-    setQuestionValues(questionValues);
-  }, [questionValues]);
-
   const handleSaveAndExit = async () => {
     try {
-      console.log("questions values:", questionValues);
       await updateQuestionValues(testId, questionValues);
       setSaveAndExit(false);
       navigate("/painel-psi/pacientes");
@@ -189,13 +202,14 @@ export default function CriarTeste() {
         }}>
           <QuestoesList
             testId={testId}
+            testDetails={testDetails}
+            setTestInformations={setTestInformations}
             nivel={nivel}
             categoriasSelecionadas={categoriasSelecionadas}
             setQuestionValues={setQuestionValues}
             questionValues={questionValues}
             categorias={categorias}
             setCategoriasSelecionadas={setCategoriasSelecionadas}
-            onUpdateComplete={handleUpdateComplete} // Passa o callback
           />
         </Box>
         <FixedButtons
