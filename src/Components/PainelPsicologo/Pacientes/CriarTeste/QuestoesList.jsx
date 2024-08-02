@@ -4,6 +4,8 @@ import Questao from "./Questao";
 import styles from "./Styles.module.css";
 import BlueLine from "../../../../Assets/Icons/BlueLine";
 import { updateQuestionValues } from "../../../../Services/Tests/testsFunctions.mjs";
+import DialogConfirmation from "../../../ElementsInterface/DialogConfirmation";
+import Logo from '../../../../Assets/LogoSocialMentes1.png';
 
 export default function QuestoesList({
   testId,
@@ -26,7 +28,6 @@ export default function QuestoesList({
     indiceQuestao,
     value
   ) => {
-    console.log("Question Values before:", questionValues);
 
     const categoriaSelecionada =
       categoriasSelecionadas[nivel] && categoriasSelecionadas[nivel][indiceDaCategoria];
@@ -55,7 +56,6 @@ export default function QuestoesList({
       const updatedTestDetails = { ...testDetails, questions: updatedValues };
       setTestInformations(updatedTestDetails);
 
-      console.log("Question Values after:", updatedValues);
       return updatedValues;
     });
   };  
@@ -99,7 +99,6 @@ export default function QuestoesList({
     setCategoriasSelecionadas(updatedCategoriasSelecionadas);
 
     localStorage.setItem("categoriasSelecionadas", JSON.stringify(updatedCategoriasSelecionadas));
-    console.log("Categorias Selecionadas:", updatedCategoriasSelecionadas);
   
     // Atualizar o testDetails.questions com os novos questionValues
     const updatedTestDetails = { ...testDetails, questions: updatedValues };
@@ -171,35 +170,27 @@ export default function QuestoesList({
       </Box>
 
       {remotion && (
-        <Box
-          sx={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            padding: "2em",
-            backgroundColor: "#fff",
-            border: "1px solid #ccc",
-            zIndex: 9999,
-          }}
-        >
-          <p>Tem certeza que deseja remover a questão? Esta ação é irreversível.</p>
-          <Button
-            onClick={handleRemotionConfirmed}
-            variant="contained"
-            color="primary"
-            sx={{ marginRight: "1em" }}
-          >
-            Sim, quero remover
-          </Button>
-          <Button
-            onClick={() => setRemotion(false)}
-            variant="contained"
-            color="secondary"
-          >
-            Não, prefiro continuar na página
-          </Button>
-        </Box>
+        <DialogConfirmation
+        open={remotion}
+        onClose={() => setRemotion(false)}
+        onConfirm={handleRemotionConfirmed}
+        messageTitle="Você deseja apagar esta categoria?"
+        message="Esta ação é irreversível!"
+        confirmButtonText="Apagar"
+        cancelButtonText="Não Apagar"
+        confirmButtonColor="var(--color-blue-2)"
+        cancelButtonColor="var(--color-pink)"
+        confirmButtonHoverColor='var(--color-blue-2)'
+        cancelButtonHoverColor='var(--color-pink)'
+        confirmButtonBorderColor="var(--color-blue-2)"
+        cancelButtonBorderColor="var(--color-pink)"
+        confirmButtonHoverBackground='' // cor ao fundo do botão à esquerda passando mouse
+        cancelButtonHoverBackground='#ffe4ec' // cor do fundo do botão à direita passando mouse
+        confirmButtonHoverBorderColor='' // cor da borda do botão à esquerda passando mouse
+        cancelButtonHoverBorderColor='var(--color-pink)' // cor da borda do botão à direita passando mouse
+        logoSrc={Logo}
+        logoAlt="socialmentes-logo"
+      />
       )}
     </>
   );

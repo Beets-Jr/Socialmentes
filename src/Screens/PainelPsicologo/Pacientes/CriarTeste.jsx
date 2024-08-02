@@ -15,7 +15,7 @@ import {
   getQuestionsValues,
 } from "../../../Services/Tests/Category/GetCategorys.mjs";
 import { updateQuestionValues } from "../../../Services/Tests/testsFunctions.mjs";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useBlocker } from "react-router-dom";
 import { treatQuestionValues } from "../../../Validators/Tests/treatData";
 import DialogConfirmation from "../../../Components/ElementsInterface/DialogConfirmation";
 import Logo from '../../../Assets/LogoSocialMentes1.png';
@@ -34,6 +34,7 @@ export default function CriarTeste() {
   const [categorias, setCategorias] = useState([]);
   const [categoriasSelecionadas, setCategoriasSelecionadas] = useState({});
   const [questionValues, setQuestionValues] = useState({});
+
   const [changeCategory, setChangeCategory] = useState(false);
   const [encerrar, setEncerrar] = useState(false);
   const [saveAndExit, setSaveAndExit] = useState(false);
@@ -41,6 +42,30 @@ export default function CriarTeste() {
   const navigate = useNavigate();
   const location = useLocation();
   const { testSerialId, testDetails } = location.state || {};
+
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      event.preventDefault();
+      event.returnValue = ''; // Necessário para exibir o alerta no Chrome
+    };
+  
+    window.addEventListener('beforeunload', handleBeforeUnload);
+  
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
+
+  useEffect(() => {
+    loadInitialDataFromLocalStorage(setTestId, setCategoriasSelecionadas);
+  }, []);
+
+  useEffect(() => {
+    const storedCategoriasSelecionadas = JSON.parse(localStorage.getItem("categoriasSelecionadas"));
+    if (storedCategoriasSelecionadas) {
+      setCategoriasSelecionadas(storedCategoriasSelecionadas);
+    }
+  }, []);
 
   useEffect(() => {
     if (testSerialId) {
@@ -59,17 +84,6 @@ export default function CriarTeste() {
       setTestInformations(testDetails);
     }
   }, [testDetails]);
-
-  useEffect(() => {
-    loadInitialDataFromLocalStorage(setTestId, setCategoriasSelecionadas);
-  }, []);
-
-  useEffect(() => {
-    const storedCategoriasSelecionadas = JSON.parse(localStorage.getItem("categoriasSelecionadas"));
-    if (storedCategoriasSelecionadas) {
-      setCategoriasSelecionadas(storedCategoriasSelecionadas);
-    }
-  }, []);
 
   useEffect(() => {
     if (nivel > 0) {
@@ -275,7 +289,7 @@ export default function CriarTeste() {
           transform: "translateX(-50%) translateY(-50%)",
           zIndex: "1000",
           width: "30vw",
-          height: "2.5vh",
+          height: {lg: "2.5vh", md: "1.5vh"},
           padding: "1em",
           border: "2px solid var(--color-blue-4)",
           borderRadius: "15px",
