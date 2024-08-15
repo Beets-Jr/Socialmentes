@@ -16,7 +16,7 @@ import Tests from "../Screens/PainelPsicologo/Tests";
 import TestsGraphs from "../Screens/PainelAdm/Graphs/TestsGraphs";
 import Tools from "../Screens/PainelPsicologo/Tools/Tools";
 import Tabela from "../Screens/PainelPsicologo/Relatorios/Tabela";
-import RelatoriDetalhado from "../Screens/PainelPsicologo/Relatorios/RelatorioDetalhado";
+import CriarIntervencao from "../Screens/PainelPsicologo/Relatorios/CriarIntervencao";
 
 function PainelPsi() {
     const { open } = useContext(AppContext);
@@ -30,8 +30,8 @@ function PainelPsi() {
         <div style={{ display: "flex" }}>
             <Sidebar />
             <div className={styles.background} style={{ display: "block", width: width }}>
-                <Header className={styles.noBackground}/>
-                { isPsi ? (
+                <Header className={styles.noBackground} />
+                {isPsi ? (
                     <Routes>
                         <Route path="/" element={<Navigate to="/painel-psi/home" />} />
                         <Route path="home" element={<HomePsi />} />
@@ -45,6 +45,8 @@ function PainelPsi() {
                         <Route path="checklist/grafico/:testId" element={<TestsGraphs />}/>
                         <Route path="checklist/tabela/:testId" element={<Tabela />}/>
                         <Route path="checklist/relatorio/:testId" element={<RelatoriDetalhado />}/>
+                        <Route path="checklist/relatorio/:testId" element={<PermissionDeniedMessage />}/>
+                        <Route path="checklist/criar-intervencao" element={<CriarIntervencao />} />
                         <Route path="/instrumentos" element={<Tools />} />
                     </Routes>
                 ) : (
