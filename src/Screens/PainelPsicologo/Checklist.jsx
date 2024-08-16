@@ -63,7 +63,7 @@ function Checklist() {
                 </Box>
                 <ChecklistAnswer test={test} />
                 <div ref={bottomBtnRef}>
-                    <BottomBtn />
+                    <BottomBtn testId={test.id} />
                 </div>
             </div>
         )

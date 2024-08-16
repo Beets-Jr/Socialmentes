@@ -25,6 +25,8 @@ export const AppStorage = ({ children }) => {
         return '/painel-psi/checklist/grafico';
       } else if (pathname.startsWith('/painel-psi/checklist/tabela')) {
         return '/painel-psi/checklist/tabela';
+      } else if (pathname.startsWith('/painel-psi/checklist/acompanhar-intervencao')) {
+        return '/painel-psi/checklist/acompanhar-intervencao';
       }
       else {
         return pathname;
@@ -82,6 +84,10 @@ export const AppStorage = ({ children }) => {
         break;
       case '/painel-psi/checklist/grafico':
         setTitle('Gráfico');
+        setSubtitle('');
+        break;
+      case '/painel-psi/checklist/acompanhar-intervencao':
+        setTitle('Plano de Intervenção');
         setSubtitle('');
         break;
       case '/painel-psi/instrumentos':

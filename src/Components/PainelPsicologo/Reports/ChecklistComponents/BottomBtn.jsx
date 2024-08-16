@@ -2,8 +2,12 @@ import { Paper, Button } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
 import styles from './ReportBtn.module.css';
 
-function BottomBtn() {
+function BottomBtn({ testId }) {
     const navigate = useNavigate();
+
+    const handleClickMI = () => {
+        navigate(`acompanhar-intervencao/${testId}`);
+    };
 
     const handleClick = () => {
         navigate("/"); {/* Colocar o path correto para navegação */}
@@ -28,7 +32,7 @@ function BottomBtn() {
         <Button 
             variant="contained" 
             disableElevation 
-            onClick={handleClick} 
+            onClick={handleClickMI} 
             className={styles.button}
             sx={{padding: '3px 25px'}}
         >

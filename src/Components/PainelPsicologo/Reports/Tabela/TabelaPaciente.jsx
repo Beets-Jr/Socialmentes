@@ -3,7 +3,7 @@ import { Box, Typography } from "@mui/material";
 
 import styles from './styles/TabelaPaciente.module.css';
 
-export const TabelaPaciente = ({ patient }) => {
+export const TabelaPaciente = ({ patient, showCaption = true, showDateBirth = false }) => {
 
     const getAge = (date) => {
         if (!date) return;
@@ -35,6 +35,10 @@ export const TabelaPaciente = ({ patient }) => {
         }
     };
 
+    const formatDate = (date) => {
+        return `${date.slice(8)}/${date.slice(5, 7)}/${date.slice(0, 4)}`;
+    }
+
     return (
         <Box>
             <Typography className={styles.user_text}>
@@ -43,9 +47,16 @@ export const TabelaPaciente = ({ patient }) => {
             <Typography className={styles.user_text}>
                 <Typography component='span'>Idade:</Typography> {getAge(patient?.children.dateBirth)}
             </Typography>
-            <Typography className={styles.legend} display='flex' alignItems='center'>
-                <Check fontSize="inherit" />&nbsp;Adquirido&nbsp;|&nbsp;<Close fontSize="inherit" />&nbsp;Não avaliado
-            </Typography>
+            { showDateBirth &&
+                <Typography className={styles.user_text}>
+                    <Typography component='span'>Data de Nascimento:</Typography> {formatDate(patient?.children.dateBirth)}
+                </Typography>
+            }
+            { showCaption &&
+                <Typography className={styles.legend} display='flex' alignItems='center'>
+                    <Check fontSize="inherit" />&nbsp;Adquirido&nbsp;|&nbsp;<Close fontSize="inherit" />&nbsp;Não avaliado
+                </Typography>
+            }
         </Box>
     );
 

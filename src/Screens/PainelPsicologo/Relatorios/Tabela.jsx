@@ -6,9 +6,9 @@ import { Box, CircularProgress, useMediaQuery } from "@mui/material";
 import { denver } from "../../../Database/denver";
 import { getPatient } from "../../../Services/patientService";
 import { getTestByIdTest } from "../../../Services/testsPatientsService"
-import { TabelaPaciente } from "../../../Components/PainelPsicologo/Reports/TabelaPaciente";
-import { TabelaDesktop } from "../../../Components/PainelPsicologo/Reports/TabelaDesktop";
-import { TabelaMobile } from "../../../Components/PainelPsicologo/Reports/TabelaMobile";
+import { TabelaPaciente } from "../../../Components/PainelPsicologo/Reports/Tabela/TabelaPaciente";
+import { TabelaDesktop } from "../../../Components/PainelPsicologo/Reports/Tabela/TabelaDesktop";
+import { TabelaMobile } from "../../../Components/PainelPsicologo/Reports/Tabela/TabelaMobile";
 
 import styles from './Tabela.module.css';
 
