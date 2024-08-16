@@ -1,65 +1,75 @@
-import React from 'react'
+import React from 'react';
 import { Checkbox, FormControlLabel, Box, Typography } from '@mui/material';
 
+const daysOfWeek = [
+  { label: 'Segunda-feira', value: 0 },
+  { label: 'Terça-feira', value: 1 },
+  { label: 'Quarta-feira', value: 2 },
+  { label: 'Quinta-feira', value: 3 },
+  { label: 'Sexta-feira', value: 4 },
+];
 
-
-const DailyOption = ({ label, name }) => {
+const DailyOption = ({ label, name, checked, handleDayChange }) => {
   return (
     <FormControlLabel
       control={
         <Checkbox
           name={name}
+          checked={checked}
+          onChange={handleDayChange}
           sx={{
             color: 'var(--color-gray-4)',
             '&.Mui-checked': {
               color: 'var(--color-blue-3)',
             },
-            '& .MuiSvgIcon-root': { fontSize: 19 }
+            '& .MuiSvgIcon-root': { fontSize: 19 },
           }}
         />
-
       }
       label={
-        <Typography sx={{
-          color: 'var(--color-gray-4)',
-          fontFamily: 'var(--font-sub)',
-          fontWeight: '500',
-          fontSize: '15px',
-          marginTop: '2px',
-          marginLeft: '-5px'
-        }}>
+        <Typography
+          sx={{
+            color: 'var(--color-gray-4)',
+            fontFamily: 'var(--font-sub)',
+            fontWeight: '500',
+            fontSize: '15px',
+            marginLeft: '-5px',
+          }}
+        >
           {label}
         </Typography>
       }
     />
+  );
+};
 
-
-  )
-}
-
-const StyledCheckBox = () => {
+const StyledCheckBox = ({ item, index, handleDayChange }) => {
   return (
-    <>
-      <Box
-        sx={{
-          display: 'flex',
-          height: '100%',
-          justifyContent: 'space-around',
-          padding: '10px',
-          marginBottom: '10px'
-        }} >
+    <Box
+      sx={{
+        display: 'flex',
+        height: '100%',
+        justifyContent: 'space-around',
+        padding: '10px',
+        marginBottom: {
+          xs: '0',
+          md: '10px',
+        },
+      }}
+    >
+      <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+        {daysOfWeek.map((day) => (
+          <DailyOption
+            key={day.value}
+            label={day.label}
+            name={`cronogram[${index}].dayWeek[${day.value}]`}
+            checked={item.dayWeek.includes(day.value)}
+            handleDayChange={() => handleDayChange(index, day.value)}
+          />
+        ))}
+      </Box>
+    </Box>
+  );
+};
 
-        <Box sx={{ display: 'flex', gap: 2 }}>
-          <DailyOption label="Segunda-feira" name="monday" />
-          <DailyOption label="Terça-feira" name="tuesday" />
-          <DailyOption label="Quarta-feira" name="wednesday" />
-          <DailyOption label="Quinta-feira" name="thursday" />
-          <DailyOption label="Sexta-feira" name="friday" />
-
-        </Box>
-      </Box >
-    </>
-  )
-}
-
-export default StyledCheckBox
+export default StyledCheckBox;

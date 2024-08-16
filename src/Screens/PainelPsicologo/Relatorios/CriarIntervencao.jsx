@@ -1,51 +1,88 @@
-import { Box, Grid } from '@mui/material'
-import React from 'react'
+import { Box, Grid, useMediaQuery } from '@mui/material'
+import React, { useState } from 'react'
 import styles from './CriarIntervencao.module.css'
 import PatientData from '../../../Components/PainelPsicologo/Reports/ChecklistComponents/PatientData'
 import StyledInputText from '../../../Components/PainelPsicologo/Reports/InterventionComponents/StyledInputText'
 import StyledCheckBox from '../../../Components/PainelPsicologo/Reports/InterventionComponents/StyledCheckBox'
 import StyledTitle from '../../../Components/PainelPsicologo/Reports/InterventionComponents/StyledTitle'
 import AddFieldButton from '../../../Components/PainelPsicologo/Reports/InterventionComponents/AddFieldButton'
+import ReturnButton from '../../../Components/PainelAdm/PatientRegistration/ReturnButton'
+import SaveButton from '../../../Components/PainelAdm/PatientRegistration/SaveButton'
+import Goals from '../../../Components/PainelPsicologo/Reports/InterventionComponents/forms/Goals'
+import Activities from '../../../Components/PainelPsicologo/Reports/InterventionComponents/forms/Activities'
+import Cronogram from '../../../Components/PainelPsicologo/Reports/InterventionComponents/forms/Cronogram'
+
+const initialValues = {
+  coordinator_sr: '',
+  coordinator_jr: '',
+  start_ABA: '',
+  goals: [''],
+  activities: [{ typePlay: '', place: '', goals: '' }],
+  cronogram: [{ hour: '', professional: '', dayWeek: [] }],
+};
 
 
 const CriarIntervencao = () => {
+  const isMobile = useMediaQuery('(max-width: 700px)');
+
+  const [error, setError] = useState({});
+  const [values, setValues] = useState(initialValues);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setValues({ ...values, [name]: value });
+  };
+
+  const handleArrayChange = async (index, value) => {
+    const updatedTeams = [...values.goals];
+    updatedTeams[index] = value;
+    setValues({ ...values, goals: updatedTeams });
+  };
+
+  const handleMapChange = (index, field, fieldName, value) => { // Lógica para atualizar os valores dos campos de arrays
+    const updatedArray = [...values[field]];
+    updatedArray[index][fieldName] = value;
+    setValues({ ...values, [field]: updatedArray });
+
+    if (isSubmitted) { // Lógica para validar os campos ao digitar depois de submeter o formulário
+      validateField(`${field}[${index}].${fieldName}`, value)
+        .then((fieldError) => {
+          setError({ ...error, [field]: error[field] || [] });
+          setError({ ...error, [field]: { ...error[field], [index]: { ...error[field][index], [fieldName]: fieldError } } });
+        });
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitted(true);
+    console.log(values);
+  }
+
   return (
     <>
       <Box className={styles.container}>
         <PatientData name="Jeu da graça" birthday="12/12/2004" />
-        <br /><br />
-        <StyledTitle text="Metas" />
-        <Grid container spacing={1}>
-          <StyledInputText lg={11.4} name="data" />
-          <AddFieldButton />
+
+        <Goals values={values} setValues={setValues} handleChange={handleArrayChange} error={error} />
+
+        <Activities values={values} setValues={setValues} handleMapChange={handleMapChange} error={error} />
+
+        <Cronogram values={values} setValues={setValues} handleMapChange={handleMapChange} error={error} />
+
+        <Grid container marginTop={3}>
+          <StyledInputText lg={12} name="coordinator_sr" label="Coordenador Senior" value={values.coordinator_sr} handleChange={handleChange} error={error?.coordinator_sr} />
+          <StyledInputText lg={12} name="coordinator_jr"
+            label="Coordenador Junior" value={values.coordinator_jr} handleChange={handleChange} error={error?.coordinator_jr} />
+          <StyledInputText lg={12} name="start_ABA"
+            label="Início Intervenção ABA" value={values.start_ABA} handleChange={handleChange} error={error?.start_ABA} />
         </Grid>
 
-        <StyledTitle text="Rotina de atividades" />
-        <Grid container spacing={1}>
-          <StyledInputText lg={6} name="type" label="Tipo de brincadeira" />
-          <StyledInputText lg={6} name="local" label="Local" />
-          <StyledInputText lg={11.4} name="meta" label="Metas" />
-          <AddFieldButton vin />
-        </Grid>
-
-        <StyledTitle text="Cronograma" />
-        <Grid container spacing={1}> {/* Cronograma */}
-          <StyledInputText lg={1.5} name="hora" label="Horario" />
-          <StyledInputText lg={4.5} name="segunda" label="Terapeuta" />
-          <Grid item lg={5.4}>
-            <StyledCheckBox />
-          </Grid>
-          <AddFieldButton vin />
-        </Grid >
-
-
-
-        <Grid container spacing={1}>
-          <StyledInputText lg={12} name="coorS" label="Coordenador Senior" />
-          <StyledInputText lg={12} name="coorJ" label="Coordenador Junior" />
-          <StyledInputText lg={12} name="participantes" label="Início Intervenção ABA" />
-        </Grid>
-
+      </Box >
+      <Box className={styles.buttons}>
+        <ReturnButton />
+        <SaveButton handleSubmit={handleSubmit} />
       </Box>
     </>
 
