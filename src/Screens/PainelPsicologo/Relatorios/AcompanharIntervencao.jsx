@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom/dist";
 
-import { Box, CircularProgress, Typography, useMediaQuery } from "@mui/material";
+import { Box, CircularProgress, createTheme, ThemeProvider, Typography, useMediaQuery } from "@mui/material";
 
 import { getPatient } from "../../../Services/patientService";
 import { getTestByIdTest } from "../../../Services/testsPatientsService"
@@ -10,21 +10,40 @@ import BottomBtn from "../../../Components/PainelPsicologo/Reports/AcompanharInt
 
 import styles from './Tabela.module.css';
 
+let theme = createTheme();
+theme.typography.h4 = {
+    [theme.breakpoints.up('xs')]: {
+        fontSize: '24px'
+    },
+    [theme.breakpoints.up('sm')]: {
+        fontSize: '30px'
+    },
+};
+
+const Title = ({ component = 'h3', text = '' }) => {
+    return (
+        <Typography
+            variant="h4"
+            sx={{
+                fontFamily: 'var(--font-sub)',
+                fontWeight: component == 'h2' ? 500 : 400,
+                color: 'var(--color-blue-4)',
+                marginBottom: 2
+            }}
+        >
+            {text}
+        </Typography>
+    );
+};
+
 function AcompanharIntervencao() {
 
     const { testId } = useParams();
-    const bottomBtnRef = useRef(null);
     const [isLoading, setIsLoading] = useState(true);
     const [patient, setPatient] = useState();
-    // const [data, setData] = useState();
+    const [data, setData] = useState();
 
     const isMobile = useMediaQuery('(max-width:600px)');
-
-    useEffect(() => {
-        if (bottomBtnRef.current) {
-            bottomBtnRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
-        }
-    }, [patient]);
 
     useEffect(() => {
         async function createTable() {
@@ -46,39 +65,9 @@ function AcompanharIntervencao() {
                 }
 
                 setIsLoading(false);
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        createTable();
-    }, []);
-    
-    return (
-        <Box className={styles.container_reports}>
 
-            { isLoading ? (
-                <Box className={styles.container_empty}>
-                    <CircularProgress />
-                </Box>
-            ) : (
-
-                <Box style={{ position: 'relative' }} border='10px solid red'>
-
-                    <Typography
-                        sx={{
-                            fontFamily: 'var(--font-sub)',
-                            fontWeight: 500,
-                            fontSize: 30,
-                            color: 'var(--color-blue-4)',
-                            marginBottom: 2
-                        }}
-                    >
-                        Checklist Curriculum Modelo Intervenção Precoce em Crianças com Austismo
-                    </Typography>
-
-                    <TabelaPaciente patient={patient} showCaption={false} showDateBirth />
-
-                    {/* <Box>
+                setTimeout(() => setData((
+                    <>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, dolores quibusdam. Officiis tenetur sed a veniam. Culpa voluptatem odio ipsum laboriosam, tempore, tempora ut eaque dignissimos cum doloremque ratione facere.
                         <br/>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos et, officiis tempora quasi reprehenderit veritatis modi sequi ducimus saepe omnis provident distinctio, aperiam commodi necessitatibus. Nostrum quos distinctio reiciendis illo?
@@ -95,27 +84,47 @@ function AcompanharIntervencao() {
                         <br/>
                         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi voluptatem, unde nulla fuga, mollitia perspiciatis officia quis repudiandae delectus ipsam reprehenderit magni molestiae quo maiores molestias veniam at obcaecati distinctio?
                         <br/>
-                    </Box> */}
+                    </>
+                )), 10);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        createTable();
+    }, []);
+    
+    return (
+        <Box className={styles.container_reports}>
 
-                    <Box ref={bottomBtnRef}>
-                        <BottomBtn />
-                    </Box>
+            { isLoading ? (
+                <Box className={styles.container_empty}>
+                    <CircularProgress />
+                </Box>
+            ) : (
 
+                <Box style={{ position: 'relative' }} >
+
+                    <ThemeProvider theme={theme}>
+                        <Title
+                            text="Checklist Curriculum Modelo Intervenção Precoce em Crianças com Austismo"
+                            component='h2'
+                        />
+
+                        <TabelaPaciente patient={patient} showCaption={false} showDateBirth />
+
+                        <br/>
+
+                        <Box>
+                            {data}
+                        </Box>
+
+                        <Box>
+                            <BottomBtn />
+                        </Box>
+
+                    </ThemeProvider>
                 </Box>
 
-                    // {/* Exibe o nome, idade do paciente e a legenda da tabela */}
-                    // <TabelaPaciente patient={patient} showDateBirth />
-
-                    // {/* Tabela */}
-                    // <Box className={styles.table_border}>
-
-                    //     {/* { isMobile ? (
-                    //         <TabelaMobile data={data} />
-                    //     ) : (
-                    //         <TabelaDesktop data={data} />
-                    //     )} */}
-
-                    // </Box>
             )}
 
         </Box>
