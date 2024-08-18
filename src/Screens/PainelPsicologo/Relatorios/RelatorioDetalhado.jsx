@@ -2,6 +2,7 @@ import { Box, CircularProgress, Typography } from "@mui/material";
 import { useState } from "react";
 import ReportBtn from "../../../Components/PainelPsicologo/Reports/ChecklistComponents/ReportBtn";
 import PatientData from "../../../Components/PainelPsicologo/Reports/ChecklistComponents/PatientData";
+import ReportForm from "../../../Components/PainelPsicologo/Reports/ReportForm";
 
 function RelatoriDetalhado() {
     const [loading, setLoading] = useState(false);
@@ -21,6 +22,15 @@ function RelatoriDetalhado() {
                 <Box sx={{display:'flex', justifyContent:'space-between', flexDirection:'row', alignItems:'center', mt:'1vh'}}>
                     <PatientData name='Fubango' birthday='10/10/2010' />
                     <ReportBtn name="Gerar Relatório" path={`/painel-psi/checklist/relatorio/`} /> {/* Concertar o path */}
+                </Box>
+
+                <Box>
+                    <Typography sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-4)', fontWeight:'500'}}>
+                        HISTÓRICO
+                    </Typography>
+                    {/* Fomulário */}
+                    <ReportForm/>
+                    {/* Botão já existe, procurar */}
                 </Box>
             </Box>
         )
