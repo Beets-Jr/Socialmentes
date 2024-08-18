@@ -9,9 +9,101 @@ import { TabelaPaciente } from "../../../Components/PainelPsicologo/Reports/Tabe
 import BottomBtn from "../../../Components/PainelPsicologo/Reports/AcompanharIntervencao/BottomBtn";
 
 import styles from './Tabela.module.css';
+import { DominiosMobile } from "../../../Components/PainelPsicologo/Reports/AcompanharIntervencao/TabelaMobile";
+import { DominiosDesktop } from "../../../Components/PainelPsicologo/Reports/AcompanharIntervencao/TabelaDesktop";
+
+const dataTemp = {
+    testId: 1234567,
+    goals: [
+        {
+            id: 0,
+            nome: "Comunicação Receptiva (CR)",
+            level: 1,
+            perguntas: [
+                {
+                    id: 0,
+                    pergunta: "Direciona cabeça e olhar para sons vocais lúdicos como vibração da língua, ruídos e barulhos, assobios.",
+                    descricao: "Identifica origem sonora, virando cabeça cabeça e olhos para o local. Demonstra-se interessado, vira os olhos e a cabeça, sorri, mantém contato visual com parceiro social.",
+                    submetas: [
+                        "Direciona a cabeça, olhos, sorri e mantém contato visual para a origem sonora por 2 vezes em 10 minutos.",
+                        "Direciona a cabeça, olhos, sorri e mantém contato visual para a origem sonora por 2 vezes em 10 minutos.",
+                        "Direciona a cabeça, olhos, sorri e mantém contato visual para a origem sonora por 2 vezes em 10 minutos."
+                    ],
+                },
+                {
+                    id: 1,
+                    pergunta: "Localiza voz humana direcionando cabeça e olhos para a fonte sonora.",
+                    descricao: "Identifica origem sonora, virando cabeça para o parceiro social.",
+                    submetas: [
+                        "Direciona a cabeça e olhos para o parceiro social 1 vez em 1 oportunidade.",
+                        "Direciona a cabeça e olhos para o parceiro social 1 vez em 1 oportunidade.",
+                        "Direciona a cabeça e olhos para o parceiro social 1 vez em 1 oportunidade."
+                    ],
+                },
+            ]
+        },
+        {
+            id: 0,
+            nome: "Comunicação Expressiva (CE)",
+            level: 1,
+            perguntas: [
+                {
+                    id: 0,
+                    pergunta: "Vocaliza com intenção.",
+                    descricao: "Vocaliza em conjunto com o contato visual e/ou gesto (por exemplo, tentar alcançar) para pedir um item ou objeto desejado.",
+                    submetas: [
+                        "Vocaliza com ajuda indicando pedido por 2 vezes em 3 oportunidades.",
+                        "Vocaliza com ajuda indicando pedido por 2 vezes em 3 oportunidades.",
+                        "Vocaliza com ajuda indicando pedido por 2 vezes em 3 oportunidades.",
+                        "Vocaliza com ajuda indicando pedido por 2 vezes em 3 oportunidades.",
+                    ],
+                },
+                {
+                    id: 1,
+                    pergunta: "Exprime recusa afastando um objeto ou devolvendo o objeto à outra pessoa.",
+                    descricao: "O gesto não precisa ser acompanhado pelo contato visual ou vocalizações/palavras. Pontue a outros gestos convencionais (balançar a cabeça, sinal de 'tudo feito') ou palavras ('Não').",
+                    submetas: [
+                        "Exprime recusa afastando 1 objeto ou devolvendo o objeto à outra pessoa em 3 oportunidades.",
+                        "Exprime recusa afastando 1 objeto ou devolvendo o objeto à outra pessoa em 3 oportunidades.",
+                        "Exprime recusa afastando 1 objeto ou devolvendo o objeto à outra pessoa em 3 oportunidades.",
+                    ],
+                },
+            ]
+        }
+    ],
+    activities: [
+        {
+            type_play: 'type_play',
+            place: 'place',
+            goals: 'goals'
+        },
+        {
+            type_play: 'type_play 2',
+            place: 'place 2',
+            goals: 'goals'
+        }
+    ],
+    cronogram: [
+        {
+            hour: '12:12',
+            professional_id: '50',
+            professional_name: 'Professional Name',
+            day_week: 'terça-feira'
+        },
+        {
+            hour: '13:13',
+            professional_id: '50',
+            professional_name: 'Professional Name',
+            day_week: 'terça-feira'
+        }
+    ],
+    coordinator_sr: 'Coordinator Sr',
+    coordinator_jr: 'Coordinator Jr',
+    start_ABA: 'startABA'
+};
 
 let theme = createTheme();
-theme.typography.h4 = {
+theme.typography.h2 = {
     [theme.breakpoints.up('xs')]: {
         fontSize: '24px'
     },
@@ -20,18 +112,20 @@ theme.typography.h4 = {
     },
 };
 
-const Title = ({ component = 'h3', text = '' }) => {
+const Title = ({ children, component = 'h3' }) => {
     return (
         <Typography
-            variant="h4"
+            variant="h2"
+            component={component}
             sx={{
                 fontFamily: 'var(--font-sub)',
                 fontWeight: component == 'h2' ? 500 : 400,
                 color: 'var(--color-blue-4)',
-                marginBottom: 2
+                marginBottom: 2,
+                marginTop: component == 'h3' ? 2 : 0
             }}
         >
-            {text}
+            {children ?? ''}
         </Typography>
     );
 };
@@ -41,7 +135,7 @@ function AcompanharIntervencao() {
     const { testId } = useParams();
     const [isLoading, setIsLoading] = useState(true);
     const [patient, setPatient] = useState();
-    const [data, setData] = useState();
+    const [data, setData] = useState(undefined);
 
     const isMobile = useMediaQuery('(max-width:600px)');
 
@@ -63,29 +157,10 @@ function AcompanharIntervencao() {
                 } else {
                     setPatient(respPatient);
                 }
+                
+                setData(dataTemp);
 
                 setIsLoading(false);
-
-                setTimeout(() => setData((
-                    <>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus, dolores quibusdam. Officiis tenetur sed a veniam. Culpa voluptatem odio ipsum laboriosam, tempore, tempora ut eaque dignissimos cum doloremque ratione facere.
-                        <br/>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos et, officiis tempora quasi reprehenderit veritatis modi sequi ducimus saepe omnis provident distinctio, aperiam commodi necessitatibus. Nostrum quos distinctio reiciendis illo?
-                        <br/>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat provident quisquam eligendi natus modi labore suscipit quidem ipsa libero! Optio at libero non quae necessitatibus sit. Hic maxime eos delectus.
-                        <br/>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque quod quisquam fuga soluta aliquid ex, atque dicta illum! Numquam commodi dolorem temporibus velit, molestiae dolores delectus voluptate sapiente totam? Distinctio!
-                        <br/>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores eligendi voluptatibus animi fuga provident repellendus tenetur eaque reprehenderit, laboriosam, culpa vel non, itaque dicta similique? Vitae necessitatibus ipsum doloribus consequuntur?
-                        <br/>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam sint reprehenderit deleniti, nam qui ad saepe fugit natus optio? Delectus repudiandae inventore enim harum rem assumenda velit illum corporis error!
-                        <br/>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, quisquam optio aperiam dignissimos expedita, inventore ratione dolor mollitia corporis labore iusto asperiores quia molestias magnam nam, blanditiis veritatis repellendus necessitatibus.
-                        <br/>
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi voluptatem, unde nulla fuga, mollitia perspiciatis officia quis repudiandae delectus ipsam reprehenderit magni molestiae quo maiores molestias veniam at obcaecati distinctio?
-                        <br/>
-                    </>
-                )), 10);
             } catch (error) {
                 console.log(error);
             }
@@ -101,30 +176,49 @@ function AcompanharIntervencao() {
                     <CircularProgress />
                 </Box>
             ) : (
-
                 <Box style={{ position: 'relative' }} >
 
                     <ThemeProvider theme={theme}>
-                        <Title
-                            text="Checklist Curriculum Modelo Intervenção Precoce em Crianças com Austismo"
-                            component='h2'
-                        />
+                        <Title component='h2'> {/* Título da página */}
+                            Checklist Curriculum Modelo Intervenção Precoce em Crianças com Austismo
+                        </Title>
 
-                        <TabelaPaciente patient={patient} showCaption={false} showDateBirth />
-
-                        <br/>
-
-                        <Box>
-                            {data}
+                        <Box my={3}> {/* Dados do Paciente */}
+                            <TabelaPaciente patient={patient} showCaption={false} showDateBirth />
                         </Box>
 
-                        <Box>
+                        <Box> {/* Conteúdo */}
+                            <Title component="h3">
+                                Domínios Desenvolvidos
+                            </Title>
+
+                            <DominiosDesktop goals={data.goals} />
+
+                            <Title component="h3">
+                                Rotina de Atividades
+                            </Title>
+
+                            <Title component="h3">
+                                Cronogramas
+                            </Title>
+
+                            {/* Coordenador */}
+                            <Box className={styles.coordinators}> 
+                                <Typography className={styles.user_text}>
+                                    Coordenador Sênior: {data.coordinator_sr}
+                                </Typography>
+                                <Typography className={styles.user_text}>
+                                    Coordenador Jr.: {data.coordinator_jr}
+                                </Typography>
+                            </Box>
+                        </Box>
+
+                        <Box> {/* Botões da parte inferior */}
                             <BottomBtn />
                         </Box>
 
                     </ThemeProvider>
                 </Box>
-
             )}
 
         </Box>

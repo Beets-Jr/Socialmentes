@@ -17,6 +17,12 @@
     margin-top: 25px;
 }
 
+.coordinators {
+    font-family: var(--font-sub);
+    font-size: 400;
+    color: var(--color-blue-3);
+}
+
 @media (max-width: 800px) {
     .container_reports {
         padding: 36px 10px 50px;
