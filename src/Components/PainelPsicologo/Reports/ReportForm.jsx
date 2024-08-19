@@ -1,10 +1,17 @@
 import { Box } from '@mui/material';
 import RadioGroupQuestion from './ReportFormComponents/RadioGroupQuestion';
 import TextfieldQuestion from './ReportFormComponents/TextfieldQuestion';
+import { useForm, Controller } from 'react-hook-form';
 
 function ReportForm() {
+    const { handleSubmit, control } = useForm();
+
+    const onSubmit = (data) => {
+        console.log(data);
+    };
+
     return(
-        <Box>
+        <Box onSubmit={handleSubmit(onSubmit)}>
             <RadioGroupQuestion
                 labelId="gestacao"
                 label="Gestação:"
@@ -40,8 +47,14 @@ function ReportForm() {
             <TextfieldQuestion 
                 label="Descrição de possíveis intercorrências:"
                 name="descricao-possiveis-intercorrencias"
-                value="fico"
-                onChange="dale"   
+                control={control}
+            />
+
+            <TextfieldQuestion 
+                label="Tempo de gestação (semanas):"
+                name="tempo-gestacao"
+                control={control}
+                required
             />
 
             <RadioGroupQuestion
@@ -52,6 +65,19 @@ function ReportForm() {
                 { value: 'semdificuldade', label: 'Sem dificuldade' },
                 { value: 'comdificuldade', label: 'Com dificuldade' },
                 ]}
+            />
+
+            <TextfieldQuestion 
+                label="Amamentado até (meses):"
+                name="amamentado-ate"
+                control={control}
+                required
+            />
+
+            <TextfieldQuestion 
+                label="Observações sobre o período:"
+                name="obeservacoes-amamentacao"
+                control={control}
             />
         </Box>
     );
