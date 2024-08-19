@@ -11,6 +11,7 @@ import SaveButton from '../../../Components/PainelAdm/PatientRegistration/SaveBu
 import Goals from '../../../Components/PainelPsicologo/Reports/InterventionComponents/forms/Goals'
 import Activities from '../../../Components/PainelPsicologo/Reports/InterventionComponents/forms/Activities'
 import Cronogram from '../../../Components/PainelPsicologo/Reports/InterventionComponents/forms/Cronogram'
+import { validationSchema } from '../../../Validators/Intervention/intervention'
 
 const initialValues = {
   coordinator_sr: '',
@@ -57,7 +58,26 @@ const CriarIntervencao = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitted(true);
+    setError({}); // Limpa os erros
     console.log(values);
+    try {
+      await validationSchema.validate(values, { abortEarly: false }); // Validação dos campos
+
+    } catch (err) {
+      const errors = err.inner.reduce((acc, error) => {
+        if (error.path.includes('activities' || 'cronogram')) { // Lógica para tratar os erros dos campos de arrays
+          const [arrayField, index, field] = error.path.split(/[\[\].]/).filter(Boolean);
+          acc[arrayField] = acc[arrayField] || [];
+          acc[arrayField][index] = acc[arrayField][index] || {};
+          acc[arrayField][index][field] = error.message;
+        } else { // Lógica para tratar os erros dos campos comuns
+          acc[error.path] = error.message;
+        }
+        return acc;
+      }, {});
+      setError(errors); // Atualiza os erros
+      console.log(errors);
+    }
   }
 
   return (
