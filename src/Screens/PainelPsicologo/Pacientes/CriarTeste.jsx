@@ -5,7 +5,6 @@ import CompetenciaSelector from "../../../Components/PainelPsicologo/Pacientes/C
 import QuestoesList from "../../../Components/PainelPsicologo/Pacientes/CriarTeste/QuestoesList";
 import FixedButtons from "../../../Components/PainelPsicologo/Pacientes/CriarTeste/FixedButtons";
 import {
-  loadInitialDataFromLocalStorage,
   fetchCategoriasPorNivel,
   updateCategoriasSelecionadasFromTestDetails,
   updateCategoriasSelecionadas,
@@ -56,17 +55,6 @@ export default function CriarTeste() {
     };
   }, []);
 
-  // useEffect(() => {
-  //   loadInitialDataFromLocalStorage(setTestId, setCategoriasSelecionadas);
-  // }, []);
-
-  // useEffect(() => {
-  //   const storedCategoriasSelecionadas = JSON.parse(localStorage.getItem("categoriasSelecionadas"));
-  //   if (storedCategoriasSelecionadas) {
-  //     setCategoriasSelecionadas(storedCategoriasSelecionadas);
-  //   }
-  // }, []);
-
   useEffect(() => {
     if (testSerialId) {
       localStorage.setItem("testId", testSerialId);
@@ -113,20 +101,6 @@ export default function CriarTeste() {
       );
     }
   }, [testInformations, categorias]);
-
-  // useEffect(() => {
-  //   localStorage.setItem(
-  //     "categoriasSelecionadas",
-  //     JSON.stringify(categoriasSelecionadas)
-  //   );
-  // }, [categoriasSelecionadas]);
-
-  // useEffect(() => {
-  //   localStorage.setItem(
-  //     "questionValues",
-  //     JSON.stringify(questionValues)
-  //   );
-  // }, [questionValues]);
 
   const handleButtonClick = (index) => {
     setActiveButtonIndex(index);

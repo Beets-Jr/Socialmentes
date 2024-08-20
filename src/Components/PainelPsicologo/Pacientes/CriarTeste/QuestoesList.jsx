@@ -97,8 +97,6 @@ export default function QuestoesList({
     // Atualizar o estado local e garantir a re-renderização
     setQuestionValues(updatedValues);
     setCategoriasSelecionadas(updatedCategoriasSelecionadas);
-
-    // localStorage.setItem("categoriasSelecionadas", JSON.stringify(updatedCategoriasSelecionadas));
   
     // Atualizar o testDetails.questions com os novos questionValues
     const updatedTestDetails = { ...testDetails, questions: updatedValues };
