@@ -3,10 +3,10 @@ import { db } from '../FirebaseConfig.mjs';
 import { clearCollection } from './clearCollection.mjs';
 import { denver } from '../../Utils/denver.mjs';
 
-let id = 1;
+let id = 50;
 
 // Function to get a random patient document
-async function getRandomPatient() {
+export async function getRandomPatient() {
     try {
         const patientsSnapshot = await getDocs(collection(db, "patients"));
         const patients = patientsSnapshot.docs;
@@ -114,7 +114,7 @@ async function addTest() {
     }
 }
 
-await clearCollection('tests');
+//await clearCollection('tests');
 for (let i = 0; i < 3; i++) {
     addTest();
 }
