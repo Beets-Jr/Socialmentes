@@ -45,7 +45,7 @@ export default function PacientesInfo() {
     if (unfinishedTestCount === 0) {
       try {
         const createdTestId = await createTestForPatient(patient.id, patient.childName);
-
+        localStorage.setItem('testId', createdTestId);
         navigate(`/painel-psi/pacientes/teste/${createdTestId}`, {
           state: { testDocId: createdTestId },
         });

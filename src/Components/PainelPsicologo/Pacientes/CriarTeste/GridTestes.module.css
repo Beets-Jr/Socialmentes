@@ -62,4 +62,17 @@
     .cardHalfId {
         flex: 0.7;
     }
+
+    .cardHalf span {
+        font-size: 24px;
+    }
+    
+    .cardHalf p {
+        font-size: 16px;
+    }
+    
+    .cardHalf .statusTeste {
+        color: rgba(114, 114, 114, 0.60);
+        font-size: 12px;
+    }
 }
