@@ -98,7 +98,7 @@ export default function QuestoesList({
     setQuestionValues(updatedValues);
     setCategoriasSelecionadas(updatedCategoriasSelecionadas);
 
-    localStorage.setItem("categoriasSelecionadas", JSON.stringify(updatedCategoriasSelecionadas));
+    // localStorage.setItem("categoriasSelecionadas", JSON.stringify(updatedCategoriasSelecionadas));
   
     // Atualizar o testDetails.questions com os novos questionValues
     const updatedTestDetails = { ...testDetails, questions: updatedValues };
@@ -110,7 +110,7 @@ export default function QuestoesList({
     } catch (error) {
       console.error("Erro ao remover a questão:", error);
     } finally {
-      setRemotion(false);  // Garantir que o modal de confirmação seja fechado
+      setRemotion(false);
     }
   };  
 

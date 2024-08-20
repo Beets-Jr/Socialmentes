@@ -77,7 +77,7 @@ export default function PacientesCadastrados() {
                                     icon: <EditIcon />
                                 },
                                 {
-                                    func: (id) => navigate(`informacoes/${id}`, { state: { patient: patients.find(p => p.id === id) } }),
+                                    func: (id) => navigate(`informacoes`, { state: { patient: patients.find(p => p.id === id) } }),
                                     icon: <DocIcon />
                                 },
                             ]}

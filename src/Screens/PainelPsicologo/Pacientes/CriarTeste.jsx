@@ -46,7 +46,7 @@ export default function CriarTeste() {
   useEffect(() => {
     const handleBeforeUnload = (event) => {
       event.preventDefault();
-      event.returnValue = ''; // Necessário para exibir o alerta no Chrome
+      event.returnValue = ''; // necessário para exibir o alerta no Chrome
     };
   
     window.addEventListener('beforeunload', handleBeforeUnload);
@@ -56,16 +56,16 @@ export default function CriarTeste() {
     };
   }, []);
 
-  useEffect(() => {
-    loadInitialDataFromLocalStorage(setTestId, setCategoriasSelecionadas);
-  }, []);
+  // useEffect(() => {
+  //   loadInitialDataFromLocalStorage(setTestId, setCategoriasSelecionadas);
+  // }, []);
 
-  useEffect(() => {
-    const storedCategoriasSelecionadas = JSON.parse(localStorage.getItem("categoriasSelecionadas"));
-    if (storedCategoriasSelecionadas) {
-      setCategoriasSelecionadas(storedCategoriasSelecionadas);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const storedCategoriasSelecionadas = JSON.parse(localStorage.getItem("categoriasSelecionadas"));
+  //   if (storedCategoriasSelecionadas) {
+  //     setCategoriasSelecionadas(storedCategoriasSelecionadas);
+  //   }
+  // }, []);
 
   useEffect(() => {
     if (testSerialId) {
@@ -114,19 +114,19 @@ export default function CriarTeste() {
     }
   }, [testInformations, categorias]);
 
-  useEffect(() => {
-    localStorage.setItem(
-      "categoriasSelecionadas",
-      JSON.stringify(categoriasSelecionadas)
-    );
-  }, [categoriasSelecionadas]);
+  // useEffect(() => {
+  //   localStorage.setItem(
+  //     "categoriasSelecionadas",
+  //     JSON.stringify(categoriasSelecionadas)
+  //   );
+  // }, [categoriasSelecionadas]);
 
-  useEffect(() => {
-    localStorage.setItem(
-      "questionValues",
-      JSON.stringify(questionValues)
-    );
-  }, [questionValues]);
+  // useEffect(() => {
+  //   localStorage.setItem(
+  //     "questionValues",
+  //     JSON.stringify(questionValues)
+  //   );
+  // }, [questionValues]);
 
   const handleButtonClick = (index) => {
     setActiveButtonIndex(index);
@@ -166,7 +166,7 @@ export default function CriarTeste() {
     try {
       await updateQuestionValues(testId, questionValues);
       setSaveAndExit(false);
-      navigate("/painel-psi/pacientes");
+      navigate("/painel-psi/pacientes/informacoes");
     } catch (error) {
       console.error("Erro ao salvar e sair:", error);
     }
@@ -174,16 +174,17 @@ export default function CriarTeste() {
 
   const handleEncerrar = async () => {
     try {
-      const treatQValues = treatQuestionValues(questionValues)
+      const treatQValues = treatQuestionValues(questionValues);
       await updateQuestionValues(testId, treatQValues);
-      updateTestSituation(testId);
+      await updateTestSituation(testId);
       setEncerrar(false);
-      navigate("/painel-psi/pacientes");
+  
+      navigate("/painel-psi/pacientes/informacoes");
     } catch (error) {
       console.error("Erro ao encerrar:", error);
     }
   };
-
+  
   return (
     <Box sx={{
       position: "sticky",
