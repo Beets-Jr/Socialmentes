@@ -53,8 +53,8 @@ export default function GridTestes({ testsInfo }) {
                     {testInfo.map((test, index) => (
                         <Grid
                             item
-                            xs={12}
-                            sm={6}
+                            xs={8}
+                            sm={5}
                             md={4}
                             lg={3.75}
                             sx={{ display: "flex", cursor: test.situation === 0 ? 'pointer' : 'default' }}
@@ -63,7 +63,7 @@ export default function GridTestes({ testsInfo }) {
                             key={index}
                         >
                             <div className={`${styles.cardHalf} ${styles.cardHalfId}`}>
-                                <span>{test.id}</span>
+                                <span>{test.id.toString().padStart(4, '0')}</span>
                             </div>
 
                             <div className={styles.cardHalf}>
