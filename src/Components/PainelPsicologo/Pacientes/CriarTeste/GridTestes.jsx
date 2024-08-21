@@ -6,81 +6,97 @@ import { useNavigate } from "react-router-dom";
 import { getByTestSerialId } from "../../../../Services/Tests/GetByTestSerialId.mjs";
 
 export default function GridTestes({ testsInfo }) {
-    const navigate = useNavigate();
-    const [testInfo, setTestInfo] = useState([]);
+  const navigate = useNavigate();
+  const [testInfo, setTestInfo] = useState([]);
 
-    const formatDate = (isoString) => {
-        const date = new Date(isoString.trim());
-        const day = String(date.getDate()).padStart(2, '0');
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const year = date.getFullYear();
-        return `${day}/${month}/${year}`;
+  const formatDate = (isoString) => {
+    const date = new Date(isoString.trim());
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
+  const goToTest = (testSerialId, testDetails) => {
+    localStorage.setItem("testId", testSerialId);
+    navigate(`/painel-psi/pacientes/teste/${testSerialId}`, {
+      state: { testSerialId: testSerialId, testDetails: testDetails },
+    });
+  };
+
+  useEffect(() => {
+    const fetchTestInfo = async (testSerialId) => {
+      try {
+        const test = await getByTestSerialId(testSerialId);
+        if (test) {
+          setTestInfo((testInfo) => [...testInfo, test]);
+        }
+      } catch (error) {
+        console.error("Erro ao obter teste pelo ID: ", testSerialId, error);
+      }
     };
 
-    const goToTest = (testSerialId, testDetails) => {
-        localStorage.setItem('testId', testSerialId);
-        navigate(`/painel-psi/pacientes/teste/${testSerialId}`, { state: { testSerialId: testSerialId, testDetails: testDetails } });
-    };
+    testsInfo.forEach((test) => {
+      fetchTestInfo(test.id);
+    });
+  }, [testsInfo]);
 
-    useEffect(() => {
-        const fetchTestInfo = async (testSerialId) => {
-            try {
-                const test = await getByTestSerialId(testSerialId);
-                if (test) {
-                    setTestInfo(testInfo => [...testInfo, test]);
+  return (
+    <div>
+      <Box className={styles.containerTestes} sx={{ flexGrow: "1" }}>
+        <p className={styles.titulo}>Testes</p>
+        <BlueLine />
+        <Grid
+          container
+          rowGap={2}
+          columnGap={3}
+          className={styles.gridContainer}
+        >
+          {testInfo
+            .sort((a, b) => {
+              // ordena como o primeiro sendo o não finalizado, se existir, e os restantes em ordem decrescente
+              if (a.situation === 0) return -1;
+              if (b.situation === 0) return 1;
+              return b.id - a.id;
+            })
+            .map((test, index) => (
+              <Grid
+                item
+                xs={8}
+                sm={5}
+                md={4}
+                lg={3.75}
+                sx={{
+                  display: "flex",
+                  cursor: test.situation === 0 ? "pointer" : "default",
+                }}
+                onClick={
+                  test.situation === 0
+                    ? () => goToTest(test.id, test)
+                    : undefined
                 }
-            } catch (error) {
-                console.error('Erro ao obter teste pelo ID: ', testSerialId, error);
-            }
-        };
+                className={styles.gridItem}
+                key={index}
+              >
+                <div className={`${styles.cardHalf} ${styles.cardHalfId}`}>
+                  <span>{test.id.toString().padStart(4, "0")}</span>
+                </div>
 
-        testsInfo.forEach((test) => {
-            fetchTestInfo(test.id);
-        });
-    }, [testsInfo]);
-
-    return (
-        <div>
-            <Box className={styles.containerTestes} sx={{ flexGrow: "1" }}>
-                <p className={styles.titulo}>Testes</p>
-                <BlueLine />
-                <Grid
-                    container
-                    rowGap={2}
-                    columnGap={3}
-                    className={styles.gridContainer}
-                >
-                    {testInfo.map((test, index) => (
-                        <Grid
-                            item
-                            xs={8}
-                            sm={5}
-                            md={4}
-                            lg={3.75}
-                            sx={{ display: "flex", cursor: test.situation === 0 ? 'pointer' : 'default' }}
-                            onClick={test.situation === 0 ? () => goToTest(test.id, test) : undefined}
-                            className={styles.gridItem}
-                            key={index}
-                        >
-                            <div className={`${styles.cardHalf} ${styles.cardHalfId}`}>
-                                <span>{test.id.toString().padStart(4, '0')}</span>
-                            </div>
-
-                            <div className={styles.cardHalf}>
-                                <p>{formatDate(test.timestamp)}</p>
-                                <p>{test.testType}</p>
-                                <p noWrap className={styles.statusTeste}>
-                                    {test.situation === 1 ? (
-                                        <p style={{ color: 'var(--color-blue-4)' }}>Finalizado</p>
-                                    ) : (
-                                        <p>Não Finalizado</p>
-                                    )}
-                                </p>
-                            </div>
-                        </Grid>
-                    ))}
-                </Grid>
-            </Box>
-        </div>
-    );
+                <div className={styles.cardHalf}>
+                  <p>{formatDate(test.timestamp)}</p>
+                  <p>{test.testType}</p>
+                  <p noWrap className={styles.statusTeste}>
+                    {test.situation === 1 ? (
+                      <p style={{ color: "var(--color-blue-4)" }}>Finalizado</p>
+                    ) : (
+                      <p>Não Finalizado</p>
+                    )}
+                  </p>
+                </div>
+              </Grid>
+            ))}
+        </Grid>
+      </Box>
+    </div>
+  );
 }
