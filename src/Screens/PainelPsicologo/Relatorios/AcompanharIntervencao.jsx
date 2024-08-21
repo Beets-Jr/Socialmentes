@@ -9,8 +9,8 @@ import { TabelaPaciente } from "../../../Components/PainelPsicologo/Reports/Tabe
 import BottomBtn from "../../../Components/PainelPsicologo/Reports/AcompanharIntervencao/BottomBtn";
 
 import styles from './Tabela.module.css';
-import { DominiosMobile } from "../../../Components/PainelPsicologo/Reports/AcompanharIntervencao/TabelaMobile";
-import { DominiosDesktop } from "../../../Components/PainelPsicologo/Reports/AcompanharIntervencao/TabelaDesktop";
+import { AtividadesMobile, CronogramaMobile, DominiosMobile } from "../../../Components/PainelPsicologo/Reports/AcompanharIntervencao/TabelaMobile";
+import { AtividadesDesktop, CronogramaDesktop, DominiosDesktop } from "../../../Components/PainelPsicologo/Reports/AcompanharIntervencao/TabelaDesktop";
 
 const dataTemp = {
     testId: 1234567,
@@ -73,28 +73,39 @@ const dataTemp = {
     ],
     activities: [
         {
-            type_play: 'type_play',
-            place: 'place',
-            goals: 'goals'
+            id: 0,
+            type_play: 'Acolhimento',
+            place: 'Entrada',
+            goals: [
+                "Direciona cabeça e olhar para sons vocais lúdicos como vibração da língua, ruídos e barulhos, assobios.",
+                "Localiza voz humana direcionando cabeça e olhos para a fonte sonora.",
+                "Aponta para um sítio próximo para pedir objetos desejados."
+            ]
         },
         {
-            type_play: 'type_play 2',
-            place: 'place 2',
-            goals: 'goals'
+            id: 1,
+            type_play: 'Leitura',
+            place: 'Tapete',
+            goals: [
+                "Direciona cabeça e olhar para sons vocais lúdicos como vibração da língua, ruídos e barulhos, assobios.",
+                "Exprime recusa afastando um objeto ou devolvendo o objeto à outra pessoa."
+            ]
         }
     ],
     cronogram: [
         {
-            hour: '12:12',
+            id: 0,
+            hour: '8h - 12h',
             professional_id: '50',
             professional_name: 'Professional Name',
-            day_week: 'terça-feira'
+            day_week: [1]
         },
         {
-            hour: '13:13',
-            professional_id: '50',
-            professional_name: 'Professional Name',
-            day_week: 'terça-feira'
+            id: 1,
+            hour: '8h - 11h',
+            professional_id: '',
+            professional_name: '',
+            day_week: [2]
         }
     ],
     coordinator_sr: 'Coordinator Sr',
@@ -202,9 +213,21 @@ function AcompanharIntervencao() {
                                 Rotina de Atividades
                             </Title>
 
+                            { isMobile ? (
+                                <AtividadesMobile activities={data.activities} />
+                            ) :(
+                                <AtividadesDesktop activities={data.activities} />
+                            )}
+
                             <Title component="h3">
                                 Cronogramas
                             </Title>
+
+                            { isMobile ? (
+                                <CronogramaMobile cronogram={data.cronogram} />
+                            ) :(
+                                <CronogramaDesktop cronogram={data.cronogram} />
+                            )}
 
                             {/* Coordenador */}
                             <Box className={styles.coordinators}> 
