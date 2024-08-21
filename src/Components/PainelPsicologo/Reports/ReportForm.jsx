@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import RadioGroupQuestion from './ReportFormComponents/RadioGroupQuestion';
 import TextfieldQuestion from './ReportFormComponents/TextfieldQuestion';
 import { useForm, Controller } from 'react-hook-form';
@@ -236,6 +236,290 @@ function ReportForm() {
                 { value: 0, label: 'Na idade esperada' },
                 { value: 1, label: 'Leve atraso' },
                 { value: 2, label: 'Atraso significativo' },
+                ]}
+            />
+
+            {/* Habilidades de brincar */}
+            <Typography>
+                POSSÍVEIS COMENTÁRIOS REFERENTE A HABILIDADE DE BRINCAR DA CRIANÇA:
+            </Typography>
+            <TextfieldQuestion 
+                label="A aquisição das habilidades sociais encontra adequada/inadequada/oscilante para a sua idade:"
+                name="acquisitionSocialSkills"
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="A criança demonstra habilidade para manipular brinquedos simples como empilhar blocos, encaixar peças ou inserir formas em espaço relacionado:"
+                name="toyManipulation"
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="A criança demonstra habilidade para seguir instruções de uma, duas ou mais etapas na brincadeira:"
+                name="followInstructions"
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="A criança demonstra habilidade para reproduzir ações de uma duas e três etapas na brincadeira com bonecos, como dar comida, tomar banho ou escovar os dentes, manipulando objetos em miniatura:"
+                name="playActions"
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="A criança utiliza outros objetos com função simbólica em uma brincadeira como por exemplo um barbante que pode virar macarrão ou controle remoto que serve como telefone:"
+                name="symbolicObjects"
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="A criança projeta os bonecos como seres animados e finge que eles interagem entre si, com falas e sequência de histórias:"
+                name="dollsAnimated"
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="A criança realiza jogos imaginários durante a brincadeira, faz mímicas e “finge” realizar uma ação sem usar objetos ou brinquedos:"
+                name="imaginaryGames"
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="A criança cria um roteiro de história em brincadeira como festa de aniversário, compras no mercado ou hora de dormir da boneca:"
+                name="storyScript"
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="A criança demonstra habilidade para realizar trocas e reciprocidade, sugere e aceita novas ideias durante brincadeiras de interação social:"
+                name="reciprocitySkills"
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="Criança demonstra preferência por brincar sozinho, com suas próprias regras/brincar em grupo, flexibilizando atividades:"
+                name="playAlone"
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="Criança aceitou interação social com avaliadora e beneficiou-se de dicas e instruções simples:"
+                name="socialInteractionWithEvaluator"
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="A criança realiza/aceita brincadeira de esconde-esconde, cócegas, rodar e balançar:"
+                name="acceptPlay"
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="Comentários sobre habilidade de brincar da criança:"
+                name="comments"
+                control={control}
+            />
+
+            {/* Habilidades sociais e emocionais */}
+            <Typography>
+                OBSERVAÇÕES REFERENTE AS HABILIDADES SOCIAIS E EMOCIONAIS:
+            </Typography>
+            <TextfieldQuestion 
+                label="A criança busca contato espontâneo com o/a mãe/pai, o/a terapeuta ou outras crianças:"
+                name="spontaneousContact"
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="A criança demonstra afeto sorrindo, chorando, abraçando, beijando, solicitando colo, “fazendo bico”, cruzando os braços, verbalizando “eca”:"
+                name="showsAffection"
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="Criança sorri para parceiro social, atende quando chamado o seu nome, direciona e sustenta contato visual, responde a sons vocais:"
+                name="smileAndAnswerByName"
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="A criança observa o comportamento de outras crianças utilizando brinquedos ou realizando ações:"
+                name="observersBehavior"
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="A criança realiza imitação de gestos realizados por adultos e segue instruções de 1, 2 ou 3 passos:"
+                name="imitationOfGestures"
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="Criança olha para objeto, locais ou pessoas de seu interesse de forma independente. A criança olha para objetos, locais ou pessoas de seu interesse quando direcionado através do apontar:"
+                name="lookForInterest"
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="Criança inicia e mantém contato interpessoal com adulto e pares:"
+                name="interpersonalContact"
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="A criança identifica e verbaliza sentimentos como triste, feliz, bravo, raiva e nojo, incluindo expressões faciais relacionadas ao evento descrito:"
+                name="identifiesAndVerbalizesFeelings"
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="A criança demonstra habilidade para realizar trocas e reciprocidade, sugere e aceita novas ideias durante brincadeiras de interação social:"
+                name="understandEmotions"
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="A criança compreende emoções de outras pessoas relacionadas a situações vivenciadas como por exemplo, se uma criança cai e se machuca, ela sente dor e chora, precisa de ajuda:"
+                name="understandRelationships"
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="A criança compreende relacionamentos como amizade, namoro e casamento, em que trocas e prazer compartilhado são essenciais mantê-los. A criança compreende os motivos para as pessoas se envolverem em relacionamentos de longo prazo:"
+                name="socialInteractionWithEvaluator"
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="Comentários sobre habilidades sociais e emocinais:"
+                name="commentsSocialEmotionalSkills"
+                control={control}
+            />
+
+
+            {/* Habilidades de fala e linguagem */}
+            <RadioGroupQuestion
+                labelId="speechAndLanguage"
+                label="Habilidade de fala e linguagem:"
+                name="speechAndLanguage"
+                options={[
+                { value: 0, label: 'Adequada' },
+                { value: 1, label: 'Oscila' },
+                { value: 2, label: 'Inadequada'}
+                ]}
+            />
+            <CheckboxQuestion
+                control={control}
+                name="acquiredSkills"
+                label="Habilidades adquiridas:"
+                options={[
+                    { value: 1, label: 'Contato visual diante do parceiro social' },
+                    { value: 2, label: 'Balbucio com frequência' },
+                    { value: 3, label: 'Forma variedade de sílabas' },
+                    { value: 4, label: 'Palavras e frases' },
+                    { value: 5, label: 'Realiza pedidos a partir de palavras' },
+                    { value: 6, label: 'Coordenando olhar e gestos com parceiro de comunicação' },
+                    { value: 7, label: 'Aponta para itens' }
+                ]}
+            />
+            <CheckboxQuestion
+                control={control}
+                name="skillsWithDifficulty"
+                label="Habilidades com dificuldade:"
+                options={[
+                    { value: 1, label: 'Contato visual diante do parceiro social' },
+                    { value: 2, label: 'Balbucio com frequência' },
+                    { value: 3, label: 'Forma variedade de sílabas' },
+                    { value: 4, label: 'Palavras e frases' },
+                    { value: 5, label: 'Realiza pedidos a partir de palavras' },
+                    { value: 6, label: 'Coordenando olhar e gestos com parceiro de comunicação' },
+                    { value: 7, label: 'Aponta para itens' }
+                ]}
+            />
+            <Typography>
+                OBSERVAÇÕES REFERENTE AS HABILIDADES FALA E LINGUAGEM:
+            </Typography>
+            <TextfieldQuestion 
+                label="Criança verbaliza/não verbaliza pedidos simples coordenando olhar e gestos. A criança pede brinquedos ou brincadeiras, água ou alimentos, usar banheiro:"
+                name="simpleRequests"
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="A criança descreve ações realizadas (“estou jogando bola”), imagens de livros ou situações (como por exemplo, “o cachorro está comendo”):"
+                name="describesActions"
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="Criança relata/não relata histórias vivenciadas e responde perguntas simples:"
+                name="tellsStories"
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="A criança faz comentários sobre a brincadeira, situações ou comportamento de outras pessoas:"
+                name="commentsGameSituationsBehavior"
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="A criança faz perguntas sobre temas trazidos por um parceiro social, demonstra iniciativa na continuidade da conversa:"
+                name="questionTopics"
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="Criança relata/não relata vivências e pergunta sobre assuntos trazidos pela terapeuta ou outras crianças:"
+                name="reportsExperiences"
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="Comentário sobre habilidades de fala e linguagem:"
+                name="commentsSpeechAndLanguage"
+                control={control}
+            />
+
+            {/* Domínios */}
+            <CheckboxQuestion
+                control={control}
+                name="levelOneDomains"
+                label="Domínios dentro do nível 1:"
+                options={[
+                    { value: 1, label: 'Comunicação Receptiva' },
+                    { value: 2, label: 'Comunicação Expressiva' },
+                    { value: 3, label: 'Competências sociais' },
+                    { value: 4, label: 'Imitação' },
+                    { value: 5, label: 'Cognição' },
+                    { value: 6, label: 'Cognição' },
+                    { value: 7, label: 'Motricidade Fina' },
+                    { value: 8, label: 'Motricidade Grossa' },
+                    { value: 9, label: 'Comportamento' },
+                    { value: 10, label: 'Independência pessoal' },
+                ]}
+            />
+            <CheckboxQuestion
+                control={control}
+                name="levelTwoDomains"
+                label="Domínios dentro do nível 2:"
+                options={[
+                    { value: 1, label: 'Comunicação Receptiva' },
+                    { value: 2, label: 'Comunicação Expressiva' },
+                    { value: 3, label: 'Competências sociais' },
+                    { value: 4, label: 'Imitação' },
+                    { value: 5, label: 'Cognição' },
+                    { value: 6, label: 'Cognição' },
+                    { value: 7, label: 'Motricidade Fina' },
+                    { value: 8, label: 'Motricidade Grossa' },
+                    { value: 9, label: 'Comportamento' },
+                    { value: 10, label: 'Independência pessoal' },
+                ]}
+            />
+            <CheckboxQuestion
+                control={control}
+                name="levelThreeDomains"
+                label="Domínios dentro do nível 3:"
+                options={[
+                    { value: 1, label: 'Comunicação Receptiva' },
+                    { value: 2, label: 'Comunicação Expressiva' },
+                    { value: 3, label: 'Competências sociais' },
+                    { value: 4, label: 'Imitação' },
+                    { value: 5, label: 'Cognição' },
+                    { value: 6, label: 'Cognição' },
+                    { value: 7, label: 'Motricidade Fina' },
+                    { value: 8, label: 'Motricidade Grossa' },
+                    { value: 9, label: 'Comportamento' },
+                    { value: 10, label: 'Independência pessoal' },
+                ]}
+            />
+            <CheckboxQuestion
+                control={control}
+                name="levelFourDomains"
+                label="Domínios dentro do nível 4:"
+                options={[
+                    { value: 1, label: 'Comunicação Receptiva' },
+                    { value: 2, label: 'Comunicação Expressiva' },
+                    { value: 3, label: 'Competências sociais' },
+                    { value: 4, label: 'Imitação' },
+                    { value: 5, label: 'Cognição' },
+                    { value: 6, label: 'Cognição' },
+                    { value: 7, label: 'Motricidade Fina' },
+                    { value: 8, label: 'Motricidade Grossa' },
+                    { value: 9, label: 'Comportamento' },
+                    { value: 10, label: 'Independência pessoal' },
                 ]}
             />
         </Box>

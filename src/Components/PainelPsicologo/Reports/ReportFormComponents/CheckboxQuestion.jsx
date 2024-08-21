@@ -27,7 +27,7 @@ function CheckboxQuestion({ control, name, label, options }) {
                                         checked={field.value}
                                     />
                                 }
-                                label={`${option.value} - ${option.label}`}
+                                label={`${option.value}. ${option.label}`}
                             />
                         )}
                     />
