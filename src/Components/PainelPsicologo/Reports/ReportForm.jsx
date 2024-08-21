@@ -12,7 +12,10 @@ function ReportForm() {
     };
 
     return(
-        <Box onSubmit={handleSubmit(onSubmit)}>
+        <Box onSubmit={handleSubmit(onSubmit)} sx={{display:'flex', flexDirection:'column'}}>
+            <Typography sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-4)', fontWeight:'500'}}>
+                HISTÓRICO
+            </Typography>
             {/* Gestação */}
             <RadioGroupQuestion
                 labelId="pregnancy"
@@ -23,6 +26,7 @@ function ReportForm() {
                 { value: 1, label: 'Não planejada, mas desejada' },
                 { value: 2, label: 'Indesejada' },
                 ]}
+                control={control}
             />
 
             <RadioGroupQuestion
@@ -34,6 +38,7 @@ function ReportForm() {
                 { value: 'mae', label: 'Mãe' },
                 { value: 'pai', label: 'Pai' },
                 ]}
+                control={control}
             />
 
             <RadioGroupQuestion
@@ -44,6 +49,7 @@ function ReportForm() {
                 { value: 0, label: 'Sem intercorrência' },
                 { value: 1, label: 'Com intercorrência' },
                 ]}
+                control={control}
             />
 
             <TextfieldQuestion 
@@ -68,6 +74,7 @@ function ReportForm() {
                 { value: 0, label: 'Sem dificuldade' },
                 { value: 1, label: 'Com dificuldade' },
                 ]}
+                control={control}
             />
 
             <TextfieldQuestion 
@@ -93,6 +100,7 @@ function ReportForm() {
                 { value: 0, label: 'Sem intercorrência' },
                 { value: 1, label: 'Com intercorrência' },
                 ]}
+                control={control}
             />
 
             <RadioGroupQuestion
@@ -104,6 +112,7 @@ function ReportForm() {
                 { value: 1, label: 'Oscila' },
                 { value: 2, label: 'Não aceita' },
                 ]}
+                control={control}
             />
 
             <TextfieldQuestion 
@@ -122,6 +131,7 @@ function ReportForm() {
                 { value: 1, label: 'Leve atraso' },
                 { value: 2, label: 'Atraso significativo' },
                 ]}
+                control={control}
             />
 
             <TextfieldQuestion 
@@ -139,6 +149,7 @@ function ReportForm() {
                 { value: 0, label: 'Ocorreu' },
                 { value: 1, label: 'Não ocorreu' },
                 ]}
+                control={control}
             />
 
             <TextfieldQuestion 
@@ -156,6 +167,7 @@ function ReportForm() {
                 { value: 0, label: 'Ocorreu' },
                 { value: 1, label: 'Não ocorreu' },
                 ]}
+                control={control}
             />
 
             <TextfieldQuestion 
@@ -218,6 +230,7 @@ function ReportForm() {
                 { value: 1, label: 'Nem sempre' },
                 { value: 2, label: 'Não faz' },
                 ]}
+                control={control}
             />
             <RadioGroupQuestion
                 labelId="skillsSuitableSymbolicPlay"
@@ -227,6 +240,7 @@ function ReportForm() {
                 { value: 0, label: 'Adequada para idade' },
                 { value: 1, label: 'Indadequada para idade' },
                 ]}
+                control={control}
             />
             <RadioGroupQuestion
                 labelId="socialSkills"
@@ -237,10 +251,11 @@ function ReportForm() {
                 { value: 1, label: 'Leve atraso' },
                 { value: 2, label: 'Atraso significativo' },
                 ]}
+                control={control}
             />
 
             {/* Habilidades de brincar */}
-            <Typography>
+            <Typography sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-4)', fontWeight:'500'}}>
                 POSSÍVEIS COMENTÁRIOS REFERENTE A HABILIDADE DE BRINCAR DA CRIANÇA:
             </Typography>
             <TextfieldQuestion 
@@ -310,7 +325,7 @@ function ReportForm() {
             />
 
             {/* Habilidades sociais e emocionais */}
-            <Typography>
+            <Typography sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-4)', fontWeight:'500'}}>
                 OBSERVAÇÕES REFERENTE AS HABILIDADES SOCIAIS E EMOCIONAIS:
             </Typography>
             <TextfieldQuestion 
@@ -380,6 +395,7 @@ function ReportForm() {
                 { value: 1, label: 'Oscila' },
                 { value: 2, label: 'Inadequada'}
                 ]}
+                control={control}
             />
             <CheckboxQuestion
                 control={control}
@@ -409,7 +425,7 @@ function ReportForm() {
                     { value: 7, label: 'Aponta para itens' }
                 ]}
             />
-            <Typography>
+            <Typography sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-4)', fontWeight:'500'}}>
                 OBSERVAÇÕES REFERENTE AS HABILIDADES FALA E LINGUAGEM:
             </Typography>
             <TextfieldQuestion 
@@ -516,6 +532,65 @@ function ReportForm() {
                     { value: 9, label: 'Comportamento' },
                     { value: 10, label: 'Independência pessoal' },
                 ]}
+            />
+{/*SALTEI AS QUESTOES QUE VEM DIRETO DO TESTE EM QUESTAO*/}
+            {/* Habilidades sociais e afetivas dificuldade */}
+            <Typography sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-4)', fontWeight:'500'}}>
+                Habilidades sociais e afetivas que demonstra dificuldade
+            </Typography>
+            <TextfieldQuestion 
+                label="Atenção compartilhada:"
+                name="sharedAttention"
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="Realizar imitação motora:"
+                name="imitation"
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="Horas por semana recebido:"
+                name="weeklyHours"
+                control={control}
+            />
+            <RadioGroupQuestion
+                labelId="professional"
+                label="Qual profissional vai assinar esse relatório?"
+                name="professional"
+                options={[
+                { value: 0, label: 'Outra profissional' },
+                { value: 1, label: 'Amanda Nucci Carrara' },
+                { value: 2, label: 'Ana Luisa Polizel Libardi' },
+                { value: 3, label: 'Giovanna Moreira' },
+                { value: 4, label: 'Renata Coradi Leme' },
+                { value: 5, label: 'Rafaela Lopes' },
+                { value: 6, label: 'Aline Ribeiro Lopes' },
+                { value: 7, label: 'Anna Paula Badelino' },
+                ]}
+                control={control}
+            />
+            <TextfieldQuestion 
+                label="Nome do profissional:"
+                name="professionalName"
+                control={control}
+                
+            />
+            <TextfieldQuestion 
+                label="Nome do profissional:"
+                name="professionalName"
+                control={control}
+                
+            />
+            <TextfieldQuestion 
+                label="Registro do conselho:"
+                name="register"
+                type="number"
+                control={control}
+            /> {/** Pensar em validação!!!! Os números */}
+            <TextfieldQuestion 
+                label="Outras informações:"
+                name="otherInformations"
+                control={control}
             />
         </Box>
     );

@@ -1,4 +1,6 @@
-import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material';
+import React from 'react';
+import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Stack } from '@mui/material';
+import { Controller } from 'react-hook-form';
 
 /* 
     Param: 
@@ -8,30 +10,42 @@ import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mu
     options -> array com as opções de botão
         value: valor da opção 
         label: texto exibido na tela
+    control -> Controlador do React Hook Form para este campo
 */
-function RadioGroupQuestion({ labelId, label, name, options }) {
+function RadioGroupQuestion({ labelId, label, name, options, control }) {
     return (
-        <FormControl sx={{margin:'0.1vh'}}>
+        <FormControl sx={{ margin: '0.1vh' }}>
             {/* Associar o FormLabel ao RadioGroup */}
-            <FormLabel id={labelId} sx={{fontFamily:'var(--font-sub)', color:'var(--color-blue-3)'}}>{label}</FormLabel> 
-            <RadioGroup
-                row
-                aria-labelledby={labelId}
+            <FormLabel id={labelId} sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-3)' }}>
+                {label}
+            </FormLabel>
+            <Controller
                 name={name}
-            >
-                {/* Mapear os possíveis valores para os radio buttons */}
-                {options.map((option) => {
-                    return (
-                        <FormControlLabel
-                            key={option.value}
-                            value={option.value}
-                            control={<Radio />} 
-                            label={option.label}
-                            sx={{fontFamily:'var(--font-text)', color:'var(--color-gray-4)'}}
-                        />
-                    );
-                })}
-            </RadioGroup>
+                control={control}
+                render={({ field }) => (
+                    <RadioGroup
+                        row
+                        aria-labelledby={labelId}
+                        {...field}
+                    >
+                        {/* Mapear os possíveis valores para os radio buttons */}
+                        <Stack direction="row" spacing={2} sx={{display:'flex'}}>
+                            {options.map((option) => {
+                                const radioId = `${name}-${option.value}`; // Gerar um id único para cada Radio
+                                return (
+                                    <FormControlLabel
+                                        key={option.value}
+                                        value={option.value}
+                                        control={<Radio id={radioId} />}  // Usar id no Radio
+                                        label={option.label}
+                                        sx={{ fontFamily: 'var(--font-text)', color: 'var(--color-gray-4)' }}
+                                    />
+                                );
+                            })}
+                        </Stack>
+                    </RadioGroup>
+                )}
+            />
         </FormControl>
     );
 }

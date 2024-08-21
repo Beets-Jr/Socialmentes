@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormControl, FormLabel, FormGroup, FormControlLabel, Checkbox } from '@mui/material';
+import { FormControl, FormLabel, FormGroup, FormControlLabel, Checkbox, Stack } from '@mui/material';
 import { Controller } from 'react-hook-form';
 
 {/*
@@ -14,25 +14,27 @@ function CheckboxQuestion({ control, name, label, options }) {
         <FormControl component="fieldset" variant="standard">
             <FormLabel component="legend" sx={{fontFamily:'var(--font-sub)', color:'var(--color-blue-3)'}}>{label}</FormLabel>
             <FormGroup sx={{display:'flex'}}>
-                {options.map((option) => (
-                    <Controller
-                        key={option.value}
-                        name={`${name}.${option.value}`}
-                        control={control}
-                        render={({ field }) => (
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        {...field}
-                                        checked={field.value}
-                                    />
-                                }
-                                label={`${option.value}. ${option.label}`}
-                                sx={{fontFamily:'var(--font-text)', color:'var(--color-gray-4)'}}
-                            />
-                        )}
-                    />
-                ))}
+                <Stack direction="row" spacing={2} sx={{display:'flex'}}>
+                    {options.map((option) => (
+                        <Controller
+                            key={option.value}
+                            name={`${name}.${option.value}`}
+                            control={control}
+                            render={({ field }) => (
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            {...field}
+                                            checked={field.value}
+                                        />
+                                    }
+                                    label={`${option.value}. ${option.label}`}
+                                    sx={{fontFamily:'var(--font-text)', color:'var(--color-gray-4)'}}
+                                />
+                            )}
+                        />
+                    ))}
+                </Stack>
             </FormGroup>
         </FormControl>
     );

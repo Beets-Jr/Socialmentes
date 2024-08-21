@@ -57,9 +57,6 @@ function RelatoriDetalhado() {
                 </Box>
 
                 <Box>
-                    <Typography sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-4)', fontWeight:'500'}}>
-                        HISTÓRICO
-                    </Typography>
                     {/* Fomulário */}
                     <ReportForm/>
                     {/* Botão já existe, procurar */}
