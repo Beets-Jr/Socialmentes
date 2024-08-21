@@ -16,7 +16,7 @@ export const DominiosDesktop = ({ goals }) => {
 
                     <TableHead>
                         <TableRow>
-                            <TableCell colSpan={4}>{goal.nome}</TableCell>
+                            <TableCell colSpan={4} className={styles.table_title}>{goal.nome}</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell>Metas</TableCell>
@@ -33,9 +33,12 @@ export const DominiosDesktop = ({ goals }) => {
                                     <TableCell>{i+1}</TableCell>
                                     <TableCell>{i+1} - {pergunta.pergunta}</TableCell>
                                     <TableCell>{pergunta.descricao}</TableCell>
-                                    <TableCell>
+                                    <TableCell className={styles.submetas}>
                                         { pergunta.submetas.map( (submeta, index) => (
-                                            <Typography key={index}>
+                                            <Typography
+                                                key={index}
+                                                fontSize={15}
+                                            >
                                                 {submeta}
                                             </Typography>
                                         ))}

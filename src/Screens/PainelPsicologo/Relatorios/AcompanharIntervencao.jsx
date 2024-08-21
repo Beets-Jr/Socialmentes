@@ -43,7 +43,7 @@ const dataTemp = {
             ]
         },
         {
-            id: 0,
+            id: 1,
             nome: "Comunicação Expressiva (CE)",
             level: 1,
             perguntas: [
@@ -192,7 +192,11 @@ function AcompanharIntervencao() {
                                 Domínios Desenvolvidos
                             </Title>
 
-                            <DominiosDesktop goals={data.goals} />
+                            { isMobile ? (
+                                <DominiosMobile goals={data.goals} />
+                            ) :(
+                                <DominiosDesktop goals={data.goals} />
+                            )}
 
                             <Title component="h3">
                                 Rotina de Atividades
