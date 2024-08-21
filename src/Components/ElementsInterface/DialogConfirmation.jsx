@@ -5,6 +5,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function DialogConfirmation({
   open, 
@@ -25,7 +26,8 @@ function DialogConfirmation({
   confirmButtonHoverBorderColor, // cor da borda do botão à esquerda passando mouse
   cancelButtonHoverBorderColor, // cor da borda do botão à direita passando mouse
   logoSrc, // caminho para a imagem 
-  logoAlt
+  logoAlt,
+  isLoading // nova prop para controlar o estado de carregamento
 }) {
   return (
     <Dialog
@@ -89,8 +91,9 @@ function DialogConfirmation({
               color: confirmButtonHoverColor
             }
           }}
+          disabled={isLoading}
         >
-          {confirmButtonText}
+          {isLoading ? <CircularProgress size={24} /> : confirmButtonText}
         </Button>
         <Button 
           variant="outlined"  
@@ -109,6 +112,7 @@ function DialogConfirmation({
               color: cancelButtonHoverColor
             }
           }}
+          disabled={isLoading}
         >
           {cancelButtonText}
         </Button>

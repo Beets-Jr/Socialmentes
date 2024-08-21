@@ -37,6 +37,7 @@ export default function CriarTeste() {
   const [changeCategory, setChangeCategory] = useState(false);
   const [encerrar, setEncerrar] = useState(false);
   const [saveAndExit, setSaveAndExit] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -138,9 +139,13 @@ export default function CriarTeste() {
 
   const handleSaveAndExit = async () => {
     try {
+      setIsLoading(true);
       await updateQuestionValues(testId, questionValues);
+
       setSaveAndExit(false);
-      navigate("/painel-psi/pacientes/informacoes");
+      setIsLoading(false);
+
+      navigate("/painel-psi/pacientes/informacoes", { replace: true });
     } catch (error) {
       console.error("Erro ao salvar e sair:", error);
     }
@@ -148,12 +153,15 @@ export default function CriarTeste() {
 
   const handleEncerrar = async () => {
     try {
+      setIsLoading(true);
       const treatQValues = treatQuestionValues(questionValues);
       await updateQuestionValues(testId, treatQValues);
       await updateTestSituation(testId);
+
       setEncerrar(false);
+      setIsLoading(false);
   
-      navigate("/painel-psi/pacientes/informacoes");
+      navigate("/painel-psi/pacientes/informacoes", { replace: true });
     } catch (error) {
       console.error("Erro ao encerrar:", error);
     }
@@ -229,6 +237,7 @@ export default function CriarTeste() {
           cancelButtonHoverBorderColor='var(--color-pink)' // cor da borda do botão à direita passando mouse
           logoSrc={Logo}
           logoAlt="socialmentes-logo"
+          isLoading={isLoading}
         />
       )}
 
@@ -253,6 +262,7 @@ export default function CriarTeste() {
           cancelButtonHoverBorderColor='var(--color-pink)' // cor da borda do botão à direita passando mouse
           logoSrc={Logo}
           logoAlt="socialmentes-logo"
+          isLoading={isLoading}
         />
       )}
       
