@@ -23,7 +23,7 @@ function TextfieldQuestion({ label, name, control, type = 'text', required = fal
 
     return (
         <FormControl variant="outlined" fullWidth error={!!error}>
-            <FormLabel htmlFor={name}>{label}</FormLabel>
+            <FormLabel htmlFor={name} sx={{fontFamily:'var(--font-sub)', color:'var(--color-gray-3)'}} >{label}</FormLabel>
             <OutlinedInput
                 id={name}
                 name={name}

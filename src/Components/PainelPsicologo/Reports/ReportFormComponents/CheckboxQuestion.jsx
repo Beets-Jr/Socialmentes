@@ -12,7 +12,7 @@ import { Controller } from 'react-hook-form';
 function CheckboxQuestion({ control, name, label, options }) {
     return (
         <FormControl component="fieldset" variant="standard">
-            <FormLabel component="legend">{label}</FormLabel>
+            <FormLabel component="legend" sx={{fontFamily:'var(--font-sub)', color:'var(--color-blue-3)'}}>{label}</FormLabel>
             <FormGroup sx={{display:'flex'}}>
                 {options.map((option) => (
                     <Controller
@@ -28,6 +28,7 @@ function CheckboxQuestion({ control, name, label, options }) {
                                     />
                                 }
                                 label={`${option.value}. ${option.label}`}
+                                sx={{fontFamily:'var(--font-text)', color:'var(--color-gray-4)'}}
                             />
                         )}
                     />

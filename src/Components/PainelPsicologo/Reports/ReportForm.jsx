@@ -305,7 +305,7 @@ function ReportForm() {
             />
             <TextfieldQuestion 
                 label="Comentários sobre habilidade de brincar da criança:"
-                name="comments"
+                name="commentsPlay"
                 control={control}
             />
 
@@ -361,11 +361,6 @@ function ReportForm() {
             <TextfieldQuestion 
                 label="A criança compreende emoções de outras pessoas relacionadas a situações vivenciadas como por exemplo, se uma criança cai e se machuca, ela sente dor e chora, precisa de ajuda:"
                 name="understandRelationships"
-                control={control}
-            />
-            <TextfieldQuestion 
-                label="A criança compreende relacionamentos como amizade, namoro e casamento, em que trocas e prazer compartilhado são essenciais mantê-los. A criança compreende os motivos para as pessoas se envolverem em relacionamentos de longo prazo:"
-                name="socialInteractionWithEvaluator"
                 control={control}
             />
             <TextfieldQuestion 
