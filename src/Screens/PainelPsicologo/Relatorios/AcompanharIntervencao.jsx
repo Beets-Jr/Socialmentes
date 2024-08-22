@@ -40,6 +40,15 @@ const dataTemp = {
                         "Direciona a cabeça e olhos para o parceiro social 1 vez em 1 oportunidade."
                     ],
                 },
+                {
+                    id: 2,
+                    pergunta: "Direciona o olhar para as imagens indicadas pelo parceiro social em um livro.",
+                    descricao: "Segue com olhar a imagem apontada em um livro ou imagem pelo parceiro social.",
+                    submetas: [
+                        "Segue com olhar para 2 imagens apontadas pelo parceiro social em atividades com livro em 3 oportunidades.",
+                        "Segue com olhar para 4 imagens apontadas pelo parceiro social em atividades com livro em 3 oportunidades."
+                    ]
+                }
             ]
         },
         {

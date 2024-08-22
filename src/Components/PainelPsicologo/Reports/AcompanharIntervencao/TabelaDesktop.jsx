@@ -1,10 +1,22 @@
+import { useEffect, useState } from "react";
+
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 
 import styles from './styles/TabelaDesktop.module.css';
 
 export const DominiosDesktop = ({ goals }) => {
 
-    return goals.map( goal => (
+    const [numGoals, setNumGoals] = useState();
+
+    useEffect(() => {
+        const num = [];
+        goals.forEach( goal => {
+            num.push(goal.perguntas.length);
+        });
+        setNumGoals(num);
+    }, [goals]);
+
+    return goals.map( (goal, i) => (
         <Box
             key={goal.id}
             className={styles.table_border}
@@ -19,19 +31,20 @@ export const DominiosDesktop = ({ goals }) => {
                             <TableCell colSpan={4} className={styles.table_title}>{goal.nome}</TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell>Metas</TableCell>
-                            <TableCell>Nível {goal.level}</TableCell>
-                            <TableCell>Descrição</TableCell>
-                            <TableCell>Sub metas</TableCell>
+                            <TableCell width={"15%"}>Metas</TableCell>
+                            <TableCell width={"20%"}>Nível {goal.level}</TableCell>
+                            <TableCell width={"30%"}>Descrição</TableCell>
+                            <TableCell width={"35%"}>Sub metas</TableCell>
                         </TableRow>
                     </TableHead>
 
                     <TableBody>
-                        { goal.perguntas.map( (pergunta, i) => {
+                        { numGoals && goal.perguntas.map( (pergunta, j) => {
+                            const numGoal = numGoals?.slice(0, i).reduce((a, b) => a + b, 1) + j;
                             return (
                                 <TableRow key={pergunta.id}>
-                                    <TableCell>{i+1}</TableCell>
-                                    <TableCell>{i+1} - {pergunta.pergunta}</TableCell>
+                                    <TableCell>{numGoal}</TableCell>
+                                    <TableCell>{numGoal} - {pergunta.pergunta}</TableCell>
                                     <TableCell>{pergunta.descricao}</TableCell>
                                     <TableCell className={styles.submetas}>
                                         { pergunta.submetas.map( (submeta, index) => (
@@ -44,7 +57,7 @@ export const DominiosDesktop = ({ goals }) => {
                                         ))}
                                     </TableCell>
                                 </TableRow>
-                            );
+                            )
                         })}
                     </TableBody>
 
