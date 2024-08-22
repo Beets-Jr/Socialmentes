@@ -1,18 +1,28 @@
+import { useEffect, useState } from "react";
+
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 
 import styles from './styles/TabelaDesktop.module.css';
-import { Check } from "@mui/icons-material";
+import { Check, Close } from "@mui/icons-material";
 
 export const DominiosDesktop = ({ goals }) => {
 
-    return goals.map( goal => (
+    const [numGoals, setNumGoals] = useState();
+
+    useEffect(() => {
+        const num = [];
+        goals.forEach( goal => {
+            num.push(goal.perguntas.length);
+        });
+        setNumGoals(num);
+    }, [goals]);
+
+    return goals.map( (goal, i) => (
         <Box
             key={goal.id}
             className={styles.table_border}
         >
-            <TableContainer
-                className={styles.table_container}
-            >
+            <TableContainer className={styles.table_container}>
                 <Table>
 
                     <TableHead>
@@ -20,19 +30,20 @@ export const DominiosDesktop = ({ goals }) => {
                             <TableCell colSpan={4} className={styles.table_title}>{goal.nome}</TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell>Metas</TableCell>
-                            <TableCell>Nível {goal.level}</TableCell>
-                            <TableCell>Descrição</TableCell>
-                            <TableCell>Sub metas</TableCell>
+                            <TableCell width={"15%"}>Metas</TableCell>
+                            <TableCell width={"20%"}>Nível {goal.level}</TableCell>
+                            <TableCell width={"30%"}>Descrição</TableCell>
+                            <TableCell width={"35%"}>Sub metas</TableCell>
                         </TableRow>
                     </TableHead>
 
                     <TableBody>
-                        { goal.perguntas.map( (pergunta, i) => {
+                        { numGoals && goal.perguntas.map( (pergunta, j) => {
+                            const numGoal = numGoals?.slice(0, i).reduce((a, b) => a + b, 1) + j;
                             return (
                                 <TableRow key={pergunta.id}>
-                                    <TableCell>{i+1}</TableCell>
-                                    <TableCell>{i+1} - {pergunta.pergunta}</TableCell>
+                                    <TableCell>{numGoal}</TableCell>
+                                    <TableCell>{numGoal} - {pergunta.pergunta}</TableCell>
                                     <TableCell>{pergunta.descricao}</TableCell>
                                     <TableCell className={styles.submetas}>
                                         { pergunta.submetas.map( (submeta, index) => (
@@ -45,7 +56,7 @@ export const DominiosDesktop = ({ goals }) => {
                                         ))}
                                     </TableCell>
                                 </TableRow>
-                            );
+                            )
                         })}
                     </TableBody>
 
@@ -105,8 +116,8 @@ export const AtividadesDesktop = ({ activities }) => {
 
 export const CronogramaDesktop = ({ cronogram }) => {
 
-    return (
-        <Box className={styles.table_border}>
+    return cronogram.map( intervention => (
+        <Box key={intervention.id} className={styles.table_border}>
             <TableContainer
                 className={styles.table_container}
             >
@@ -123,24 +134,31 @@ export const CronogramaDesktop = ({ cronogram }) => {
                         </TableRow>
                     </TableHead>
 
-                    <TableBody>
-                        { cronogram.map( (intervention, i) => {
-                            return (
-                                <TableRow key={intervention.id}>
-                                    <TableCell>{intervention.hour}</TableCell>
-                                    <TableCell>
-                                        { intervention.day_week.find(0) && (
-                                            <Check fontSize="small" />
-                                        )}
-                                    </TableCell>
-                                </TableRow>
-                            );
-                        })}
+                    <TableBody className={styles.cronogram}>
+                        <TableRow key={intervention.id}>
+                            <TableCell>{intervention.hour}</TableCell>
+                            { [0, 1, 2, 3, 4].map( j => (
+                                <TableCell key={j}>
+                                    { intervention.day_week.some( day => day == j ) && (
+                                        <Close fontSize="small" />
+                                    )}
+                                </TableCell>
+                            ))}
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Terapeuta</TableCell>
+                            <TableCell
+                                colSpan={5}
+                                className={styles.professional}
+                            >
+                                {intervention.professional_name}
+                            </TableCell>
+                        </TableRow>
                     </TableBody>
 
                 </Table>
             </TableContainer>
         </Box>
-    );
+    ));
 
 }

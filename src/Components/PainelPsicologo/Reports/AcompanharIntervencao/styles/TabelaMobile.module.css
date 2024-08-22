@@ -1,0 +1,62 @@
+.table_border {
+    border: 2px solid var(--color-gray-2);
+    border-right-width: 4px;
+    border-radius: 15px;
+    margin-top: 25px;
+    margin-bottom: 40px;
+}
+
+.table_title {
+    padding-top: .7rem;
+    text-align: center;
+    color: var(--color-blue-4);
+}
+
+.table_container {
+    overflow-x: scroll;
+}
+
+.table_dominios table {
+    width: 1200px;
+}
+
+.table_atividades table {
+    width: 1000px;
+}
+
+.table_container th, .table_container td {
+    font-family: var(--font-text);
+    font-weight: 400;
+}
+
+.table_container th {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--color-blue-4);
+}
+
+.table_container td {
+    vertical-align: top;
+    text-align: left;
+    border-top: 2px solid var(--color-gray-2);
+    border-left: 2px solid var(--color-gray-2);
+    border-bottom: none;
+    font-size: .9rem;
+}
+
+.table_container td:first-child, .table_container th:first-child {
+    border-left: none;
+}
+
+.submetas p:first-child {
+    color: var(--color-blue-5);
+}
+
+.cronogram td, .cronogram th {
+    text-align: center;
+}
+
+td.professional {
+    text-align: left;
+    padding-left: 6%;
+}

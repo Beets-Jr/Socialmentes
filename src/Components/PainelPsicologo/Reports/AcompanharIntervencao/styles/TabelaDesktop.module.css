@@ -13,13 +13,13 @@
 .table_container th {
     border-left: 2px solid var(--color-gray-2);
     text-align: center;
-    font-size: 16px;
+    font-size: 1.1rem;
     color: var(--color-blue-4)
 }
 
 .table_container th.table_title {
     border-bottom: 2px solid var(--color-gray-2);
-    font-size: 24px;
+    font-size: 1.5rem;
 }
 
 .table_container td {
@@ -28,7 +28,7 @@
     border-top: 2px solid var(--color-gray-2);
     border-left: 2px solid var(--color-gray-2);
     border-bottom: none;
-    font-size: 15px;
+    font-size: .9rem;
 }
 
 .submetas p:first-child {
@@ -37,4 +37,13 @@
 
 .table_container td:first-child, .table_container th:first-child {
     border-left: none;
+}
+
+.cronogram td, .cronogram th {
+    text-align: center;
+}
+
+td.professional {
+    text-align: left;
+    padding-left: 6%;
 }

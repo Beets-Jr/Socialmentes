@@ -1,4 +1,4 @@
-.container_reports {
+.container_interventions, .container_reports {
     flex: 1;
     padding: 36px 94px 100px 51px;
 }
@@ -26,6 +26,9 @@
 @media (max-width: 800px) {
     .container_reports {
         padding: 36px 10px 50px;
+    }
+    .container_interventions {
+        padding: 36px 10px 100px;
     }
 }
 

@@ -3,14 +3,14 @@ import { useParams } from "react-router-dom/dist";
 
 import { Box, CircularProgress, createTheme, ThemeProvider, Typography, useMediaQuery } from "@mui/material";
 
+import BottomBtn from "../../../Components/PainelPsicologo/Reports/AcompanharIntervencao/BottomBtn";
 import { getPatient } from "../../../Services/patientService";
 import { getTestByIdTest } from "../../../Services/testsPatientsService"
 import { TabelaPaciente } from "../../../Components/PainelPsicologo/Reports/Tabela/TabelaPaciente";
-import BottomBtn from "../../../Components/PainelPsicologo/Reports/AcompanharIntervencao/BottomBtn";
-
-import styles from './Tabela.module.css';
 import { AtividadesMobile, CronogramaMobile, DominiosMobile } from "../../../Components/PainelPsicologo/Reports/AcompanharIntervencao/TabelaMobile";
 import { AtividadesDesktop, CronogramaDesktop, DominiosDesktop } from "../../../Components/PainelPsicologo/Reports/AcompanharIntervencao/TabelaDesktop";
+
+import styles from './Tabela.module.css';
 
 const dataTemp = {
     testId: 1234567,
@@ -40,6 +40,15 @@ const dataTemp = {
                         "Direciona a cabeça e olhos para o parceiro social 1 vez em 1 oportunidade."
                     ],
                 },
+                {
+                    id: 2,
+                    pergunta: "Direciona o olhar para as imagens indicadas pelo parceiro social em um livro.",
+                    descricao: "Segue com olhar a imagem apontada em um livro ou imagem pelo parceiro social.",
+                    submetas: [
+                        "Segue com olhar para 2 imagens apontadas pelo parceiro social em atividades com livro em 3 oportunidades.",
+                        "Segue com olhar para 4 imagens apontadas pelo parceiro social em atividades com livro em 3 oportunidades."
+                    ]
+                }
             ]
         },
         {
@@ -180,7 +189,7 @@ function AcompanharIntervencao() {
     }, []);
     
     return (
-        <Box className={styles.container_reports}>
+        <Box className={styles.container_interventions}>
 
             { isLoading ? (
                 <Box className={styles.container_empty}>
