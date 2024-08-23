@@ -1,15 +1,29 @@
+.main {
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
 .container {
   width: 90%;
   margin: 30px auto;
-  height: 70vh;
-  overflow-y: auto;
   padding-right: 1.5rem;
+}
+
+.fixedArea {
+  height: 10vh;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
 }
 
 .buttons {
   display: flex;
-  margin: 0 auto;
-  width: 90%;
+  margin-left: 9%;
+  margin-top: 1.5rem;
+  width: 86%;
   justify-content: space-between;
   align-items: center;
 }
@@ -23,13 +37,9 @@
 
 
 @media screen and (max-width: 600px) {
-  .container {
-    height: 65vh;
-    width: 90%;
-  }
-
   .buttons {
-    width: 90%;
+    width: 75%;
+    margin-left: 20%;
     gap: 0.5rem;
   }
 }
