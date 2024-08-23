@@ -17,7 +17,7 @@ const Goals = ({ values, setValues, handleChange, error }) => {
 
       {values.goals.map((team, index) => (
         <React.Fragment key={`team${index}`}>
-          <Grid container columnSpacing={1}>
+          <Grid container columnSpacing={1} marginBottom={1.5}>
             <StyledInputText lg={11.4} xs={9.5} md={11} name={`goals[${index}]`} value={team} handleChange={(e) => handleChange(index, e.target.value)} error={error?.[`goals[${index}]`]} />
             <AddFieldButton handleClick={handleAddInterventionTeam} />
           </Grid>
