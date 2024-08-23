@@ -85,7 +85,7 @@ const CriarIntervencao = () => {
   }
 
   return (
-    <>
+    <div className={styles.main}>
       <Box className={styles.container}>
         <PatientData name="Jeu da graça" birthday="12/12/2004" />
 
@@ -104,22 +104,23 @@ const CriarIntervencao = () => {
         </Grid>
 
       </Box >
-      <Box className={styles.buttons}>
-        <ReturnButton />
-        {!isMobile ? <>
-          <Box className={styles.blueButtons}>
-            <SaveButton handleSubmit={handlePdfGenerator} label='PDF' />
-            <SaveButton handleSubmit={handleSubmit} />
-          </Box></>
-          : <>
-            <SaveButton handleSubmit={handlePdfGenerator} label='PDF' />
-            <SaveButton handleSubmit={handleSubmit} />
-          </>}
-
+      <Box className={styles.fixedArea}>
+        <Box className={styles.buttons}>
+          <ReturnButton />
+          {!isMobile ? <>
+            <Box className={styles.blueButtons}>
+              <SaveButton handleSubmit={handlePdfGenerator} label='PDF' />
+              <SaveButton handleSubmit={handleSubmit} />
+            </Box></>
+            : <>
+              <SaveButton handleSubmit={handlePdfGenerator} label='PDF' />
+              <SaveButton handleSubmit={handleSubmit} />
+            </>}
+        </Box>
 
       </Box>
-    </>
 
+    </div >
   )
 }
 
