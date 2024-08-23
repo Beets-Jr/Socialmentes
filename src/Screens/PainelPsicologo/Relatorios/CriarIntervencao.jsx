@@ -35,6 +35,10 @@ const CriarIntervencao = () => {
     setValues({ ...values, [name]: value });
   };
 
+  const handlePdfGenerator = async () => {
+    console.log('PDF gerado');
+  }
+
   const handleArrayChange = async (index, value) => {
     const updatedTeams = [...values.goals];
     updatedTeams[index] = value;
@@ -102,7 +106,17 @@ const CriarIntervencao = () => {
       </Box >
       <Box className={styles.buttons}>
         <ReturnButton />
-        <SaveButton handleSubmit={handleSubmit} />
+        {!isMobile ? <>
+          <Box className={styles.blueButtons}>
+            <SaveButton handleSubmit={handlePdfGenerator} label='PDF' />
+            <SaveButton handleSubmit={handleSubmit} />
+          </Box></>
+          : <>
+            <SaveButton handleSubmit={handlePdfGenerator} label='PDF' />
+            <SaveButton handleSubmit={handleSubmit} />
+          </>}
+
+
       </Box>
     </>
 
