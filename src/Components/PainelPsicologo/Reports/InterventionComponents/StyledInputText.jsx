@@ -35,7 +35,6 @@ const StyledInputText = ({ xs = 12, md = 6, lg, name, label, error = null, handl
             fontSize: '16px',
             borderRadius: '20px',
             paddingLeft: '15px',
-            marginBottom: '10px',
             minHeight: '4rem',
           },
         }}

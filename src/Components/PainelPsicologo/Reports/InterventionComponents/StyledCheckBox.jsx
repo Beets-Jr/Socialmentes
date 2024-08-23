@@ -9,7 +9,7 @@ const daysOfWeek = [
   { label: 'Sexta-feira', value: 4 },
 ];
 
-const DailyOption = ({ label, name, checked, handleDayChange }) => {
+const DailyOption = ({ label, name, checked, handleDayChange, error }) => {
   return (
     <FormControlLabel
       control={
@@ -22,18 +22,18 @@ const DailyOption = ({ label, name, checked, handleDayChange }) => {
             '&.Mui-checked': {
               color: 'var(--color-blue-3)',
             },
-            '& .MuiSvgIcon-root': { fontSize: 19 },
+
           }}
         />
       }
       label={
         <Typography
           sx={{
-            color: 'var(--color-gray-4)',
+            color: error ? 'red' : 'var(--color-gray-4)',
             fontFamily: 'var(--font-sub)',
             fontWeight: '500',
-            fontSize: '15px',
             marginLeft: '-5px',
+
           }}
         >
           {label}
@@ -43,7 +43,7 @@ const DailyOption = ({ label, name, checked, handleDayChange }) => {
   );
 };
 
-const StyledCheckBox = ({ item, index, handleDayChange }) => {
+const StyledCheckBox = ({ item, index, handleDayChange, error = null }) => {
   return (
     <Box
       sx={{
@@ -65,6 +65,7 @@ const StyledCheckBox = ({ item, index, handleDayChange }) => {
             name={`cronogram[${index}].dayWeek[${day.value}]`}
             checked={item.dayWeek.includes(day.value)}
             handleDayChange={() => handleDayChange(index, day.value)}
+            error={error}
           />
         ))}
       </Box>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import StyledInputText from '../StyledInputText';
-import { Grid } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import AddFieldButton from '../AddFieldButton';
 import StyledTitle from '../StyledTitle';
 import StyledCheckBox from '../StyledCheckBox';
@@ -89,7 +89,7 @@ const Cronogram = ({ values, setValues, handleMapChange, error }) => {
             />
 
             <Grid item lg={5.4} xs={9.5} md={11}>
-              <StyledCheckBox item={cronogram} index={index} handleDayChange={handleDayChange} error={error} />
+              <StyledCheckBox item={cronogram} index={index} handleDayChange={handleDayChange} error={error?.[`cronogram[${index}].dayWeek`]} />
             </Grid>
 
             <AddFieldButton vin handleClick={handleAddCronogram} />
