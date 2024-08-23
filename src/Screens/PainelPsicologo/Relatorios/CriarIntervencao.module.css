@@ -8,12 +8,18 @@
 
 .buttons {
   display: flex;
-  width: 95%;
   margin: 0 auto;
+  width: 90%;
   justify-content: space-between;
-  align-items: center;
-  height: 10vh;
 }
+
+.blueButtons {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  gap: 1rem;
+}
+
 
 @media screen and (max-width: 600px) {
   .container {
@@ -23,5 +29,6 @@
 
   .buttons {
     width: 90%;
+    gap: 0.5rem;
   }
 }
