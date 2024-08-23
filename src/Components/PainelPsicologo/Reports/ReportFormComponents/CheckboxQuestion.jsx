@@ -12,7 +12,12 @@ import { Controller } from 'react-hook-form';
 function CheckboxQuestion({ control, name, label, options }) {
     return (
         <FormControl component="fieldset" variant="standard">
-            <FormLabel component="legend" sx={{fontFamily:'var(--font-sub)', color:'var(--color-blue-3)'}}>{label}</FormLabel>
+            <FormLabel component="legend" sx={{
+                    fontFamily: 'var(--font-sub)', 
+                    color: 'var(--color-blue-3)',
+                    '&.Mui-focused': { color: 'var(--color-blue-3)' }, 
+                    '&.MuiFormLabel-root': { color: 'var(--color-blue-3)' } 
+                }} >{label}</FormLabel>
             <FormGroup sx={{display:'flex', flexDirection:'row'}}>
                 {options.map((option) => (
                     <Controller
@@ -25,6 +30,20 @@ function CheckboxQuestion({ control, name, label, options }) {
                                     <Checkbox
                                         {...field}
                                         checked={field.value}
+                                        sx={{
+                                            // Remove a elevação
+                                            '&.Mui-checked': {
+                                                color: 'var(--color-blue-3)', // Cor quando selecionado
+                                            },
+                                            '&:hover': {
+                                                backgroundColor: 'transparent', // Remover fundo ao passar o mouse
+                                            },
+                                            // Remove a sombra ao ser clicado
+                                            '&.MuiCheckbox-root.Mui-disabled': {
+                                                boxShadow: 'none',
+                                            },
+                                        }}
+                                        
                                     />
                                 }
                                 label={`${option.value}. ${option.label}`}

@@ -1,16 +1,8 @@
+import React, { useState } from 'react';
 import { FormControl, FormLabel, OutlinedInput } from '@mui/material';
 import { useController } from 'react-hook-form';
 
-{/*
-   Param:
-    label -> Rótulo que será exibido acima do campo de texto
-    name -> Nome do campo de texto para identificação
-    control -> Controlador do React Hook Form para este campo
-    type -> Tipo de campo (se não for passado, será 'text')
-    required -> se o campo é obrigatório (por default é false)
-*/}
 function TextfieldQuestion({ label, name, control, type = 'text', required = false }) {
-    // Utilize o useController para conectar o campo ao hook form
     const {
         field: { onChange, onBlur, value, ref },
         fieldState: { error },
@@ -23,7 +15,21 @@ function TextfieldQuestion({ label, name, control, type = 'text', required = fal
 
     return (
         <FormControl variant="outlined" fullWidth error={!!error}>
-            <FormLabel htmlFor={name} sx={{fontFamily:'var(--font-sub)', color:'var(--color-gray-3)'}} >{label}</FormLabel>
+            <FormLabel
+                htmlFor={name}
+                sx={{
+                    fontFamily: 'var(--font-sub)',
+                    color: error ? 'red' : 'var(--color-gray-4)', // Cor padrão para o label
+                    '&.Mui-focused': {
+                        color: 'var(--color-blue-3)', // Cor quando focado
+                    },
+                    '&.Mui-error': {
+                        color: 'red', // Cor quando há erro
+                    },
+                }}
+            >
+                {label}
+            </FormLabel>
             <OutlinedInput
                 id={name}
                 name={name}
@@ -31,14 +37,24 @@ function TextfieldQuestion({ label, name, control, type = 'text', required = fal
                 value={value}
                 onChange={onChange}
                 onBlur={onBlur}
-                inputRef={ref} // Ref para o input
+                inputRef={ref}
                 required={required}
                 fullWidth
                 sx={{
                     marginTop: '8px',
+                    color: 'var(--color-gray-3)',
+                    '& .MuiOutlinedInput-notchedOutline': {
+                        borderColor: error ? 'red' : 'var(--color-gray-4)', // Cor padrão
+                    },
+                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'var(--color-blue-3)', // Cor quando focado
+                    },
+                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'var(--color-blue-3)', // Cor ao passar o mouse
+                    },
+                    borderRadius: '12px',
                 }}
             />
-            {/* Exibe uma mensagem de erro se houver */}
             {error && <p style={{ color: 'red' }}>{error.message}</p>}
         </FormControl>
     );

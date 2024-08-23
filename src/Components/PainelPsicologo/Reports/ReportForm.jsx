@@ -13,7 +13,7 @@ function ReportForm() {
 
     return(
         <Box onSubmit={handleSubmit(onSubmit)} sx={{display:'flex', flexDirection:'column'}}>
-            <Typography sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-4)', fontWeight:'500'}}>
+            <Typography sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-3)', fontWeight:'bold'}}>
                 HISTÓRICO
             </Typography>
             {/* Gestação */}
@@ -255,7 +255,7 @@ function ReportForm() {
             />
 
             {/* Habilidades de brincar */}
-            <Typography sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-4)', fontWeight:'500'}}>
+            <Typography sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-3)', fontWeight:'bold'}}>
                 POSSÍVEIS COMENTÁRIOS REFERENTE A HABILIDADE DE BRINCAR DA CRIANÇA:
             </Typography>
             <TextfieldQuestion 
@@ -325,7 +325,7 @@ function ReportForm() {
             />
 
             {/* Habilidades sociais e emocionais */}
-            <Typography sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-4)', fontWeight:'500'}}>
+            <Typography sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-3)', fontWeight:'bold'}}>
                 OBSERVAÇÕES REFERENTE AS HABILIDADES SOCIAIS E EMOCIONAIS:
             </Typography>
             <TextfieldQuestion 
@@ -425,7 +425,7 @@ function ReportForm() {
                     { value: 7, label: 'Aponta para itens' }
                 ]}
             />
-            <Typography sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-4)', fontWeight:'500'}}>
+            <Typography sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-3)', fontWeight:'bold'}}>
                 OBSERVAÇÕES REFERENTE AS HABILIDADES FALA E LINGUAGEM:
             </Typography>
             <TextfieldQuestion 
@@ -489,14 +489,16 @@ function ReportForm() {
                 options={[
                     { value: 1, label: 'Comunicação Receptiva' },
                     { value: 2, label: 'Comunicação Expressiva' },
-                    { value: 3, label: 'Competências sociais' },
-                    { value: 4, label: 'Imitação' },
-                    { value: 5, label: 'Cognição' },
-                    { value: 6, label: 'Cognição' },
+                    { value: 3, label: 'Atenção Conjunta'},
+                    { value: 4, label: 'Competências Socias: Adultos ou pares' },
+                    { value: 5, label: 'Competências Sociais com Pares' },
+                    { value: 6, label: 'Imitação' },
                     { value: 7, label: 'Motricidade Fina' },
                     { value: 8, label: 'Motricidade Grossa' },
-                    { value: 9, label: 'Comportamento' },
-                    { value: 10, label: 'Independência pessoal' },
+                    { value: 9, label: 'Jogo' },
+                    { value: 10, label: 'Jogo Independente' },
+                    { value: 11, label: 'Cognição' },
+                    { value: 12, label:'Independência Pessoal' }
                 ]}
             />
             <CheckboxQuestion
@@ -507,13 +509,11 @@ function ReportForm() {
                     { value: 1, label: 'Comunicação Receptiva' },
                     { value: 2, label: 'Comunicação Expressiva' },
                     { value: 3, label: 'Competências sociais' },
-                    { value: 4, label: 'Imitação' },
-                    { value: 5, label: 'Cognição' },
-                    { value: 6, label: 'Cognição' },
-                    { value: 7, label: 'Motricidade Fina' },
-                    { value: 8, label: 'Motricidade Grossa' },
-                    { value: 9, label: 'Comportamento' },
-                    { value: 10, label: 'Independência pessoal' },
+                    { value: 4, label: 'Motricidade Fina' },
+                    { value: 5, label: 'Motricidade Grossa' },
+                    { value: 6, label: 'Jogo' },
+                    { value: 7, label: 'Cognição' },
+                    { value: 8, label: 'Independência pessoal' }
                 ]}
             />
             <CheckboxQuestion
@@ -524,18 +524,18 @@ function ReportForm() {
                     { value: 1, label: 'Comunicação Receptiva' },
                     { value: 2, label: 'Comunicação Expressiva' },
                     { value: 3, label: 'Competências sociais' },
-                    { value: 4, label: 'Imitação' },
-                    { value: 5, label: 'Cognição' },
-                    { value: 6, label: 'Cognição' },
-                    { value: 7, label: 'Motricidade Fina' },
-                    { value: 8, label: 'Motricidade Grossa' },
-                    { value: 9, label: 'Comportamento' },
-                    { value: 10, label: 'Independência pessoal' },
+                    { value: 4, label: 'Motricidade Fina' },
+                    { value: 5, label: 'Motricidade Grossa' },
+                    { value: 6, label: 'Jogo' },
+                    { value: 7, label: 'Cognição' },
+                    { value: 8, label: 'Independência pessoal' }
                 ]}
             />
 {/*SALTEI AS QUESTOES QUE VEM DIRETO DO TESTE EM QUESTAO*/}
+            {/* Perguntas específicas do questionário em questão */}
+            
             {/* Habilidades sociais e afetivas dificuldade */}
-            <Typography sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-4)', fontWeight:'500'}}>
+            <Typography sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-3)', fontWeight:'bold'}}>
                 Habilidades sociais e afetivas que demonstra dificuldade
             </Typography>
             <TextfieldQuestion 
@@ -558,7 +558,7 @@ function ReportForm() {
                 label="Qual profissional vai assinar esse relatório?"
                 name="professional"
                 options={[
-                { value: 0, label: 'Outra profissional' },
+                
                 { value: 1, label: 'Amanda Nucci Carrara' },
                 { value: 2, label: 'Ana Luisa Polizel Libardi' },
                 { value: 3, label: 'Giovanna Moreira' },
@@ -566,14 +566,9 @@ function ReportForm() {
                 { value: 5, label: 'Rafaela Lopes' },
                 { value: 6, label: 'Aline Ribeiro Lopes' },
                 { value: 7, label: 'Anna Paula Badelino' },
+                { value: 0, label: 'Outra profissional' },
                 ]}
                 control={control}
-            />
-            <TextfieldQuestion 
-                label="Nome do profissional:"
-                name="professionalName"
-                control={control}
-                
             />
             <TextfieldQuestion 
                 label="Nome do profissional:"

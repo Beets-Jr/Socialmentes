@@ -16,7 +16,13 @@ function RadioGroupQuestion({ labelId, label, name, options, control }) {
     return (
         <FormControl sx={{ margin: '0.1vh' }}>
             {/* Associar o FormLabel ao RadioGroup */}
-            <FormLabel id={labelId} sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-3)' }}>
+            <FormLabel id={labelId} sx={{
+                    fontFamily: 'var(--font-sub)', 
+                    color: 'var(--color-blue-3)', 
+                    '&.Mui-focused': { color: 'var(--color-blue-3)' },
+                    '&.MuiFormLabel-root': { color: 'var(--color-blue-3)' } 
+                }} 
+            >
                 {label}
             </FormLabel>
             <Controller
@@ -36,9 +42,9 @@ function RadioGroupQuestion({ labelId, label, name, options, control }) {
                                     <FormControlLabel
                                         key={option.value}
                                         value={option.value}
-                                        control={<Radio id={radioId} />}  // Usar id no Radio
+                                        control={<Radio id={radioId} sx={{pointerEvents: 'none', '&:hover': {backgroundColor: 'transparent',}, '&.Mui-checked': {color: 'var(--color-blue-3)',}, '&.MuiSvgIcon-root': { borderColor: 'var(--color-gray-3)', },'& .MuiSvgIcon-root': {'& circle': { fill: 'var(--color-gray-3)', },},}}/>}  // Usar id no Radio
                                         label={option.label}
-                                        sx={{ fontFamily: 'var(--font-text)', color: 'var(--color-gray-4)' }}
+                                        sx={{ fontFamily: 'var(--font-text)', color: 'var(--color-gray-4)'}}
                                     />
                                 );
                             })}
