@@ -30,7 +30,7 @@ const CriarIntervencao = () => {
   const [values, setValues] = useState(initialValues);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleChange = (event) => {
+  const handleChange = async (event) => {
     const { name, value } = event.target;
     setValues({ ...values, [name]: value });
   };
@@ -49,14 +49,6 @@ const CriarIntervencao = () => {
     const updatedArray = [...values[field]];
     updatedArray[index][fieldName] = value;
     setValues({ ...values, [field]: updatedArray });
-
-    if (isSubmitted) { // Lógica para validar os campos ao digitar depois de submeter o formulário
-      validateField(`${field}[${index}].${fieldName}`, value)
-        .then((fieldError) => {
-          setError({ ...error, [field]: error[field] || [] });
-          setError({ ...error, [field]: { ...error[field], [index]: { ...error[field][index], [fieldName]: fieldError } } });
-        });
-    }
   };
 
   const handleSubmit = async (e) => {
@@ -117,7 +109,6 @@ const CriarIntervencao = () => {
               <SaveButton handleSubmit={handleSubmit} />
             </>}
         </Box>
-
       </Box>
 
     </div >
