@@ -1,7 +1,7 @@
 .container {
   width: 90%;
   margin: 30px auto;
-  height: 65vh;
+  height: 70vh;
   overflow-y: auto;
   padding-right: 1.5rem;
 }
@@ -11,6 +11,7 @@
   margin: 0 auto;
   width: 90%;
   justify-content: space-between;
+  align-items: center;
 }
 
 .blueButtons {
