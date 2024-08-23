@@ -91,7 +91,7 @@ const CriarIntervencao = () => {
 
         <Cronogram values={values} setValues={setValues} handleMapChange={handleMapChange} error={error} />
 
-        <Grid container marginTop={3}>
+        <Grid container rowSpacing={3}>
           <StyledInputText lg={12} name="coordinator_sr" label="Coordenador Senior" value={values.coordinator_sr} handleChange={handleChange} error={error?.coordinator_sr} />
           <StyledInputText lg={12} name="coordinator_jr"
             label="Coordenador Junior" value={values.coordinator_jr} handleChange={handleChange} error={error?.coordinator_jr} />

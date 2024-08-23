@@ -21,7 +21,7 @@ const Activities = ({ values, setValues, handleMapChange, error }) => {
 
       {values.activities.map((activitie, index) => (
         <React.Fragment key={'activitie' + index}>
-          <Grid container columnSpacing={1}> {/* Rotina de atividades */}
+          <Grid container spacing={1}> {/* Rotina de atividades */}
             <StyledInputText lg={6}
               name={`activities[${index}].typePlay`}
               label="Tipo de brincadeira"
