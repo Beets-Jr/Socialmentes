@@ -9,7 +9,7 @@ const SaveButton = ({ handleSubmit }) => {
   return (
     <Button
       sx={{
-        background: 'linear-gradient(90deg, #7DB9F0 100%, #5095D5 100%)',
+        background: 'linear-gradient(to right, #7DB9F0, #5095D5)',
         color: 'white',
         borderRadius: '10px',
         fontSize: '15px',
