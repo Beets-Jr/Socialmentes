@@ -3,7 +3,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, 
 import CloseIcon from '@mui/icons-material/Close';
 
 
-const DialogPdf = ({ open, handleClose }) => {
+const DialogPdf = ({ open, handleClose, label }) => {
   return (
     <Dialog open={open} onClose={handleClose} maxWidth="xs" fullWidth
       PaperProps={{
@@ -52,7 +52,7 @@ const DialogPdf = ({ open, handleClose }) => {
             fontWeight: '500'
           }}
         >
-          O PDF já está sendo baixado!
+          {label}
         </Typography>
       </DialogContent>
 

@@ -118,7 +118,7 @@ const CriarIntervencao = () => {
             </>}
         </Box>
       </Box>
-      <DialogPdf open={open} handleClose={handleClose} />
+      <DialogPdf open={open} handleClose={handleClose} label="O PDF já está sendo baixado!" />
 
     </div >
   )
