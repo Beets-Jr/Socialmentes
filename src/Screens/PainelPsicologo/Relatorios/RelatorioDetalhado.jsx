@@ -1,7 +1,6 @@
 import { Box, CircularProgress, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { denver } from "../../../Database/denver";
 import { getPatient } from "../../../Services/patientService";
 import { getTestByIdTest } from "../../../Services/testsPatientsService";
 import ReportBtn from "../../../Components/PainelPsicologo/Reports/ChecklistComponents/ReportBtn";
@@ -39,8 +38,6 @@ function RelatorioDetalhado() {
                 } else {
                     console.error('Paciente não encontrado');
                 }
-
-                const denverData = denver; // Busca as informações do denver.js
 
             } catch (err) {
                 console.error("Error fetching data ", err);
@@ -82,7 +79,7 @@ function RelatorioDetalhado() {
 
             <Box>
                 {/* Formulário */}
-                <ReportForm />
+                <ReportForm test={test}/>
                 {/* Botão já existe, procurar */}
             </Box>
         </Box>

@@ -3,8 +3,9 @@ import RadioGroupQuestion from './ReportFormComponents/RadioGroupQuestion';
 import TextfieldQuestion from './ReportFormComponents/TextfieldQuestion';
 import { useForm, Controller } from 'react-hook-form';
 import CheckboxQuestion from './ReportFormComponents/CheckboxQuestion';
+import TestQuestions from './ReportFormComponents/TestQuestions';
 
-function ReportForm() {
+function ReportForm({ test }) {
     const { handleSubmit, control } = useForm();
 
     const onSubmit = (data) => {
@@ -536,7 +537,7 @@ function ReportForm() {
             <Typography sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-3)', fontWeight:'bold'}}>
                 AVALIAÇÃO E CONCLUSÃO:
             </Typography>
-            
+            <TestQuestions test={test} control={control} />
             {/* Habilidades sociais e afetivas dificuldade */}
             <Typography sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-3)', fontWeight:'bold'}}>
                 Habilidades sociais e afetivas que demonstra dificuldade
