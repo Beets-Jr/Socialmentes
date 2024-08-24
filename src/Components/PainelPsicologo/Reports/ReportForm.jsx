@@ -12,7 +12,7 @@ function ReportForm() {
     };
 
     return(
-        <Box onSubmit={handleSubmit(onSubmit)} sx={{display:'flex', flexDirection:'column'}}>
+        <Box onSubmit={handleSubmit(onSubmit)} sx={{display:'flex', flexDirection:'column', gap:2 }}>
             <Typography sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-3)', fontWeight:'bold'}}>
                 HISTÓRICO
             </Typography>
@@ -533,6 +533,9 @@ function ReportForm() {
             />
 {/*SALTEI AS QUESTOES QUE VEM DIRETO DO TESTE EM QUESTAO*/}
             {/* Perguntas específicas do questionário em questão */}
+            <Typography sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-3)', fontWeight:'bold'}}>
+                AVALIAÇÃO E CONCLUSÃO:
+            </Typography>
             
             {/* Habilidades sociais e afetivas dificuldade */}
             <Typography sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-3)', fontWeight:'bold'}}>

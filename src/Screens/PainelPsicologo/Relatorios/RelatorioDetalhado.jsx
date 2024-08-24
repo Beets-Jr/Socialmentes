@@ -8,25 +8,39 @@ import ReportBtn from "../../../Components/PainelPsicologo/Reports/ChecklistComp
 import PatientData from "../../../Components/PainelPsicologo/Reports/ChecklistComponents/PatientData";
 import ReportForm from "../../../Components/PainelPsicologo/Reports/ReportForm";
 
-function RelatoriDetalhado() {
-
+function RelatorioDetalhado() {
     const { testId } = useParams();
+    const query = new URLSearchParams(window.location.search);
+    const id = query.get('testId');
+
     const [loading, setLoading] = useState(true);
     const [patient, setPatient] = useState();
+    const [test, setTest] = useState(null);
 
     useEffect(() => {
-        const fetchPatient = async () => {
+        const fetchPatientAndTest = async () => {
             try {
-                //const test = await getTestByIdTest(testId); // recupera o teste
+                // Verifique se testId está definido
+                if (!id) {
+                    throw new Error('ID do teste não fornecido.');
+                }
 
-                const patientData = await getPatient(testId); // encontra o paciente do teste
+                const testData = await getTestByIdTest(id); // Recupera o teste
+                setTest(testData);
+
+                // Verifique se patientId está definido
+                if (!testId) {
+                    throw new Error('ID do paciente não fornecido.');
+                }
+
+                const patientData = await getPatient(testId); // Encontra o paciente
                 if (patientData) {
                     setPatient(patientData);
                 } else {
                     console.error('Paciente não encontrado');
                 }
 
-                //const denverData = denver; // busca as informações do denver.js
+                const denverData = denver; // Busca as informações do denver.js
 
             } catch (err) {
                 console.error("Error fetching data ", err);
@@ -35,35 +49,44 @@ function RelatoriDetalhado() {
             }
         };
 
-        fetchPatient();
-    }, []);
+        fetchPatientAndTest();
+    }, [testId, id]);
 
-
-    return(
-        loading ? (
+    if (loading) {
+        return (
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '85vh' }}>
                 <CircularProgress />
             </Box>
-        ) : (
-            <Box sx={{margin: '3vw 3vw', display: 'flex', flexDirection: 'column', gap: '2vh'}}>
-                {/* Título da página */}
-                <Typography variant="h4" sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-4)' }}>
-                    Relatório Avaliação Modelo Denver
-                </Typography>
-                {/* Informações do paciente e botão para exibir os relatorios por meses */}
-                <Box sx={{display:'flex', justifyContent:'space-between', flexDirection:'row', alignItems:'center', mt:'1vh'}}>
-                    <PatientData name={patient.children.name} birthday={patient.children.dateBirth} />
-                    <ReportBtn name="Gerar Relatório" path={`/painel-psi/checklist/relatorio/`} /> {/* Concertar o path */}
-                </Box>
+        );
+    }
 
-                <Box>
-                    {/* Fomulário */}
-                    <ReportForm/>
-                    {/* Botão já existe, procurar */}
-                </Box>
+    if (!patient  || !test ) {
+        return (
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '85vh' }}>
+                <Typography variant="h6" color="error">Dados não encontrados</Typography>
             </Box>
-        )
+        );
+    }
+
+    return (
+        <Box sx={{ margin: '3vw 3vw', display: 'flex', flexDirection: 'column', gap: '2vh' }}>
+            {/* Título da página */}
+            <Typography variant="h4" sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-4)' }}>
+                Relatório Avaliação Modelo Denver
+            </Typography>
+            {/* Informações do paciente e botão para exibir os relatórios por meses */}
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center', mt: '1vh' }}>
+                <PatientData name={patient.children.name} birthday={patient.children.dateBirth} />
+                <ReportBtn name="Gerar Relatório" path={`/painel-psi/checklist/relatorio/${patient.id}?testId=${testId}`} />
+            </Box>
+
+            <Box>
+                {/* Formulário */}
+                <ReportForm />
+                {/* Botão já existe, procurar */}
+            </Box>
+        </Box>
     );
 }
 
-export default RelatoriDetalhado;
+export default RelatorioDetalhado;

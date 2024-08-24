@@ -58,7 +58,7 @@ function Checklist() {
                     <Stack direction="row" spacing={2} className={styles.stackContainer}>
                         <ReportBtn name="Gráfico" path={`/painel-psi/checklist/grafico/${test.id}`} />
                         <ReportBtn name="Tabela" path={`/painel-psi/checklist/tabela/${test.id}`} />
-                        <ReportBtn name="Relatório" path={`/painel-psi/checklist/relatorio/${patient.id}`} />
+                        <ReportBtn name="Relatório" path={`/painel-psi/checklist/relatorio/${patient.id}?testId=${test.id}`} />
                     </Stack>
                 </Box>
                 <ChecklistAnswer test={test} />
