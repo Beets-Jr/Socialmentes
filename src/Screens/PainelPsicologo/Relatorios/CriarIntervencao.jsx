@@ -28,19 +28,24 @@ const CriarIntervencao = () => {
   const [error, setError] = useState({});
   const [values, setValues] = useState(initialValues);
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleChange = async (event) => {
-    const { name, value } = event.target;
-    setValues({ ...values, [name]: value });
-  };
 
-  const handlePdfGenerator = async () => {
-    setOpen(true);
+  const handlePdfGenerator = () => {
+    if (!loading) {
+      setOpen(true);
+      pdfGenerate(setLoading, setOpen);
+    }
   }
 
   const handleClose = () => {
     setOpen(false);
   }
+
+  const handleChange = async (event) => {
+    const { name, value } = event.target;
+    setValues({ ...values, [name]: value });
+  };
 
   const handleArrayChange = async (index, value) => {
     const updatedTeams = [...values.goals];
