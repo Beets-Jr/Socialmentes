@@ -3,15 +3,14 @@ import React, { useState } from 'react'
 import styles from './CriarIntervencao.module.css'
 import PatientData from '../../../Components/PainelPsicologo/Reports/ChecklistComponents/PatientData'
 import StyledInputText from '../../../Components/PainelPsicologo/Reports/InterventionComponents/StyledInputText'
-import StyledCheckBox from '../../../Components/PainelPsicologo/Reports/InterventionComponents/StyledCheckBox'
-import StyledTitle from '../../../Components/PainelPsicologo/Reports/InterventionComponents/StyledTitle'
-import AddFieldButton from '../../../Components/PainelPsicologo/Reports/InterventionComponents/AddFieldButton'
 import ReturnButton from '../../../Components/PainelAdm/PatientRegistration/ReturnButton'
 import SaveButton from '../../../Components/PainelAdm/PatientRegistration/SaveButton'
 import Goals from '../../../Components/PainelPsicologo/Reports/InterventionComponents/forms/Goals'
 import Activities from '../../../Components/PainelPsicologo/Reports/InterventionComponents/forms/Activities'
 import Cronogram from '../../../Components/PainelPsicologo/Reports/InterventionComponents/forms/Cronogram'
 import { validationSchema } from '../../../Validators/Intervention/intervention'
+import pdfGenerate from '../../../Components/PainelPsicologo/Reports/InterventionComponents/pdfGenerate'
+import DialogPdf from '../../../Components/ElementsInterface/DialogPdf'
 
 const initialValues = {
   coordinator_sr: '',
@@ -28,7 +27,7 @@ const CriarIntervencao = () => {
 
   const [error, setError] = useState({});
   const [values, setValues] = useState(initialValues);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleChange = async (event) => {
     const { name, value } = event.target;
@@ -36,7 +35,11 @@ const CriarIntervencao = () => {
   };
 
   const handlePdfGenerator = async () => {
-    console.log('PDF gerado');
+    setOpen(true);
+  }
+
+  const handleClose = () => {
+    setOpen(false);
   }
 
   const handleArrayChange = async (index, value) => {
@@ -78,7 +81,7 @@ const CriarIntervencao = () => {
 
   return (
     <div className={styles.main}>
-      <Box className={styles.container}>
+      <Box className={styles.container} id="pdf-content">
         <PatientData name="Jeu da graça" birthday="12/12/2004" />
 
         <Goals values={values} setValues={setValues} handleChange={handleArrayChange} error={error} />
@@ -110,6 +113,7 @@ const CriarIntervencao = () => {
             </>}
         </Box>
       </Box>
+      <DialogPdf open={open} handleClose={handleClose} />
 
     </div >
   )
