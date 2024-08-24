@@ -13,6 +13,7 @@ import InterventionTeams from '../../../Components/PainelAdm/PatientRegistration
 import SchoolInfo from '../../../Components/PainelAdm/PatientRegistration/forms/SchoolInfo';
 import { addPatient, editPatient, getPatient, jsonToPatient } from '../../../Services/patientService';
 import { useParams, useNavigate } from 'react-router-dom';
+import DialogPdf from '../../../Components/ElementsInterface/DialogPdf';
 
 
 const initialValues = {
@@ -29,7 +30,8 @@ const PatientRegistration = () => {
   const [error, setError] = useState({});
   const [values, setValues] = useState(initialValues);
   const [isSubmitted, setIsSubmitted] = useState(false);
-
+  const [open, setOpen] = useState(false);
+  const [label, setLabel] = useState('');
 
   React.useEffect(() => { // Lógica para preencher os campos com os dados do paciente
     if (id) {
@@ -38,6 +40,11 @@ const PatientRegistration = () => {
       });
     }
   }, [id]);
+
+  const handleClose = () => {
+    setOpen(false);
+    navigate('../pacientes');
+  }
 
   const handleChange = async (event) => { // Lógica para atualizar os valores dos campos
     const { name, value } = event.target;
@@ -86,13 +93,12 @@ const PatientRegistration = () => {
       await validationSchema.validate(values, { abortEarly: false }); // Validação dos campos
       if (id) {
         await editPatient(id, values); // Edita o paciente
-        console.log('editou');
-        navigate('../pacientes');
+        setLabel('Paciente editado com sucesso!');
       } else {
         await addPatient(values); // Adiciona o paciente
-        console.log('adicionou');
-        navigate('../pacientes');
+        setLabel('Paciente cadastrado com sucesso!');
       }
+      setOpen(true);
 
     } catch (err) {
       const errors = err.inner.reduce((acc, error) => {
@@ -140,7 +146,7 @@ const PatientRegistration = () => {
         <ReturnButton />
         <SaveButton handleSubmit={handleSubmit} />
       </Box>
-
+      <DialogPdf open={open} handleClose={handleClose} label={label} />
     </>
 
   );
