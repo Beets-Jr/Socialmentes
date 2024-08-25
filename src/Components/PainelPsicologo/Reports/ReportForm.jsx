@@ -465,6 +465,12 @@ function ReportForm({ test }) {
                 control={control}
             />
 
+            {/* Perguntas específicas do questionário em questão */}
+            <Typography sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-3)', fontWeight:'bold'}}>
+                AVALIAÇÃO E CONCLUSÃO:
+            </Typography>
+            <TestQuestions test={test} control={control} />
+
             {/* Domínios */}
             <CheckboxQuestion
                 control={control}
@@ -532,12 +538,7 @@ function ReportForm({ test }) {
                     { value: 8, label: 'Independência pessoal' }
                 ]}
             />
-{/*SALTEI AS QUESTOES QUE VEM DIRETO DO TESTE EM QUESTAO*/}
-            {/* Perguntas específicas do questionário em questão */}
-            <Typography sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-3)', fontWeight:'bold'}}>
-                AVALIAÇÃO E CONCLUSÃO:
-            </Typography>
-            <TestQuestions test={test} control={control} />
+
             {/* Habilidades sociais e afetivas dificuldade */}
             <Typography sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-3)', fontWeight:'bold'}}>
                 Habilidades sociais e afetivas que demonstra dificuldade
