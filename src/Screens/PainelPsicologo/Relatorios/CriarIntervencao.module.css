@@ -1,0 +1,45 @@
+.main {
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
+.container {
+  width: 90%;
+  margin: 30px auto;
+  padding-right: 1.5rem;
+}
+
+.fixedArea {
+  height: 10vh;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+}
+
+.buttons {
+  display: flex;
+  margin-left: 9%;
+  margin-top: 1.5rem;
+  width: 86%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.blueButtons {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  gap: 1rem;
+}
+
+
+@media screen and (max-width: 600px) {
+  .buttons {
+    width: 75%;
+    margin-left: 20%;
+    gap: 0.5rem;
+  }
+}

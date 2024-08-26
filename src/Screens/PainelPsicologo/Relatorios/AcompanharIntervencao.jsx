@@ -11,6 +11,8 @@ import { AtividadesMobile, CronogramaMobile, DominiosMobile } from "../../../Com
 import { AtividadesDesktop, CronogramaDesktop, DominiosDesktop } from "../../../Components/PainelPsicologo/Reports/AcompanharIntervencao/TabelaDesktop";
 
 import styles from './Tabela.module.css';
+import DialogPdf from "../../../Components/ElementsInterface/DialogPdf";
+import pdfGenerate from "../../../Components/PainelPsicologo/Reports/InterventionComponents/pdfGenerate";
 
 const dataTemp = {
     testId: 1234567,
@@ -153,7 +155,9 @@ const Title = ({ children, component = 'h3' }) => {
 function AcompanharIntervencao() {
 
     const { testId } = useParams();
+    const [open, setOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [patient, setPatient] = useState();
     const [data, setData] = useState(undefined);
 
@@ -187,16 +191,28 @@ function AcompanharIntervencao() {
         }
         createTable();
     }, []);
+
+    const handlePdfGenerator = () => {
+        if (!loading) {
+            setOpen(true);
+            pdfGenerate(setLoading, setOpen);
+        }
+    }
+
+    const handleClose = () => {
+        setOpen(false);
+    }
     
     return (
-        <Box className={styles.container_interventions}>
+        <Box>
 
             { isLoading ? (
                 <Box className={styles.container_empty}>
                     <CircularProgress />
                 </Box>
             ) : (
-                <Box style={{ position: 'relative' }} >
+                <>
+                <Box style={{ position: 'relative' }} className={styles.container_interventions} id="pdf-content">
 
                     <ThemeProvider theme={theme}>
                         <Title component='h2'> {/* Título da página */}
@@ -249,13 +265,13 @@ function AcompanharIntervencao() {
                             </Box>
                         </Box>
 
-                        <Box> {/* Botões da parte inferior */}
-                            <BottomBtn />
-                        </Box>
-
                     </ThemeProvider>
                 </Box>
-            )}
+
+                {/* Botões da parte inferior */}
+                <BottomBtn handlePdfGenerator={handlePdfGenerator} />
+                <DialogPdf open={open} handleClose={handleClose} label="O PDF já está sendo baixado!" />
+            </>)}
 
         </Box>
     );

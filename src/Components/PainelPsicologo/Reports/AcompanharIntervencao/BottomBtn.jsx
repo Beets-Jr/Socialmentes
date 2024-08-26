@@ -1,17 +1,17 @@
 import { useContext } from "react";
-import { Paper, Button, Box, useMediaQuery } from "@mui/material";
-
-import { AppContext } from "../../../../Contexts/AppContext";
 import { useNavigate } from "react-router-dom/dist";
 
-function BottomBtn() {
+import { Button, Box, useMediaQuery, Paper } from "@mui/material";
+
+import { AppContext } from "../../../../Contexts/AppContext";
+
+function BottomBtn({handlePdfGenerator}) {
 
     const navigate = useNavigate();
-
     const { open } = useContext(AppContext);
-    const widthContent = open ?  "76vw" : "90vw";
-
     const isMobile = useMediaQuery('(max-width:800px)');
+
+    const widthContent = open ?  "76vw" : "93vw";
 
     const propsButton = {
         fontFamily: 'var(--font-sub)',
@@ -27,7 +27,6 @@ function BottomBtn() {
                 width: isMobile ? `calc(${widthContent} + 30px)` : widthContent,
                 position: 'fixed',
                 boxShadow: 0,
-                marginLeft: isMobile ? -4 : -6,
                 bottom: 0,
                 paddingY: 2,
             }}
@@ -61,10 +60,12 @@ function BottomBtn() {
                 <Button
                     variant="contained"
                     disableElevation
+                    onClick={handlePdfGenerator}
                     sx={{
                         ...propsButton,
                         minWidth: isMobile ? '30%' : null,
                         px: !isMobile ? '76px' : null,
+                        mr: isMobile ? 4 : 0,
                         border: '2px solid var(--color-blue-3)',
                         background: 'linear-gradient(to left, var(--color-blue-3), var(--color-blue-2))',
                         borderRadius: '10px',
@@ -77,6 +78,6 @@ function BottomBtn() {
             </Box>
         </Paper>
     );
-}   
+}
 
 export default BottomBtn;
