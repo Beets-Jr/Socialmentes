@@ -65,6 +65,13 @@ const Cronogram = ({ values, setValues, handleMapChange, error }) => {
     setValues({ ...values, cronogram: updatedCronogram });
   };
 
+  if (isLoading) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center">
+        <CircularProgress />
+      </Box>
+    );
+  }
   return (
     <>
       <StyledTitle text="Cronograma" />
