@@ -18,7 +18,7 @@ const initialValues = {
   start_ABA: '',
   goals: [''],
   activities: [{ typePlay: '', place: '', goals: '' }],
-  cronogram: [{ hour: '', professional: '', dayWeek: [] }],
+  cronogram: [{ hour: '', professionalId: '', dayWeek: [], professionalName: '' }],
 };
 
 
@@ -61,7 +61,6 @@ const CriarIntervencao = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitted(true);
     setError({}); // Limpa os erros
     console.log(values);
     try {
