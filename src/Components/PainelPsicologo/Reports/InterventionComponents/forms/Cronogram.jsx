@@ -37,9 +37,16 @@ const Cronogram = ({ values, setValues, handleMapChange, error }) => {
       ...values,
       cronogram: [
         ...values.cronogram,
-        { hour: '', professional: '', dayWeek: '' },
+        { hour: '', professionalId: '', dayWeek: [], professionalName: '' },
       ],
     });
+  };
+
+  const handleNameChange = (index, value) => {
+    const updatedCronogram = [...values.cronogram];
+    const professionalName = userProfiles.find(user => user.uid === value)?.fullName;
+    updatedCronogram[index].professionalName = professionalName;
+    setValues({ ...values, cronogram: updatedCronogram });
   };
 
   const handleDayChange = (index, value) => {
@@ -56,8 +63,6 @@ const Cronogram = ({ values, setValues, handleMapChange, error }) => {
   return (
     <>
       <StyledTitle text="Cronograma" />
-
-
       {values.cronogram.map((cronogram, index) => (
         <React.Fragment key={'cronogram' + index}>
           <Grid container columnSpacing={1}>
@@ -69,23 +74,21 @@ const Cronogram = ({ values, setValues, handleMapChange, error }) => {
               error={error?.[`cronogram[${index}].hour`]}
             />
 
-            {/* <StyledInputText lg={4.5}
-              name={`cronogram[${index}].professional`}
-              label="Terapeuta"
-              handleChange={(e) => handleMapChange(index, 'cronogram', 'professional', e.target.value)}
-              value={cronogram.professional}
-              error={error?.cronogram?.[index]?.professional}
-            /> */}
-
             <SSelectBox
               lg={4.5}
-              name={`cronogram[${index}].professional`}
+              name={`cronogram[${index}].professionalId`}
               label="Terapeuta"
-              handleChange={(e) => handleMapChange(index, 'cronogram', 'professional', e.target.value)}
-              value={cronogram.professional}
+              handleChange={
+                function (e) {
+                  handleNameChange(index, e.target.value)
+                  handleMapChange(index, 'cronogram', 'professionalId', e.target.value)
+                }
+
+              }
+              value={cronogram.professionalId}
               options={options}
               useCustomOptions
-              error={error?.[`cronogram[${index}].professional`]}
+              error={error?.[`cronogram[${index}].professionalId`]}
             />
 
             <Grid item lg={5.4} xs={9.5} md={11}>

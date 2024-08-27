@@ -18,7 +18,7 @@ export const validationSchema = Yup.object().shape({
   cronogram: Yup.array().of(
     Yup.object().shape({
       hour: Yup.string().matches(/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/, msg_errors.HOUR).required(msg_errors.REQUIRED),
-      professional: Yup.string().required(msg_errors.REQUIRED),
+      professionalId: Yup.string().required(msg_errors.REQUIRED),
       dayWeek: Yup.array().of(Yup.string().required(msg_errors.REQUIRED)).min(1, "Precisa ter no minimo um dia da semana"),
     })
   ),
