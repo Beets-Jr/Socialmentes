@@ -42,12 +42,17 @@ const Cronogram = ({ values, setValues, handleMapChange, error }) => {
     });
   };
 
+  const userProfilesMap = userProfiles.reduce((map, user) => {
+    map[user.uid] = user.fullName;
+    return map;
+  }, {});
+
   const handleNameChange = (index, value) => {
     const updatedCronogram = [...values.cronogram];
-    const professionalName = userProfiles.find(user => user.uid === value)?.fullName;
-    updatedCronogram[index].professionalName = professionalName;
+    updatedCronogram[index].professionalName = userProfilesMap[value] || '';
     setValues({ ...values, cronogram: updatedCronogram });
   };
+
 
   const handleDayChange = (index, value) => {
     const updatedCronogram = [...values.cronogram];
