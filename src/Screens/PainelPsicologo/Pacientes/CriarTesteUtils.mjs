@@ -1,4 +1,3 @@
-import { addCategoryToLevel } from "../../../Services/Tests/testsFunctions.mjs";
 import { getCategoriaNomesPorNivel } from "../../../Services/Tests/testsInfoFunctions";
 import { getCategoriesByLevel } from "../../../Services/Tests/Category/GetCategorys.mjs";
 
