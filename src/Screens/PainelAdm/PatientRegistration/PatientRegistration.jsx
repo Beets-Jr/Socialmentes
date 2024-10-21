@@ -137,7 +137,7 @@ const PatientRegistration = () => {
 
           <ExternalAccompaniments values={values} setValues={setValues} handleArrayChange={handleArrayChange} error={error} />
 
-          <InterventionTeams values={values} setValues={setValues} handleChange={handleInterventionTeamsChange} error={error} />
+          {/* <InterventionTeams values={values} setValues={setValues} handleChange={handleInterventionTeamsChange} error={error} /> */}
 
         </Grid>
       </Box>
