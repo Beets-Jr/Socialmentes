@@ -28,10 +28,6 @@ const NUMBER = 'O número deve possuir apenas caracteres numéricos';
 
 const ADDRESSDETAILS = 'O complemento não pode possuir menos de três letras';
 
-const SCHOOL_NAME = 'O nome da escola informado é muito curto para continuar';
-
-const SERIES = 'A série deve possuir apenas números';
-
 const DUPLICATE = 'Valores duplicados não são permitidos';
 
 export const msg_errors = {
@@ -50,7 +46,5 @@ export const msg_errors = {
     STREET,
     NUMBER,
     ADDRESSDETAILS,
-    SCHOOL_NAME,
-    SERIES,
     DUPLICATE,
 };
