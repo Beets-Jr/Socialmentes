@@ -6,7 +6,7 @@ const pdfGenerate = (setLoading, setOpen) => {
   const input = document.getElementById('pdf-content');
 
   html2canvas(input, { scale: 2, useCORS: true }).then((canvas) => {
-    const imgData = canvas.toDataURL('image/png');
+    const imgData = canvas.toDataURL('image/jpeg');
     const pdf = new jsPDF('p', 'mm', 'a4');
     const imgWidth = pdf.internal.pageSize.getWidth() - 5; // 210 - 5
     const pageHeight = 297;
@@ -14,13 +14,13 @@ const pdfGenerate = (setLoading, setOpen) => {
     let heightLeft = imgHeight;
     let position = 0;
 
-    pdf.addImage(imgData, 'PNG', 5, 5, imgWidth, imgHeight); // 5, 5, 200, 287
+    pdf.addImage(imgData, 'JPEG', 5, 5, imgWidth, imgHeight); // 5, 5, 200, 287
     heightLeft -= pageHeight;
 
     while (heightLeft >= 0) {
       position = heightLeft - imgHeight;
       pdf.addPage();
-      pdf.addImage(imgData, 'PNG', 5, 5, imgWidth, imgHeight);
+      pdf.addImage(imgData, 'JPEG', 5, position + 5, imgWidth, imgHeight, null, "SLOW");
       heightLeft -= pageHeight;
     }
 

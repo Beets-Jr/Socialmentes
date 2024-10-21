@@ -1,14 +1,16 @@
-import { Box, Typography, Radio, RadioGroup, FormControlLabel, FormControl } from "@mui/material";
+import { Box, Typography, Radio, RadioGroup, FormControlLabel, FormControl, Checkbox } from "@mui/material";
 
 import styles from "./ChecklistItem.module.css";
+import { memo } from "react";
 
-function ChecklistItem({ index, hability, description, level}) {
+const ChecklistItem = memo(({ index, hability, description, level, handleCheckChange, checkedQuestions, questionTitle }) => {
+    const formattedName = `${index} - ${hability}`;
 
     return (
         <Box className={styles.container}>
-            <Box className={styles.question}> 
+            <Box className={styles.question}>
                 <Typography variant="body1" className={styles.title}>
-                    {`${index} - ${hability}`}
+                    {formattedName}
                 </Typography>
                 <Typography variant="body2" className={styles.subtitle}>
                     {description}
@@ -22,14 +24,25 @@ function ChecklistItem({ index, hability, description, level}) {
                     value={level}
                     className={styles.selectedLevel}
                 >
-                    <FormControlLabel value="Adquirido" control={<Radio sx={{pointerEvents: 'none', '&:hover': {backgroundColor: 'transparent',}, '&.Mui-checked': {color: 'var(--color-blue-3)',}, '&.MuiSvgIcon-root': { borderColor: 'var(--color-gray-3)', },'& .MuiSvgIcon-root': {'& circle': { fill: 'var(--color-gray-3)', },},}}/>} label="Adquirido" className={styles.level}/>
-                    <FormControlLabel value="Parcialmente" control={<Radio sx={{pointerEvents: 'none', '&:hover': {backgroundColor: 'transparent',}, '&.Mui-checked': {color: 'var(--color-blue-3)',}, '&.MuiSvgIcon-root': { borderColor: 'var(--color-gray-3)', },'& .MuiSvgIcon-root': {'& circle': { fill: 'var(--color-gray-3)', },},}}/>} label="Parcialmente" className={styles.level}/>
-                    <FormControlLabel value="Não adquirido" control={<Radio sx={{pointerEvents: 'none', '&:hover': {backgroundColor: 'transparent',}, '&.Mui-checked': {color: 'var(--color-blue-3)',}, '&.MuiSvgIcon-root': { borderColor: 'var(--color-gray-3)', },'& .MuiSvgIcon-root': {'& circle': { fill: 'var(--color-gray-3)', },},}}/>} label="Não adquirido" className={styles.level}/>
-                    <FormControlLabel value="Sem oportunidade" control={<Radio sx={{pointerEvents: 'none', '&:hover': {backgroundColor: 'transparent',}, '&.Mui-checked': {color: 'var(--color-blue-3)',}, '&.MuiSvgIcon-root': { borderColor: 'var(--color-gray-3)', },'& .MuiSvgIcon-root': {'& circle': { fill: 'var(--color-gray-3)', },},}}/>} label="Sem oportunidade" className={styles.level}/>
+                    {['Adquirido', 'Parcialmente', 'Não adquirido', 'Sem oportunidade'].map((option) => (
+                        <FormControlLabel
+                            key={option}
+                            value={option}
+                            control={<Radio sx={{ pointerEvents: 'none' }} />}
+                            label={option}
+                            className={styles.level}
+                        />
+                    ))}
                 </RadioGroup>
             </FormControl>
+            <FormControl>
+                <Checkbox
+                    checked={checkedQuestions.includes(`${questionTitle}#${formattedName}`)}
+                    onChange={() => handleCheckChange(`${questionTitle}#${formattedName}`)}
+                />
+            </FormControl>
         </Box>
-    )
-}
+    );
+});
 
 export default ChecklistItem

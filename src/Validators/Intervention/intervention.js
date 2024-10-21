@@ -25,13 +25,12 @@ export const validationSchema = Yup.object().shape({
 
 
   goals: Yup.array().of(
-    Yup.string().test('unique', msg_errors.DUPLICATE, function (value) {
-      const { path, parent } = this;
-      const index = path.split('[')[1].split(']')[0];
-      const otherValues = parent.filter((_, i) => i != index);
-      return !otherValues.includes(value);
-    }).required(msg_errors.REQUIRED)
+    Yup.object().shape({
+      subGoals: Yup.array()
+        .of(Yup.string().required(msg_errors.REQUIRED)) // Valida cada subGoal como string não vazia
+    })
   ),
+
 
 });
 

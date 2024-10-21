@@ -2,11 +2,15 @@ import { Paper, Button } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
 import styles from './ReportBtn.module.css';
 
-function BottomBtn() {
+function BottomBtn({ checkedQuestions, patient, test }) {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate('/painel-psi/checklist/criar-intervencao');
+        navigate('/painel-psi/checklist/criar-intervencao', {
+            state: {
+                checkedQuestions, patient, test
+            }
+        });
     };
 
     return (
