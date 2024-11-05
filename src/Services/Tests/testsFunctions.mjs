@@ -78,7 +78,7 @@ async function getTestById(testId) {
  * @param {Object} questionValues Novos valores das perguntas a serem atualizados.
  * @returns {Object|null} Retorna os novos valores das perguntas atualizados ou null em caso de erro.
  */
-async function updateQuestionValues(testId, questionValues) {
+async function updateQuestionsOfDatabase(testId, questionValues) {
     const testsRef = collection(db, "tests");
     const testQuery = query(testsRef, where("id", "==", parseInt(testId)));
 
@@ -111,7 +111,8 @@ async function updateQuestionValues(testId, questionValues) {
                     Object.keys(updatedQuestions[level]).forEach(category => {
                         if (!questionValues[level][category]) {
                             delete updatedQuestions[level][category];
-                        } else {
+                        } 
+                        else {
                             Object.keys(updatedQuestions[level][category]).forEach(question => {
                                 if (!questionValues[level][category][question]) {
                                     delete updatedQuestions[level][category][question];
@@ -221,4 +222,4 @@ async function createTestForPatient(patientId, patientName) {
 }
 
 
-export { getTestById, updateQuestionValues, addCategoryToLevel, createTestForPatient };
+export { getTestById, updateQuestionsOfDatabase, addCategoryToLevel, createTestForPatient };

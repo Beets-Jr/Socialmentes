@@ -9,7 +9,7 @@ import { AppContext } from "../../../../Contexts/AppContext";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Questao({
-  nivel,
+  level,
   categoriaSelecionada,
   indiceDaCategoria,
   indiceCategoriaGeral,
@@ -40,54 +40,58 @@ export default function Questao({
   };
 
   useEffect(() => {
-    // Armazena o estado original
-    const originalState = window.history.state;
-  
-    // Substitui o estado atual no histórico
-    window.history.pushState(originalState, null, window.location.pathname);
-  
-    const handlePopstate = (event) => {
-        const shouldNavigate = window.confirm(
-            "É possível que as alterações feitas não sejam salvas. Deseja realmente sair da página?"
-        );
-  
-        if (!shouldNavigate) {
-            // Restaura o estado no histórico para que o usuário permaneça na página
-            window.history.replaceState(originalState, null, window.location.pathname);
-        } else {
-            // Remove o listener antes de navegar
-            window.removeEventListener("popstate", handlePopstate);
+    onSelectedValuesChange();
+  }, [categoriaSelecionada]);
 
-            // Volta para o estado anterior, removendo o estado adicionado com replaceState
-            window.history.back();
+//   useEffect(() => {
+//     // Armazena o estado original
+//     const originalState = window.history.state;
+  
+//     // Substitui o estado atual no histórico
+//     window.history.pushState(originalState, null, window.location.pathname);
+  
+//     const handlePopstate = (event) => {
+//         const shouldNavigate = window.confirm(
+//             "É possível que as alterações feitas não sejam salvas. Deseja realmente sair da página?"
+//         );
+  
+//         if (!shouldNavigate) {
+//             // Restaura o estado no histórico para que o usuário permaneça na página
+//             window.history.replaceState(originalState, null, window.location.pathname);
+//         } else {
+//             // Remove o listener antes de navegar
+//             window.removeEventListener("popstate", handlePopstate);
+
+//             // Volta para o estado anterior, removendo o estado adicionado com replaceState
+//             window.history.back();
             
-            // Após o estado anterior ser restaurado, navega para a rota desejada
-            setTimeout(() => {
-                navigate('/painel-psi/pacientes/informacoes', { replace: true });
-            }, 0);
-        }
-    };
+//             // Após o estado anterior ser restaurado, navega para a rota desejada
+//             setTimeout(() => {
+//                 navigate('/painel-psi/pacientes/informacoes', { replace: true });
+//             }, 0);
+//         }
+//     };
   
-    // Adiciona o listener para popstate
-    window.addEventListener("popstate", handlePopstate);
+//     // Adiciona o listener para popstate
+//     window.addEventListener("popstate", handlePopstate);
   
-    // Remove o listener quando o componente desmontar
-    return () => {
-        window.removeEventListener("popstate", handlePopstate);
-    };
-}, [navigate]);
+//     // Remove o listener quando o componente desmontar
+//     return () => {
+//         window.removeEventListener("popstate", handlePopstate);
+//     };
+// }, [navigate]);
   
   useEffect(() => {
-    if (nivel > 0 && categoriaSelecionada) {
+    if (level > 0 && categoriaSelecionada) {
       const fetchData = async () => {
-        const perguntas = getPerguntasPorNivelECategoria(nivel, categoriaSelecionada);
-        const descricoes = getDescricoesPorNivelECategoria(nivel, categoriaSelecionada);
+        const perguntas = getPerguntasPorNivelECategoria(level, categoriaSelecionada);
+        const descricoes = getDescricoesPorNivelECategoria(level, categoriaSelecionada);
         setPerguntas(perguntas);
         setDescricoes(descricoes);
       };
       fetchData();
     }
-  }, [nivel, categoriaSelecionada]);
+  }, [level, categoriaSelecionada]);
 
   const isMobile = useMediaQuery("(max-width:768px)");
   return (
@@ -111,11 +115,11 @@ export default function Questao({
               whiteSpace: "nowrap",
             }}
           >
-            {categoriaSelecionada && `${categoriaSelecionada} - Nível ${nivel}`}
+            {categoriaSelecionada && `${categoriaSelecionada} - Nível ${level}`}
           </Box>
 
           <Box
-            onClick={() => onRemotion(nivel, indiceCategoriaGeral)}
+            onClick={() => onRemotion(level, indiceCategoriaGeral)}
             sx={{
               position: "absolute",
               right: {
@@ -139,12 +143,12 @@ export default function Questao({
       {expandir &&
         perguntas.map((pergunta, index) => (
           <Box key={index} sx={{ width: { xs: "75vw", sm: "70vw" }, marginBottom: "1rem" }}>
-            <div className={styles.titulo3}>{`${index + 1}. ${pergunta}`}</div>
+            <div className={styles.questao}>{`${index + 1}. ${pergunta}`}</div>
             <div className={styles.texto}>{descricoes[index] && `${descricoes[index]}`}</div>
             <FormControl>
               <RadioGroup
                 row={!isMobile}
-                value={selectedValues?.[`level_${nivel}`]?.[`category_${indiceCategoriaGeral}`]?.[`question_${index}`]?.toString() || ""}
+                value={selectedValues?.[`level_${level}`]?.[`category_${indiceCategoriaGeral}`]?.[`question_${index}`]?.toString() || ""}
                 onChange={(e) => handleChange(index, e)}
               >
                 <FormControlLabel
