@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box } from "@mui/material";
 import styles from "./Styles.module.css";
 import BlueLine from "../../../../Assets/Icons/BlueLine";
 
-export default function NivelSelector({ activeButtonIndex, handleButtonClick }) {
+export default function LevelSelector({ activeButtonIndex, handleLevelChange, isButtonDisabled }) {
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleClick = async (index) => {
+        await handleLevelChange(index);
+    };
+
     return (
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: "3vh", width: "25%" }}>
             <p className={styles.titulo1}>Nível</p>
@@ -13,7 +19,8 @@ export default function NivelSelector({ activeButtonIndex, handleButtonClick }) 
                     <button
                         key={index}
                         className={`${styles.button} ${activeButtonIndex === index ? styles.active : ""}`}
-                        onClick={() => handleButtonClick(index)}
+                        disabled={isButtonDisabled}
+                        onClick={() => handleClick(index)}
                     >
                         {level}
                     </button>
@@ -22,3 +29,4 @@ export default function NivelSelector({ activeButtonIndex, handleButtonClick }) 
         </Box>
     );
 }
+

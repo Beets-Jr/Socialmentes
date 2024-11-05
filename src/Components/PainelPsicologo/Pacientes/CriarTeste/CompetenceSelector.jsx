@@ -3,9 +3,9 @@ import { Box, FormControl, MenuItem, Select } from "@mui/material";
 import styles from "./Styles.module.css";
 import BlueLine from "../../../../Assets/Icons/BlueLine";
 
-export default function CompetenciaSelector({
+export default function CompetenceSelector({
   activeButtonIndex,
-  categorias,
+  categories,
   selectedOption,
   handleChange
 }) {
@@ -49,7 +49,7 @@ export default function CompetenciaSelector({
               Selecione uma categoria para este nível
             </MenuItem>
           )}
-          {categorias.map((option, index) => (
+          {categories.map((option, index) => (
             <MenuItem
               key={index}
               value={option}

@@ -9,7 +9,7 @@ import Header from "../Components/PainelAdm/Header/Header";
 import HomePsi from "../Screens/PainelPsicologo/HomePsi";
 import styles from "./PainelAdm.module.css";
 import PacientesInfo from "../Screens/PainelPsicologo/Pacientes/PacientesInfo";
-import CriarTeste from "../Screens/PainelPsicologo/Pacientes/CriarTeste";
+import CreateTest from "../Screens/PainelPsicologo/Pacientes/CreateTest";
 import PacientesCadastrados from "../Screens/PainelPsicologo/Pacientes/PacientesCadastrados";
 import Checklist from "../Screens/PainelPsicologo/Checklist";
 import Tests from "../Screens/PainelPsicologo/Tests";
@@ -37,7 +37,7 @@ function PainelPsi() {
                         <Route path="pacientes" element={<PacientesCadastrados />} />
                         <Route path="pacientes/informacoes" element={<PacientesInfo />} />
                         <Route path="pacientes/informacoes/:id" element={<PacientesInfo />} />
-                        <Route path="pacientes/teste/:testId" element={<CriarTeste />} />
+                        <Route path="pacientes/teste/:testId" element={<CreateTest />} />
                         <Route path="relatorios" element={<Tests />} />
                         <Route path="agenda" element={<DialogConfirmation />} />
                         <Route path="checklist" element={<Checklist />}/>

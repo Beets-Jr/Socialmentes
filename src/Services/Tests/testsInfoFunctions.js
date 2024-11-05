@@ -1,7 +1,7 @@
 import { denver } from "../../Database/denver";
 
 // recuperar o nome das categorias dado o nível
-export function getCategoriaNomesPorNivel(nivel) {
+export function getCategoriesNamesByLevel(nivel) {
   const nivelData = denver.find((n) => n.nivel === nivel);
   if (nivelData) {
     return nivelData.categorias.map((categoria) => categoria.nome);
