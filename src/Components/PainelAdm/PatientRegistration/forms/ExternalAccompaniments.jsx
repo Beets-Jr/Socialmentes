@@ -3,6 +3,7 @@ import STextField from '../STextField';
 import SSelectBox from '../SSelectBox';
 import AddButton from '../AddButton';
 import SDividerAc from '../SDividerAc';
+import DeleteButton from '../DeleteButton';
 
 
 const teamAccompanimentOptions = ['Fono', 'Neurologista', 'Pediatra', 'Psicologo', 'Psiquiatra', 'Outros'];
@@ -18,6 +19,17 @@ const ExternalAccompaniments = ({ values, setValues, handleArrayChange, error })
       ],
     });
   };
+
+  /* const handleDeleteExternalAccompaniment = (index) => {
+    const updatedExternalAccompaniments = values.externalAccompaniments.filter((_, i) => i !== index);
+    setValues({
+      ...values,
+      externalAccompaniments: updatedExternalAccompaniments,
+    });
+  } 
+  TODO: Função de exclusão de acompanhamento externo (Remover o comentário)  
+  */
+
   return (
     <>
       {values.externalAccompaniments.map((accompaniment, index) => (
@@ -32,7 +44,7 @@ const ExternalAccompaniments = ({ values, setValues, handleArrayChange, error })
             error={error?.externalAccompaniments?.[index]?.professional} />
 
           <STextField
-            lg={3.5}
+            lg={index === 0 ? 3.5 : 3.3}
             name={`externalAccompaniments[${index}].name`}
             label="Nome"
             handleChange={(e) => handleArrayChange(index, 'externalAccompaniments', 'name', e.target.value)}
@@ -40,7 +52,7 @@ const ExternalAccompaniments = ({ values, setValues, handleArrayChange, error })
             error={error?.externalAccompaniments?.[index]?.name}
           />
           <STextField
-            lg={1.9}
+            lg={index === 0 ? 1.9 : 1.7}
             name={`externalAccompaniments[${index}].phone`}
             label="Telefone"
             handleChange={(e) => handleArrayChange(index, 'externalAccompaniments', 'phone', e.target.value)}
@@ -49,7 +61,9 @@ const ExternalAccompaniments = ({ values, setValues, handleArrayChange, error })
             placeholder="(00) 00000-0000"
           />
           <STextField
-            lg={3} xs={9} md={5}
+            lg={index === 0 ? 3 : 2.8} /* TODO: Resolver responsidade do botão de exclusão */
+            xs={index === 0 ? 9 : 8.8}
+            md={index === 0 ? 5 : 4.8}
             name={`externalAccompaniments[${index}].email`}
             label="E-mail"
             handleChange={(e) => handleArrayChange(index, 'externalAccompaniments', 'email', e.target.value)}
@@ -57,6 +71,8 @@ const ExternalAccompaniments = ({ values, setValues, handleArrayChange, error })
             error={error?.externalAccompaniments?.[index]?.email}
           />
           <AddButton handleClick={handleAddExternalAccompaniment} />
+          {/*           {index > 0 && <DeleteButton onClick={() => handleDeleteExternalAccompaniment(index)} />}
+ */} {/* TODO: Só exibir botão de exclusão se houver mais de um acompanhamento externo (Remover o comentário) */}
 
         </React.Fragment>
       ))}
