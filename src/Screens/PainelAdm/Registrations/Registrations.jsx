@@ -106,10 +106,16 @@ function Registrations() {
                                                 style: { fontWeight: 600 }
                                             },
                                             {
-                                                func: (row) => `${row.cpf.slice(0, 3)}.${row.cpf.slice(3, 6)}.${row.cpf.slice(6, 9)}-${row.cpf.slice(9)}`,
+                                                func: (row) =>
+                                                    row.cpf && row.cpf.length === 11
+                                                        ? `${row.cpf.slice(0, 3)}.${row.cpf.slice(3, 6)}.${row.cpf.slice(6, 9)}-${row.cpf.slice(9)}`
+                                                        : (row.cpf ? row.cpf : "-"),
                                             },
                                             {
-                                                func: (row) => `(${row.phone.slice(0, 2)}) ${row.phone.slice(2, 7)}-${row.phone.slice(7)}`,
+                                                func: (row) =>
+                                                    row.phone && row.phone.length === 11
+                                                        ? `(${row.phone.slice(0, 2)}) ${row.phone.slice(2, 7)}-${row.phone.slice(7)}`
+                                                        : (row.phone ? row.phone : "-"),
                                             },
                                             {
                                                 func: (row) => row.email
