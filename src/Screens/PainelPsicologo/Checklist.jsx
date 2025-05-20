@@ -5,13 +5,14 @@ import ChecklistAnswer from "../../Components/PainelPsicologo/Reports/ChecklistC
 import BottomBtn from "../../Components/PainelPsicologo/Reports/ChecklistComponents/BottomBtn";
 import styles from "./Checklist.module.css";
 import { useLocation } from "react-router-dom";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { fetchPatientById } from "../../Services/testService";
 
 function Checklist() {
     const location = useLocation();
     const [patient, setPatient] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [checkedQuestions, setCheckedQuestions] = useState([]);
     const bottomBtnRef = useRef(null);
 
     const { test } = location.state;
@@ -41,6 +42,17 @@ function Checklist() {
         }
     }, [patient]);
 
+
+    const handleCheckChange = useCallback((formattedName) => {
+        setCheckedQuestions(prevCheckedQuestions => {
+            if (prevCheckedQuestions.includes(formattedName)) {
+                return prevCheckedQuestions.filter((question) => question !== formattedName);
+            } else {
+                return [...prevCheckedQuestions, formattedName];
+            }
+        });
+    }, []);
+
     return (
         loading ? (
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '85vh' }}>
@@ -58,12 +70,12 @@ function Checklist() {
                     <Stack direction="row" spacing={2} className={styles.stackContainer}>
                         <ReportBtn name="Gráfico" path={`/painel-psi/checklist/grafico/${test.id}`} />
                         <ReportBtn name="Tabela" path={`/painel-psi/checklist/tabela/${test.id}`} />
-                        <ReportBtn name="Relatório" path={`/painel-psi/checklist/relatorio/${patient.id}`} />
+                        <ReportBtn name="Relatório" path={`/painel-psi/checklist/relatorio/${patient.id}?testId=${test.id}`} />
                     </Stack>
                 </Box>
-                <ChecklistAnswer test={test} />
+                <ChecklistAnswer test={test} checkedQuestions={checkedQuestions} handleCheckChange={handleCheckChange} />
                 <div ref={bottomBtnRef}>
-                    <BottomBtn />
+                    <BottomBtn checkedQuestions={checkedQuestions} patient={patient} test={test} />
                 </div>
             </div>
         )

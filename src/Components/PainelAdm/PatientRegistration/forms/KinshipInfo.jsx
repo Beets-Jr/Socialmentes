@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import SSelectBox from '../SSelectBox';
 import STextField from '../STextField';
 
@@ -45,6 +45,7 @@ const KinshipInfo = ({ values, handleChange, error, num }) => {
         handleChange={handleChange}
         value={values[fields.cpf]}
         error={error?.[fields.cpf]}
+        mask="999.999.999-99"
       />
 
       <STextField
@@ -55,6 +56,7 @@ const KinshipInfo = ({ values, handleChange, error, num }) => {
         handleChange={handleChange}
         value={values[fields.rg]}
         error={error?.[fields.rg]}
+        mask="99.999.999-9"
       />
 
       <STextField
@@ -65,6 +67,7 @@ const KinshipInfo = ({ values, handleChange, error, num }) => {
         value={values[fields.cell]}
         error={error?.[fields.cell]}
         placeholder={"(00) 00000-0000"}
+        mask="(99) 99999-9999"
       />
 
       <STextField
@@ -84,9 +87,16 @@ const KinshipInfo = ({ values, handleChange, error, num }) => {
         handleChange={handleChange}
         value={values[fields.birth]}
         error={error?.[fields.birth]}
+        mask="99/99/9999"
       />
     </>
   );
+};
+KinshipInfo.propTypes = {
+  values: PropTypes.object.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  error: PropTypes.object,
+  num: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
 };
 
 export default KinshipInfo;

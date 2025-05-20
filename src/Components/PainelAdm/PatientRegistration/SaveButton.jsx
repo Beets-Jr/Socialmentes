@@ -3,13 +3,13 @@ import React from 'react'
 import { useTheme } from '@mui/material/styles';
 
 
-const SaveButton = ({ handleSubmit }) => {
+const SaveButton = ({ handleSubmit, label = "Salvar" }) => {
   const theme = useTheme();
 
   return (
     <Button
       sx={{
-        background: 'linear-gradient(90deg, #7DB9F0 100%, #5095D5 100%)',
+        background: 'linear-gradient(to right, #7DB9F0, #5095D5)',
         color: 'white',
         borderRadius: '10px',
         fontSize: '15px',
@@ -25,7 +25,9 @@ const SaveButton = ({ handleSubmit }) => {
         },
       }}
       variant="outlined" color="primary" onClick={handleSubmit}
-    >Salvar</Button>
+    >
+      {label}
+    </Button>
   )
 }
 

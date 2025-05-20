@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useLayoutEffect } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Box } from "@mui/material";
 import FixedButtons from "../../../Components/PainelPsicologo/Pacientes/CriarTeste/FixedButtons";
 import {
@@ -27,19 +27,13 @@ export default function CreateTest() {
 
   const [testId, setTestId] = useState("");
   const [testInformations, setTestInformations] = useState({});
-  const [level, setLevel] = useState(1);
-  const [activeButtonIndex, setActiveButtonIndex] = useState(0);
+  const [level, setLevel] = useState(null); // null means no level selected
+  const [activeButtonIndex, setActiveButtonIndex] = useState(null);
   const [selectedOption, setSelectedOption] = useState("");
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState({});
   const [questions, setQuestions] = useState({});
-
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [changeCategory, setChangeCategory] = useState(false);
-  
-  const [loading, setLoading] = useState(true);
-  const [levelChangeCount, setLevelChangeCount] = useState(0);
-
   const [finish, setFinish] = useState(false);
   const [saveAndExit, setSaveAndExit] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -48,131 +42,89 @@ export default function CreateTest() {
   const location = useLocation();
   const { testSerialId, testDetails } = location.state || {};
 
-  useEffect(() => {
-    const handleBeforeUnload = (event) => {
-      event.preventDefault();
-      event.returnValue = "";
-    };
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, []);
-
+  // Load testId from state or localStorage
   useEffect(() => {
     if (testSerialId) {
       localStorage.setItem("testId", testSerialId);
       setTestId(testSerialId);
     } else {
       const storedTestId = localStorage.getItem("testId");
-      if (storedTestId) {
-        setTestId(storedTestId);
-      }
+      if (storedTestId) setTestId(storedTestId);
     }
   }, [testSerialId]);
 
+  // Load test details
   useEffect(() => {
-    if (testDetails) {
-      setTestInformations(testDetails);
+    if (testDetails) setTestInformations(testDetails);
+  }, [testDetails]);
+
+  // Initialize questions state from testDetails if available
+  useEffect(() => {
+    if (testDetails && testDetails.questions) {
+      setQuestions(testDetails.questions);
     }
   }, [testDetails]);
 
+  // Fetch categories when level changes
   useEffect(() => {
-    if (level > 0) {
+    if (level !== null) {
       fetchCategoriesByLevel(level, setCategories);
+      setSelectedOption("");
+    } else {
+      setCategories([]);
+      setSelectedOption("");
     }
   }, [level]);
 
+  // Update questions and selectedCategories when testInformations or categories change
   useEffect(() => {
-    if (Object.keys(testInformations).length > 0 && categories.length > 0) {
-      const newQuestions = {};
-      for (let level = 1; level <= 4; level++) {
-        const indicesCategorias = getCategoriesByLevel(testInformations, level);
-        const levelKey = `level_${level}`;
-
-        newQuestions[levelKey] = getQuestions(
-          testInformations,
-          indicesCategorias,
-          level
-        )[levelKey];
-      }
-      setQuestions(newQuestions);
+    if (
+      Object.keys(testInformations).length > 0 &&
+      categories.length > 0 &&
+      level !== null
+    ) {
+      const indicesCategorias = getCategoriesByLevel(testInformations, level);
+      const levelKey = `level_${level}`;
+      const newQuestions = getQuestions(testInformations, indicesCategorias, level);
+      setQuestions((prev) => ({ ...prev, [levelKey]: newQuestions[levelKey] }));
       updateSelectedCategoriesFromTestInformations(
         testInformations,
         level,
         categories,
         setSelectedCategories
       );
-
-     // Carregar as questões iniciais automaticamente até o nível 4
-    if (loading && levelChangeCount < 4) {
-      handleLevelChange(level + 1);
-    } else {
-      setLoading(false);
     }
-      
-      console.log(loading);
-    }
-  }, [testInformations, categories]);
+  }, [testInformations, categories, level]);
 
   const handleLevelChange = (newLevel) => {
-    if (levelChangeCount <= 3) {
-      setLevel(newLevel);
-      if (levelChangeCount != 3) {
-        setLevelChangeCount(prevCount => prevCount + 1);
-      } else {
-        setLevel(1);
-      }
-    } else if (activeButtonIndex != newLevel) {
-      setLevel(newLevel);
-      setIsButtonDisabled(true);
-      setLevelChangeCount(prevCount => prevCount + 1);
-      setActiveButtonIndex(newLevel);
-      setSelectedOption("");
-      setCategories([]);
-    }
-  }; 
+    setLevel(newLevel);
+    setActiveButtonIndex(newLevel - 1);
+    setSelectedOption("");
+  };
 
   const handleChange = (event) => {
     setSelectedOption(event.target.value);
   };
 
   const handleAddQuestion = async () => {
-    try {
-      if (selectedOption) {
-        if (selectedCategories[level]?.includes(selectedOption)) {
-          setChangeCategory(true);
-
-          setTimeout(() => {
-            setChangeCategory(false);
-          }, 2000);
-
-          return;
-        }
-
-        await updateSelectedCategories(
-          level,
-          [selectedOption],
-          setSelectedCategories
-        );
-      }
-    } catch (error) {
-      console.error("Error adding question:", error);
+    if (!selectedOption || level === null) return;
+    if (selectedCategories[level]?.includes(selectedOption)) {
+      setChangeCategory(true);
+      setTimeout(() => setChangeCategory(false), 2000);
+      return;
     }
+    await updateSelectedCategories(level, [selectedOption], setSelectedCategories);
   };
 
   const handleSaveAndExit = async () => {
     try {
       setIsLoading(true);
       await updateQuestionsOfDatabase(testId, questions);
-
       setSaveAndExit(false);
       setIsLoading(false);
-
       navigate("/painel-psi/pacientes/informacoes", { replace: true });
     } catch (error) {
+      setIsLoading(false);
       console.error("Erro ao salvar e sair:", error);
     }
   };
@@ -183,12 +135,11 @@ export default function CreateTest() {
       const treatQValues = treatQuestionValues(questions);
       await updateQuestionsOfDatabase(testId, treatQValues);
       await updateTestSituation(testId);
-
       setFinish(false);
       setIsLoading(false);
-
       navigate("/painel-psi/pacientes/informacoes", { replace: true });
     } catch (error) {
+      setIsLoading(false);
       console.error("Erro ao finish:", error);
     }
   };
@@ -217,14 +168,16 @@ export default function CreateTest() {
           <LevelSelector
             activeButtonIndex={activeButtonIndex}
             handleLevelChange={handleLevelChange}
-            disabled={isButtonDisabled}
+            disabled={false}
           />
-          <CompetenceSelector
-            activeButtonIndex={activeButtonIndex}
-            categories={categories}
-            selectedOption={selectedOption}
-            handleChange={handleChange}
-          />
+          {level !== null && (
+            <CompetenceSelector
+              activeButtonIndex={activeButtonIndex}
+              categories={categories}
+              selectedOption={selectedOption}
+              handleChange={handleChange}
+            />
+          )}
         </Box>
         <Box
           sx={{
@@ -244,13 +197,12 @@ export default function CreateTest() {
             setSelectedCategories={setSelectedCategories}
           />
         </Box>
-        <FixedButtons
-          handleAddQuestion={handleAddQuestion}
-          handlefinish={() => setFinish(true)}
-          handleSaveAndExit={() => setSaveAndExit(true)}
-        />
+          <FixedButtons
+            handleAddQuestion={handleAddQuestion}
+            handlefinish={() => setFinish(true)}
+            handleSaveAndExit={() => setSaveAndExit(true)}
+          />
       </Box>
-
       {saveAndExit && (
         <DialogConfirmation
           open={saveAndExit}
@@ -262,20 +214,11 @@ export default function CreateTest() {
           cancelButtonText="Cancelar"
           confirmButtonColor="var(--color-blue-2)"
           cancelButtonColor="var(--color-pink)"
-          confirmButtonHoverColor="var(--color-blue-2)"
-          cancelButtonHoverColor="var(--color-pink)"
-          confirmButtonBorderColor="var(--color-blue-2)"
-          cancelButtonBorderColor="var(--color-pink)"
-          confirmButtonHoverBackground="" // cor ao fundo do botão à esquerda passando mouse
-          cancelButtonHoverBackground="#ffe4ec" // cor do fundo do botão à direita passando mouse
-          confirmButtonHoverBorderColor="" // cor da borda do botão à esquerda passando mouse
-          cancelButtonHoverBorderColor="var(--color-pink)" // cor da borda do botão à direita passando mouse
           logoSrc={Logo}
           logoAlt="socialmentes-logo"
           isLoading={isLoading}
         />
       )}
-
       {finish && (
         <DialogConfirmation
           open={finish}
@@ -287,20 +230,11 @@ export default function CreateTest() {
           cancelButtonText="Cancelar"
           confirmButtonColor="var(--color-blue-2)"
           cancelButtonColor="var(--color-pink)"
-          confirmButtonHoverColor="var(--color-blue-2)"
-          cancelButtonHoverColor="var(--color-pink)"
-          confirmButtonBorderColor="var(--color-blue-2)"
-          cancelButtonBorderColor="var(--color-pink)"
-          confirmButtonHoverBackground="" // cor ao fundo do botão à esquerda passando mouse
-          cancelButtonHoverBackground="#ffe4ec" // cor do fundo do botão à direita passando mouse
-          confirmButtonHoverBorderColor="" // cor da borda do botão à esquerda passando mouse
-          cancelButtonHoverBorderColor="var(--color-pink)" // cor da borda do botão à direita passando mouse
           logoSrc={Logo}
           logoAlt="socialmentes-logo"
           isLoading={isLoading}
         />
       )}
-
       {changeCategory && (
         <Box
           sx={{

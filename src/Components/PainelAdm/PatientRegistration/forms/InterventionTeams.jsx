@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import SSelectBox from '../SSelectBox';
 import AddButton from '../AddButton';
 import SDividerInt from '../SDividerInt';
@@ -24,6 +25,11 @@ const InterventionTeams = ({ values, setValues, handleChange, error }) => {
       setOptions(updatedOptions);
     }
   }, [isLoading, userProfiles]);
+
+  // Normalize interventionTeams to always be an array of uids
+  const normalizedTeams = values.interventionTeams.map(team =>
+    typeof team === 'string' ? team : team?.uid || team?.id || ''
+  );
 
   const handleAddInterventionTeam = () => {
     if (values.interventionTeams.length === options.length) {
@@ -53,7 +59,7 @@ const InterventionTeams = ({ values, setValues, handleChange, error }) => {
       {isLoading ? (
         <CircularProgress />
       ) : (
-        values.interventionTeams.map((team, index) => (
+        normalizedTeams.map((team, index) => (
           <React.Fragment key={`team${index}`}>
             {renderSelectBox(team, index)}
             <AddButton handleClick={handleAddInterventionTeam} />
@@ -63,6 +69,14 @@ const InterventionTeams = ({ values, setValues, handleChange, error }) => {
       <SDividerInt />
     </>
   );
+};
+InterventionTeams.propTypes = {
+  values: PropTypes.shape({
+    interventionTeams: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }).isRequired,
+  setValues: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  error: PropTypes.object,
 };
 
 export default InterventionTeams;

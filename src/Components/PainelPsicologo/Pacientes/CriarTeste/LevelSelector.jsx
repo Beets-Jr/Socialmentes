@@ -20,7 +20,7 @@ export default function LevelSelector({ activeButtonIndex, handleLevelChange, is
                         key={index}
                         className={`${styles.button} ${activeButtonIndex === index ? styles.active : ""}`}
                         disabled={isButtonDisabled}
-                        onClick={() => handleClick(index)}
+                        onClick={() => handleClick(index+1)}
                     >
                         {level}
                     </button>

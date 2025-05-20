@@ -2,6 +2,7 @@ import { Button, useMediaQuery, useTheme } from '@mui/material';
 import ReportBtnIcons from './ReportBtnIcons';
 import { useNavigate } from 'react-router-dom';
 import styles from './ReportBtn.module.css';
+import PropTypes from 'prop-types';
 
 function getReportBtnIcon(name) {
     return ReportBtnIcons[name];
@@ -29,5 +30,9 @@ function ReportBtn({ name, path }) {
         </Button>
     );
 }
+ReportBtn.propTypes = {
+    name: PropTypes.string.isRequired,
+    path: PropTypes.string.isRequired,
+};
 
-export default ReportBtn
+export default ReportBtn;

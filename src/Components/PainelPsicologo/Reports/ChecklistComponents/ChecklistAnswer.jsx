@@ -2,7 +2,7 @@ import { denver } from "../../../../Database/denver.mjs";
 import ChecklistItem from "./ChecklistItem";
 import { Typography, Box } from "@mui/material";
 
-function ChecklistAnswer({ test }) {
+function ChecklistAnswer({ test, checkedQuestions, handleCheckChange }) {
   const getLevelDescription = (level) => {
     switch (level) {
       case 0:
@@ -29,11 +29,27 @@ function ChecklistAnswer({ test }) {
             });
 
             if (perguntasComResposta.length > 0) {
+              let formattedTitle = `${categoria.nome} - Nível ${nivel.nivel}`;
               return (
                 <Box key={`categoria-${categoria.id}`}>
-                  <Typography variant="h5" sx={{ fontFamily: 'var(--font-sub)', color: 'var(--color-blue-4)', marginTop:'1.5vh', marginBottom:'1.5vh' }}>
-                    {`${categoria.nome} - Nível ${nivel.nivel}`}
-                  </Typography>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Typography variant="h5"
+                      sx={{
+                        fontFamily: 'var(--font-sub)',
+                        color: 'var(--color-blue-4)',
+                        marginY: '1.5vh'
+                      }}>
+                      {formattedTitle}
+                    </Typography>
+                    <Typography variant="h8"
+                      sx={{
+                        fontFamily: 'var(--font-sub)',
+                        marginTop: '3.5vh',
+                      }}>
+                      Intervenção
+                    </Typography>
+                  </Box>
+
                   {perguntasComResposta.map((p) => {
                     const resposta = test.questions[`level_${nivel.nivel}`]?.[`category_${categoria.id}`]?.[`question_${p.id}`];
                     const levelDescription = getLevelDescription(resposta);
@@ -44,6 +60,9 @@ function ChecklistAnswer({ test }) {
                         hability={p.pergunta}
                         description={p.descricao}
                         level={levelDescription}
+                        handleCheckChange={handleCheckChange}
+                        checkedQuestions={checkedQuestions}
+                        questionTitle={formattedTitle}
                       />
                     );
                   })}

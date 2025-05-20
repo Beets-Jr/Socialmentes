@@ -2,13 +2,11 @@ import { db } from "../../Database/FirebaseConfig.mjs";
 import {
     doc,
     getDoc,
-    updateDoc,
     runTransaction,
     getDocs,
     collection,
     query,
     where,
-    setDoc,
 } from "firebase/firestore";
 
 /**
@@ -151,90 +149,6 @@ async function updateQuestionsOfDatabase(testId, questionValues) {
     }
 }
 
-
-/**
- * Adiciona uma nova categoria a um nível específico em um documento de teste no Firestore.
- *
- * @param {string} serialId ID serial do teste onde a categoria será adicionada.
- * @param {number} level Nível onde a categoria será adicionada.
- * @param {number} categoryIndex Índice da nova categoria a ser adicionada.
- */
-async function addCategoryToLevel(serialId, level, categoryIndex) {
-    const testsRef = collection(db, "tests");
-    const testQuery = query(testsRef, where("id", "==", parseInt(serialId)));
-
-    try {
-        const querySnapshot = await getDocs(testQuery);
-
-        if (querySnapshot.empty) {
-            console.warn(`Documento com serialId ${serialId} não encontrado.`);
-            return;
-        }
-
-        const testId = querySnapshot.docs[0].id;
-        const testRef = doc(db, "tests", testId);
-
-        await runTransaction(db, async (transaction) => {
-            const testDoc = await transaction.get(testRef);
-
-            if (!testDoc.exists()) {
-                // Se o documento não existir, cria um novo com o nível e a categoria
-                const newDocData = {
-                    questions: {
-                        [`level_${level}`]: {
-                            [`category_${categoryIndex}`]: {},
-                        },
-                    },
-                };
-                transaction.set(testRef, newDocData);
-            } else {
-                // Se o documento existir, verifica e atualiza o nível e a categoria
-                const testData = testDoc.data();
-
-                let updatedData = {};
-                const levelField = `level_${level}.category_${categoryIndex}`;
-
-                if (!testData.questions) {
-                    // Se não houver nenhum nível definido, cria o primeiro nível com a categoria
-                    updatedData = {
-                        questions: {
-                            [`level_${level}`]: {
-                                [`category_${categoryIndex}`]: {},
-                            },
-                        },
-                    };
-                } else if (!testData.questions[`level_${level}`]) {
-                    // Se o nível específico não existir, cria o nível com a categoria
-                    updatedData = {
-                        questions: {
-                            ...testData.questions,
-                            [`level_${level}`]: {
-                                [`category_${categoryIndex}`]: {},
-                            },
-                        },
-                    };
-                } else {
-                    // Se o nível existir, apenas adiciona a nova categoria
-                    updatedData = {
-                        questions: {
-                            ...testData.questions,
-                            [`level_${level}`]: {
-                                ...testData.questions[`level_${level}`],
-                                [`category_${categoryIndex}`]: {},
-                            },
-                        },
-                    };
-                }
-
-                transaction.update(testRef, updatedData);
-            }
-        });
-
-    } catch (error) {
-        console.error("Erro ao adicionar categoria:", error);
-    }
-}
-
 /**
  * Obtém o valor atual do contador na coleção 'counters'
  * @returns {number} O valor atual do contador
@@ -306,4 +220,4 @@ async function createTestForPatient(patientId, patientName) {
 }
 
 
-export { getTestById, updateQuestionsOfDatabase, addCategoryToLevel, createTestForPatient };
+export { getTestById, updateQuestionsOfDatabase, createTestForPatient };

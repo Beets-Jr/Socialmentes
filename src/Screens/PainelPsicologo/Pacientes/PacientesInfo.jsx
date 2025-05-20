@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Box, Paper, Button } from "@mui/material";
 import styles from "./PacientesInfo.module.css";
