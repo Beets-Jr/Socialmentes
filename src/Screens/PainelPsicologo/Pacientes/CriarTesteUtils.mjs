@@ -1,4 +1,4 @@
-import { getCategoriesByLevel } from "../../../Services/Tests/Category/GetCategorys.mjs";
+import { getCategoriesByLevel } from "../../../Services/Tests/Category/GetCategories.mjs";
 import { getCategoriesNamesByLevel } from "../../../Services/Tests/testsInfoFunctions";
 
 /**
