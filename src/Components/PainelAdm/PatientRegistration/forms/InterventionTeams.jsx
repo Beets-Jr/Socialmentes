@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import SSelectBox from '../SSelectBox';
 import AddButton from '../AddButton';
 import SDividerInt from '../SDividerInt';
@@ -63,6 +64,14 @@ const InterventionTeams = ({ values, setValues, handleChange, error }) => {
       <SDividerInt />
     </>
   );
+};
+InterventionTeams.propTypes = {
+  values: PropTypes.shape({
+    interventionTeams: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }).isRequired,
+  setValues: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  error: PropTypes.object,
 };
 
 export default InterventionTeams;

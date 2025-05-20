@@ -1,9 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import STextField from '../STextField';
 import SSelectBox from '../SSelectBox';
 import AddButton from '../AddButton';
 import SDividerAc from '../SDividerAc';
-import DeleteButton from '../DeleteButton';
 
 
 const teamAccompanimentOptions = ['Fono', 'Neurologista', 'Pediatra', 'Psicologo', 'Psiquiatra', 'Outros'];
@@ -20,7 +20,7 @@ const ExternalAccompaniments = ({ values, setValues, handleArrayChange, error })
     });
   };
 
-  /* const handleDeleteExternalAccompaniment = (index) => {
+/*  const handleDeleteExternalAccompaniment = (index) => {
     const updatedExternalAccompaniments = values.externalAccompaniments.filter((_, i) => i !== index);
     setValues({
       ...values,
@@ -59,6 +59,7 @@ const ExternalAccompaniments = ({ values, setValues, handleArrayChange, error })
             value={accompaniment.phone}
             error={error?.externalAccompaniments?.[index]?.phone}
             placeholder="(00) 00000-0000"
+            mask="(99) 99999-9999"
           />
           <STextField
             lg={index === 0 ? 3 : 2.8} /* TODO: Resolver responsidade do botão de exclusão */
@@ -80,5 +81,20 @@ const ExternalAccompaniments = ({ values, setValues, handleArrayChange, error })
     </>
   );
 }
+ExternalAccompaniments.propTypes = {
+  values: PropTypes.shape({
+    externalAccompaniments: PropTypes.arrayOf(
+      PropTypes.shape({
+        professional: PropTypes.string,
+        name: PropTypes.string,
+        phone: PropTypes.string,
+        email: PropTypes.string,
+      })
+    ).isRequired,
+  }).isRequired,
+  setValues: PropTypes.func.isRequired,
+  handleArrayChange: PropTypes.func.isRequired,
+  error: PropTypes.object,
+};
 
 export default ExternalAccompaniments;

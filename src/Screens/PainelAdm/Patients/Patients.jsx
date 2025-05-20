@@ -130,7 +130,7 @@ function Patients() {
                             onAdd={() => onAdd()}
                             actions={[
                                 {
-                                    func: (id) => navigate(`informacoes`),
+                                    func: (id) => navigate(`informacoes/${id}`),
                                     icon: <VisibilityIcon />
                                 },
                                 {

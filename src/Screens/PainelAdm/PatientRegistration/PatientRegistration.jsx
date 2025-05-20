@@ -56,7 +56,7 @@ const PatientRegistration = () => {
     }
   };
 
-  /* const handleInterventionTeamsChange = async (index, value) => {
+  const handleInterventionTeamsChange = async (index, value) => {
     const updatedTeams = [...values.interventionTeams];
     updatedTeams[index] = value;
     setValues({ ...values, interventionTeams: updatedTeams });
@@ -65,9 +65,7 @@ const PatientRegistration = () => {
       const fieldName = `interventionTeams[${index}]`;
       setError({ ...error, [fieldName]: null });
     }
-  TODO: Lógica para atualizar os valores dos campos de arrays (Remover caso não seja necessário)
-  }; */
-
+  };
 
   const handleArrayChange = (index, field, fieldName, value) => { // Lógica para atualizar os valores dos campos de arrays
     const updatedArray = [...values[field]];
@@ -103,7 +101,7 @@ const PatientRegistration = () => {
     } catch (err) {
       const errors = err.inner.reduce((acc, error) => {
         if (error.path.includes('externalAccompaniments')) { // Lógica para tratar os erros dos campos de arrays
-          const [arrayField, index, field] = error.path.split(/[\[\].]/).filter(Boolean);
+          const [arrayField, index, field] = error.path.split(/[\[.\]]/).filter(Boolean);
           acc[arrayField] = acc[arrayField] || [];
           acc[arrayField][index] = acc[arrayField][index] || {};
           acc[arrayField][index][field] = error.message;
@@ -137,9 +135,8 @@ const PatientRegistration = () => {
 
           <ExternalAccompaniments values={values} setValues={setValues} handleArrayChange={handleArrayChange} error={error} />
 
-          {/* <InterventionTeams values={values} setValues={setValues} handleChange={handleInterventionTeamsChange} error={error} /> 
-          TODO: Equipe de intervenção (Remover caso não seja necessário)
-          */}
+          <InterventionTeams values={values} setValues={setValues} handleChange={handleInterventionTeamsChange} error={error} />
+
 
 
         </Grid>
