@@ -199,7 +199,7 @@ export default function CreateTest() {
         </Box>
           <FixedButtons
             handleAddQuestion={handleAddQuestion}
-            handlefinish={() => setFinish(true)}
+            handleFinish={() => setFinish(true)}
             handleSaveAndExit={() => setSaveAndExit(true)}
           />
       </Box>
