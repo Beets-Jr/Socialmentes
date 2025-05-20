@@ -26,6 +26,11 @@ const InterventionTeams = ({ values, setValues, handleChange, error }) => {
     }
   }, [isLoading, userProfiles]);
 
+  // Normalize interventionTeams to always be an array of uids
+  const normalizedTeams = values.interventionTeams.map(team =>
+    typeof team === 'string' ? team : team?.uid || team?.id || ''
+  );
+
   const handleAddInterventionTeam = () => {
     if (values.interventionTeams.length === options.length) {
       return;
@@ -54,7 +59,7 @@ const InterventionTeams = ({ values, setValues, handleChange, error }) => {
       {isLoading ? (
         <CircularProgress />
       ) : (
-        values.interventionTeams.map((team, index) => (
+        normalizedTeams.map((team, index) => (
           <React.Fragment key={`team${index}`}>
             {renderSelectBox(team, index)}
             <AddButton handleClick={handleAddInterventionTeam} />
