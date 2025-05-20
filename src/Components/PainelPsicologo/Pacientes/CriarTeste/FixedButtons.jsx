@@ -1,12 +1,13 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Box, useMediaQuery } from "@mui/material";
 import Botao from "./Botao";
 import iconAddToList from "../../../../Assets/Icons/add-list-icon.png";
 import iconEncerrar from "../../../../Assets/Icons/check-icon.png";
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { AppContext } from "../../../../Contexts/AppContext";
+import PropTypes from "prop-types";
 
-export default function FixedButtons({ handleAddQuestion, handleEncerrar, handleSaveAndExit }) {
+export default function FixedButtons({ handleAddQuestion, handleFinish, handleSaveAndExit }) {
     const isMobile = useMediaQuery('(max-width:768px)');
     const { open: isSidebarExpanded } = useContext(AppContext); // Get the sidebar state from context
     const sidebarWidth = isSidebarExpanded ? '20vw' : '5vw'; // Adjust according to your sidebar width
@@ -46,9 +47,17 @@ export default function FixedButtons({ handleAddQuestion, handleEncerrar, handle
                     right: isMobile ? "1em" : "5em",
                 }}
             >
-                <Botao icon={<ExitToAppIcon fontSize="large" />} text="Salvar e sair" onClick={handleSaveAndExit} customClass="save-exit"/>
-                <Botao icon={iconEncerrar} text="Finalizar" bgcolor="bg-blue" onClick={handleEncerrar} />
+                <Botao icon={<ExitToAppIcon fontSize="large" />} text="Salvar e sair" onClick={() => {
+                    handleSaveAndExit
+                }} customClass="save-exit" />
+                <Botao icon={iconEncerrar} text="Finalizar" bgcolor="bg-blue" onClick={handleFinish} />
             </Box>
         </Box>
     );
 }
+
+FixedButtons.propTypes = {
+    handleAddQuestion: PropTypes.func.isRequired,
+    handleFinish: PropTypes.func.isRequired,
+    handleSaveAndExit: PropTypes.func.isRequired,
+};

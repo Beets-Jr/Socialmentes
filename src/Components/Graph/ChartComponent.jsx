@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Checkbox, CircularProgress, FormControlLabel, Typography } from '@mui/material';
-import { getPatientById, getTestsByIds, getTestById, getTestByIdTest } from '../../Services/testsPatientsService';
+import { Box, Checkbox, CircularProgress, FormControlLabel } from '@mui/material';
+import { getPatientById, getTestsByIds, getTestByIdTest, getTestsByPatientId } from '../../Services/testsPatientsService';
 import { accumulateQuestions, transformIndividualData } from './ChartUtil';
 import styles from './ChartComponent.module.css';
 
 import RadioG from './RadioG';
 import Chart from './Chart';
-import Stypography from './Stypography';
 import { useParams } from 'react-router-dom';
 import PatientData from '../PainelPsicologo/Reports/ChecklistComponents/PatientData';
 
@@ -43,7 +42,8 @@ const ChartComponent = () => {
         const patientData = await getPatientById(patientId);
         setPatient(patientData);
         const testIds = patientData.tests || [];
-        const fetchedTests = await getTestsByIds(testIds);
+        let fetchedTests = await getTestsByIds(testIds);
+        fetchedTests.length === 0 ? fetchedTests = await getTestsByPatientId(patientId) : fetchedTests;
         const accumulatedQuestions = accumulateQuestions(fetchedTests);
         setAccumulatedQuestions(accumulatedQuestions);
         const currentIndex = fetchedTests.findIndex(test => test.id === testData.id);

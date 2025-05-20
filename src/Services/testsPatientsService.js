@@ -1,5 +1,5 @@
 import { collection, doc, getDoc, getDocs, orderBy, query, where, updateDoc } from "firebase/firestore";
-import { db, storage, auth } from "../Database/FirebaseConfig.mjs";
+import { db } from "../Database/FirebaseConfig.mjs";
 
 const getPatientById = async (patientId) => {
   try {
@@ -41,6 +41,21 @@ const getTestById = async (testId) => {
     return testDoc.data();
   } catch (error) {
     console.error('Erro ao puxar dados do teste:', error);
+    throw error;
+  }
+}
+
+const getTestsByPatientId = async (patientId) => {
+  try {
+    const testsQuery = query(
+      collection(db, 'tests'),
+      where('patientId', '==', patientId),
+      orderBy('id')
+    );
+    const testsSnapshot = await getDocs(testsQuery);
+    return testsSnapshot.docs.map(doc => doc.data());
+  } catch (error) {
+    console.error('Erro ao puxar dados dos testes:', error);
     throw error;
   }
 }
@@ -89,4 +104,4 @@ export const updateTestSituation = async (testId) => {
   }
 }
 
-export { getPatientById, getTestsByIds, getTestById, getTestByIdTest };
+export { getPatientById, getTestsByIds, getTestById, getTestsByPatientId, getTestByIdTest };
