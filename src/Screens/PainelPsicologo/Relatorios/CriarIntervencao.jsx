@@ -11,13 +11,14 @@ import Cronogram from '../../../Components/PainelPsicologo/Reports/InterventionC
 import { validationSchema } from '../../../Validators/Intervention/intervention';
 import pdfGenerate from '../../../Components/PainelPsicologo/Reports/InterventionComponents/pdfGenerate';
 import DialogPdf from '../../../Components/ElementsInterface/DialogPdf';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { addPlan } from '../../../Services/interventionPlanService';
 
 
 const CriarIntervencao = () => {
   const isMobile = useMediaQuery('(max-width: 700px)');
   const location = useLocation();
+  const navigate = useNavigate();
   const checkedQuestions = location.state.checkedQuestions || [];
   const patient = location.state.patient || {};
   const test = location.state.test || {};
@@ -36,6 +37,7 @@ const CriarIntervencao = () => {
   });
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [successDialog, setSuccessDialog] = useState(false);
 
 
   const handlePdfGenerator = () => {
@@ -47,6 +49,11 @@ const CriarIntervencao = () => {
 
   const handleClose = () => {
     setOpen(false);
+  }
+
+  const handleSuccessClose = () => {
+    setSuccessDialog(false);
+    navigate('/painel-psi/pacientes');
   }
 
   const handleChange = (event) => {
@@ -72,6 +79,7 @@ const CriarIntervencao = () => {
       await validationSchema.validate(updatedValues, { abortEarly: false });
       console.log('Validado com sucesso');
       await addPlan(values);
+      setSuccessDialog(true);
 
     } catch (err) {
       const errors = err.inner.reduce((acc, error) => {
@@ -126,6 +134,14 @@ const CriarIntervencao = () => {
         </Box>
       </Box>
       <DialogPdf open={open} handleClose={handleClose} label="O PDF já está sendo baixado!" />
+      {successDialog && (
+        <DialogPdf
+          open={successDialog}
+          handleClose={handleSuccessClose}
+          label={"Plano de intervenção salvo com sucesso!"}
+          buttonLabel={"Voltar para Pacientes"}
+        />
+      )}
     </div>
   );
 }

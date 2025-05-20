@@ -1,5 +1,6 @@
 import { Grid, InputLabel, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import AddFieldButton from '../AddFieldButton';
 import StyledTitle from '../StyledTitle';
 import GoalsInput from '../GoalsInput';
@@ -62,13 +63,9 @@ const Goals = ({ goalsList, setGoalsList, checkedQuestions, error }) => {
                 md={11}
                 name={`goals[${questionIndex}].subGoals[${subGoalIndex}]`}
                 value={subGoal}
-                //error={error?.activities?.[index]?.place}
-                //error={error?.goals?.[questionIndex]?.subGoals?.[subGoalIndex]}
                 error={error?.[`goals[${questionIndex}].subGoals[${subGoalIndex}]`] ?? false}
-
                 handleChange={(e) => handleSubGoalChange(questionIndex, subGoalIndex, e.target.value)}
               />
-              {/* Botão para adicionar uma nova submeta */}
               <AddFieldButton handleClick={() => handleAddSubGoal(questionIndex)} />
             </Grid>
           ))}
@@ -77,9 +74,17 @@ const Goals = ({ goalsList, setGoalsList, checkedQuestions, error }) => {
     </>
   );
 };
+Goals.propTypes = {
+  goalsList: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      description: PropTypes.string,
+      subGoals: PropTypes.arrayOf(PropTypes.string).isRequired,
+    })
+  ).isRequired,
+  setGoalsList: PropTypes.func.isRequired,
+  checkedQuestions: PropTypes.arrayOf(PropTypes.string).isRequired,
+  error: PropTypes.object,
+};
 
 export default Goals;
-
-/* 
-name={`goals[${index}]`} 
- error={error?.[`goals[${index}]`]} */
