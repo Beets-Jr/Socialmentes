@@ -1,32 +1,4 @@
-import { getCategoriesByLevel } from "../../../Services/Tests/Category/GetCategorys.mjs";
-
-/**
- * Carrega dados iniciais do localStorage para o teste, como o ID do teste e categorias selecionadas.
- * 
- * @param {Function} setTestSerialId Função para definir o ID do teste no estado.
- * @param {Function} setCategoriasSelecionadas Função para definir as categorias selecionadas no estado.
- */
-// export const loadInitialDataFromLocalStorage = (
-//   setTestSerialId,
-//   setCategoriasSelecionadas
-// ) => {
-//   try {
-//     const storedTestSerialId = localStorage.getItem("testId");
-//     const storedCategoriasSelecionadas = localStorage.getItem(
-//       "categoriasSelecionadas"
-//     );
-
-//     if (storedTestSerialId) {
-//       setTestSerialId(storedTestSerialId);
-//     }
-
-//     if (storedCategoriasSelecionadas) {
-//       setCategoriasSelecionadas(JSON.parse(storedCategoriasSelecionadas));
-//     }
-//   } catch (error) {
-//     console.error("Error loading initial data from local storage:", error);
-//   }
-// };
+import { getCategoriesByLevel } from "../../../Services/Tests/Category/GetCategories.mjs";
 
 /**
  * Carrega as categorias dado um nível específico.
