@@ -1,4 +1,5 @@
-import { getCategoriesByLevel } from "../../../Services/Tests/Category/GetCategorys.mjs";
+import { getCategoriesByLevel } from "../../../Services/Tests/Category/GetCategories.mjs";
+import { getCategoriesNamesByLevel } from "../../../Services/Tests/testsInfoFunctions";
 
 /**
  * Carrega dados iniciais do localStorage para o teste, como o ID do teste e categorias selecionadas.

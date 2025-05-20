@@ -2,13 +2,11 @@ import { db } from "../../Database/FirebaseConfig.mjs";
 import {
     doc,
     getDoc,
-    updateDoc,
     runTransaction,
     getDocs,
     collection,
     query,
     where,
-    setDoc,
 } from "firebase/firestore";
 
 /**
@@ -222,4 +220,4 @@ async function createTestForPatient(patientId, patientName) {
 }
 
 
-export { getTestById, updateQuestionsOfDatabase, addCategoryToLevel, createTestForPatient };
+export { getTestById, updateQuestionsOfDatabase, createTestForPatient };
