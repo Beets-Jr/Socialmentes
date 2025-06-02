@@ -85,7 +85,11 @@ export default function CreateTest() {
     ) {
       const indicesCategorias = getCategoriesByLevel(testInformations, level);
       const levelKey = `level_${level}`;
-      const newQuestions = getQuestions(testInformations, indicesCategorias, level);
+      const newQuestions = getQuestions(
+        testInformations,
+        indicesCategorias,
+        level
+      );
       setQuestions((prev) => ({ ...prev, [levelKey]: newQuestions[levelKey] }));
       updateSelectedCategoriesFromTestInformations(
         testInformations,
@@ -113,7 +117,11 @@ export default function CreateTest() {
       setTimeout(() => setChangeCategory(false), 2000);
       return;
     }
-    await updateSelectedCategories(level, [selectedOption], setSelectedCategories);
+    await updateSelectedCategories(
+      level,
+      [selectedOption],
+      setSelectedCategories
+    );
   };
 
   const handleSaveAndExit = async () => {
@@ -197,11 +205,11 @@ export default function CreateTest() {
             setSelectedCategories={setSelectedCategories}
           />
         </Box>
-          <FixedButtons
-            handleAddQuestion={handleAddQuestion}
-            handleFinish={() => setFinish(true)}
-            handleSaveAndExit={() => setSaveAndExit(true)}
-          />
+        <FixedButtons
+          handleAddQuestion={handleAddQuestion}
+          handleFinish={() => setFinish(true)}
+          handleSaveAndExit={() => setSaveAndExit(true)}
+        />
       </Box>
       {saveAndExit && (
         <DialogConfirmation

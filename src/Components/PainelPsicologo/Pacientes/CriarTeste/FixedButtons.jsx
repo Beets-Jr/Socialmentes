@@ -47,9 +47,7 @@ export default function FixedButtons({ handleAddQuestion, handleFinish, handleSa
                     right: isMobile ? "1em" : "5em",
                 }}
             >
-                <Botao icon={<ExitToAppIcon fontSize="large" />} text="Salvar e sair" onClick={() => {
-                    handleSaveAndExit
-                }} customClass="save-exit" />
+                <Botao icon={<ExitToAppIcon fontSize="large" />} text="Salvar e sair" onClick={handleSaveAndExit} customClass="save-exit" />
                 <Botao icon={iconEncerrar} text="Finalizar" bgcolor="bg-blue" onClick={handleFinish} />
             </Box>
         </Box>
