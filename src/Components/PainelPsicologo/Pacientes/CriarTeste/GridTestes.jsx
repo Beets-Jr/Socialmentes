@@ -1,6 +1,7 @@
 import { Box, Grid } from "@mui/material";
 import styles from "./GridTestes.module.css";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import BlueLine from "../../../../Assets/Icons/BlueLine";
 import { useNavigate } from "react-router-dom";
 import { getByTestSerialId } from "../../../../Services/Tests/GetByTestSerialId.mjs";
@@ -85,7 +86,7 @@ export default function GridTestes({ testsInfo }) {
                 <div className={styles.cardHalf}>
                   <p>{formatDate(test.timestamp)}</p>
                   <p>{test.testType}</p>
-                  <p noWrap className={styles.statusTeste}>
+                  <p className={styles.statusTeste} style={{ whiteSpace: "nowrap" }}>
                     {test.situation === 1 ? (
                       <p style={{ color: "var(--color-blue-4)" }}>Finalizado</p>
                     ) : (
@@ -100,3 +101,7 @@ export default function GridTestes({ testsInfo }) {
     </div>
   );
 }
+
+GridTestes.propTypes = {
+  testsInfo: PropTypes.array.isRequired,
+};
